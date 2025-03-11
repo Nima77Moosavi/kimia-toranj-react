@@ -5,6 +5,7 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.535); /* Soft background overlay */
+  backdrop-filter: blur(8px); /* Apply blur effect to the background */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,13 +30,13 @@
   border: none;
   font-size: 38px;
   cursor: pointer;
-  color: #333;
+  color: #FFD700;
 }
 
 .closeButton:hover {
   cursor: pointer;
   background-color: unset;
-  color: #FFD700;
+  color: #f1cd01d5;
 }
 
 .title {
@@ -99,4 +100,22 @@
 
 .indicatorDot.active {
   background: #000;
+}
+
+.progressBarContainer {
+  position: absolute; /* Position inside the card */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background-color: #e0e0e0; /* Background color of the progress bar container */
+  border-radius: 10px; /* Rounded corners */
+  overflow: hidden; /* Ensure the progress bar doesn't overflow */
+}
+
+.progressBar {
+  height: 100%;
+  background: linear-gradient(90deg, #f9e679, #FFD700); /* Gradient color */
+  box-shadow: 0 2px 5px rgba(255, 126, 95, 0.5); /* Add shadow for depth */
+  transition: width 1s linear; /* Smooth transition for width */
 }
