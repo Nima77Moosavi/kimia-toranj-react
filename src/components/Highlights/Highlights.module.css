@@ -1,0 +1,57 @@
+.highlightsContainer {
+  width: 100%; /* Full width of the parent container */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  white-space: nowrap; /* Prevent wrapping of items */
+  padding: 16px 0; /* Add some padding */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile devices */
+  scroll-behavior: smooth; /* اضافه کردن این خط */
+  scroll-snap-type: x mandatory; /* اختیاری: برای اسکرول دقیق‌تر */
+}
+
+.highlights {
+  display: inline-flex; /* Display highlights in a row */
+  gap: 16px; /* Space between highlight cards */
+  padding: 0 16px; /* Add padding to the sides */
+  transition: transform 0.5s ease-in-out;
+}
+
+/* Optional: Hide scrollbar for a cleaner look */
+.highlightsContainer::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+}
+
+.highlightsContainer {
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+}
+
+.highlightsWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.scrollButton {
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.scrollButton:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+
+
+
+
+
