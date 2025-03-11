@@ -1,0 +1,86 @@
+.productSlider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px; /* Adjust as needed */
+  margin: 0 auto;
+}
+
+.sliderWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+.sliderContent {
+  display: flex;
+  gap: 16px; /* Space between products */
+  width: 100%;
+  overflow: hidden;
+}
+
+.productCard {
+  flex: 1 1 calc(20% - 16px); /* Show 5 products at a time */
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  max-height: 200px; /* Adjust as needed */
+  object-fit: cover;
+  border-radius: 8px; /* Optional: Add rounded corners */
+}
+
+.title {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.prevButton,
+.nextButton {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  border-radius: 50%;
+}
+
+.prevButton {
+  left: 10px;
+}
+
+.nextButton {
+  right: 10px;
+}
+
+.dotsContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin: 0 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dot.activeDot {
+  background-color: #333;
+}
