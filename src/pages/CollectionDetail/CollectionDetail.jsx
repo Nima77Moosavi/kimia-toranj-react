@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./CollectionDetail.module.css";
-import ProductList from "../../components/ProductList/ProductList";
+// import ProductList from "../../components/ProductList/ProductList";
 import SidebarFilter from "../../components/SidebarFilter/SidebarFilter";
 
 const CollectionDetail = () => {
