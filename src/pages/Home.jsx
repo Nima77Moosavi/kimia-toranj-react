@@ -5,6 +5,7 @@ import Collections from "../components/Collections/Collections";
 import styles from "./Home.module.css";
 import axios from "axios";
 import ProductSlider from "../components/ProductSlider/ProductSlider";
+import ProductBanner from "../components/ProductBanner/ProductBanner";
 
 const Home = () => {
   const [latestProducts, setLatestProducts] = useState([]);
@@ -29,6 +30,7 @@ const Home = () => {
         <Highlights /> {/* Add the Highlights component here */}
         <Collections />
         <ProductSlider products={latestProducts} />
+        <ProductBanner product={latestProducts[0]}/>
       </div>
     </div>
   );

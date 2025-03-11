@@ -16,11 +16,7 @@ const ProductCard = ({ product }) => {
           className={styles.image}
         />
         {/* Logo in the top-right corner */}
-        <img
-          src={logo}
-          alt="Logo"
-          className={styles.logo}
-        />
+        <img src={logo} alt="Logo" className={styles.logo} />
       </div>
       <div className={styles.title}>
         <p>{product.title}</p>
@@ -29,7 +25,11 @@ const ProductCard = ({ product }) => {
       <div className={styles.priceContainer}>
         <div className={styles.price}>
           تومان
-          <span>1000000</span>
+          <span>
+            {product.variants.length > 0
+              ? `${product.variants[0].price}`
+              : 1000000}
+          </span>
         </div>
       </div>
     </div>
