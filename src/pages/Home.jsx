@@ -31,9 +31,12 @@ const Home = () => {
         <Collections />
         <ProductSlider products={latestProducts} />
         <ProductBanner product={latestProducts[0]}/>
+        <ProductSlider products={latestProducts} />
       </div>
     </div>
   );
 };
 
 export default Home;
+
+

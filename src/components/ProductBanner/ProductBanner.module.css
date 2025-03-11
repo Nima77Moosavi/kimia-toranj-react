@@ -94,9 +94,15 @@
   color: #000;
 }
 
+.buttonContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .addToCartButton {
-  background-color: #007bff;
-  color: #fff;
+  background-color: #d5d841;
+  color: #222;
   border: none;
   padding: 12px 24px;
   font-size: 16px;

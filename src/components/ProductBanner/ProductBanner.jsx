@@ -37,13 +37,13 @@ const ProductBanner = ({ product }) => {
       <div className={styles.rightSection}>
         <h1 className={styles.productTitle}>{product.title}</h1>
         <p className={styles.productDescription}>{product.description}</p>
-        <div className={styles.priceContainer}>
-          <span className={styles.priceLabel}>قیمت:</span>
+
+        <div className={styles.buttonContainer}>
+          <button className={styles.addToCartButton}>افزودن به سبد خرید</button>
           <span className={styles.priceValue}>
             {product.variants[0]?.price} تومان
           </span>
         </div>
-        <button className={styles.addToCartButton}>Add to Cart</button>
       </div>
     </div>
   );
