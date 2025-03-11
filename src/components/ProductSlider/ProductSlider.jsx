@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import styles from "./ProductSlider.module.css"; // Update the CSS file name if needed
+import styles from "./ProductSlider.module.css";
+import ProductCard from "../ProductCard/ProductCard";
 
 const BASE_URL = "http://127.0.0.1:8000"; // Ensure you set the correct backend URL
 
@@ -25,7 +26,7 @@ const ProductSlider = ({ products }) => {
   };
 
   const goToSlide = (index) => {
-    setCurrentIndex(index);
+    setCurrentIndex(index * productsPerPage);
   };
 
   // Calculate the total number of slides
@@ -37,23 +38,25 @@ const ProductSlider = ({ products }) => {
     currentIndex + productsPerPage
   );
 
+  // Pad the currentProducts array with empty placeholders if necessary
+  const paddedProducts = [...currentProducts];
+  while (paddedProducts.length < productsPerPage) {
+    paddedProducts.push({
+      id: `placeholder-${paddedProducts.length}`,
+      isEmpty: true,
+    });
+  }
+
   return (
     <div className={styles.productSlider}>
       <div className={styles.sliderContent}>
-        {currentProducts.map((product) => (
-          <div key={product.id} className={styles.productCard}>
-            <img
-              src={
-                product.images.length > 0
-                  ? `${product.images[0].image}`
-                  : "/placeholder.jpg"
-              }
-              alt={product.title}
-              className={styles.image}
-            />
-            <h4 className={styles.title}>{product.title}</h4>
-          </div>
-        ))}
+        {paddedProducts.map((product) =>
+          product.isEmpty ? (
+            <div key={product.id} className={styles.productCard}></div>
+          ) : (
+            <ProductCard key={product.id} product={product} />
+          )
+        )}
       </div>
 
       <div className={styles.dotsContainer}>
@@ -63,7 +66,7 @@ const ProductSlider = ({ products }) => {
             className={`${styles.dot} ${
               currentIndex === index * productsPerPage ? styles.activeDot : ""
             }`}
-            onClick={() => goToSlide(index * productsPerPage)}
+            onClick={() => goToSlide(index)}
           ></span>
         ))}
       </div>
