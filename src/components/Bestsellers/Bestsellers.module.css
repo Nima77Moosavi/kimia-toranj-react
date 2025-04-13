@@ -1,0 +1,66 @@
+.bestsellersContainer {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #023047;
+  }
+  
+  .sliderContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    width: 80%;
+    margin: auto;
+  }
+  
+  .slider {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .prevButton,
+  .nextButton {
+    background: rgba(255, 255, 255, 0.8);
+    color: #023047;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+  }
+  
+  .prevButton:hover,
+  .nextButton:hover {
+    background-color: #e4e4e4;
+  }
+  
+  .slide {
+    margin: 0 10px;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
+  
+  .slide img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .active {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  
