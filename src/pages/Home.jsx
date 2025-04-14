@@ -4,8 +4,7 @@ import Highlights from "../components/Highlights/Highlights"; // Import the High
 import Collections from "../components/Collections/Collections";
 import styles from "./Home.module.css";
 import axios from "axios";
-import ProductSlider from "../components/ProductSlider/ProductSlider";
-import ProductBanner from "../components/ProductBanner/ProductBanner";
+import Bestsellers from "../components/Bestsellers/Bestsellers";
 
 const Home = () => {
   const [latestProducts, setLatestProducts] = useState([]);
@@ -29,14 +28,11 @@ const Home = () => {
         <p>This is the home page. Highlights will be displayed here.</p> */}
         <Highlights /> {/* Add the Highlights component here */}
         <Collections />
-        <ProductSlider products={latestProducts} />
-        <ProductBanner product={latestProducts[0]}/>
-        <ProductSlider products={latestProducts} />
+        <Bestsellers />
+        {/* <ProductList products={latestProducts} /> */}
       </div>
     </div>
   );
 };
 
 export default Home;
-
-
