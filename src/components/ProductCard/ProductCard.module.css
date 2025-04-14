@@ -32,3 +32,7 @@
     margin-bottom: 10px;
     direction: rtl;
 }
+.price:hover{
+    background-color: #055a85;
+    color: white;
+}
