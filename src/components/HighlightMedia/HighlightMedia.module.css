@@ -4,8 +4,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.535); /* Soft background overlay */
-  backdrop-filter: blur(8px); /* Apply blur effect to the background */
+  /* background-image: url('../../assets/background2.png'); */
+  background-size: cover;
+  background-position: center;
+  background: rgba(0, 0, 0, 0.077);
+  backdrop-filter: blur(280px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,22 +63,22 @@
 }
 
 .navButton {
-  background: rgba(255, 255, 255, 0.8);
+  background: #FFD700;
+  color: #023047;
   border: none;
   border-radius: 50%;
   width: 40px;
   height: 40px;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.1);
   z-index: 1;
 }
 
 .navButton:disabled {
-  opacity: 0.5;
   cursor: not-allowed;
 }
 
@@ -99,7 +102,7 @@
 }
 
 .indicatorDot.active {
-  background: #000;
+  background: #7b7b7b;
 }
 
 .progressBarContainer {
@@ -118,4 +121,17 @@
   background: linear-gradient(90deg, #f9e679, #FFD700); /* Gradient color */
   box-shadow: 0 2px 5px rgba(255, 126, 95, 0.5); /* Add shadow for depth */
   transition: width 1s linear; /* Smooth transition for width */
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* کل ارتفاع صفحه */
+  width: 100vw; /* کل عرض صفحه */
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* پس‌زمینه تیره برای زیبایی */
+  z-index: 9999; /* بالاترین سطح نمایش */
 }

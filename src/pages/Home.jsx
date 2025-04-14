@@ -28,7 +28,9 @@ const Home = () => {
         <p>This is the home page. Highlights will be displayed here.</p> */}
         <Highlights /> {/* Add the Highlights component here */}
         <Collections />
-        <Bestsellers />
+
+        <Bestsellers/>
+
         {/* <ProductList products={latestProducts} /> */}
       </div>
     </div>

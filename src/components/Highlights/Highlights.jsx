@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import HighlightCard from "../HighlightCard/HighlightCard";
 import styles from "./Highlights.module.css"; // Import the CSS module
+import { GrFormPrevious } from "react-icons/gr";
+import { GrFormNext } from "react-icons/gr";
+import PropagateLoader from "react-spinners/PropagateLoader"
 
 const Highlights = () => {
   const [highlights, setHighlights] = useState([]);
@@ -29,7 +32,7 @@ const Highlights = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div><PropagateLoader color="#fde50a" size={20} /></div>;
   }
 
   if (error) {
@@ -51,7 +54,7 @@ const Highlights = () => {
   return (
     <div className={styles.highlightsWrapper}>
       <button onClick={scrollLeft} className={styles.scrollButton}>
-        {"<"}
+      <GrFormPrevious />
       </button>
       <div className={styles.highlightsContainer}>
         <div className={styles.highlights}>
@@ -61,7 +64,7 @@ const Highlights = () => {
         </div>
       </div>
       <button onClick={scrollRight} className={styles.scrollButton}>
-        {">"}
+      <GrFormNext />
       </button>
     </div>
   );

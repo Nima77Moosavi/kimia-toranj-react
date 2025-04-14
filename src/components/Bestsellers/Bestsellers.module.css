@@ -1,0 +1,110 @@
+.bestsellersContainer {
+  text-align: center;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #023047;
+}
+
+.sliderContainer {
+    position: relative;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  width: 95%;
+  margin: auto;
+}
+
+.slider {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  gap: 15px; /* فاصله بین محصولات */
+  transition: transform 0.5s ease-in-out;
+}
+.slider.smooth {
+  transition: transform 0.5s ease-in-out;
+}
+.prevButton,
+.nextButton {
+  background: rgba(255, 255, 255, 0.8);
+  color: #023047;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  transition: all 0.3s ease;
+  padding: 1rem;
+  margin: 2rem;
+}
+
+.prevButton:hover,
+.nextButton:hover {
+  background-color: #e4e4e4;
+}
+
+.slide {
+  margin: 0 10px;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  min-width: calc(100% / 5);
+  padding: 0 0.5rem;
+  box-sizing: border-box;
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+.slideItem {
+    flex: 0 0 calc(20% - 15px); /* 5 items */
+    box-sizing: border-box;
+  }
+.slide img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.active {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+.dotsContainer {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #ccc;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s ease;
+  }
+  
+  .dot:hover {
+    background-color: #aaa;
+  }
+  
+  .activeDot {
+    background-color: #333;
+    transform: scale(1.2);
+  }

@@ -3,6 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import MediaPlayer from "../MediaPlayer/MediaPlayer";
 import styles from "./HighlightMedia.module.css";
 import { IoClose } from "react-icons/io5";
+import { GrFormNext } from "react-icons/gr";
+import { GrFormPrevious } from "react-icons/gr";
+import PuffLoader from "react-spinners/PuffLoader";
 
 const HighlightMedia = () => {
   const { id } = useParams();
@@ -74,18 +77,7 @@ const HighlightMedia = () => {
     if (allHighlight.length === 0) return;
 
     const interval = setInterval(() => {
-      const currentHighlight = allHighlight[currentHighlightIndex];
-      if (currentMediaIndex < currentHighlight.media.length - 1) {
-        setCurrentMediaIndex(currentMediaIndex + 1); // Go to next media in the current highlight
-      } else {
-        // If it's the last media in the current highlight, move to the next highlight
-        setCurrentHighlightIndex((prevIndex) =>
-          prevIndex < allHighlight.length - 1 ? prevIndex + 1 : 0
-        );
-        setCurrentMediaIndex(0); // Reset media index for the new highlight
-      }
-      setProgress(0); // Reset progress bar
-      setIsProgressBarVisible(true); // Show progress bar again
+      goToNextMedia(); // Move to the next media
     }, 10000); // 10 seconds
 
     return () => clearInterval(interval); // Cleanup interval on unmount
@@ -98,32 +90,46 @@ const HighlightMedia = () => {
         if (prevProgress < 100) {
           return prevProgress + 100 / 10; // Increase progress by 1/10th every second
         } else {
-          setIsProgressBarVisible(false); // Hide progress bar immediately when it reaches 100%
+          setIsProgressBarVisible(false); // Hide progress bar when it reaches 100%
           return 100;
         }
       });
     }, 1000); // Update every second
 
     return () => clearInterval(progressInterval); // Cleanup interval on unmount
-  }, []);
+  }, [currentMediaIndex, currentHighlightIndex]); // Re-run effect when media or highlight changes
 
   // Navigate to next media
   const goToNextMedia = () => {
     const currentHighlight = allHighlight[currentHighlightIndex];
     if (currentMediaIndex < currentHighlight.media.length - 1) {
       setCurrentMediaIndex(currentMediaIndex + 1);
-      setProgress(0); // Reset progress bar
-      setIsProgressBarVisible(true); // Show progress bar again
+    } else {
+      // If it's the last media in the current highlight, move to the next highlight
+      setCurrentHighlightIndex((prevIndex) =>
+        prevIndex < allHighlight.length - 1 ? prevIndex + 1 : 0
+      );
+      setCurrentMediaIndex(0); // Reset media index for the new highlight
     }
+    setProgress(0); // Reset progress bar
+    setIsProgressBarVisible(true); // Show progress bar again
   };
 
   // Navigate to previous media
   const goToPreviousMedia = () => {
     if (currentMediaIndex > 0) {
       setCurrentMediaIndex(currentMediaIndex - 1);
-      setProgress(0); // Reset progress bar
-      setIsProgressBarVisible(true); // Show progress bar again
+    } else {
+      // If it's the first media in the current highlight, move to the previous highlight
+      setCurrentHighlightIndex((prevIndex) =>
+        prevIndex > 0 ? prevIndex - 1 : allHighlight.length - 1
+      );
+      setCurrentMediaIndex(
+        allHighlight[currentHighlightIndex].media.length - 1
+      ); // Set to last media of the previous highlight
     }
+    setProgress(0); // Reset progress bar
+    setIsProgressBarVisible(true); // Show progress bar again
   };
 
   // Close the media player and navigate back
@@ -133,7 +139,11 @@ const HighlightMedia = () => {
 
   // Display loading state
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className={styles.loadingContainer}>
+        <PuffLoader color="#ffed00" size={65} />
+      </div>
+    );
   }
 
   // Display error state
@@ -178,7 +188,7 @@ const HighlightMedia = () => {
             disabled={currentMediaIndex === 0}
             className={styles.navButton}
           >
-            {"<"}
+            <GrFormPrevious />
           </button>
           <div className={styles.mediaItem}>
             <MediaPlayer media={currentMedia} />
@@ -191,7 +201,7 @@ const HighlightMedia = () => {
             }
             className={styles.navButton}
           >
-            {">"}
+            <GrFormNext />
           </button>
         </div>
 
