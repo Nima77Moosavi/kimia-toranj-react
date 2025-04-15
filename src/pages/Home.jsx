@@ -3,7 +3,6 @@ import Header from "../components/Header/Header";
 import Highlights from "../components/Highlights/Highlights"; // Import the Highlights component
 import Collections from "../components/Collections/Collections";
 import styles from "./Home.module.css";
-import ProductList from "../components/ProductList/ProductList";
 import axios from "axios";
 import Bestsellers from "../components/Bestsellers/Bestsellers";
 import SpecialOffer from "../components/SpecialOffer/SpecialOffer";
@@ -30,6 +29,7 @@ const Home = () => {
         <p>This is the home page. Highlights will be displayed here.</p> */}
         <Highlights /> {/* Add the Highlights component here */}
         <Collections />
+
         <Bestsellers/>
         <SpecialOffer/>
         {/* <ProductList products={latestProducts} /> */}
