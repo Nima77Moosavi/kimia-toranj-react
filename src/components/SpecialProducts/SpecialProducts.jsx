@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import styles from "./Bestsellers.module.css";
+import styles from "./SpecialProduct.module.css";
 import ProductCard from "../ProductCard/ProductCard";
 
-const Bestsellers = () => {
+const SpecialProducts = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -62,8 +62,8 @@ const Bestsellers = () => {
   if (error) return <div className={styles.error}>Error: {error}</div>;
 
   return (
-    <div className={styles.bestsellersContainer}>
-      <h2 className={styles.title}>محصولات پرفروش</h2>
+    <div className={styles.SpecialProductsContainer}>
+      <h2 className={styles.title}>محصولات ویژه</h2>
 
       <div
         className={styles.sliderWrapper}
@@ -98,4 +98,4 @@ const Bestsellers = () => {
   );
 };
 
-export default Bestsellers;
+export default SpecialProducts;

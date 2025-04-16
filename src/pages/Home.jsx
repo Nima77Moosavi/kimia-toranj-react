@@ -5,6 +5,9 @@ import Collections from "../components/Collections/Collections";
 import styles from "./Home.module.css";
 import axios from "axios";
 import Bestsellers from "../components/Bestsellers/Bestsellers";
+import SpecialOffer from "../components/SpecialOffer/SpecialOffer";
+import SpecialProducts from "../components/SpecialProducts/SpecialProducts";
+import Footer from "../components/Footer/Footer";
 
 const Home = () => {
   const [latestProducts, setLatestProducts] = useState([]);
@@ -30,7 +33,9 @@ const Home = () => {
         <Collections />
 
         <Bestsellers/>
-
+        <SpecialOffer/>
+        <SpecialProducts/>
+        <Footer/>
         {/* <ProductList products={latestProducts} /> */}
       </div>
     </div>
