@@ -1,17 +1,67 @@
 .collections {
+  text-align: center;
   padding: 20px;
+  background: linear-gradient(to bottom, #ffffff 50%, #cfcfcf 70%);
 }
 
 .sectionTitle {
   font-size: 24px;
-  color: #333;
   margin-bottom: 20px;
-  text-align: center;
+  color: #023047;
 }
 
-.collectionList {
+.sliderContainer {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
+  width: 80%;
+  margin: auto;
+}
+
+.slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  width: 100%;
+  transition: transform 1s ease; /* انیمیشن نرم برای جابجایی اسلایدها */
+}
+
+.slide {
+  position: absolute;
+  transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1); /* انیمیشن نرم و دلپذیر */
+  opacity: 0.6; /* همه اسلایدها کمی شفاف */
+  z-index: 5;
+}
+
+.active {
+  z-index: 10; /* اسلاید فعال روی همه اسلایدها قرار می‌گیرد */
+  opacity: 1;
+  transform: scale(1.05); /* اسلاید فعال کمی بزرگتر می‌شود */
+}
+
+.prevButton,
+.nextButton {
+  background: rgba(255, 255, 255, 0.8);
+  color: #023047;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 20;
+  transition: background-color 0.3s ease;
+}
+
+.prevButton:hover,
+.nextButton:hover {
+  background-color: #e4e4e4;
 }

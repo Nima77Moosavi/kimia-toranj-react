@@ -7,6 +7,60 @@
     position: relative;
     overflow: hidden;
   }
+  .overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: flex-end;
+    z-index: 1000;
+  }
+  
+  /* منو */
+  .menu {
+    width:max-content;
+    height: 100%;
+    padding: 2rem;
+    animation: slideIn 0.3s ease-out;
+    direction: rtl;
+    text-align: center ;
+    margin: 2rem;
+    
+  }
+  ul{
+    list-style-type: none;
+  }
+  ul li{
+    width: 100%;
+    background-color: #023047;
+    color: #fff;
+    border-radius: 20px;
+    padding: 5px 28px;
+    margin: 5px 0;
+    direction: ltr;
+    font-size: 20px;
+    text-align: right;
+  }
+  ul li:hover{
+    background-color: #fff;
+    color: #023047;
+    border: 1px solid #023047;
+    cursor: pointer;
+    transform: matrix3d(5px);
+    /* margin-right: 10px; */
+    transition: .5s ease;
+  }
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0%);
+    }
+  }
   
   .container {
     display: flex;
@@ -247,8 +301,10 @@
   
     .loginButton button {
       font-size: 16px;
+      height: max-content;
       border: #023047 solid 1px;
       padding: 0 10px;
+      margin-top: 25px;
     }
     .searchContainer {
         width:80%;

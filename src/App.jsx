@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import HighlightMedia from "./components/HighlightMedia/HighlightMedia";
 import CollectionDetail from "./pages/CollectionDetail/CollectionDetail";
 import Login from "./pages/Login/Login";
+
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import AdminRoute from "./components/AdminRoute/AdminRoute";
@@ -38,39 +39,8 @@ const App = () => {
         <Route path="/reviews" element={<UserReviews />} />
         <Route path="/addresses" element={<UserAddresses />} />
 
-        {/* Protected Route */}
-        <Route element={<ProtectedRoute />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Route>
-
-        {/* Admin Routes with AdminRoute Protection */}
-        <Route element={<ProtectedRoute />}>
-          <Route element={<AdminRoute />}>
-            <Route element={<AdminLayout />}>
-              <Route path="/admin-dashboard" element={<AdminDashboard />} />
-
-              {/* Managing Collections */}
-              <Route
-                path="/admin/collections"
-                element={<ManageCollections />}
-              />
-              <Route
-                path="/admin/collections/create"
-                element={<CreateCollection />}
-              />
-
-              {/* Managing Products */}
-              <Route path="/admin/products" element={<ManageProducts />} />
-              <Route
-                path="/admin/products/create/"
-                element={<CreateProduct />}
-              />
-            </Route>
-          </Route>
-        </Route>
-
         {/* Default Redirect */}
-        <Route path="*" element={<Login />} />
+        <Route path="*" element={<Home />} />
       </Routes>
     </Router>
   );
