@@ -23,7 +23,7 @@ const Header = () => {
             <FaCartShopping />
           </span>
           <span>
-          <GoHeartFill />
+            <GoHeartFill />
           </span>
         </div>
 

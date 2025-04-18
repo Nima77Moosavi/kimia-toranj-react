@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+}
+
+.sidebar {
+  flex: 30%; /* ۳۰ درصد از عرض صفحه */
+}
+
+.content {
+  flex: 70%; /* ۷۰ درصد از عرض صفحه */
+  padding: 20px;
+  background-color: #f9f9f9;
+}
