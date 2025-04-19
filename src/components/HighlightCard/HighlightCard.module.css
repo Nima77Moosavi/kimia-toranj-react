@@ -4,7 +4,7 @@
   align-items: center;
   text-align: center;
   width: 100px; /* Adjust the width as needed */
-  margin: 10px;
+  margin: 0px;
  
 }
 
@@ -31,8 +31,8 @@
 .title {
   margin-top: 8px;
   font-size: 14px;
-  color: #262626; /* Instagram-like text color */
-  font-weight: 500;
+  color: #023047; /* Instagram-like text color */
+  font-weight:600;
   white-space: nowrap; /* Prevents text from wrapping */
   overflow: hidden;
   text-overflow: ellipsis; /* Adds ellipsis if the text is too long */

@@ -6,6 +6,7 @@
     padding: 10px 20px;
     position: relative;
     overflow: hidden;
+    margin-bottom: 0;
   }
   .overlay {
     position: fixed;
@@ -22,7 +23,7 @@
   /* منو */
   .menu {
     width:max-content;
-    height: 100%;
+    height: max-content;
     padding: 2rem;
     animation: slideIn 0.3s ease-out;
     direction: rtl;
@@ -230,6 +231,7 @@
   @media (max-width: 768px) {
     .header {
       height: auto;
+      min-height: 300px;
       padding: 10px;
     }
   
@@ -291,6 +293,9 @@
   }
   
   @media (max-width: 480px) {
+    .header{
+      min-height: 250px;
+    }
     .container {
         flex-direction: row;
         align-items: flex-start;
@@ -331,6 +336,7 @@
       top: -150px;
       width: 400px;
       height: 400px;
+      padding: 0%;
     }
   
     .txt1 {

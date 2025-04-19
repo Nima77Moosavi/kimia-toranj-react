@@ -45,7 +45,7 @@ const Collections = () => {
         
         if (data.length > 0) {
           setCollections(data);
-          setVisibleSlides(Math.min(5, data.length));
+          setVisibleSlides(Math.min(7, data.length));
         }
       } catch (error) {
         setError(error.message);
@@ -77,9 +77,9 @@ const Collections = () => {
 
   const slidesPerSide = Math.floor(visibleSlides / 2);
 
-  if (loading) {
-    return <div className={styles.loading}>Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div className={styles.loading}>Loading...</div>;
+  // }
 
   if (error) {
     return <div className={styles.error}>Error: {error}</div>;

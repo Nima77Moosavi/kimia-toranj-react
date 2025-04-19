@@ -1,3 +1,4 @@
+/* اصل استایل‌ها بدون تغییر */
 .collections {
   text-align: center;
   padding: 20px;
@@ -27,20 +28,19 @@
   justify-content: center;
   height: 300px;
   width: 100%;
-  transition: transform 1s ease; /* انیمیشن نرم برای جابجایی اسلایدها */
 }
 
 .slide {
   position: absolute;
-  transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1); /* انیمیشن نرم و دلپذیر */
-  opacity: 0.6; /* همه اسلایدها کمی شفاف */
+  opacity: 0.6;
   z-index: 5;
+  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .active {
-  z-index: 10; /* اسلاید فعال روی همه اسلایدها قرار می‌گیرد */
+  z-index: 10;
   opacity: 1;
-  transform: scale(1.05); /* اسلاید فعال کمی بزرگتر می‌شود */
+  transform: scale(1.05);
 }
 
 .prevButton,
@@ -49,8 +49,8 @@
   color: #023047;
   border: none;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
   font-size: 38px;
   display: flex;
@@ -61,7 +61,54 @@
   transition: background-color 0.3s ease;
 }
 
+/* هوور دکمه‌ها */
 .prevButton:hover,
 .nextButton:hover {
   background-color: #e4e4e4;
+}
+
+/* ===== فقط قسمت ریسپانسیو ===== */
+@media (max-width: 768px) {
+  .collections {
+    padding: 15px;
+  }
+
+  .sectionTitle {
+    font-size: 20px;
+    margin-bottom: 15px;
+  }
+
+  .slider {
+    height: 220px;
+  }
+
+  .prevButton,
+  .nextButton {
+    width: 26px;
+    height: 26px;
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .collections {
+    padding: 10px;
+    background: linear-gradient(to bottom, #ffffff 40%, #cfcfcf 70%);
+  }
+
+  .sectionTitle {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .slider {
+    height: 180px;
+  }
+
+  .prevButton,
+  .nextButton {
+    width: 24px;
+    height: 24px;
+    font-size: 26px;
+  }
 }
