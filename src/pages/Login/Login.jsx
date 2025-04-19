@@ -1,108 +1,186 @@
-import React, { useState } from "react";
-import styles from "./Login.module.css"; // Import the CSS module
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // اضافه شده
+import styles from "./Login.module.css";
+import logo from "../../assets/logo.png";
 
 const Login = () => {
-  const [phone, setPhone] = useState("");
-  const [otp, setOtp] = useState("");
-  const [step, setStep] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [isCodeSent, setIsCodeSent] = useState(false);
+  const [verificationCode, setVerificationCode] = useState("");
+  const [isVerified, setIsVerified] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [timer, setTimer] = useState(90);
 
-  const sendOTP = async () => {
-    setLoading(true);
+  const navigate = useNavigate(); // استفاده از useNavigate
+
+  useEffect(() => {
+    let interval = null;
+    if (isCodeSent && timer > 0) {
+      interval = setInterval(() => {
+        setTimer((prevTimer) => prevTimer - 1);
+      }, 1000);
+    } else if (timer === 0) {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [isCodeSent, timer]);
+
+  const handlePhoneChange = (e) => {
+    setPhoneNumber(e.target.value);
     setError("");
+  };
+
+  const handleCodeChange = (e) => {
+    setVerificationCode(e.target.value);
+    setError("");
+  };
+
+  const handleLoginClick = async () => {
+    if (!phoneNumber) {
+      setError("لطفا شماره موبایل را وارد کنید");
+      return;
+    }
+    if (phoneNumber.length !== 11 || !phoneNumber.startsWith("09")) {
+      setError("شماره موبایل باید 11 رقمی و با 09 شروع شود");
+      return;
+    }
+    setIsLoading(true);
     try {
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/users/send-otp/",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ phone_number: phone }),
-        }
-      );
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.message || "خطا در ارسال کد");
-      setStep(2);
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      setIsCodeSent(true);
+      setTimer(90);
+      setError("");
     } catch (err) {
-      setError(err.message);
+      setError("خطا در ارسال کد تأیید");
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
-  const verifyOTP = async () => {
-    setLoading(true);
-    setError("");
-    try {
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/users/verify-otp/",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ phone_number: phone, code: otp }),
-        }
-      );
-      const data = await response.json();
-      if (!response.ok)
-        throw new Error(data.message || "کد وارد شده صحیح نیست");
-
-      // Save tokens and role
-      localStorage.setItem("access_token", data.access);
-      localStorage.setItem("refresh_token", data.refresh);
-      localStorage.setItem("is_admin", data.is_admin); // Store admin status
-
-      alert("ورود با موفقیت انجام شد");
-
-      // Redirect based on role
-      window.location.href = data.is_admin ? "/admin-dashboard" : "/dashboard";
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+  const handleVerifyCode = async () => {
+    if (!verificationCode) {
+      setError("لطفا کد تأیید را وارد کنید");
+      return;
     }
+    if (verificationCode.length !== 6) {
+      setError("کد تأیید باید 6 رقمی باشد");
+      return;
+    }
+    setIsLoading(true);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      setIsVerified(true);
+      setError("");
+    } catch (err) {
+      setError("کد تأیید نادرست است");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleEditPhone = () => {
+    setIsCodeSent(false);
+    setVerificationCode("");
+    setError("");
+    setTimer(90);
   };
 
   return (
     <div className={styles.container}>
-      <div className={styles.card}>
-        <h2>ورود / ثبت نام</h2>
-        {error && <p className={styles.error}>{error}</p>}
+      <div className={styles.box}>
+        <div className={styles.logo} onClick={() => navigate("/")}>
+          <img src={logo} alt="لوگو" className={styles.logoImage} />
+        </div>
 
-        {step === 1 ? (
+        <p className={styles.welcome}>
+          سلام به{" "}
+          <span className={styles.brand} onClick={() => navigate("/")}>
+            کیمیا ترنج
+          </span>{" "}
+          خوش آمدید
+        </p>
+
+        {isVerified ? (
           <>
-            <input
-              type="tel"
-              placeholder="شماره موبایل"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className={styles.input}
-            />
+            <p className={styles.instruction}>ورود شما موفقیت‌آمیز بود</p>
+            <button className={styles.button} onClick={() => navigate("/")}>
+              ادامه خرید
+            </button>
             <button
-              onClick={sendOTP}
-              disabled={loading}
-              className={styles.button}
+              className={styles.buttonSecondary}
+              onClick={() => navigate("/user-panel")}
             >
-              {loading ? "درحال ارسال..." : "ارسال کد"}
+              نمایش پنل کاربری
             </button>
           </>
         ) : (
           <>
-            <input
-              type="text"
-              placeholder="کد تایید"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-              className={styles.input}
-            />
-            <button
-              onClick={verifyOTP}
-              disabled={loading}
-              className={styles.button}
-            >
-              {loading ? "درحال بررسی..." : "تایید کد"}
-            </button>
+            <p className={styles.instruction}>
+              {!isCodeSent
+                ? "لطفا شماره موبایل خود را وارد کنید"
+                : "کد تأیید ارسال شده را وارد کنید"}
+            </p>
+
+            {error && <div className={styles.error}>{error}</div>}
+
+            {!isCodeSent ? (
+              <>
+                <input
+                  type="tel"
+                  placeholder="مثال: 09123456789"
+                  value={phoneNumber}
+                  onChange={handlePhoneChange}
+                  className={styles.input}
+                  maxLength="11"
+                />
+                <button
+                  className={styles.button}
+                  onClick={handleLoginClick}
+                  disabled={isLoading}
+                >
+                  {isLoading ? "در حال ارسال..." : "دریافت کد تأیید"}
+                </button>
+              </>
+            ) : (
+              <>
+                <input
+                  type="text"
+                  placeholder="کد 6 رقمی"
+                  value={verificationCode}
+                  onChange={handleCodeChange}
+                  className={styles.input}
+                  maxLength="6"
+                />
+                <button
+                  className={styles.button}
+                  onClick={handleVerifyCode}
+                  disabled={isLoading}
+                >
+                  {isLoading ? "در حال بررسی..." : "تایید و ورود"}
+                </button>
+                {timer > 0 ? (
+                  <p className={styles.timer}>ارسال مجدد کد: {timer} ثانیه</p>
+                ) : (
+                  <button className={styles.button} onClick={handleLoginClick}>
+                    ارسال مجدد کد
+                  </button>
+                )}
+                <p className={styles.editPhone} onClick={handleEditPhone}>
+                  ویرایش شماره موبایل
+                </p>
+              </>
+            )}
           </>
         )}
+
+        <p className={styles.terms}>
+          ورود شما به معنای پذیرش{" "}
+          <a href="/terms" className={styles.link}>
+            شرایط و قوانین
+          </a>{" "}
+          کیمیا ترنج است
+        </p>
       </div>
     </div>
   );
