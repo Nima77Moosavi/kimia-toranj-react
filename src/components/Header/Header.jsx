@@ -37,7 +37,7 @@ const Header = () => {
   return (
     <header className={styles.header}>
       {/* دایره طوسی */}
-      <div className={styles.circle}></div>
+      {/* <div className={styles.circle}></div> */}
 
       <div className={styles.container}>
         {/* آیکن‌ها */}
@@ -70,10 +70,10 @@ const Header = () => {
       </div>
 
       {/* عکس‌ها */}
-      <div className={styles.images}>
+      {/* <div className={styles.images}>
         <img src={image3} alt="Image 3" className={styles.dast} />
         <img src={image1} alt="Image 1" className={styles.txt1} />
-      </div>
+      </div> */}
 
       {/* لایه تیره و منو */}
       {isMenuOpen && (
