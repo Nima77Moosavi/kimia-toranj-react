@@ -1,8 +1,6 @@
 .header {
     width: 100%;
-    height: auto; /* ارتفاع خودکار */
-    min-height: 455px; /* حداقل ارتفاع */
-    background-color: #fff;
+    height: max-content; /* ارتفاع خودکار */ 
     padding: 10px 20px;
     position: relative;
     overflow: hidden;
@@ -88,7 +86,7 @@
     order: 2;
     color: #023047;
     margin-left: 50px;
-    margin-top: -30px;
+    margin-top: -20px;
   }
   
   .loginButton a {
@@ -244,7 +242,7 @@
   
     .loginButton {
       margin-left: 20px;
-      margin-top: -25px;
+      margin-top: -15px;
     }
   
     .loginButton button {
@@ -309,7 +307,7 @@
       height: max-content;
       border: #023047 solid 1px;
       padding: 0 10px;
-      margin-top: 25px;
+      margin-top: 12px;
     }
     .searchContainer {
         width:80%;
@@ -334,8 +332,8 @@
     .circle {
       left: -200px;
       top: -150px;
-      width: 400px;
-      height: 400px;
+      width: 380px;
+      height: 380px;
       padding: 0%;
     }
   
