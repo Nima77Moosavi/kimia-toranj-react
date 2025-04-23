@@ -80,7 +80,7 @@ const Header = () => {
         <div className={styles.overlay}>
           <div className={styles.menu} ref={menuRef}>
             <ul>
-              <li>صفحه اصلی <FiHome /></li>
+            <Link to="/"><li>صفحه اصلی <FiHome /></li></Link>
               <li>درباره کیمیا ترنج <BsFileEarmarkPerson /></li>
               <li>اخذ نمایندگی <TbDeviceIpadHorizontalStar /></li>
               <li>مقالات <PiArticleBold /></li>

@@ -29,6 +29,9 @@
     margin: 2rem;
     
   }
+  a{
+    text-decoration: none;
+  }
   ul{
     list-style-type: none;
   }

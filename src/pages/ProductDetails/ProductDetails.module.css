@@ -322,6 +322,10 @@
       width: 90%;
       top: -130px;
     }
+    .descriptionContainer{
+      position: relative;
+      top: -110px;
+    }
     .prevButton,
     .nextButton{
       width: 20px;
@@ -356,6 +360,8 @@
     .actions{
       flex-direction: column;
       gap: 10px;
+      position: relative;
+      top: -100px;
     }
     .reviewsWrapper {
       overflow-x: auto; /* امکان اسکرول افقی در موبایل */
