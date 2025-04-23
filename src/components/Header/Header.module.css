@@ -137,13 +137,14 @@
     text-align: right;
     direction: rtl;
     font-size: 18px;
+    font-weight: 600;
     margin-top: -30px;
   }
   
   .searchIcon {
     position: absolute;
     left: 10px;
-    top: 50%;
+    top: 52%;
     transform: translateY(-50%);
     color: #023047;
     font-size: 24px;
