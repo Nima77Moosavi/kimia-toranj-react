@@ -5,6 +5,10 @@ import Collections from "../components/Collections/Collections";
 import styles from "./Home.module.css";
 import axios from "axios";
 import Bestsellers from "../components/Bestsellers/Bestsellers";
+import SpecialOffer from "../components/SpecialOffer/SpecialOffer";
+import SpecialProducts from "../components/SpecialProducts/SpecialProducts";
+import Footer from "../components/Footer/Footer";
+import HomePageHeader from "../components/HomePageHeader/HomePageHeader";
 
 const Home = () => {
   const [latestProducts, setLatestProducts] = useState([]);
@@ -22,17 +26,20 @@ const Home = () => {
 
   return (
     <div className={styles.home}>
+      <div className={styles.circle}></div>
+      
       <Header />
+      <HomePageHeader/>
       <div className={styles.content}>
-        {/* <h2>Welcome to My Brand</h2>
-        <p>This is the home page. Highlights will be displayed here.</p> */}
-        <Highlights /> {/* Add the Highlights component here */}
+        <Highlights /> 
         <Collections />
 
         <Bestsellers/>
-
+        <SpecialOffer/>
+        <SpecialProducts/>
         {/* <ProductList products={latestProducts} /> */}
       </div>
+        <Footer/>
     </div>
   );
 };

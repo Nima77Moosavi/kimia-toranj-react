@@ -3,8 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import MediaPlayer from "../MediaPlayer/MediaPlayer";
 import styles from "./HighlightMedia.module.css";
 import { IoClose } from "react-icons/io5";
-import { GrFormNext } from "react-icons/gr";
-import { GrFormPrevious } from "react-icons/gr";
+import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import PuffLoader from "react-spinners/PuffLoader";
 
 const HighlightMedia = () => {
@@ -16,29 +15,25 @@ const HighlightMedia = () => {
   const [error, setError] = useState(null);
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
   const [currentHighlightIndex, setCurrentHighlightIndex] = useState(0);
-  const [progress, setProgress] = useState(0); // Start from 0% and fill to 100%
-  const [isProgressBarVisible, setIsProgressBarVisible] = useState(true); // Track visibility of progress bar
+  const [progressKey, setProgressKey] = useState(0);
 
-  // Fetch specific highlight
   useEffect(() => {
     const fetchHighlightMedia = async () => {
       try {
         const response = await fetch(
           `http://127.0.0.1:8000/api/highlights/highlights/${id}/`
         );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
+        if (!response.ok) throw new Error("Network response was not ok");
         const data = await response.json();
         setHighlight(data);
 
-        // Find the index of the current highlight in allHighlight
         const highlightIndex = allHighlight.findIndex(
           (h) => h.id === parseInt(id)
         );
         if (highlightIndex !== -1) {
-          setCurrentHighlightIndex(highlightIndex); // Update currentHighlightIndex
-          setCurrentMediaIndex(0); // Reset currentMediaIndex to 0
+          setCurrentHighlightIndex(highlightIndex);
+          setCurrentMediaIndex(0);
+          setProgressKey((prev) => prev + 1);
         }
       } catch (error) {
         setError(error.message);
@@ -50,16 +45,13 @@ const HighlightMedia = () => {
     fetchHighlightMedia();
   }, [id, allHighlight]);
 
-  // Fetch all highlights
   useEffect(() => {
     const fetchAllHighlightMedia = async () => {
       try {
         const response = await fetch(
           `http://127.0.0.1:8000/api/highlights/highlights/`
         );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
+        if (!response.ok) throw new Error("Network response was not ok");
         const data = await response.json();
         setAllHighlight(data);
       } catch (error) {
@@ -72,72 +64,45 @@ const HighlightMedia = () => {
     fetchAllHighlightMedia();
   }, []);
 
-  // Auto-change media every 10 seconds and update progress bar
   useEffect(() => {
     if (allHighlight.length === 0) return;
-
     const interval = setInterval(() => {
-      goToNextMedia(); // Move to the next media
-    }, 10000); // 10 seconds
-
-    return () => clearInterval(interval); // Cleanup interval on unmount
+      goToNextMedia();
+    }, 10000);
+    return () => clearInterval(interval);
   }, [allHighlight, currentHighlightIndex, currentMediaIndex]);
 
-  // Update progress bar every second
-  useEffect(() => {
-    const progressInterval = setInterval(() => {
-      setProgress((prevProgress) => {
-        if (prevProgress < 100) {
-          return prevProgress + 100 / 10; // Increase progress by 1/10th every second
-        } else {
-          setIsProgressBarVisible(false); // Hide progress bar when it reaches 100%
-          return 100;
-        }
-      });
-    }, 1000); // Update every second
-
-    return () => clearInterval(progressInterval); // Cleanup interval on unmount
-  }, [currentMediaIndex, currentHighlightIndex]); // Re-run effect when media or highlight changes
-
-  // Navigate to next media
   const goToNextMedia = () => {
     const currentHighlight = allHighlight[currentHighlightIndex];
     if (currentMediaIndex < currentHighlight.media.length - 1) {
       setCurrentMediaIndex(currentMediaIndex + 1);
     } else {
-      // If it's the last media in the current highlight, move to the next highlight
       setCurrentHighlightIndex((prevIndex) =>
         prevIndex < allHighlight.length - 1 ? prevIndex + 1 : 0
       );
-      setCurrentMediaIndex(0); // Reset media index for the new highlight
+      setCurrentMediaIndex(0);
     }
-    setProgress(0); // Reset progress bar
-    setIsProgressBarVisible(true); // Show progress bar again
+    setProgressKey((prev) => prev + 1);
   };
 
-  // Navigate to previous media
   const goToPreviousMedia = () => {
     if (currentMediaIndex > 0) {
       setCurrentMediaIndex(currentMediaIndex - 1);
     } else {
-      // If it's the first media in the current highlight, move to the previous highlight
       setCurrentHighlightIndex((prevIndex) =>
         prevIndex > 0 ? prevIndex - 1 : allHighlight.length - 1
       );
       setCurrentMediaIndex(
         allHighlight[currentHighlightIndex].media.length - 1
-      ); // Set to last media of the previous highlight
+      );
     }
-    setProgress(0); // Reset progress bar
-    setIsProgressBarVisible(true); // Show progress bar again
+    setProgressKey((prev) => prev + 1);
   };
 
-  // Close the media player and navigate back
   const handleClose = () => {
     navigate("/");
   };
 
-  // Display loading state
   if (loading) {
     return (
       <div className={styles.loadingContainer}>
@@ -146,42 +111,27 @@ const HighlightMedia = () => {
     );
   }
 
-  // Display error state
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  // Display if no highlights are found
-  if (!allHighlight || allHighlight.length === 0) {
+  if (error) return <div>Error: {error}</div>;
+  if (!allHighlight || allHighlight.length === 0)
     return <div>No highlights found.</div>;
-  }
 
-  // Get the current highlight and its media
   const currentHighlight = allHighlight[currentHighlightIndex];
   const currentMedia = currentHighlight.media[currentMediaIndex];
 
   return (
     <div className={styles.overlay}>
       <div className={styles.card}>
-        {/* Progress bar at the top of the card */}
-        {isProgressBarVisible && (
-          <div className={styles.progressBarContainer}>
-            <div
-              className={styles.progressBar}
-              style={{ width: `${progress}%` }}
-            ></div>
-          </div>
-        )}
+        <div key={progressKey} className={styles.progressBarContainer}>
+          <div className={styles.progressBar}></div>
+        </div>
 
-        {/* Close button */}
         <button onClick={handleClose} className={styles.closeButton}>
           <IoClose />
         </button>
 
-        {/* Highlight title */}
         <h2 className={styles.title}>{currentHighlight.title}</h2>
 
-        {/* Media player and navigation buttons */}
+        {/* Media with navigation for desktop */}
         <div className={styles.mediaWrapper}>
           <button
             onClick={goToPreviousMedia}
@@ -205,19 +155,40 @@ const HighlightMedia = () => {
           </button>
         </div>
 
-        {/* Media indicator dots */}
-        <div className={styles.mediaIndicator}>
-          {currentHighlight.media.map((_, index) => (
-            <span
-              key={index}
-              className={`${styles.indicatorDot} ${
-                index === currentMediaIndex ? styles.active : ""
-              }`}
-            ></span>
-          ))}
+        {/* Mobile navigation below image */}
+        <div className={styles.mobileNavButtons}>
+          <button
+            onClick={goToPreviousMedia}
+            disabled={currentMediaIndex === 0}
+            className={styles.navButton}
+          >
+            <GrFormPrevious />
+          </button>
+          <button
+            onClick={goToNextMedia}
+            disabled={
+              currentMediaIndex === currentHighlight.media.length - 1 &&
+              currentHighlightIndex === allHighlight.length - 1
+            }
+            className={styles.navButton}
+          >
+            <GrFormNext />
+          </button>
         </div>
 
-        {/* Highlight indicator */}
+     {/* فقط نشانگر مدیاهای هایلایت فعلی نمایش داده می‌شود */}
+{/* <div className={styles.mediaIndicator}>
+  {currentHighlight.media.map((_, index) => (
+    <span
+      key={index}
+      className={`${styles.indicatorDot} ${
+        index === currentMediaIndex ? styles.active : ""
+      }`}
+    ></span>
+  ))}
+</div> */}
+
+
         <div className={styles.highlightIndicator}>
           {allHighlight.map((_, index) => (
             <span

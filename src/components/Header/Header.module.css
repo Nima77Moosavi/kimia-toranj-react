@@ -1,11 +1,64 @@
 .header {
     width: 100%;
-    height: auto; /* ارتفاع خودکار */
-    min-height: 455px; /* حداقل ارتفاع */
-    background-color: #fff;
+    height: max-content; /* ارتفاع خودکار */ 
     padding: 10px 20px;
     position: relative;
     overflow: hidden;
+    margin-bottom: 0;
+  }
+  .overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: flex-end;
+    z-index: 1000;
+  }
+  
+  /* منو */
+  .menu {
+    width:max-content;
+    height: max-content;
+    padding: 2rem;
+    animation: slideIn 0.3s ease-out;
+    direction: rtl;
+    text-align: center ;
+    margin: 2rem;
+    
+  }
+  ul{
+    list-style-type: none;
+  }
+  ul li{
+    width: 100%;
+    background-color: #023047;
+    color: #fff;
+    border-radius: 20px;
+    padding: 5px 28px;
+    margin: 5px 0;
+    direction: ltr;
+    font-size: 20px;
+    text-align: right;
+  }
+  ul li:hover{
+    background-color: #fff;
+    color: #023047;
+    border: 1px solid #023047;
+    cursor: pointer;
+    transform: matrix3d(5px);
+    /* margin-right: 10px; */
+    transition: .5s ease;
+  }
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0%);
+    }
   }
   
   .container {
@@ -33,7 +86,7 @@
     order: 2;
     color: #023047;
     margin-left: 50px;
-    margin-top: -30px;
+    margin-top: -20px;
   }
   
   .loginButton a {
@@ -176,6 +229,7 @@
   @media (max-width: 768px) {
     .header {
       height: auto;
+      min-height: 300px;
       padding: 10px;
     }
   
@@ -188,7 +242,7 @@
   
     .loginButton {
       margin-left: 20px;
-      margin-top: -25px;
+      margin-top: -15px;
     }
   
     .loginButton button {
@@ -237,6 +291,9 @@
   }
   
   @media (max-width: 480px) {
+    .header{
+      min-height: 250px;
+    }
     .container {
         flex-direction: row;
         align-items: flex-start;
@@ -247,8 +304,10 @@
   
     .loginButton button {
       font-size: 16px;
+      height: max-content;
       border: #023047 solid 1px;
       padding: 0 10px;
+      margin-top: 12px;
     }
     .searchContainer {
         width:80%;
@@ -273,8 +332,9 @@
     .circle {
       left: -200px;
       top: -150px;
-      width: 400px;
-      height: 400px;
+      width: 380px;
+      height: 380px;
+      padding: 0%;
     }
   
     .txt1 {

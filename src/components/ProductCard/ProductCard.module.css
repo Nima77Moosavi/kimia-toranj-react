@@ -9,7 +9,12 @@
     align-content: center;
     box-shadow: 0 4px 12px rgba(73, 73, 73, 0.5);
     margin-bottom: 20px;
+    cursor: pointer;
 }
+.card:hover {
+    transform: translateY(-5px); /* Add hover effect */
+    transition: .5s ease;
+  }
 .img{
     width: 90%;
     height: 70%;
@@ -28,13 +33,50 @@
     color: white;
     background-color: #023047;
     border-radius: 10px;
+    border: none;
     padding: 2px 20px;
     font-size: 20px;
     margin-bottom: 10px;
     direction: rtl;
+    cursor: pointer;
 }
 .price:hover{
-    background-color: #055a85;
-    color: white;
+    background-color: #FFD700;
+    color: #023047;
 }
 
+
+/* responsive */
+@media (max-width: 768px) {
+    .card{
+        width: 150px;
+        height: max-content;
+    }
+    .img{
+        width: 80%;
+        height: 60%;
+    }
+    .title{
+        font-size: 16px;
+    }
+    .price{
+        font-size: 18px;
+    }
+}
+@media (max-width: 480px) {
+    .card{
+        width: 120px;
+        height: max-content;
+    }
+    .img{
+        width: 95%;
+        height: 50%;
+    }
+    .title{
+        font-size: 14px;
+    }
+    .price{
+        font-size: 16px;
+        padding: 1px 8px;
+    }
+}
