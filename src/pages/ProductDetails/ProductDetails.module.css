@@ -1,0 +1,374 @@
+.circle {
+    position: absolute;
+    left: -100px;
+    top: -300px;
+    width: 700px;
+    height: 700px;
+    background-color: rgba(128, 128, 128, 0.158);
+    border-radius: 50%;
+    z-index: 0;
+    margin-bottom: 100px;
+  }
+
+  .sliderContainer {
+    position: relative;
+    width: 70%;
+    max-width: 600px;
+    margin: 40px auto;
+    overflow: hidden;
+    border-radius: 20px;
+    background-color: #f7ecec;
+  }
+  
+  .sliderImage {
+    width: 100%;
+    height:500px;
+    display: block;
+    object-fit: contain;
+    /* border-radius: 50px; */
+  }
+
+  .prevButton,
+  .nextButton {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color:#888;
+    color: white;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 2;
+    transition: background-color 0.3s ease;
+  }
+  
+  .prevButton:hover,
+  .nextButton:hover {
+    background-color: rgba(2, 48, 71, 0.8);
+  }
+  
+  .prevButton {
+    right: 10px; /* چون راست به چپ هست، دکمه قبلی در راست قرار می‌گیره */
+  }
+  
+  .nextButton {
+    left: 10px;
+  }
+  .thumbnailContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: border 0.3s ease;
+  }
+  
+  .thumbnail:hover {
+    border: 2px solid #888;
+  }
+  
+  .activeThumbnail {
+    border: 2px solid #000;
+  }
+  
+  .descriptionContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    direction: rtl;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+ .description{
+  width: 40%;
+  text-align: right;
+  background-color: #f7ecec;
+  border-radius: 20px;
+  padding: 25px;
+ }
+ .descriptionText{
+  text-align: justify;
+ }
+ .description span{
+  color: #353535;
+  font-size: 24px;
+ }
+ .actions{
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction:row;
+  gap: 20px;
+  margin-bottom: 20px;
+ }
+.price{
+  background-color: #ffffff;
+  color: #023047;
+  border: 0.5px solid rgb(109, 224, 240);
+  padding: 0.5rem 1.5rem;
+  font-size: clamp(1.2rem, 2vw, 1.8rem); /* Responsive font size */
+  border-radius: 10px;
+  margin-bottom: 5px;
+ }
+ .price:hover {
+  background-color: #ffffff;
+  color: #023047;
+}
+.addToCart {
+  background-color: #FFD700;
+  color: #023047;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: clamp(1.2rem, 1.8vw, 1.5rem); /* Responsive font size */
+  font-weight: 500;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  white-space: nowrap;
+}
+
+.addToCart:hover {
+  background-color: #023047;
+  color: #FFD700;
+}
+.iconsContainer{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 10px;
+}
+.icon{
+  font-size: 28px;
+  color: rgb(109, 224, 240);
+  cursor: pointer;
+}
+
+.attributesContainer {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 30px 0;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-right: 45px;
+}
+
+.attributeGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.attributeGroup label{
+  font-size: 22px;
+  font-weight: 600;
+  color: #353535;
+}
+.selectInput,
+.numberInput {
+  width: 150px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgb(109, 224, 240);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 5px;
+  direction: rtl;
+}
+
+/* در فایل productDetails.module.css */
+.reviewsContainer {
+  width: 100%;
+  margin: 2rem auto;
+  padding: 1rem;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
+}
+.reviewsTitle{
+  display: inline-block;
+  font-size: 24px;
+  font-weight: 600;
+  color: #023047;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.reviewsWrapper {
+  width: 90%;
+  overflow: hidden;
+  height: max-content;
+}
+
+.reviewsSlider {
+  display: flex;
+  width: 100%;
+}
+
+.reviewCard {
+  flex: 0 0 20%;
+  min-width: 20%;
+  height: 150px;
+  padding: 1rem;
+  border: .5px solid rgb(109, 224, 240);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin:.5rem 0.5rem;
+}
+
+.reviewText {
+  font-style: italic;
+  margin-bottom: 0.5rem;
+  text-align: right;
+  direction: rtl;
+}
+
+.reviewAuthor {
+  font-weight: bold;
+  text-align: left;
+  position: fixed;
+  bottom: 25px;
+}
+
+
+  
+  /* لپ‌تاپ و کوچکتر (max-width: 1200px) */
+@media (max-width: 1200px) {
+    .circle {
+      width: 600px;
+      height: 600px;
+      top: -250px;
+      left: -120px;
+    }
+  }
+  
+  /* تبلت (max-width: 768px) */
+  @media (max-width: 768px) {
+    .circle {
+      width: 550px;
+      height: 550px;
+      top: -250px;
+      left: -150px;
+    }
+    .sliderContainer {
+      width: 70%;
+      top: -180px;
+    }
+    .prevButton,
+    .nextButton{
+      width: 25px;
+      height: 25px;
+      font-size: 20px;
+      top: 50%;
+    }
+    .sliderImage {
+      width: 90%;
+      height:auto;
+      display: block;
+      object-fit: contain;
+      justify-self: center;
+      /* border-radius: 50px; */
+    }
+    .prevButton {
+      right: 2px; /* چون راست به چپ هست، دکمه قبلی در راست قرار می‌گیره */
+    }
+    
+    .nextButton {
+      left:2px;
+    }
+    .descriptionContainer{
+      flex-direction: column;
+    }
+    .description{
+      width: 90%;
+    }
+    .attributesContainer{
+      width: 90%;
+      flex-direction: row;
+      padding: 0%;
+    }
+    .reviewCard {
+      flex: 0 0 33.3333%; /* نمایش 3 کارت در هر ردیف */
+      min-width: 33.3333%;
+    }
+  }
+  
+  /* موبایل (max-width: 480px) */
+  @media (max-width: 480px) {
+    .circle {
+      width: 400px;
+      height: 400px;
+      top: -180px;
+      left: -180px;
+    }
+    .sliderContainer {
+      width: 90%;
+      top: -130px;
+    }
+    .descriptionContainer{
+      position: relative;
+      top: -110px;
+    }
+    .prevButton,
+    .nextButton{
+      width: 20px;
+      height: 20px;
+      font-size: 18px;
+      top: 50%;
+    }
+    .sliderImage {
+      width: 85%;
+      height:auto;
+      display: block;
+      object-fit: contain;
+      justify-self: center;
+      /* border-radius: 50px; */
+    }
+    .prevButton {
+      right: 2px; /* چون راست به چپ هست، دکمه قبلی در راست قرار می‌گیره */
+    }
+    
+    .nextButton {
+      left:2px;
+    }
+    .descriptionContainer{
+      flex-direction: column;
+    }
+    .description{
+      width: 90%;
+    }
+    .attributesContainer{
+      width: 90%;
+    }
+    .actions{
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      top: -100px;
+    }
+    .reviewsWrapper {
+      overflow-x: auto; /* امکان اسکرول افقی در موبایل */
+      -webkit-overflow-scrolling: touch;
+    }
+    .reviewCard {
+      flex: 0 0 50%; /* نمایش 2 کارت در هر ردیف */
+      min-width: 50%;
+    }
+  }

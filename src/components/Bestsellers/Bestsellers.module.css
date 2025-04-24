@@ -10,8 +10,11 @@
   font-size: 24px;
   margin-bottom: 20px;
   color: #023047;
+  cursor: pointer;
 }
-
+.link{
+  text-decoration: none;
+}
 .sliderContainer {
     position: relative;
   align-items: center;

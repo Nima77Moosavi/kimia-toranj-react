@@ -3,7 +3,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import HighlightMedia from "./components/HighlightMedia/HighlightMedia";
 import CollectionDetail from "./pages/CollectionDetail/CollectionDetail";
+import ProductDetails from "./pages/ProductDetails/productDetails";
 import Login from "./pages/Login/Login";
+
+import BestsellersPage from "./pages/BestsellersPage/BestsellersPage";
+
 import Blog from "./pages/Blog/Blog";
 
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
@@ -23,6 +27,7 @@ import Wishlist from "./pages/WishList/WishList";
 import UserReviews from "./pages/UserReviews/UserReviews";
 import UserAddresses from "./pages/UserAddresses/UserAddresses";
 
+
 const App = () => {
   return (
     <Router>
@@ -33,6 +38,10 @@ const App = () => {
         <Route path="/blog" element={<Blog />} />
         <Route path="/highlight/:id" element={<HighlightMedia />} />
         <Route path="/collection/:id" element={<CollectionDetail />} />
+
+        <Route path="/productDetails/:id" element={<ProductDetails/>} />
+        <Route path="/bestsellersPage" element={<BestsellersPage/>} />
+
         <Route path="/user-panel" element={<UserPanel />} />
         <Route path="/account-info" element={<AccountInfo />} />
         <Route path="/cart" element={<ShoppingCart />} />
@@ -40,6 +49,7 @@ const App = () => {
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/reviews" element={<UserReviews />} />
         <Route path="/addresses" element={<UserAddresses />} />
+
 
         {/* Default Redirect */}
         <Route path="*" element={<Home />} />
