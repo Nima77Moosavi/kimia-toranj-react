@@ -1,0 +1,28 @@
+/* استایل اصلی کانتینر صفحه */
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* بخش اصلی شامل سایدبار و محتوا */
+.main {
+  display: flex;
+  flex: 1;
+}
+
+/* استایل بخش محتوا */
+.content {
+  flex: 1;
+  padding-left: 30%;
+}
+
+/* تطبیق ریسپانسیو (در صورت نیاز) */
+@media (max-width: 768px) {
+  .main {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+  }
+}

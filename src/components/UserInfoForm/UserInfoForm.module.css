@@ -1,18 +1,66 @@
-.tabs {
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  direction: rtl;
+  width: 100%;
+}
+
+.title {
+  text-align: center;
+  color: #023047;
+  padding-left: 10%;
+  font-size: 40px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.inputGroup label {
+  font-weight: bold;
+  color: #555;
+}
+
+.inputGroup input,
+.inputGroup textarea {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+/* کنترل‌های ورودی به‌طور پیش‌فرض 70٪ عرض دارند */
+.inputGroup input,
+.inputGroup textarea,
+.inputGroup select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.dateFields {
   display: flex;
   gap: 10px;
 }
 
-.tabs button {
-  padding: 10px 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: #fff;
-  transition: background-color 0.3s ease;
+.genderFields {
+  display: flex;
+  gap: 20px;
+  color: #023047;
 }
 
-.tabs button:hover {
-  background-color: #3498db;
+.submitButton {
+  background-color: #40e0d0;
   color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submitButton:hover {
+  background-color: #38b2a3;
 }

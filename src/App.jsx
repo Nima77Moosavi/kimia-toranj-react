@@ -4,7 +4,6 @@ import Home from "./pages/Home";
 import HighlightMedia from "./components/HighlightMedia/HighlightMedia";
 import CollectionDetail from "./pages/CollectionDetail/CollectionDetail";
 import Login from "./pages/Login/Login";
-
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import AdminRoute from "./components/AdminRoute/AdminRoute";
