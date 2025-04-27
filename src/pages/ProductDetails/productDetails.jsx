@@ -43,7 +43,7 @@ const ProductDetails = () => {
     const fetchProduct = async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/api/store/products/${id}`
+          `https://kimiatoranj-api.liara.run/api/store/products/${id}`
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");
