@@ -86,12 +86,26 @@ const Header = () => {
         <div className={styles.overlay}>
           <div className={styles.menu} ref={menuRef}>
             <ul>
-
-            <Link to="/"><li>صفحه اصلی <FiHome /></li></Link>
-              <li>درباره کیمیا ترنج <BsFileEarmarkPerson /></li>
-              <li>اخذ نمایندگی <TbDeviceIpadHorizontalStar /></li>
-              <li>مقالات <PiArticleBold /></li>
-
+              <Link to="/">
+                <li>
+                  صفحه اصلی <FiHome />
+                </li>
+              </Link>
+              <Link to="/about">
+                <li>
+                  درباره کیمیا ترنج <BsFileEarmarkPerson />
+                </li>
+              </Link>
+              <Link to="/">
+                <li>
+                  اخذ نمایندگی <TbDeviceIpadHorizontalStar />
+                </li>
+              </Link>
+              <Link to="/blog">
+                <li>
+                  مقالات <PiArticleBold />
+                </li>
+              </Link>
             </ul>
           </div>
         </div>
