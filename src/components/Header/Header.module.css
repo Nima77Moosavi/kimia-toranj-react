@@ -1,355 +1,376 @@
 .header {
-    width: 100%;
-    height: max-content; /* ارتفاع خودکار */ 
-    padding: 10px 20px;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 0;
+  width: 100%;
+  height: max-content; /* ارتفاع خودکار */
+  padding: 10px 20px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: flex-end;
+  z-index: 1000;
+}
+
+/* منو */
+.menu {
+  width: max-content;
+  height: max-content;
+  padding: 2rem;
+  animation: slideIn 0.3s ease-out;
+  direction: rtl;
+  text-align: center;
+  margin: 2rem;
+}
+a {
+  text-decoration: none;
+}
+ul {
+  list-style-type: none;
+}
+ul li {
+  width: 100%;
+  background-color: #023047;
+  color: #fff;
+  border-radius: 20px;
+  padding: 5px 28px;
+  margin: 5px 0;
+  direction: ltr;
+  font-size: 20px;
+  text-align: right;
+}
+ul li:hover {
+  background-color: #fff;
+  color: #023047;
+  border: 1px solid #023047;
+  cursor: pointer;
+  transform: matrix3d(5px);
+  /* margin-right: 10px; */
+  transition: 0.5s ease;
+}
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
   }
-  .overlay {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    backdrop-filter: blur(2px);
-    display: flex;
-    justify-content: flex-end;
-    z-index: 1000;
+  to {
+    transform: translateX(0%);
   }
-  
-  /* منو */
-  .menu {
-    width:max-content;
-    height: max-content;
-    padding: 2rem;
-    animation: slideIn 0.3s ease-out;
-    direction: rtl;
-    text-align: center ;
-    margin: 2rem;
-    
-  }
-  a{
-    text-decoration: none;
-  }
-  ul{
-    list-style-type: none;
-  }
-  ul li{
-    width: 100%;
-    background-color: #023047;
-    color: #fff;
-    border-radius: 20px;
-    padding: 5px 28px;
-    margin: 5px 0;
-    direction: ltr;
-    font-size: 20px;
-    text-align: right;
-  }
-  ul li:hover{
-    background-color: #fff;
-    color: #023047;
-    border: 1px solid #023047;
-    cursor: pointer;
-    transform: matrix3d(5px);
-    /* margin-right: 10px; */
-    transition: .5s ease;
-  }
-  @keyframes slideIn {
-    from {
-      transform: translateX(100%);
-    }
-    to {
-      transform: translateX(0%);
-    }
-  }
-  
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    z-index: 1;
-    flex-wrap: wrap; /* در صورت نیاز عناصر به خط بعد بروند */
-  }
-  
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  flex-wrap: wrap; /* در صورت نیاز عناصر به خط بعد بروند */
+}
+
+.icons {
+  display: flex;
+  gap: 20px;
+  order: 1;
+  font-size: 28px;
+  color: #023047;
+  margin-left: 100px;
+  margin-top: 0;
+  cursor: pointer;
+  align-items: center;
+}
+
+.loginButton {
+  order: 2;
+  color: #023047;
+  margin-left: 50px;
+  margin-top: -20px;
+}
+.loginButton a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.loginButton button {
+  font-size: 22px;
+  padding: 8px 16px;
+  background-color: #fff;
+  color: #023047;
+  border-radius: 10px;
+  text-align: center;
+  border: unset;
+  cursor: pointer;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+.loginButton button:hover{
+  color: #fff;
+  background-color: #023047;
+}
+.loginButton a {
+  pointer-events: auto;
+}
+
+.searchContainer {
+  order: 3;
+  flex-grow: 1;
+  margin: 0 20px;
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.searchBox {
+  width: 70%;
+  position: relative;
+}
+
+.searchBox input {
+  width: 100%;
+  height: 40px;
+  padding: 0 40px 0 10px;
+  border: 1px solid #023047;
+  border-radius: 50px;
+  text-align: right;
+  direction: rtl;
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: -30px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 10px;
+  top: 52%;
+  transform: translateY(-50%);
+  color: #023047;
+  font-size: 24px;
+  pointer-events: none;
+}
+
+.hamburgerMenu {
+  order: 4;
+  display: flex;
+  align-items: center;
+}
+
+.hamburgerMenu span {
+  font-size: 50px;
+  cursor: pointer;
+  color: #023047;
+  margin-top: 10px;
+}
+
+/* دایره طوسی */
+.circle {
+  position: absolute;
+  left: -100px;
+  top: -250px;
+  width: 700px;
+  height: 700px;
+  background-color: rgba(128, 128, 128, 0.2);
+  border-radius: 50%;
+  z-index: 0;
+  margin-bottom: 100px;
+}
+
+/* عکس‌ها */
+.images {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* استایل‌های اختصاصی برای عکس‌ها */
+.txt1 {
+  width: 70%;
+  height: 200px;
+  object-fit: fill;
+  margin-right: 280px;
+  margin-top: 50px;
+}
+
+.dast {
+  width: 600px;
+  height: 350px;
+  object-fit: cover;
+  padding-left: -200px;
+}
+.searchResults {
+  background-color: white;
+  position: absolute;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 5px;
+  border-radius: 0.5rem;
+  z-index: 10;
+}
+
+.searchResults li {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+  text-align: right;
+}
+
+.searchResults li:hover {
+  background-color: #f1f1f1;
+}
+
+/* Media Queries برای ریسپانسیو */
+@media (max-width: 1200px) {
   .icons {
-    display: flex;
-    gap: 20px;
-    order: 1;
-    font-size: 28px;
-    color: #023047;
-    margin-left: 100px;
-    margin-top: 0;
-    cursor: pointer;
-    align-items: center;
-  }
-  
-  .loginButton {
-    order: 2;
-    color: #023047;
     margin-left: 50px;
-    margin-top: -20px;
   }
-  
-  .loginButton a {
-    text-decoration: none;
-    color: inherit;
+
+  .loginButton {
+    margin-left: 30px;
   }
-  
-  .loginButton button {
-    font-size: 22px;
-    padding: 8px 16px;
-    background-color: #fff;
-    color: #023047;
-    border-radius: 10px;
-    text-align: center;
-    border: unset;
-    cursor: pointer;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    pointer-events: none;
-  }
-  
-  .loginButton a {
-    pointer-events: auto;
-  }
-  
-  .searchContainer {
-    order: 3;
-    flex-grow: 1;
-    margin: 0 20px;
-    position: relative;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-  }
-  
+
   .searchBox {
-    width: 70%;
-    position: relative;
+    width: 60%;
   }
-  
-  .searchBox input {
-    width: 100%;
-    height: 40px;
-    padding: 0 40px 0 10px;
-    border: 1px solid #023047;
-    border-radius: 50px;
-    text-align: right;
-    direction: rtl;
-    font-size: 18px;
-    font-weight: 600;
-    margin-top: -30px;
+
+  .txt1 {
+    width: 60%;
+    margin-right: 200px;
   }
-  
-  .searchIcon {
-    position: absolute;
-    left: 10px;
-    top: 52%;
-    transform: translateY(-50%);
-    color: #023047;
+
+  .dast {
+    width: 500px;
+    height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    height: auto;
+    min-height: 300px;
+    padding: 10px;
+  }
+
+  .icons {
+    margin-left: 20px;
     font-size: 24px;
-    pointer-events: none;
   }
-  
-  .hamburgerMenu {
-    order: 4;
-    display: flex;
-    align-items: center;
+
+  .loginButton {
+    margin-left: 20px;
+    margin-top: -15px;
   }
-  
+
+  .loginButton button {
+    font-size: 18px;
+  }
+
+  .searchContainer {
+    width: 30%;
+    margin: 10px 0;
+  }
+
+  .searchBox {
+    width: 90%;
+  }
+
+  .searchBox input {
+    font-size: 16px;
+  }
+
+  .searchIcon {
+    font-size: 20px;
+  }
+
   .hamburgerMenu span {
-    font-size: 50px;
-    cursor: pointer;
-    color: #023047;
-    margin-top: 10px;
+    font-size: 40px;
   }
-  
-  /* دایره طوسی */
+
   .circle {
-    position: absolute;
-    left: -100px;
-    top: -250px;
-    width: 700px;
-    height: 700px;
-    background-color: rgba(128, 128, 128, 0.2);
-    border-radius: 50%;
-    z-index: 0;
-    margin-bottom: 100px;
+    left: -150px;
+    top: -200px;
+    width: 500px;
+    height: 500px;
   }
-  
-  /* عکس‌ها */
-  .images {
-    position: absolute;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    z-index: 1;
-  }
-  
-  /* استایل‌های اختصاصی برای عکس‌ها */
+
   .txt1 {
     width: 70%;
-    height: 200px;
-    object-fit: fill;
-    margin-right: 280px;
-    margin-top: 50px;
+    height: 120px;
+    margin-right: 100px;
+    margin-top: 30px;
   }
-  
-  .dast {
-    width: 600px;
-    height: 350px;
-    object-fit: cover;
-    padding-left: -200px;
-  }
-  
-  /* Media Queries برای ریسپانسیو */
-  @media (max-width: 1200px) {
-    .icons {
-      margin-left: 50px;
-    }
-  
-    .loginButton {
-      margin-left: 30px;
-    }
-  
-    .searchBox {
-      width: 60%;
-    }
-  
-    .txt1 {
-      width: 60%;
-      margin-right: 200px;
-    }
-  
-    .dast {
-      width: 500px;
-      height: 300px;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .header {
-      height: auto;
-      min-height: 300px;
-      padding: 10px;
-    }
-  
 
-  
-    .icons {
-      margin-left: 20px;
-      font-size: 24px;
-    }
-  
-    .loginButton {
-      margin-left: 20px;
-      margin-top: -15px;
-    }
-  
-    .loginButton button {
-      font-size: 18px;
-    }
-  
-    .searchContainer {
-      width: 30%;
-      margin: 10px 0;
-    }
-  
-    .searchBox {
-      width: 90%;
-    }
-  
-    .searchBox input {
-      font-size: 16px;
-    }
-  
-    .searchIcon {
-      font-size: 20px;
-    }
-  
-    .hamburgerMenu span {
-      font-size: 40px;
-    }
-  
-    .circle {
-      left: -150px;
-      top: -200px;
-      width: 500px;
-      height: 500px;
-    }
-  
-    .txt1 {
-      width: 70%;
-      height: 120px;
-      margin-right: 100px;
-      margin-top: 30px;
-    }
-  
-    .dast {
-      width: 200px;
-      height: auto;
-    }
+  .dast {
+    width: 200px;
+    height: auto;
   }
-  
-  @media (max-width: 480px) {
-    .header{
-      min-height: 250px;
-    }
-    .container {
-        flex-direction: row;
-        align-items: flex-start;
-      }
-    .icons {
-      font-size: 20px;
-    }
-  
-    .loginButton button {
-      font-size: 16px;
-      height: max-content;
-      border: #023047 solid 1px;
-      padding: 0 10px;
-      margin-top: 12px;
-    }
-    .searchContainer {
-        width:80%;
-        margin: 10px 0;
-      }
-    
-      .searchBox {
-        width:100%;
-      }
-    .searchBox input {
-      font-size: 14px;
-    }
-  
-    .searchIcon {
-      font-size: 18px;
-    }
-    
-    .hamburgerMenu span {
-      font-size: 30px;
-    }
-  
-    .circle {
-      left: -200px;
-      top: -150px;
-      width: 380px;
-      height: 380px;
-      padding: 0%;
-    }
-  
-    .txt1 {
-      width: 70%;
-      height: 70px;
-      margin-right: 50px;
-      margin-top: 20px;
-    }
-  
-    .dast {
-      width: 200px;
-      height: 120px;
-    }
+}
+
+@media (max-width: 480px) {
+  .header {
+    min-height: 250px;
   }
+  .container {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .icons {
+    font-size: 20px;
+  }
+
+  .loginButton button {
+    font-size: 16px;
+    height: max-content;
+    border: #023047 solid 1px;
+    padding: 0 10px;
+    margin-top: 12px;
+  }
+  .searchContainer {
+    width: 80%;
+    margin: 10px 0;
+  }
+
+  .searchBox {
+    width: 100%;
+  }
+  .searchBox input {
+    font-size: 14px;
+  }
+
+  .searchIcon {
+    font-size: 18px;
+  }
+
+  .hamburgerMenu span {
+    font-size: 30px;
+  }
+
+  .circle {
+    left: -200px;
+    top: -150px;
+    width: 380px;
+    height: 380px;
+    padding: 0%;
+  }
+
+  .txt1 {
+    width: 70%;
+    height: 70px;
+    margin-right: 50px;
+    margin-top: 20px;
+  }
+
+  .dast {
+    width: 200px;
+    height: 120px;
+  }
+}

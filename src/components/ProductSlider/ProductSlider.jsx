@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./ProductSlider.module.css";
 import ProductCard from "../ProductCard/ProductCard";
 
-const BASE_URL = "http://127.0.0.1:8000"; // Ensure you set the correct backend URL
+const BASE_URL = "https://kimiatoranj-api.liara.run/api/"; // Ensure you set the correct backend URL
 
 const ProductSlider = ({ products }) => {
   const [currentIndex, setCurrentIndex] = useState(0);

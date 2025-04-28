@@ -12,9 +12,7 @@ import { TbDeviceIpadHorizontalStar } from "react-icons/tb";
 import { PiArticleBold } from "react-icons/pi";
 import { LiaWineGlassSolid } from "react-icons/lia";
 
-// مسیر عکس‌ها (فرضی)
-import image1 from "../../assets/banner1.png";
-import image3 from "../../assets/img.png";
+
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

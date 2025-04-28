@@ -12,7 +12,7 @@ const Highlights = () => {
     const fetchHighlights = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/api/highlights/highlights/"
+          "https://kimiatoranj-api.liara.run/api/highlights/highlights/"
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");
