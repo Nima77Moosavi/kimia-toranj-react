@@ -16,7 +16,7 @@ const Home = () => {
   useEffect(() => {
     const fetchLatestProducts = async () => {
       const response = await axios.get(
-        "http://127.0.0.1:8000/api/store/products/"
+        "https://kimiatoranj-api.liara.run/api/store/products/"
       );
       setLatestProducts(response.data);
     };
