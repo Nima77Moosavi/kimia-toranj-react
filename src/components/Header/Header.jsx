@@ -12,9 +12,7 @@ import { TbDeviceIpadHorizontalStar } from "react-icons/tb";
 import { PiArticleBold } from "react-icons/pi";
 import { LiaWineGlassSolid } from "react-icons/lia";
 
-// مسیر عکس‌ها (فرضی)
-import image1 from "../../assets/banner1.png";
-import image3 from "../../assets/img.png";
+
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -37,7 +35,7 @@ const Header = () => {
   return (
     <header className={styles.header}>
       {/* دایره طوسی */}
-      <div className={styles.circle}></div>
+      {/* <div className={styles.circle}></div> */}
 
       <div className={styles.container}>
         {/* آیکن‌ها */}
@@ -76,28 +74,22 @@ const Header = () => {
       </div>
 
       {/* عکس‌ها */}
-      <div className={styles.images}>
+      {/* <div className={styles.images}>
         <img src={image3} alt="Image 3" className={styles.dast} />
         <img src={image1} alt="Image 1" className={styles.txt1} />
-      </div>
+      </div> */}
 
       {/* لایه تیره و منو */}
       {isMenuOpen && (
         <div className={styles.overlay}>
           <div className={styles.menu} ref={menuRef}>
             <ul>
-              <li>
-                صفحه اصلی <FiHome />
-              </li>
-              <li>
-                درباره کیمیا ترنج <BsFileEarmarkPerson />
-              </li>
-              <li>
-                اخذ نمایندگی <TbDeviceIpadHorizontalStar />
-              </li>
-              <li>
-                مقالات <PiArticleBold />
-              </li>
+
+            <Link to="/"><li>صفحه اصلی <FiHome /></li></Link>
+              <li>درباره کیمیا ترنج <BsFileEarmarkPerson /></li>
+              <li>اخذ نمایندگی <TbDeviceIpadHorizontalStar /></li>
+              <li>مقالات <PiArticleBold /></li>
+
             </ul>
           </div>
         </div>

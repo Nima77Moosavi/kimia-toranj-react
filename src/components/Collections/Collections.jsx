@@ -36,7 +36,7 @@ const Collections = () => {
     const fetchCollections = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/api/store/collections/"
+          "https://kimiatoranj-api.liara.run/api/store/collections/"
         );
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -45,7 +45,7 @@ const Collections = () => {
         
         if (data.length > 0) {
           setCollections(data);
-          setVisibleSlides(Math.min(5, data.length));
+          setVisibleSlides(Math.min(7, data.length));
         }
       } catch (error) {
         setError(error.message);
@@ -77,9 +77,9 @@ const Collections = () => {
 
   const slidesPerSide = Math.floor(visibleSlides / 2);
 
-  if (loading) {
-    return <div className={styles.loading}>Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div className={styles.loading}>Loading...</div>;
+  // }
 
   if (error) {
     return <div className={styles.error}>Error: {error}</div>;

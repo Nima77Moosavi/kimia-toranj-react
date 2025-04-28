@@ -20,9 +20,11 @@ const SpecialOffer = () => {
       </div>
       <div className={styles.leftDiv}>
         <img src={img} alt="" className={styles.img} />
-        <div className={styles.attr1}>قلم گل و بلبل</div>
-        <div className={styles.attr2}>سایز 50 * 70</div>
-        <div className={styles.attr3}>نقش و نگار زیبا</div>
+        <div className={styles.attrContainer}>
+          <div className={styles.attr1}>قلم گل و بلبل</div>
+          <div className={styles.attr2}>سایز 50 * 70</div>
+          <div className={styles.attr3}>نقش و نگار زیبا</div>
+        </div>
       </div>
     </div>
   );

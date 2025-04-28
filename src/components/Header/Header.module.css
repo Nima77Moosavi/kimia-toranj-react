@@ -1,11 +1,10 @@
 .header {
   width: 100%;
-  height: auto; /* ارتفاع خودکار */
-  /* min-height: 455px; حداقل ارتفاع */
-  /* background-color: #fff; */
+  height: max-content; /* ارتفاع خودکار */
   padding: 10px 20px;
   position: relative;
   overflow: hidden;
+  margin-bottom: 0;
 }
 .overlay {
   position: fixed;
@@ -22,12 +21,15 @@
 /* منو */
 .menu {
   width: max-content;
-  height: 100%;
+  height: max-content;
   padding: 2rem;
   animation: slideIn 0.3s ease-out;
   direction: rtl;
   text-align: center;
   margin: 2rem;
+}
+a {
+  text-decoration: none;
 }
 ul {
   list-style-type: none;
@@ -86,7 +88,7 @@ ul li:hover {
   order: 2;
   color: #023047;
   margin-left: 50px;
-  margin-top: -30px;
+  margin-top: -20px;
 }
 
 .loginButton a {
@@ -137,13 +139,14 @@ ul li:hover {
   text-align: right;
   direction: rtl;
   font-size: 18px;
+  font-weight: 600;
   margin-top: -30px;
 }
 
 .searchIcon {
   position: absolute;
   left: 10px;
-  top: 50%;
+  top: 52%;
   transform: translateY(-50%);
   color: #023047;
   font-size: 24px;
@@ -229,6 +232,7 @@ ul li:hover {
 @media (max-width: 768px) {
   .header {
     height: auto;
+    min-height: 300px;
     padding: 10px;
   }
 
@@ -239,7 +243,7 @@ ul li:hover {
 
   .loginButton {
     margin-left: 20px;
-    margin-top: -25px;
+    margin-top: -15px;
   }
 
   .loginButton button {
@@ -288,6 +292,9 @@ ul li:hover {
 }
 
 @media (max-width: 480px) {
+  .header {
+    min-height: 250px;
+  }
   .container {
     flex-direction: row;
     align-items: flex-start;
@@ -301,7 +308,7 @@ ul li:hover {
     height: max-content;
     border: #023047 solid 1px;
     padding: 0 10px;
-    margin-top: 25px;
+    margin-top: 12px;
   }
   .searchContainer {
     width: 80%;
@@ -326,8 +333,9 @@ ul li:hover {
   .circle {
     left: -200px;
     top: -150px;
-    width: 400px;
-    height: 400px;
+    width: 380px;
+    height: 380px;
+    padding: 0%;
   }
 
   .txt1 {

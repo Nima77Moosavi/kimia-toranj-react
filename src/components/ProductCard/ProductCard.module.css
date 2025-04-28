@@ -15,6 +15,10 @@
     transform: translateY(-5px); /* Add hover effect */
     transition: .5s ease;
   }
+  .cardLink{
+    text-decoration: none;
+    color: inherit;
+  }
 .img{
     width: 90%;
     height: 70%;
@@ -45,3 +49,38 @@
     color: #023047;
 }
 
+
+/* responsive */
+@media (max-width: 768px) {
+    .card{
+        width: 150px;
+        height: max-content;
+    }
+    .img{
+        width: 80%;
+        height: 60%;
+    }
+    .title{
+        font-size: 16px;
+    }
+    .price{
+        font-size: 18px;
+    }
+}
+@media (max-width: 480px) {
+    .card{
+        width: 120px;
+        height: max-content;
+    }
+    .img{
+        width: 95%;
+        height: 50%;
+    }
+    .title{
+        font-size: 14px;
+    }
+    .price{
+        font-size: 16px;
+        padding: 1px 8px;
+    }
+}
