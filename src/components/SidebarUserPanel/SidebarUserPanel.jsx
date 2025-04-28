@@ -1,44 +1,82 @@
 import React from "react";
-import { useNavigate } from "react-router-dom"; // اضافه شده
+import { useNavigate } from "react-router-dom";
 import styles from "./SidebarUserPanel.module.css";
 
-const SidebarPanel = () => {
-  const navigate = useNavigate(); // استفاده از useNavigate برای جابه‌جایی بین صفحات
+const SidebarUserPanel = ({ setSelectedSection, activeSection }) => {
+  const navigate = useNavigate();
+
+  // تابع برای تغییر بخش فعال و هدایت کاربر (در صورت نیاز)
+  const handleLinkClick = (section, path) => {
+    setSelectedSection(section);
+    if (path) {
+      navigate(path);
+    }
+  };
 
   return (
     <div className={styles.sidebar}>
+      {/* مستطیل اطلاعات کاربر */}
       <div className={styles.userInfo}>
-        <p className={styles.username}>نام کاربر: محمد رضایی</p>
+        <p className={styles.username}>محمد رضایی</p>
         <button
           className={styles.editButton}
-          onClick={() => navigate("/account-info")}
+          onClick={() => handleLinkClick("accountInfo", "/account-info")}
         >
           ویرایش
         </button>
       </div>
 
-      <div className={styles.menu}>
-        <p className={styles.link} onClick={() => navigate("/account-info")}>
-          اطلاعات حساب
-        </p>
-        <p className={styles.link} onClick={() => navigate("/cart")}>
-          سبد خرید
-        </p>
-        <p className={styles.link} onClick={() => navigate("/orders")}>
-          سفارش‌های من
-        </p>
-        <p className={styles.link} onClick={() => navigate("/wishlist")}>
-          لیست موردعلاقه‌ها
-        </p>
-        <p className={styles.link} onClick={() => navigate("/reviews")}>
-          دیدگاه‌ها
-        </p>
-        <p className={styles.link} onClick={() => navigate("/addresses")}>
-          آدرس‌ها
-        </p>
+      {/* منوی سایدبار */}
+      <div className={styles.menuContainer}>
+        <div className={styles.menu}>
+          <p
+            className={`${styles.link} ${
+              activeSection === "accountInfo" ? styles.active : ""
+            }`}
+            onClick={() => handleLinkClick("accountInfo", "/account-info")}
+          >
+            اطلاعات حساب
+          </p>
+          <p
+            className={styles.link}
+            onClick={() => handleLinkClick("cart", "/cart")}
+          >
+            سبد خرید
+          </p>
+          <p
+            className={styles.link}
+            onClick={() => handleLinkClick("orders", "/orders")}
+          >
+            سفارش‌های من
+          </p>
+          <p
+            className={styles.link}
+            onClick={() => handleLinkClick("wishlist", "/wishlist")}
+          >
+            لیست موردعلاقه‌ها
+          </p>
+          <p
+            className={styles.link}
+            onClick={() => handleLinkClick("reviews", "/reviews")}
+          >
+            دیدگاه‌ها
+          </p>
+          <p
+            className={styles.link}
+            onClick={() => handleLinkClick("addresses", "/addresses")}
+          >
+            آدرس‌ها
+          </p>
+          <p
+            className={styles.link}
+            onClick={() => handleLinkClick("logout", "/")}
+          >
+            خروج
+          </p>
+        </div>
       </div>
     </div>
   );
 };
 
-export default SidebarPanel;
+export default SidebarUserPanel;

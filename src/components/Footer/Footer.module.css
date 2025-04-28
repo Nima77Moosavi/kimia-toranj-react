@@ -1,92 +1,95 @@
-.container{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 1rem;
-    padding-right: 10rem;
-    background-color: #b8c5cb;
-    flex-wrap: wrap;
-    direction: rtl;
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+  padding-right: 10rem;
+  background-color: #b8c5cb;
+  flex-wrap: wrap;
+  direction: rtl;
 }
-.title{
-    background-color: #FFD700;
-    border-radius: 10px;
-    width: max-content;
-    padding: 2px 10px;
+.title {
+  background-color: #ffd700;
+  border-radius: 10px;
+  width: max-content;
+  padding: 2px 10px;
 }
-p{
-    color: #023047;
-    font-size: 18px;
-    font-weight: 600;
-    padding: 2px;
+p {
+  color: #023047;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 2px;
 }
-.icon{
-    color: #023047;
-    font-size: 36px;
-    margin: 0 5px;
-    cursor: pointer;
-}
-.icon:hover{
-  transform: scale(1.2);
-  transition: .2s ease-in-out;
-}
-.adresses , .contactUs, .acricles, .socials{
-    width: 50%;
-    height: 200px;
-    text-align: right;
-    margin-bottom: 20px;
+.icon {
+  color: #023047;
+  font-size: 36px;
+  margin: 0 5px;
+  cursor: pointer;
 }
 
-.acricles p{
-    cursor: pointer;
-}
-.contactUs , .socials{
-    height: 150px;
+.adresses,
+.contactUs,
+.acricles,
+.socials {
+  width: 50%;
+  height: 200px;
+  text-align: right;
+  margin-bottom: 20px;
 }
 
+.acricles p {
+  cursor: pointer;
+}
+.contactUs,
+.socials {
+  height: 150px;
+}
 
 /* responsiv */
 
 /* ریسپانسیو برای تبلت */
 @media (max-width: 991px) {
-    .container {
-      padding-right: 4rem;
-    }
-  
-    .adresses, .contactUs, .acricles, .socials {
-      width: 100%; /* هر بخش در یک ردیف نمایش داده شود */
-      height: auto;
-      margin-bottom: 20px;
-    }
-  
-    .icon {
-      font-size: 30px;
-    }
-  
-    p {
-      font-size: 16px;
-    }
+  .container {
+    padding-right: 4rem;
   }
-  
-  /* ریسپانسیو برای موبایل */
-  @media (max-width: 576px) {
-    .container {
-      padding-right: 1rem;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .title {
-      font-size: 16px;
-      padding: 4px 8px;
-    }
-  
-    .icon {
-      font-size: 28px;
-    }
-  
-    p {
-      font-size: 14px;
-    }
+
+  .adresses,
+  .contactUs,
+  .acricles,
+  .socials {
+    width: 100%; /* هر بخش در یک ردیف نمایش داده شود */
+    height: auto;
+    margin-bottom: 20px;
   }
+
+  .icon {
+    font-size: 30px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+}
+
+/* ریسپانسیو برای موبایل */
+@media (max-width: 576px) {
+  .container {
+    padding-right: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .title {
+    font-size: 16px;
+    padding: 4px 8px;
+  }
+
+  .icon {
+    font-size: 28px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+}
