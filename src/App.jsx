@@ -3,9 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import HighlightMedia from "./components/HighlightMedia/HighlightMedia";
 import CollectionDetail from "./pages/CollectionDetail/CollectionDetail";
-import ProductDetails from "./pages/ProductDetails/productDetails";
+import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import Login from "./pages/Login/Login";
-
 
 import BestsellersPage from "./pages/BestsellersPage/BestsellersPage";
 
@@ -30,6 +29,8 @@ import UserAddresses from "./pages/UserAddresses/UserAddresses";
 
 
 const App = () => {
+  
+  
   return (
     <Router>
       <Routes>

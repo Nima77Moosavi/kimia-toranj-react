@@ -1,50 +1,76 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import styles from "./Header.module.css";
-import { IoMenu } from "react-icons/io5";
+import { IoMenu, IoSearch } from "react-icons/io5";
 import { GoHeartFill } from "react-icons/go";
 import { FaCartShopping } from "react-icons/fa6";
-import { IoSearch } from "react-icons/io5"; // آیکن جستجو
 import { Link } from "react-router-dom";
-
 import { FiHome } from "react-icons/fi";
 import { BsFileEarmarkPerson } from "react-icons/bs";
 import { TbDeviceIpadHorizontalStar } from "react-icons/tb";
 import { PiArticleBold } from "react-icons/pi";
-import { LiaWineGlassSolid } from "react-icons/lia";
-
-
+import { FaTrashAlt } from "react-icons/fa";
+import { FavoritesContext } from "../../context/FavoritesContext"; // مسیر درست رو بزن
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef();
+  const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
+  const { favorites, removeFavorite } = useContext(FavoritesContext); // 👈🏻 گرفتن اطلاعات از Context
 
-  // بستن منو هنگام کلیک خارج از منو
+  const menuRef = useRef();
+  const favoritesRef = useRef();
+
+  // بستن منوها هنگام کلیک بیرون
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsMenuOpen(false);
       }
+      if (
+        favoritesRef.current &&
+        !favoritesRef.current.contains(event.target)
+      ) {
+        setIsFavoritesOpen(false);
+      }
     };
-    if (isMenuOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // بستن منو علاقه‌مندی‌ها هنگام اسکرول
+    const handleScroll = () => {
+      if (isFavoritesOpen) {
+        setIsFavoritesOpen(false);
+      }
+    };
+    document.addEventListener("scroll", handleScroll);
+
+    return () => {
       document.removeEventListener("mousedown", handleClickOutside);
-    }
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, [isMenuOpen]);
+      document.removeEventListener("scroll", handleScroll);
+    };
+  }, [isFavoritesOpen]);
+
+  // حذف محصول از لیست علاقه‌مندی‌ها
+  const handleDeleteFavorite = (id) => {
+    removeFavorite(id);
+  };
+
   return (
     <header className={styles.header}>
-      {/* دایره طوسی */}
-      {/* <div className={styles.circle}></div> */}
-
       <div className={styles.container}>
         {/* آیکن‌ها */}
         <div className={styles.icons}>
           <span>
             <FaCartShopping />
           </span>
-          <span>
+
+          <span
+            onClick={() => setIsFavoritesOpen((prev) => !prev)}
+            className={styles.favoriteIcon}
+          >
             <GoHeartFill />
+            {/* نمایش تعداد علاقه‌مندی‌ها */}
+            {favorites.length > 0 && (
+              <span className={styles.favoriteCount}>{favorites.length}</span>
+            )}
           </span>
         </div>
 
@@ -73,13 +99,7 @@ const Header = () => {
         </div>
       </div>
 
-      {/* عکس‌ها */}
-      {/* <div className={styles.images}>
-        <img src={image3} alt="Image 3" className={styles.dast} />
-        <img src={image1} alt="Image 1" className={styles.txt1} />
-      </div> */}
-
-      {/* لایه تیره و منو */}
+      {/* منوی بازشو همبرگری */}
       {isMenuOpen && (
         <div className={styles.overlay}>
           <div className={styles.menu} ref={menuRef}>
@@ -106,6 +126,30 @@ const Header = () => {
               </Link>
             </ul>
           </div>
+        </div>
+      )}
+
+      {/* لیست علاقه‌مندی‌ها */}
+      {isFavoritesOpen && (
+        <div className={styles.favoritesPopup} ref={favoritesRef}>
+          <h4>علاقه‌مندی‌ها</h4>
+          {favorites.length === 0 ? (
+            <p className={styles.emptyText}>هیچ محصولی اضافه نشده.</p>
+          ) : (
+            <ul className={styles.favoritesList}>
+              {favorites.map((item) => (
+                <li key={item.id}>
+                  <Link to={`/productDetails/${item.id}`}>{item.title}</Link>
+                  <span
+                    onClick={() => handleDeleteFavorite(item.id)}
+                    className={styles.deleteIcon}
+                  >
+                    <FaTrashAlt />
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       )}
     </header>

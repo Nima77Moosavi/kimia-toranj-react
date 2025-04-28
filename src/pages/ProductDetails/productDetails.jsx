@@ -1,12 +1,16 @@
 import { React, useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import styles from "./productDetails.module.css";
+import styles from "./ProductDetails.module.css";
 import Header from "../../components/Header/Header";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import { GoHeart, GoHeartFill } from "react-icons/go";
 import { IoShareSocialSharp } from "react-icons/io5";
 import Bestsellers from "../../components/Bestsellers/Bestsellers";
 import Footer from "../../components/Footer/Footer"
+import MoonLoader from "react-spinners/MoonLoader";
+import { useContext } from "react";
+import { FavoritesContext } from "../../context/FavoritesContext";
+
 
 
 const ProductDetails = () => {
@@ -35,9 +39,31 @@ const ProductDetails = () => {
   // برای ایجاد حلقه بی‌نهایت، نظرات را دو بار تکرار می‌کنیم
   const duplicatedReviews = [...sampleReviews, ...sampleReviews];
 
+  const { addFavorite, removeFavorite, isFavorite } = useContext(FavoritesContext);
+
   const likeHandler = () => {
-    setLike(!like);
+    if (isFavorite(product.id)) {
+      removeFavorite(product.id);
+      setLike(false);
+    } else {
+      addFavorite({
+        id: product.id,
+        title: product.title,
+        image: product.images?.[0]?.image || "",
+        price: product.variants?.[0]?.price || "",
+      });
+      setLike(true);
+    }
   };
+  
+  
+  
+  useEffect(() => {
+    setLike(isFavorite(parseInt(id)));
+  }, [id, isFavorite]);
+  
+  
+    
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -80,7 +106,7 @@ const ProductDetails = () => {
     return () => clearInterval(interval);
   }, [product.reviews]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div  className={styles.loaderContainer}><MoonLoader color="#023047"  /></div>;
   if (error) return <div>Error: {error}</div>;
 
   return (
@@ -215,7 +241,7 @@ const ProductDetails = () => {
         </div>
       </div>
 
-      <Bestsellers/>
+      <Bestsellers />
       <Footer/>
     </div>
   );
