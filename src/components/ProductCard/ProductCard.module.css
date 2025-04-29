@@ -69,7 +69,7 @@
 }
 @media (max-width: 480px) {
     .card{
-        width: 130px;
+        width: 110px;
         height: max-content;
     }
     .img{
@@ -78,9 +78,12 @@
     }
     .title{
         font-size: 14px;
+        margin-bottom: 1px;
     }
     .price{
-        font-size: 14px;
+        font-size: 12px;
+        font-weight: lighter;
         padding: 1px 8px;
+        border-radius: 5px;
     }
 }
