@@ -6,7 +6,6 @@ import CollectionDetail from "./pages/CollectionDetail/CollectionDetail";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import Login from "./pages/Login/Login";
 
-
 import BestsellersPage from "./pages/BestsellersPage/BestsellersPage";
 
 import Blog from "./pages/Blog/Blog";
@@ -30,6 +29,8 @@ import UserAddresses from "./pages/UserAddresses/UserAddresses";
 
 
 const App = () => {
+  
+  
   return (
     <Router>
       <Routes>
