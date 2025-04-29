@@ -1,10 +1,14 @@
-@font-face {
+/* @font-face {
   font-family: 'B-NAZANIN';
   src: local('B-NAZANIN'), url(./fonts/B-NAZANIN.ttf) format('truetype');
+} */
+@font-face {
+  font-family: 'Mj_Newspaper_0';
+  src: local('Mj_Newspaper_0'), url(./fonts/Mj_Newspaper_0.ttf) format('truetype');
 }
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "B-NAZANIN";
+  font-family: "Mj_Newspaper_0";
 }

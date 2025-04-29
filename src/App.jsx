@@ -1,10 +1,11 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import HighlightMedia from "./components/HighlightMedia/HighlightMedia";
 import CollectionDetail from "./pages/CollectionDetail/CollectionDetail";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import Login from "./pages/Login/Login";
+
 
 import BestsellersPage from "./pages/BestsellersPage/BestsellersPage";
 
@@ -28,11 +29,23 @@ import UserReviews from "./pages/UserReviews/UserReviews";
 import UserAddresses from "./pages/UserAddresses/UserAddresses";
 
 
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // اسکرول به بالای صفحه هنگام تغییر مسیر
+  }, [pathname]);
+
+  return null;
+};
+
 const App = () => {
   
   
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         {/* General routes */}
         <Route path="/" element={<Home />} />
