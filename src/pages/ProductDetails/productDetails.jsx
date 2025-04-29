@@ -1,6 +1,6 @@
 import { React, useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
-import styles from "./productDetails.module.css";
+import styles from "./ProductDetails.module.css";
 import Header from "../../components/Header/Header";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import { GoHeart, GoHeartFill } from "react-icons/go";
