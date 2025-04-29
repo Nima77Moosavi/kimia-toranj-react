@@ -94,23 +94,51 @@
 
 @media (max-width: 480px) {
   .collections {
-    padding: 10px;
-    background: linear-gradient(to bottom, #ffffff 40%, #cfcfcf 70%);
+    position: relative;
+    padding: 10px 0;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    background: transparent; /* بکگراند اصلی را حذف می‌کنیم */
+    overflow: hidden; /* برای محدود کردن پس‌زمینه خاکستری */
   }
 
-  .sectionTitle {
-    font-size: 18px;
-    margin-bottom: 10px;
+  /* ایجاد پس‌زمینه خاکستری برای نیمه پایینی */
+  .collections::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 70%; /* ارتفاع نیمه پایینی */
+    background: linear-gradient(to bottom, #ffffff 50%, #cfcfcf 70%);
+    z-index: -1000; /* قرار گرفتن در پشت محتوا */
+  }
+  .sliderContainer {
+    width: 100%;
+    padding: 0 20%; /* فضای بیشتر برای نمایش peek */
+    overflow: visible;
   }
 
   .slider {
-    height: 180px;
+    height: 180px; /* ارتفاع کمتر */
+    gap:0px; /* فاصله کمتر بین اسلایدها */
   }
-  
+
+  .slide {
+    width: 38%; /* عرض کمتر برای اسلایدها */
+    transform: scale(0.7); /* کوچکتر کردن بیشتر */
+    opacity: 0.2; /* شفافیت کمتر برای اسلایدهای غیرفعال */
+  }
+
+  .active {
+    transform: scale(0.75); /* اسلاید فعال کمی بزرگتر از بقیه */
+    opacity: 1;
+    z-index: 10;
+  }
+
+  /* مخفی کردن کامل دکمه‌ها */
   .prevButton,
   .nextButton {
-    width: 24px;
-    height: 24px;
-    font-size: 26px;
+    display: none !important;
   }
 }
