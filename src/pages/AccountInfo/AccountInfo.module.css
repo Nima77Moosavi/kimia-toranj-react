@@ -1,4 +1,4 @@
-/* استایل اصلی کانتینر صفحه */
+/* کانتینر کلی صفحه */
 .container {
   display: flex;
   flex-direction: column;
@@ -9,21 +9,36 @@
 .main {
   display: flex;
   flex: 1;
+  align-items: flex-start; /* جلوگیری از پایین‌تر بودن کانتنت */
 }
 
-/* استایل بخش محتوا */
+/* سایدبار */
+.sidebar {
+  width: 25%; /* تنظیم عرض سایدبار */
+}
+
+/* محتوا */
 .content {
   flex: 1;
-  padding-left: 30%;
+  width: 75%;
+  padding: 20px;
   margin-top: 0%;
 }
 
-/* تطبیق ریسپانسیو (در صورت نیاز) */
+/* **ریسپانسیو** */
 @media (max-width: 768px) {
   .main {
-    flex-direction: column;
+    padding-top: 0%;
+    flex-direction: row-reverse; /* سایدبار در سمت راست */
   }
+
   .sidebar {
-    width: 100%;
+    width: 30%; /* تنظیم عرض مناسب‌تر در موبایل */
+  }
+
+  .content {
+    margin-top: 0%;
+    padding-top: 0%;
+    width: 70%; /* محتوا در سمت چپ */
   }
 }

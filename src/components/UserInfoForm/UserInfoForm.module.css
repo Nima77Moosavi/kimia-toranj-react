@@ -6,6 +6,7 @@
   direction: rtl;
   width: 100%;
   padding: 20px;
+  padding-top: 0%;
 }
 
 .title {
@@ -14,6 +15,8 @@
   padding-right: 30%; /* هم‌راستا با سایر عناصر */
   margin-bottom: 40px;
   font-size: 40px;
+  margin-top: 0%;
+  padding-top: 0%;
 }
 
 .inputGroup {
@@ -92,6 +95,10 @@
   .title {
     font-size: 30px;
     padding-right: 5%;
+    margin-bottom: 20px;
+  }
+  .formContainer {
+    padding-top: 12%;
   }
 
   .inputGroup,
