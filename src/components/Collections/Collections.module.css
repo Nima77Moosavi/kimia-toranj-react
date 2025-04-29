@@ -6,9 +6,11 @@
 }
 
 .sectionTitle {
-  font-size: 24px;
+  font-size: 20px;
+  font-weight: 300;
   margin-bottom: 20px;
   color: #023047;
+  cursor: pointer;
 }
 
 .sliderContainer {
@@ -104,7 +106,7 @@
   .slider {
     height: 180px;
   }
-
+  
   .prevButton,
   .nextButton {
     width: 24px;

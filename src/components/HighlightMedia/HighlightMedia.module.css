@@ -37,6 +37,7 @@
 
 .closeButton:hover {
   color: #f1cd01d5;
+  background-color: inherit;
 }
 
 .title {

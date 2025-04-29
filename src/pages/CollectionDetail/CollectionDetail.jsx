@@ -19,7 +19,7 @@ const CollectionDetail = () => {
     const fetchCollectionDetail = async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/api/store/collections/${id}/`
+          `https://kimiatoranj-api.liara.run/api/store/collections/${id}/`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch collection details");
@@ -36,7 +36,7 @@ const CollectionDetail = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          `http://127.0.0.1:8000/api/store/collections/${id}/products/`
+          `https://kimiatoranj-api.liara.run/api/store/collections/${id}/products/`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch products");
@@ -62,7 +62,7 @@ const CollectionDetail = () => {
     const queryParams = new URLSearchParams(filterParams).toString();
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/store/collections/${id}/products/?${queryParams}`
+        `https://kimiatoranj-api.liara.run/api/store/collections/${id}/products/?${queryParams}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch filtered products");
@@ -104,7 +104,7 @@ const CollectionDetail = () => {
           setMaxPrice={setMaxPrice}
           onFilterChange={handleFilters}
         />
-        <ProductList products={products} />
+        {/* <ProductList products={products} /> */}
       </div>
     </div>
   );

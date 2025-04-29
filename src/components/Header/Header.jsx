@@ -132,7 +132,7 @@ const Header = () => {
       {/* لیست علاقه‌مندی‌ها */}
       {isFavoritesOpen && (
         <div className={styles.favoritesPopup} ref={favoritesRef}>
-          <h4>علاقه‌مندی‌ها</h4>
+          <h5>علاقه‌مندی‌ها</h5>
           {favorites.length === 0 ? (
             <p className={styles.emptyText}>هیچ محصولی اضافه نشده.</p>
           ) : (
