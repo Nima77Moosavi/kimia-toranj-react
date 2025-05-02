@@ -27,8 +27,8 @@
     margin: 0 auto;
 }
 .title{
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 20px;
+    font-weight: 300;
     color: #023047;
    padding: 0px;
    margin-top: 0px;
@@ -39,7 +39,7 @@
     border-radius: 10px;
     border: none;
     padding: 2px 20px;
-    font-size: 20px;
+    font-size: 16px;
     margin-bottom: 10px;
     direction: rtl;
     cursor: pointer;
@@ -69,18 +69,21 @@
 }
 @media (max-width: 480px) {
     .card{
-        width: 120px;
+        width: 110px;
         height: max-content;
     }
     .img{
-        width: 95%;
+        width: 98%;
         height: 50%;
     }
     .title{
         font-size: 14px;
+        margin-bottom: 1px;
     }
     .price{
-        font-size: 16px;
+        font-size: 12px;
+        font-weight: lighter;
         padding: 1px 8px;
+        border-radius: 5px;
     }
 }

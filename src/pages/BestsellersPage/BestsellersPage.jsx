@@ -33,7 +33,7 @@ const BestsellersPage = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/api/store/collections/"
+          "https://kimiatoranj-api.liara.run/api/store/collections/"
         );
         if (!response.ok) throw new Error("Network response was not ok");
         const data = await response.json();

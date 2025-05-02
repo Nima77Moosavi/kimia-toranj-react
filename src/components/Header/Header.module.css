@@ -5,6 +5,7 @@
   position: relative;
   overflow: hidden;
   margin-bottom: 0;
+  z-index: 10;
 }
 .overlay {
   position: fixed;
@@ -17,7 +18,10 @@
   justify-content: flex-end;
   z-index: 1000;
 }
-
+a{
+  text-decoration: none;
+  color: inherit;
+}
 /* منو */
 .menu {
   width: max-content;
@@ -70,6 +74,7 @@ ul li:hover {
   position: relative;
   z-index: 1;
   flex-wrap: wrap; /* در صورت نیاز عناصر به خط بعد بروند */
+  z-index: 20;
 }
 
 .icons {
@@ -79,9 +84,11 @@ ul li:hover {
   font-size: 28px;
   color: #023047;
   margin-left: 100px;
-  margin-top: 0;
+  margin-top: 10px;
   cursor: pointer;
   align-items: center;
+  position: relative; /* اضافه شد */
+  z-index: 30; /* اضافه شد */
 }
 
 .loginButton {
@@ -139,7 +146,6 @@ ul li:hover {
   text-align: right;
   direction: rtl;
   font-size: 18px;
-  font-weight: 600;
   margin-top: -30px;
 }
 
@@ -153,6 +159,10 @@ ul li:hover {
   pointer-events: none;
 }
 
+
+
+
+
 .hamburgerMenu {
   order: 4;
   display: flex;
@@ -163,7 +173,7 @@ ul li:hover {
   font-size: 50px;
   cursor: pointer;
   color: #023047;
-  margin-top: 10px;
+  margin-top: 18px;
 }
 
 /* دایره طوسی */
@@ -203,6 +213,71 @@ ul li:hover {
   object-fit: cover;
   padding-left: -200px;
 }
+
+/* favorits */
+.favoriteIcon {
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.favoritesPopup {
+  position: fixed; /* اینجا fixed مهمه */
+  top: 80px; /* بسته به ظاهر پروژه تغییر بده */
+  left: 20px; /* گوشه راست صفحه */
+  width: 260px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
+  z-index: 9999; /* خیلی بالا */
+  padding: 15px;
+  text-align: right;
+}
+.favoritesPopup h5{
+  text-align: center;
+  font-size: 18px;
+  font-weight: 100;
+  margin-bottom: 10px;
+  color: #023047;
+}
+.favoritesList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.favoritesList li {
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eee;
+  font-size: 16px;
+}
+
+.emptyText {
+  font-size: 14px;
+  color: #777;
+  margin-top: 10px;
+}
+.deleteIcon {
+  margin-left: 10px;
+  cursor: pointer;
+  position: absolute;
+left:10%;
+margin-top: 5px;
+}
+.favoriteCount {
+  position: absolute;
+  top: -15px;
+  right: -20px;
+  background-color: rgb(255, 255, 255);
+  color: #023047;
+  border-radius: 50%;
+  padding: 3px 8px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+
 
 /* Media Queries برای ریسپانسیو */
 @media (max-width: 1200px) {
@@ -296,8 +371,9 @@ ul li:hover {
     min-height: 250px;
   }
   .container {
+    display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
   }
   .icons {
     font-size: 20px;

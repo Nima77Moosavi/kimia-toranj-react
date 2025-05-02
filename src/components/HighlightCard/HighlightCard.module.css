@@ -5,7 +5,7 @@
   text-align: center;
   width: 100px; /* Adjust the width as needed */
   margin: 0px;
- 
+ padding: 0px;
 }
 
 .imageContainer {
@@ -32,7 +32,7 @@
   margin-top: 8px;
   font-size: 14px;
   color: #023047; /* Instagram-like text color */
-  font-weight:600;
+  font-weight:200;
   white-space: nowrap; /* Prevents text from wrapping */
   overflow: hidden;
   text-overflow: ellipsis; /* Adds ellipsis if the text is too long */

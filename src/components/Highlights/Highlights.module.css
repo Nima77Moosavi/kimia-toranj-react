@@ -91,8 +91,9 @@
 /* Mobile-specific adjustments */
 @media (max-width: 480px) {
   .highlights {
-    gap: 0px;
-    padding: 0 0px;
+    gap: 15px;
+    padding: 0px 0px;
+    margin: 0%;
   }
   
   .highlightsContainer {

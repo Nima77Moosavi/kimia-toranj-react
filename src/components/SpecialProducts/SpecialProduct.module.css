@@ -7,7 +7,8 @@
   }
   
   .title {
-    font-size: 24px;
+    font-size: 20px;
+  font-weight: 300;
     margin-bottom: 20px;
     color: #023047;
   }
@@ -108,3 +109,22 @@
       background-color: #023047;
       transform: scale(1.2);
     }
+
+
+
+    /* responsive */
+@media (max-width: 480px) {
+  .sliderContainer {
+    overflow-x: auto; /* فعال کردن اسکرول افقی */
+    -webkit-overflow-scrolling: touch; /* اسکرول نرم برای iOS */
+    scrollbar-width: none; /* مخفی کردن اسکرولبار در فایرفاکس */
+  }
+  .sliderContainer::-webkit-scrollbar {
+    display: none; /* مخفی کردن اسکرولبار در کروم/سافاری */
+  }
+  .slider {
+    overflow-x: auto; /* تضمین اسکرول حتی اگر محتوا کم باشد */
+    flex-wrap: nowrap; /* جلوگیری از شکستن خط اسلایدها */
+    padding-bottom: 10px; /* فضای اضافه برای اسکرول */
+  }
+}
