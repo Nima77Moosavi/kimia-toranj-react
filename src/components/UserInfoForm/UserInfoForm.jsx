@@ -190,7 +190,7 @@ const UserInfoForm = () => {
               onChange={handleChange}
               checked={formData.gender === "male"}
             />
-            <FaMale />
+            <FaMale color="#023047" size="50px" />{" "}
           </label>
           <label>
             <input
@@ -200,7 +200,7 @@ const UserInfoForm = () => {
               onChange={handleChange}
               checked={formData.gender === "female"}
             />
-            <FaFemale />
+            <FaFemale color="#023047" size="50px" />{" "}
           </label>
         </div>
       </div>

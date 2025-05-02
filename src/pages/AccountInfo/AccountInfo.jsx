@@ -3,6 +3,7 @@ import Header from "../../components/Header/Header"; // هدر
 import SidebarUserPanel from "../../components/SidebarUserPanel/SidebarUserPanel"; // سایدبار
 import UserInfoForm from "../../components/UserInfoForm/UserInfoForm"; // فرم اطلاعات مشتری
 import styles from "./AccountInfo.module.css";
+import Footer from "../../components/Footer/Footer";
 
 const AccountInfo = () => {
   return (
@@ -17,6 +18,7 @@ const AccountInfo = () => {
           <UserInfoForm />
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

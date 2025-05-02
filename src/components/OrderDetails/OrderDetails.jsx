@@ -1,29 +1,32 @@
 import React from "react";
 import styles from "./OrderDetails.module.css";
 
-const OrderDetails = ({ type }) => {
-  const orders = {
-    current: [{ id: 1, name: "محصول ۱", date: "1402/01/15" }],
-    delivered: [{ id: 2, name: "محصول ۲", date: "1402/01/10" }],
-    returned: [{ id: 3, name: "محصول ۳", date: "1402/01/05" }],
-  };
+const OrderDetails = () => {
+  const [activeLink, setActiveLink] = useState("current");
 
   return (
-    <div className={styles.details}>
-      <h3>
-        {type === "current"
-          ? "جاری"
-          : type === "delivered"
-          ? "تحویل شده"
-          : "مرجوعی"}
-      </h3>
-      <ul>
-        {orders[type].map((order) => (
-          <li key={order.id}>
-            {order.name} - تاریخ: {order.date}
-          </li>
-        ))}
-      </ul>
+    <div className="order-list">
+      <a
+        href="/current"
+        className={activeLink === "current" ? "link active" : "link"}
+        onClick={() => setActiveLink("current")}
+      >
+        جاری
+      </a>
+      <a
+        href="/sent"
+        className={activeLink === "sent" ? "link active" : "link"}
+        onClick={() => setActiveLink("sent")}
+      >
+        ارسال شده
+      </a>
+      <a
+        href="/returned"
+        className={activeLink === "returned" ? "link active" : "link"}
+        onClick={() => setActiveLink("returned")}
+      >
+        مرجوعی
+      </a>
     </div>
   );
 };
