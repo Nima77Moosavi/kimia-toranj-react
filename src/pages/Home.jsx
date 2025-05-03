@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header/Header";
+import HeaderMobile from "../components/HeaderMobile/HeaderMobile";
 import Highlights from "../components/Highlights/Highlights"; // Import the Highlights component
 import Collections from "../components/Collections/Collections";
 import styles from "./Home.module.css";
@@ -27,19 +28,19 @@ const Home = () => {
   return (
     <div className={styles.home}>
       <div className={styles.circle}></div>
-      
+
       <Header />
-      <HomePageHeader/>
+      <HomePageHeader />
       <div className={styles.content}>
-        <Highlights /> 
+        <Highlights />
         <Collections />
 
-        <Bestsellers/>
-        <SpecialOffer/>
-        <SpecialProducts/>
+        <Bestsellers />
+        <SpecialOffer />
+        <SpecialProducts />
         {/* <ProductList products={latestProducts} /> */}
       </div>
-        <Footer/>
+      <Footer />
     </div>
   );
 };
