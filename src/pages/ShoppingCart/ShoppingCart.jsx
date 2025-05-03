@@ -1,11 +1,8 @@
 
 import React, { useState } from "react";
-import styles from "./Shoppingcart.module.css";
 import Header from "../../components/Header/Header"; // هدر
 import SidebarUserPanel from "../../components/SidebarUserPanel/SidebarUserPanel"; // سایدبار
 import OrderStatusTabs from "../../components/OrderStatusTabs/OrderStatusTabs";
-
-import React from "react";
 import styles from "./ShoppingCart.module.css";
 
 
