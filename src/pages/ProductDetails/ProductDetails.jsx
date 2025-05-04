@@ -6,12 +6,11 @@ import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import { GoHeart, GoHeartFill } from "react-icons/go";
 import { IoShareSocialSharp } from "react-icons/io5";
 import Bestsellers from "../../components/Bestsellers/Bestsellers";
-import Footer from "../../components/Footer/Footer"
+import Footer from "../../components/Footer/Footer";
 import MoonLoader from "react-spinners/MoonLoader";
 import { useContext } from "react";
 import { FavoritesContext } from "../../context/FavoritesContext";
-
-
+import HomePageHeader from "../../components/HomePageHeader/HomePageHeader";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -33,13 +32,14 @@ const ProductDetails = () => {
     { user: "امیر", comment: "ارسال دیر بود ولی محصول خوبه." },
     { user: "نگار", comment: "رنگش دقیقا همونیه که توی عکس بود." },
     { user: "حسین", comment: "ممنون از خدمات خوبتون، من که راضی بودم." },
-    { user: "مریم", comment: "نرم و با کیفیت، حتما پیشنهاد می‌کنم." }
+    { user: "مریم", comment: "نرم و با کیفیت، حتما پیشنهاد می‌کنم." },
   ];
 
   // برای ایجاد حلقه بی‌نهایت، نظرات را دو بار تکرار می‌کنیم
   const duplicatedReviews = [...sampleReviews, ...sampleReviews];
 
-  const { addFavorite, removeFavorite, isFavorite } = useContext(FavoritesContext);
+  const { addFavorite, removeFavorite, isFavorite } =
+    useContext(FavoritesContext);
 
   const likeHandler = () => {
     if (isFavorite(product.id)) {
@@ -55,15 +55,10 @@ const ProductDetails = () => {
       setLike(true);
     }
   };
-  
-  
-  
+
   useEffect(() => {
     setLike(isFavorite(parseInt(id)));
   }, [id, isFavorite]);
-  
-  
-    
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -106,143 +101,154 @@ const ProductDetails = () => {
     return () => clearInterval(interval);
   }, [product.reviews]);
 
-  if (loading) return <div  className={styles.loaderContainer}><MoonLoader color="#023047"  /></div>;
+  if (loading)
+    return (
+      <div className={styles.loaderContainer}>
+        <MoonLoader color="#023047" />
+      </div>
+    );
   if (error) return <div>Error: {error}</div>;
 
   return (
     <div>
-      <div className={styles.circle}></div>
-      <Header/>
+      <Header />
+      
+      <div className={styles.pageContent}>
+        <div className={styles.circle}></div>
 
-      {/* Image Slider */}
-      {product.images && product.images.length > 0 && (
-        <div className={styles.sliderContainer}>
-          <img
-            src={product.images[currentImage].image}
-            alt={`product image ${currentImage + 1}`}
-            className={styles.sliderImage}
-          />
-        
-            <GrFormNext className={styles.prevButton}
-            onClick={() =>
-              setCurrentImage((prev) =>
-                prev === 0 ? product.images.length - 1 : prev - 1
-              )
-            }/>
-         
-         
-            <GrFormPrevious className={styles.nextButton}
-            onClick={() =>
-              setCurrentImage((prev) =>
-                prev === product.images.length - 1 ? 0 : prev + 1
-              )
-            }/>
-         
+        {/* Image Slider */}
+        {product.images && product.images.length > 0 && (
+          <div className={styles.sliderContainer}>
+            <img
+              src={product.images[currentImage].image}
+              alt={`product image ${currentImage + 1}`}
+              className={styles.sliderImage}
+            />
 
-          <div className={styles.thumbnailContainer}>
-            {product.images.map((img, index) => (
-              <img
-                key={index}
-                src={img.image}
-                alt={`thumbnail ${index + 1}`}
-                className={`${styles.thumbnail} ${
-                  index === currentImage ? styles.activeThumbnail : ""
-                }`}
-                onClick={() => setCurrentImage(index)}
-              />
-            ))}
+            <GrFormNext
+              className={styles.prevButton}
+              onClick={() =>
+                setCurrentImage((prev) =>
+                  prev === 0 ? product.images.length - 1 : prev - 1
+                )
+              }
+            />
+
+            <GrFormPrevious
+              className={styles.nextButton}
+              onClick={() =>
+                setCurrentImage((prev) =>
+                  prev === product.images.length - 1 ? 0 : prev + 1
+                )
+              }
+            />
+
+            <div className={styles.thumbnailContainer}>
+              {product.images.map((img, index) => (
+                <img
+                  key={index}
+                  src={img.image}
+                  alt={`thumbnail ${index + 1}`}
+                  className={`${styles.thumbnail} ${
+                    index === currentImage ? styles.activeThumbnail : ""
+                  }`}
+                  onClick={() => setCurrentImage(index)}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className={styles.detailsWrapper}>
+          {/* Product Description */}
+          <div className={styles.descriptionContainer}>
+            <div className={styles.description}>
+              <h2 className={styles.title}>
+                <span>نام محصول: &nbsp;</span>
+                {product.title}
+              </h2>
+              <p className={styles.descriptionText}>
+                <span>توضیحات : &nbsp;</span> {product.description}
+              </p>
+            </div>
+
+            <div className={styles.attributesContainer}>
+              <div className={styles.attributeGroup}>
+                <label htmlFor="variantSelect">نوع قلم:</label>
+                <select
+                  id="variantSelect"
+                  className={styles.selectInput}
+                  onChange={(e) => {
+                    const selectedId = e.target.value;
+                    const selectedVariant = product.variants.find(
+                      (v) => v.id === parseInt(selectedId)
+                    );
+                    if (selectedVariant) {
+                      console.log("انتخاب شده:", selectedVariant);
+                    }
+                  }}
+                >
+                  {product.variants.map((variant) => (
+                    <option key={variant.id} value={variant.id}>
+                      {variant.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className={styles.attributeGroup}>
+                <label htmlFor="quantity">تعداد:</label>
+                <input
+                  type="number"
+                  id="quantity"
+                  min="1"
+                  defaultValue="1"
+                  className={styles.numberInput}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Actions */}
+          <div className={styles.actions}>
+            <button className={styles.addToCart}>افزودن به سبد خرید </button>
+            <button className={styles.price}>
+              {product.variants[0].price} تومان &nbsp;
+            </button>
+            <div className={styles.iconsContainer}>
+              {like ? (
+                <GoHeartFill className={styles.icon} onClick={likeHandler} />
+              ) : (
+                <GoHeart className={styles.icon} onClick={likeHandler} />
+              )}
+              <IoShareSocialSharp className={styles.icon} />
+            </div>
           </div>
         </div>
-      )}
-
-      {/* Product Description */}
-      <div className={styles.descriptionContainer}>
-        <div className={styles.description}>
-          <h2 className={styles.title}>
-            <span>نام محصول: &nbsp;</span>
-            {product.title}
-          </h2>
-          <p className={styles.descriptionText}>
-            <span>توضیحات : &nbsp;</span> {product.description}
-          </p>
-        </div>
-
-        <div className={styles.attributesContainer}>
-          <div className={styles.attributeGroup}>
-            <label htmlFor="variantSelect">نوع قلم:</label>
-            <select
-              id="variantSelect"
-              className={styles.selectInput}
-              onChange={(e) => {
-                const selectedId = e.target.value;
-                const selectedVariant = product.variants.find(
-                  (v) => v.id === parseInt(selectedId)
-                );
-                if (selectedVariant) {
-                  console.log("انتخاب شده:", selectedVariant);
-                }
+        {/* Reviews Slider */}
+        <div className={styles.reviewsContainer} ref={reviewsContainerRef}>
+          <h3 className={styles.reviewsTitle}>تجربه خرید مشتریان</h3>
+          <div className={styles.reviewsWrapper}>
+            <div
+              className={styles.reviewsSlider}
+              style={{
+                transform: `translateX(-${currentReviewIndex * (100 / 5)}%)`,
+                transition: "transform 0.5s ease-in-out",
               }}
             >
-              {product.variants.map((variant) => (
-                <option key={variant.id} value={variant.id}>
-                  {variant.name}
-                </option>
+              {duplicatedReviews.map((review, index) => (
+                <div className={styles.reviewCard} key={index}>
+                  <p className={styles.reviewText}> {review.comment} </p>
+                  <p className={styles.reviewAuthor}> {review.user}</p>
+                </div>
               ))}
-            </select>
-          </div>
-
-          <div className={styles.attributeGroup}>
-            <label htmlFor="quantity">تعداد:</label>
-            <input
-              type="number"
-              id="quantity"
-              min="1"
-              defaultValue="1"
-              className={styles.numberInput}
-            />
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Actions */}
-      <div className={styles.actions}>
-        <button className={styles.addToCart}>افزودن به سبد خرید </button>
-        <button className={styles.price}>
-          {product.variants[0].price} تومان &nbsp;
-        </button>
-        <div className={styles.iconsContainer}>
-          {like ? (
-            <GoHeartFill className={styles.icon} onClick={likeHandler} />
-          ) : (
-            <GoHeart className={styles.icon} onClick={likeHandler} />
-          )}
-          <IoShareSocialSharp className={styles.icon} />
-        </div>
+        <Bestsellers />
+        <Footer />
       </div>
-
-      {/* Reviews Slider */}
-      <div className={styles.reviewsContainer} ref={reviewsContainerRef}>
-        <h3 className={styles.reviewsTitle}>تجربه خرید مشتریان</h3>
-        <div className={styles.reviewsWrapper}>
-          <div
-            className={styles.reviewsSlider}
-            style={{
-              transform: `translateX(-${currentReviewIndex * (100 / 5)}%)`,
-              transition: "transform 0.5s ease-in-out",
-            }}
-          >
-            {duplicatedReviews.map((review, index) => (
-              <div className={styles.reviewCard} key={index}>
-                <p className={styles.reviewText}> {review.comment} </p>
-                <p className={styles.reviewAuthor}> {review.user}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <Bestsellers />
-      <Footer/>
     </div>
   );
 };

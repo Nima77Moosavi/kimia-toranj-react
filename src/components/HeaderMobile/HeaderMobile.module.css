@@ -3,9 +3,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #fff;
-  border-bottom: 1px solid #ddd;
-  position: relative;
+  height: 60px;
+  background-color: transparent;
+  border-bottom: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
   z-index: 20;
 }
 
@@ -128,7 +131,7 @@
 .hamburgerButton {
   background: none;
   border: none;
-  font-size: 32px; /* Increased size for better prominence */
+  font-size: 60px; /* Increased size for better prominence */
   color: #023047; /* Base color */
   cursor: pointer;
   display: flex;
@@ -175,7 +178,7 @@
 
 /* New class for each menu icon inside the hamburger dropdown */
 .menuIcon {
-  width: 40px;
+  width: 100px;
   height: 40px;
   background-color: #023047;
   border-radius: 10%;
@@ -189,7 +192,7 @@
 .menuIcon a {
   color: #fff;
   text-decoration: none;
-  font-size: 8px;
+  font-size: 10px;
 }
 
 .menuIcon:hover {
