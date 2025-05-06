@@ -1,0 +1,200 @@
+.headerMobile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  height: 60px;
+  background-color: transparent;
+  border-bottom: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 20;
+}
+
+/* ------ Profile Section ------ */
+.profileContainer {
+  position: relative;
+}
+
+.profileButton {
+  width: 40px;
+  height: 40px;
+  background-color: #023047;
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.profileButton span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profileButton span svg {
+  font-size: 20px; /* Adjust as desired */
+}
+
+.profileDropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.dropdownIcon {
+  width: 40px;
+  height: 40px;
+  background-color: #023047;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.dropdownIcon svg {
+  font-size: 20px;
+}
+
+.dropdownIcon:hover {
+  background-color: #011c30;
+}
+
+/* ------ Search Section ------ */
+.searchContainer {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  margin: 0 10px;
+}
+
+.searchBox {
+  width: 80%;
+  position: relative;
+}
+
+.searchBox input {
+  width: 100%;
+  padding: 8px 40px 8px 10px;
+  font-size: 16px;
+  border: 1px solid #023047;
+  border-radius: 50px;
+}
+
+.searchIcon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: #023047;
+  pointer-events: none;
+}
+
+/* ------ Hamburger Menu Section ------ */
+.hamburgerContainer {
+  position: relative;
+  width: 40px; /* Matching dimensions for consistency */
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hamburgerButton {
+  background: none;
+  border: none;
+  font-size: 60px; /* Increased size for better prominence */
+  color: #023047; /* Base color */
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.hamburgerButton:hover {
+  transform: scale(1.1); /* Gently enlarges on hover */
+  color: #001f2d; /* A slightly darker shade on hover */
+}
+
+/* Animated dropdown for the hamburger menu */
+.menuDropdown {
+  position: absolute;
+  top: 45px; /* Positioned just below the button */
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Align items to the right side */
+  gap: 10px;
+  background: transparent; /* Remove white background */
+  border: none; /* Remove border */
+  box-shadow: none; /* Remove shadow */
+  animation: fadeInDown 0.3s ease-out; /* Applies the animation */
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px); /* Start a little above */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* End in the natural position */
+  }
+}
+
+/* Style individual items as circular icons */
+.menuDropdown li {
+  list-style: none;
+}
+
+/* New class for each menu icon inside the hamburger dropdown */
+.menuIcon {
+  width: 100px;
+  height: 40px;
+  background-color: #023047;
+  border-radius: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+/* Style the link inside each circular menu icon */
+.menuIcon a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 10px;
+}
+
+.menuIcon:hover {
+  background-color: #011c30;
+}

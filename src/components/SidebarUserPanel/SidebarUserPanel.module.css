@@ -23,6 +23,7 @@
   justify-content: space-between; /* فاصله بین نام و دکمه */
   align-items: center; /* هم‌ترازی عمودی */
   border: 1px solid #02304768;
+  padding-top: 0%;
 }
 
 .username {
@@ -97,12 +98,19 @@
 
   .userInfo,
   .menuContainer {
-    width: 38%; /* عرض کامل برای مستطیل‌ها */
+    width: 35%; /* عرض کامل برای مستطیل‌ها */
     margin-bottom: 15px; /* فاصله مناسب بین مستطیل‌ها */
+  }
+  .editButton {
+    margin-top: 25px;
+    padding-bottom: 10px;
+  }
+  .username {
+    font-size: 13px;
   }
 
   .link {
-    font-size: 16px; /* کاهش اندازه فونت لینک‌ها برای تطبیق */
+    font-size: 11px; /* کاهش اندازه فونت لینک‌ها برای تطبیق */
     padding: 8px 10px; /* پدینگ مناسب‌تر در حالت موبایل */
   }
 }

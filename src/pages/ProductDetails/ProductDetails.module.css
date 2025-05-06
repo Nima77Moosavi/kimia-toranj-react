@@ -327,6 +327,10 @@
 
 /* موبایل (max-width: 480px) */
 @media (max-width: 480px) {
+  .pageContent {
+    margin-top: 200px;
+  }
+
   .circle {
     width: 400px;
     height: 400px;

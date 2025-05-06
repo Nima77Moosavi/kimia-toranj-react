@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./OrderCategoryTabs.module.css";
 
-const OrderCategoryTabs = ({ setSelectedCategory }) => {
+const OrderCategoryTabs = () => {
   return (
     <div className={styles.tabs}>
       <button onClick={() => setSelectedCategory("current")}>

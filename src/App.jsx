@@ -1,11 +1,15 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
-import Home from "./pages/Home";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import Home from "./pages/Home.jsx"
 import HighlightMedia from "./components/HighlightMedia/HighlightMedia";
 import CollectionDetail from "./pages/CollectionDetail/CollectionDetail";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import Login from "./pages/Login/Login";
-
 
 import BestsellersPage from "./pages/BestsellersPage/BestsellersPage";
 
@@ -28,8 +32,6 @@ import Wishlist from "./pages/WishList/WishList";
 import UserReviews from "./pages/UserReviews/UserReviews";
 import UserAddresses from "./pages/UserAddresses/UserAddresses";
 
-
-
 const ScrollToTop = () => {
   const { pathname } = useLocation();
 
@@ -41,8 +43,6 @@ const ScrollToTop = () => {
 };
 
 const App = () => {
-  
-  
   return (
     <Router>
       <ScrollToTop />
@@ -54,8 +54,8 @@ const App = () => {
         <Route path="/highlight/:id" element={<HighlightMedia />} />
         <Route path="/collection/:id" element={<CollectionDetail />} />
 
-        <Route path="/productDetails/:id" element={<ProductDetails/>} />
-        <Route path="/bestsellersPage" element={<BestsellersPage/>} />
+        <Route path="/productDetails/:id" element={<ProductDetails />} />
+        <Route path="/bestsellersPage" element={<BestsellersPage />} />
 
         <Route path="/user-panel" element={<UserPanel />} />
         <Route path="/account-info" element={<AccountInfo />} />
@@ -64,7 +64,6 @@ const App = () => {
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/reviews" element={<UserReviews />} />
         <Route path="/addresses" element={<UserAddresses />} />
-
 
         {/* Default Redirect */}
         <Route path="*" element={<Home />} />

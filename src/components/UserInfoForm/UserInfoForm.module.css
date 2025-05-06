@@ -1,54 +1,79 @@
 .formContainer {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 15px;
   direction: rtl;
   width: 100%;
+  padding: 20px;
+  padding-top: 0%;
 }
 
 .title {
-  text-align: center;
+  text-align: right; /* تنظیم متن به راست */
   color: #023047;
-  padding-left: 10%;
+  padding-right: 30%; /* هم‌راستا با سایر عناصر */
+  margin-bottom: 40px;
   font-size: 40px;
+  margin-top: 0%;
+  padding-top: 0%;
 }
 
 .inputGroup {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  width: 100%;
+  margin-right: 30%;
 }
 
-.inputGroup label {
-  font-weight: bold;
-  color: #555;
-}
-
-.inputGroup input,
-.inputGroup textarea {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-/* کنترل‌های ورودی به‌طور پیش‌فرض 70٪ عرض دارند */
 .inputGroup input,
 .inputGroup textarea,
 .inputGroup select {
   width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid #02304768;
+  border-radius: 6px;
 }
 
+.dateFields,
+.genderFields,
+.submitButton {
+  width: 100%;
+  margin-right: 30%;
+}
 .dateFields {
   display: flex;
   gap: 10px;
+  width: 100%;
+  margin-right: 0%;
+}
+
+.dateFields select {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #02304768;
+  border-radius: 5px;
 }
 
 .genderFields {
   display: flex;
-  gap: 20px;
-  color: #023047;
+  align-items: center; /* تنظیم هم‌راستایی عمودی */
+  gap: 20px; /* فاصله بین آیکون‌ها */
+  width: 100%;
+  margin-right: 0%;
+}
+
+.genderFields label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 18px; /* تنظیم اندازه متن */
+}
+
+.genderFields svg {
+  color: #023047; /* تغییر رنگ آیکون‌ها */
+  font-size: 50px; /* تنظیم اندازه آیکون‌ها */
 }
 
 .submitButton {
@@ -63,4 +88,24 @@
 
 .submitButton:hover {
   background-color: #38b2a3;
+}
+
+/* **ریسپانسیو برای موبایل و تبلت** */
+@media screen and (max-width: 768px) {
+  .title {
+    font-size: 30px;
+    padding-right: 5%;
+    margin-bottom: 20px;
+  }
+  .formContainer {
+    padding-top: 12%;
+  }
+
+  .inputGroup,
+  .dateFields,
+  .genderFields,
+  .submitButton {
+    width: 90%;
+    margin-right: 5%;
+  }
 }
