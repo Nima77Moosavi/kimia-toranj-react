@@ -126,17 +126,51 @@
   color: #ffd700;
 }
 .iconsContainer {
+  width: 95%;
   display: flex;
   flex-direction: row;
   gap: 10px;
   margin-top: 10px;
+  justify-content: center;
+  background-color: white;
+  padding: 20px;
+  border:  rgba(128, 128, 128, 0.158) solid 1px;
+  border-radius: 20px;
+  
 }
-.icon {
-  font-size: 28px;
-  color: rgb(109, 224, 240);
+.iconsContainer .icon {
+  font-size: 45px;
+  color: #023047;
   cursor: pointer;
+  border: #33333360 solid 1px;
+  border-radius: 5px;
+  padding: 5px 10px;
 }
 
+.rateContainer{
+  width: 95%;
+  display: flex;
+  flex-direction: row-reverse;
+  background-color: white;
+ border-radius: 20px;
+  border:  rgba(128, 128, 128, 0.158) solid 1px;
+  margin: 10px 0px;
+}
+.rateContainer .rightPart{
+  width: 60%;
+}
+.rateContainer .leftPart{
+  width: 40%;
+ text-align: left;
+ font-size: 3rem;
+ color: #4d4d4d;
+ padding-left: 20px;
+}
+.rateContainer .rightPart .icon{
+  color: #ffd700;
+  vertical-align: middle;
+  font-size: 1.5rem;
+}
 
 
 /* در فایل productDetails.module.css */
@@ -274,9 +308,11 @@ background-color: unset;
   height: max-content;
   margin-left: 1%;
   text-align: center;
+  justify-items: center;
 }
 .leftSidebar p{
-  text-align: right;
+  justify-self: end;
+  text-align: right !important; 
   padding: 10px;
   font-size: 1rem;
 }
