@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useRef } from "react";
+import { React, useState, useEffect, useRef, useContext } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./ProductDetails.module.css";
 import Header from "../../components/Header/Header";
@@ -8,9 +8,15 @@ import { IoShareSocialSharp } from "react-icons/io5";
 import Bestsellers from "../../components/Bestsellers/Bestsellers";
 import Footer from "../../components/Footer/Footer";
 import MoonLoader from "react-spinners/MoonLoader";
-import { useContext } from "react";
 import { FavoritesContext } from "../../context/FavoritesContext";
 import HomePageHeader from "../../components/HomePageHeader/HomePageHeader";
+import { FaListCheck } from "react-icons/fa6";
+import { MdOutlineDescription } from "react-icons/md";
+import { RiCustomSize } from "react-icons/ri";
+import { BsQuestionSquare } from "react-icons/bs";
+import { LiaComments } from "react-icons/lia";
+
+import { AiOutlineSafety } from "react-icons/ai";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -19,8 +25,66 @@ const ProductDetails = () => {
   const [error, setError] = useState(null);
   const [currentImage, setCurrentImage] = useState(0);
   const [like, setLike] = useState(false);
-  const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
-  const reviewsContainerRef = useRef(null);
+  const [showAllReviews, setShowAllReviews] = useState(false);
+  const [activeTab, setActiveTab] = useState("specs");
+
+  const specsRef = useRef(null);
+  const descriptionRef = useRef(null);
+  const dimensionsRef = useRef(null);
+  const maintenanceRef = useRef(null);
+  const reviewsRef = useRef(null);
+
+  const tabContainerRef = useRef(null); // **جدید**: گرفتن رفرنس تب‌ها
+  const activeButtonRef = useRef(null); // **جدید**: برای دکمه فعال
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = [
+        { id: "specs", ref: specsRef },
+        { id: "description", ref: descriptionRef },
+        { id: "dimensions", ref: dimensionsRef },
+        { id: "maintenance", ref: maintenanceRef },
+        { id: "reviews", ref: reviewsRef },
+      ];
+  
+      const scrollPosition = window.scrollY + 200;
+  
+      let currentSection = "specs";
+  
+      for (let section of sections) {
+        const element = section.ref.current;
+        if (element) {
+          const offsetTop = element.offsetTop;
+          const offsetHeight = element.offsetHeight;
+  
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            currentSection = section.id;
+            break;
+          }
+        }
+      }
+  
+      setActiveTab(currentSection);
+    };
+  
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (activeButtonRef.current && tabContainerRef.current) {
+      const button = activeButtonRef.current;
+      const container = tabContainerRef.current;
+
+      const buttonLeft = button.offsetLeft;
+      const buttonWidth = button.offsetWidth;
+      const containerWidth = container.offsetWidth;
+
+      const scrollTo = buttonLeft - (containerWidth / 2) + (buttonWidth / 2);
+      container.scrollTo({ left: scrollTo, behavior: "smooth" });
+    }
+  }, [activeTab]); // **جدید**: وقتی activeTab عوض شد
 
   const sampleReviews = [
     { user: "علی", comment: "محصول فوق‌العاده‌ای بود، خیلی راضیم." },
@@ -34,12 +98,9 @@ const ProductDetails = () => {
     { user: "حسین", comment: "ممنون از خدمات خوبتون، من که راضی بودم." },
     { user: "مریم", comment: "نرم و با کیفیت، حتما پیشنهاد می‌کنم." },
   ];
-
-  // برای ایجاد حلقه بی‌نهایت، نظرات را دو بار تکرار می‌کنیم
   const duplicatedReviews = [...sampleReviews, ...sampleReviews];
 
-  const { addFavorite, removeFavorite, isFavorite } =
-    useContext(FavoritesContext);
+  const { addFavorite, removeFavorite, isFavorite } = useContext(FavoritesContext);
 
   const likeHandler = () => {
     if (isFavorite(product.id)) {
@@ -63,9 +124,7 @@ const ProductDetails = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(
-          `https://kimiatoranj-api.liara.run/api/store/products/${id}`
-        );
+        const response = await fetch(`https://kimiatoranj-api.liara.run/api/store/products/${id}`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -80,39 +139,30 @@ const ProductDetails = () => {
         setLoading(false);
       }
     };
-
     fetchProduct();
   }, [id]);
 
-  // Auto-slide reviews every 2 seconds
-  useEffect(() => {
-    if (!product.reviews || product.reviews.length === 0) return;
+  const scrollToSection = (ref, tabName) => {
+    if (ref.current) {
+      const offsetTop = ref.current.offsetTop;
+      const offset = 100;
+      window.scrollTo({ top: offsetTop - offset, behavior: "smooth" });
+      setActiveTab(tabName);
+    }
+  };
 
-    const interval = setInterval(() => {
-      setCurrentReviewIndex((prev) => {
-        // اگر به آخر نظرات رسیدیم، به اول برگردیم
-        if (prev >= product.reviews.length - 1) {
-          return 0;
-        }
-        return prev + 1;
-      });
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, [product.reviews]);
-
-  if (loading)
+  if (loading) {
     return (
       <div className={styles.loaderContainer}>
         <MoonLoader color="#023047" />
       </div>
     );
+  }
   if (error) return <div>Error: {error}</div>;
 
   return (
     <div>
       <Header />
-      
       <div className={styles.pageContent}>
         <div className={styles.circle}></div>
 
@@ -124,34 +174,25 @@ const ProductDetails = () => {
               alt={`product image ${currentImage + 1}`}
               className={styles.sliderImage}
             />
-
             <GrFormNext
               className={styles.prevButton}
               onClick={() =>
-                setCurrentImage((prev) =>
-                  prev === 0 ? product.images.length - 1 : prev - 1
-                )
+                setCurrentImage((prev) => (prev === 0 ? product.images.length - 1 : prev - 1))
               }
             />
-
             <GrFormPrevious
               className={styles.nextButton}
               onClick={() =>
-                setCurrentImage((prev) =>
-                  prev === product.images.length - 1 ? 0 : prev + 1
-                )
+                setCurrentImage((prev) => (prev === product.images.length - 1 ? 0 : prev + 1))
               }
             />
-
             <div className={styles.thumbnailContainer}>
               {product.images.map((img, index) => (
                 <img
                   key={index}
                   src={img.image}
                   alt={`thumbnail ${index + 1}`}
-                  className={`${styles.thumbnail} ${
-                    index === currentImage ? styles.activeThumbnail : ""
-                  }`}
+                  className={`${styles.thumbnail} ${index === currentImage ? styles.activeThumbnail : ""}`}
                   onClick={() => setCurrentImage(index)}
                 />
               ))}
@@ -159,91 +200,95 @@ const ProductDetails = () => {
           </div>
         )}
 
-        <div className={styles.detailsWrapper}>
-          {/* Product Description */}
-          <div className={styles.descriptionContainer}>
-            <div className={styles.description}>
-              <h2 className={styles.title}>
-                <span>نام محصول: &nbsp;</span>
-                {product.title}
-              </h2>
-              <p className={styles.descriptionText}>
-                <span>توضیحات : &nbsp;</span> {product.description}
-              </p>
-            </div>
+        <div className={styles.container}>
 
-            <div className={styles.attributesContainer}>
-              <div className={styles.attributeGroup}>
-                <label htmlFor="variantSelect">نوع قلم:</label>
-                <select
-                  id="variantSelect"
-                  className={styles.selectInput}
-                  onChange={(e) => {
-                    const selectedId = e.target.value;
-                    const selectedVariant = product.variants.find(
-                      (v) => v.id === parseInt(selectedId)
-                    );
-                    if (selectedVariant) {
-                      console.log("انتخاب شده:", selectedVariant);
-                    }
-                  }}
-                >
-                  {product.variants.map((variant) => (
-                    <option key={variant.id} value={variant.id}>
-                      {variant.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className={styles.attributeGroup}>
-                <label htmlFor="quantity">تعداد:</label>
-                <input
-                  type="number"
-                  id="quantity"
-                  min="1"
-                  defaultValue="1"
-                  className={styles.numberInput}
-                />
-              </div>
-            </div>
+          <div className={styles.leftSidebar}>
+            
           </div>
-
-          {/* Actions */}
-          <div className={styles.actions}>
-            <button className={styles.addToCart}>افزودن به سبد خرید </button>
-            <button className={styles.price}>
-              {product.variants[0].price} تومان &nbsp;
-            </button>
-            <div className={styles.iconsContainer}>
-              {like ? (
-                <GoHeartFill className={styles.icon} onClick={likeHandler} />
-              ) : (
-                <GoHeart className={styles.icon} onClick={likeHandler} />
-              )}
-              <IoShareSocialSharp className={styles.icon} />
-            </div>
-          </div>
-        </div>
-        {/* Reviews Slider */}
-        <div className={styles.reviewsContainer} ref={reviewsContainerRef}>
-          <h3 className={styles.reviewsTitle}>تجربه خرید مشتریان</h3>
-          <div className={styles.reviewsWrapper}>
-            <div
-              className={styles.reviewsSlider}
-              style={{
-                transform: `translateX(-${currentReviewIndex * (100 / 5)}%)`,
-                transition: "transform 0.5s ease-in-out",
-              }}
+          <div className={styles.rightContainer}>
+            {/* Tabs */}
+          <div className={styles.tabContainer} ref={tabContainerRef}>
+            <button
+              onClick={() => scrollToSection(specsRef, "specs")}
+              className={activeTab === "specs" ? styles.active : ""}
+              ref={activeTab === "specs" ? activeButtonRef : null}
             >
-              {duplicatedReviews.map((review, index) => (
-                <div className={styles.reviewCard} key={index}>
-                  <p className={styles.reviewText}> {review.comment} </p>
-                  <p className={styles.reviewAuthor}> {review.user}</p>
-                </div>
-              ))}
+              <FaListCheck className={styles.icons} /> مشخصات
+            </button>
+            <button
+              onClick={() => scrollToSection(descriptionRef, "description")}
+              className={activeTab === "description" ? styles.active : ""}
+              ref={activeTab === "description" ? activeButtonRef : null}
+            >
+              <MdOutlineDescription className={styles.icons} /> توضیحات
+            </button>
+            <button
+              onClick={() => scrollToSection(dimensionsRef, "dimensions")}
+              className={activeTab === "dimensions" ? styles.active : ""}
+              ref={activeTab === "dimensions" ? activeButtonRef : null}
+            >
+              <RiCustomSize className={styles.icons} /> ابعاد
+            </button>
+            <button
+              onClick={() => scrollToSection(maintenanceRef, "maintenance")}
+              className={activeTab === "maintenance" ? styles.active : ""}
+              ref={activeTab === "maintenance" ? activeButtonRef : null}
+            >
+              <BsQuestionSquare className={styles.icons} /> شرایط نگهداری
+            </button>
+            <button
+              onClick={() => scrollToSection(reviewsRef, "reviews")}
+              className={activeTab === "reviews" ? styles.active : ""}
+              ref={activeTab === "reviews" ? activeButtonRef : null}
+            >
+              <LiaComments className={styles.icons} /> دیدگاه‌ها
+            </button>
+          </div>
+
+          {/* Product Details */}
+          <div className={styles.detailsWrapper}>
+            <div ref={specsRef} className={styles.specsSection}>
+              <h2><FaListCheck className={styles.icons} /> مشخصات محصول</h2>
+              <p>مشخصات محصول اینجا نمایش داده می‌شود.</p>
+            </div>
+            <div ref={descriptionRef} className={styles.descriptionSection}>
+              <h2><MdOutlineDescription className={styles.icons} /> توضیحات</h2>
+              <p>{product.description}</p>
+            </div>
+            <div ref={dimensionsRef} className={styles.dimensionsSection}>
+              <h2><RiCustomSize className={styles.icons} /> ابعاد</h2>
+              <p>ابعاد محصول اینجا نمایش داده می‌شود.</p>
+            </div>
+            <div ref={maintenanceRef} className={styles.maintenanceSection}>
+              <h2><BsQuestionSquare className={styles.icons} /> شرایط نگهداری</h2>
+              <p>شرایط نگهداری محصول اینجا نمایش داده می‌شود.</p>
+            </div>
+
+            <div ref={reviewsRef} className={styles.reviewsContainer}>
+              <h2><LiaComments className={styles.icons} /> دیدگاه مشتریان</h2>
+              <div className={styles.reviewsWrapper}>
+                {duplicatedReviews.slice(0, showAllReviews ? duplicatedReviews.length : 4).map((review, index) => (
+                  <div className={styles.reviewCard} key={index}>
+                    <p className={styles.reviewText}>{review.comment}</p>
+                    <p className={styles.reviewAuthor}>{review.user}</p>
+                  </div>
+                ))}
+              </div>
+
+              {duplicatedReviews.length > 4 && !showAllReviews && (
+                <button className={styles.showMoreButton} onClick={() => setShowAllReviews(true)}>
+                  نمایش بیشتر
+                </button>
+              )}
+              {showAllReviews && duplicatedReviews.length > 4 && (
+                <button className={styles.showMoreButton} onClick={() => setShowAllReviews(false)}>
+                  نمایش کمتر
+                </button>
+              )}
             </div>
           </div>
+          </div>
+          
         </div>
 
         <Bestsellers />
