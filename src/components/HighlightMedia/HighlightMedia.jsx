@@ -75,26 +75,32 @@ const HighlightMedia = () => {
   const goToNextMedia = () => {
     const currentHighlight = allHighlight[currentHighlightIndex];
     if (currentMediaIndex < currentHighlight.media.length - 1) {
-      setCurrentMediaIndex(currentMediaIndex + 1);
+      setCurrentMediaIndex((prev) => prev + 1);
     } else {
-      setCurrentHighlightIndex((prevIndex) =>
-        prevIndex < allHighlight.length - 1 ? prevIndex + 1 : 0
-      );
-      setCurrentMediaIndex(0);
+      if (currentHighlightIndex < allHighlight.length - 1) {
+        setCurrentHighlightIndex((prev) => prev + 1);
+        setCurrentMediaIndex(0);
+      } else {
+        setCurrentHighlightIndex(0);
+        setCurrentMediaIndex(0);
+      }
     }
     setProgressKey((prev) => prev + 1);
   };
 
   const goToPreviousMedia = () => {
     if (currentMediaIndex > 0) {
-      setCurrentMediaIndex(currentMediaIndex - 1);
+      setCurrentMediaIndex((prev) => prev - 1);
     } else {
-      setCurrentHighlightIndex((prevIndex) =>
-        prevIndex > 0 ? prevIndex - 1 : allHighlight.length - 1
-      );
-      setCurrentMediaIndex(
-        allHighlight[currentHighlightIndex].media.length - 1
-      );
+      if (currentHighlightIndex > 0) {
+        const previousHighlight = allHighlight[currentHighlightIndex - 1];
+        setCurrentHighlightIndex((prev) => prev - 1);
+        setCurrentMediaIndex(previousHighlight.media.length - 1);
+      } else {
+        const lastHighlight = allHighlight[allHighlight.length - 1];
+        setCurrentHighlightIndex(allHighlight.length - 1);
+        setCurrentMediaIndex(lastHighlight.media.length - 1);
+      }
     }
     setProgressKey((prev) => prev + 1);
   };
@@ -133,62 +139,28 @@ const HighlightMedia = () => {
 
         {/* Media with navigation for desktop */}
         <div className={styles.mediaWrapper}>
-          <button
-            onClick={goToPreviousMedia}
-            disabled={currentMediaIndex === 0}
-            className={styles.navButton}
-          >
+          <button onClick={goToPreviousMedia} className={styles.navButton}>
             <GrFormPrevious />
           </button>
           <div className={styles.mediaItem}>
             <MediaPlayer media={currentMedia} />
           </div>
-          <button
-            onClick={goToNextMedia}
-            disabled={
-              currentMediaIndex === currentHighlight.media.length - 1 &&
-              currentHighlightIndex === allHighlight.length - 1
-            }
-            className={styles.navButton}
-          >
+          <button onClick={goToNextMedia} className={styles.navButton}>
             <GrFormNext />
           </button>
         </div>
 
-        {/* Mobile navigation below image */}
+        {/* Mobile navigation below media */}
         <div className={styles.mobileNavButtons}>
-          <button
-            onClick={goToPreviousMedia}
-            disabled={currentMediaIndex === 0}
-            className={styles.navButton}
-          >
+          <button onClick={goToPreviousMedia} className={styles.navButton}>
             <GrFormPrevious />
           </button>
-          <button
-            onClick={goToNextMedia}
-            disabled={
-              currentMediaIndex === currentHighlight.media.length - 1 &&
-              currentHighlightIndex === allHighlight.length - 1
-            }
-            className={styles.navButton}
-          >
+          <button onClick={goToNextMedia} className={styles.navButton}>
             <GrFormNext />
           </button>
         </div>
 
-     {/* فقط نشانگر مدیاهای هایلایت فعلی نمایش داده می‌شود */}
-{/* <div className={styles.mediaIndicator}>
-  {currentHighlight.media.map((_, index) => (
-    <span
-      key={index}
-      className={`${styles.indicatorDot} ${
-        index === currentMediaIndex ? styles.active : ""
-      }`}
-    ></span>
-  ))}
-</div> */}
-
-
+        {/* Media indicators */}
         <div className={styles.highlightIndicator}>
           {allHighlight.map((_, index) => (
             <span

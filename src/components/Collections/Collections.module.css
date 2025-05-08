@@ -68,7 +68,10 @@
 .nextButton:hover {
   background-color: #e4e4e4;
 }
-
+.prevButton,
+.nextButton {
+  display: none !important;
+}
 /* ===== فقط قسمت ریسپانسیو ===== */
 @media (max-width: 768px) {
   .collections {
@@ -122,6 +125,8 @@
   .slider {
     height: 180px; /* ارتفاع کمتر */
     gap:0px; /* فاصله کمتر بین اسلایدها */
+
+
   }
 
   .slide {

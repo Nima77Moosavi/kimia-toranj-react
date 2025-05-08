@@ -94,50 +94,13 @@
   border: 2px solid #000;
 }
 
-.descriptionContainer {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  direction: rtl;
-  gap: 20px;
-  margin-bottom: 20px;
-}
-.description {
-  width: 40%;
-  text-align: right;
-  background-color: #f7ecec;
-  border-radius: 20px;
-  padding: 25px;
-}
-.title {
-  text-align: right;
-  font-size: 18px;
-}
-.descriptionText {
-  text-align: justify;
-}
-.description span {
-  color: #353535;
-  font-size: 18px;
-  font-weight: 400;
-}
-.actions {
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  margin-bottom: 20px;
-}
+
 .price {
   background-color: #ffffff;
   color: #023047;
   border: 0.5px solid rgb(109, 224, 240);
   padding: 0.5rem 1.5rem;
-  font-size: clamp(1.2rem, 2vw, 1.8rem); /* Responsive font size */
+  font-size: 1.3rem;
   border-radius: 10px;
   margin-bottom: 5px;
 }
@@ -149,8 +112,8 @@
   background-color: #ffd700;
   color: #023047;
   border: none;
-  padding: 0.8rem 1.5rem;
-  font-size: clamp(1.2rem, 1.8vw, 1.5rem); /* Responsive font size */
+  padding: 1rem 1.5rem;
+  font-size: 1.3rem;
   font-weight: 500;
   border-radius: 10px;
   cursor: pointer;
@@ -163,106 +126,220 @@
   color: #ffd700;
 }
 .iconsContainer {
+  width: 95%;
   display: flex;
   flex-direction: row;
   gap: 10px;
   margin-top: 10px;
-}
-.icon {
-  font-size: 28px;
-  color: rgb(109, 224, 240);
-  cursor: pointer;
-}
-
-.attributesContainer {
-  width: 40%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin: 30px 0;
   justify-content: center;
-  flex-wrap: wrap;
-  padding-right: 45px;
+  background-color: white;
+  padding: 20px;
+  border:  rgba(128, 128, 128, 0.158) solid 1px;
+  border-radius: 20px;
+  
+}
+.iconsContainer .icon {
+  font-size: 45px;
+  color: #023047;
+  cursor: pointer;
+  border: #33333360 solid 1px;
+  border-radius: 5px;
+  padding: 5px 10px;
 }
 
-.attributeGroup {
+.rateContainer{
+  width: 95%;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: row-reverse;
+  background-color: white;
+ border-radius: 20px;
+  border:  rgba(128, 128, 128, 0.158) solid 1px;
+  margin: 10px 0px;
 }
-.attributeGroup label {
-  font-size: 18px;
-  font-weight: 500;
-  color: #353535;
+.rateContainer .rightPart{
+  width: 60%;
 }
-.selectInput,
-.numberInput {
-  width: 150px;
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid rgb(109, 224, 240);
-  font-size: 18px;
-  /* font-weight: 600; */
-  margin-top: 5px;
-  direction: rtl;
+.rateContainer .leftPart{
+  width: 40%;
+ text-align: left;
+ font-size: 3rem;
+ color: #4d4d4d;
+ padding-left: 20px;
 }
+.rateContainer .rightPart .icon{
+  color: #ffd700;
+  vertical-align: middle;
+  font-size: 1.5rem;
+}
+
 
 /* در فایل productDetails.module.css */
-.reviewsContainer {
-  width: 100%;
-  margin: 2rem auto;
-  padding: 1rem;
-  overflow: hidden;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-}
-.reviewsTitle {
-  display: inline-block;
-  font-size: 24px;
-  font-weight: 400;
-  color: #023047;
-  text-align: center;
-  margin-bottom: 20px;
-}
 .reviewsWrapper {
-  width: 90%;
-  overflow: hidden;
-  height: max-content;
-}
-
-.reviewsSlider {
-  display: flex;
-  width: 100%;
+  margin-top: 1rem;
 }
 
 .reviewCard {
-  flex: 0 0 20%;
-  min-width: 20%;
-  height: 150px;
+  background-color: #f9f9f9;
   padding: 1rem;
-  border: 0.5px solid rgb(109, 224, 240);
+  margin-bottom: 1rem;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 0.5rem 0.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .reviewText {
-  font-size: 16px;
-  font-weight: 400;
-  font-style: italic;
-  margin-bottom: 0.5rem;
-  text-align: right;
-  direction: rtl;
+  font-size: 1rem;
+  color: #333;
 }
 
 .reviewAuthor {
-  /* font-weight: bold; */
-  text-align: left;
-  position: fixed;
-  bottom: 25px;
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 0.5rem;
 }
+
+.showMoreButton {
+  background-color: #023047;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background-color 0.3s;
+}
+
+.showMoreButton:hover {
+  background-color: #023047d9;
+}
+
+.container{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: 20px;
+}
+.tabContainer {
+  /* اضافه شود برای افقی چیدن */
+  overflow-x: auto; /* اجازه اسکرول افقی */
+  white-space: nowrap; /* جلوگیری از شکستن دکمه‌ها به خط بعد */
+  width: 100%; /* عرض کامل صفحه */
+  justify-content: flex-end; 
+  padding: 0 1rem; /* کمی فاصله از دو طرف */
+  direction: rtl; /* حفظ راست به چپ */
+  background-color: #f7ecec;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  scroll-snap-type: x mandatory; /* اختیاری: اسکرول اسنپ برای بهتر چسبیدن تب‌ها */
+  border-radius: 20px;
+}
+
+.tabContainer button {
+  flex: 0 0 auto; /* جلوگیری از کش آمدن دکمه‌ها */
+  scroll-snap-align: start; /* اختیاری: چسبیدن تب به ابتدای کانتینر هنگام اسکرول */
+  color: rgb(98, 102, 109);
+  background: none;
+  border: none;
+  padding: 0.8rem 2.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 0%;
+  border-bottom: 1px solid #3333333a;
+  margin: 0;
+  white-space: nowrap; /* جلوگیری از چند خطی شدن متن دکمه */
+}
+.tabContainer button .icons{
+  color: #333333d7;
+  font-size: 1.2rem;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+.tabContainer .active{
+  color: #023047;
+  border-bottom: #023047 solid 3px;
+}
+.tabContainer button:hover {
+background-color: unset;
+}
+
+.specsSection,
+.descriptionSection,
+.dimensionsSection,
+.maintenanceSection,
+.reviewsContainer {
+  width: 70%;
+  justify-self: flex-end;
+  margin: 2rem;
+  text-align: right;
+  direction: rtl;
+  border-bottom: #3333333a solid 1px;
+}
+.specsSection h2,.descriptionSection h2,
+.dimensionsSection h2, .maintenanceSection h2,
+.reviewsContainer h2 {
+  font-size: 1.2rem;
+  margin: 1rem;
+  text-align: right;
+}
+.specsSection h2 .icons,.descriptionSection h2 .icons,
+.dimensionsSection h2 .icons, .maintenanceSection h2 .icons,
+.reviewsContainer h2 .icons{
+  color: #333333f1;
+  font-size: 1.2rem;
+  margin-left: 5px;
+  vertical-align: middle;
+}
+.specsSection p,.descriptionSection p,
+.dimensionsSection p, .maintenanceSection p,
+.reviewsContainer p{
+  color: #5c5c5c;
+  padding-right: 1rem;
+}
+.dimensionsSection, .maintenanceSection {
+  min-height: 150px; /* حداقل ارتفاع */
+}
+ 
+
+.leftSidebar{
+  background-color: rgba(128, 128, 128, 0.158);
+  border-radius: 20px;
+  width: 26%;
+  height: max-content;
+  margin-left: 1%;
+  text-align: center;
+  justify-items: center;
+}
+.leftSidebar p{
+  justify-self: end;
+  text-align: right !important; 
+  padding: 10px;
+  font-size: 1rem;
+}
+.leftSidebar p .icon{
+  color: #023047;
+  vertical-align: middle;
+  font-size: 1.2rem;
+  margin-left: 5px;
+}
+.leftSidebar .inventory .icon , .leftSidebar .inventory{
+  color: rgb(220 38 38);
+}
+.priceContainer{
+  background-color: white;
+  width: 95%;
+  border-radius: 20px;
+  margin-top: 10px;
+}
+.rightContainer{
+  width: 70%;
+  border-radius: 20px;
+  background-color: #f7ecec;
+  margin-right: 2%;
+}
+
+
+
 
 /* لپ‌تاپ و کوچکتر (max-width: 1200px) */
 @media (max-width: 1200px) {
@@ -323,6 +400,11 @@
     flex: 0 0 33.3333%; /* نمایش 3 کارت در هر ردیف */
     min-width: 33.3333%;
   }
+  .container {
+    width: 100%;
+    margin-right: 0;
+    padding-right: 10px;
+  }
 }
 
 /* موبایل (max-width: 480px) */
@@ -339,7 +421,7 @@
   }
   .sliderContainer {
     width: 90%;
-    top: -130px;
+    top: -100px;
   }
   .descriptionContainer {
     position: relative;
@@ -394,5 +476,27 @@
   .reviewCard {
     flex: 0 0 50%; /* نمایش 2 کارت در هر ردیف */
     min-width: 50%;
+  }
+  .container {
+    width: 100%;
+    flex-direction: column;
+    margin-right: 0;
+    padding-right: 10px;
+    gap: 20px;
+  }
+  .rightContainer{
+    width: 100%;
+    margin-left: 1%;
+    position: relative;
+    top: -50px;
+  }
+  .leftSidebar{
+    width: 100%;
+    position: relative;
+    top: -100px;
+  }
+  .tabContainer button{
+    padding: 0.5rem 0.5rem;
+
   }
 }
