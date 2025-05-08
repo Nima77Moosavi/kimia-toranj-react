@@ -325,6 +325,12 @@ background-color: unset;
 .leftSidebar .inventory .icon , .leftSidebar .inventory{
   color: rgb(220 38 38);
 }
+.priceContainer{
+  background-color: white;
+  width: 95%;
+  border-radius: 20px;
+  margin-top: 10px;
+}
 .rightContainer{
   width: 70%;
   border-radius: 20px;

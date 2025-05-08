@@ -216,7 +216,8 @@ const ProductDetails = () => {
 
         <div className={styles.container}>
           <div className={styles.leftSidebar}>
-            <p>
+            <div className={styles.priceContainer}>
+              <p>
               بازگشت محصول تا 7 روز طبق شرایط مرجوعی
               <AiOutlineSafety className={styles.icon} />
             </p>
@@ -232,6 +233,8 @@ const ProductDetails = () => {
               {product.variants[0].price} &nbsp; تومان
             </button>
             <button className={styles.addToCart}>افزودن به سبد خرید</button>
+            </div>
+            
             <div className={styles.iconsContainer}>
               {like ? (
                 <GoHeartFill onClick={likeHandler} className={styles.icon} />
