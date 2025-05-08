@@ -248,6 +248,8 @@ const ProductDetails = () => {
               <div className={styles.rightPart}>
                 <p>
                   1<FaStar className={styles.icon} />
+                  <progress value={80} max={100}  />
+
                 </p>
                 <p>
                   2<FaStar className={styles.icon} />
