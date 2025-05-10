@@ -160,6 +160,10 @@
 .rateContainer .rightPart{
   width: 60%;
 }
+.rateContainer .rightPart p{
+  font-size: 1rem;
+  vertical-align: bottom;
+}
 .rateContainer .leftPart{
   width: 40%;
   text-align: left;
