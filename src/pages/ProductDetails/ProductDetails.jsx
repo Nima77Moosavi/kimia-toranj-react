@@ -268,7 +268,9 @@ const ProductDetails = () => {
                   <progress value={70} max={100} className={styles.progress} />
                 </p>
               </div>
-              <div className={styles.leftPart}>4</div>
+              <div className={styles.leftPart}>
+                <p>4</p>
+                </div>
             </div>
           </div>
 

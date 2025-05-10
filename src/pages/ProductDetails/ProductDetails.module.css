@@ -162,10 +162,14 @@
 }
 .rateContainer .leftPart{
   width: 40%;
- text-align: left;
- font-size: 3rem;
- color: #4d4d4d;
- padding-left: 20px;
+  text-align: left;
+  align-items: start;
+  display: flex;
+}
+.rateContainer .leftPart p{
+
+  font-size: 3rem;
+  color: #4d4d4d;
 }
 .rateContainer .rightPart .icon{
   color: #ffd700;
@@ -355,8 +359,7 @@ background-color: unset;
   background-color: white;
   width: 95%;
   border-radius: 20px;
-  margin-top: 10px;
-  margin: 0 auto;
+  margin: 10px auto;
 }
 
 .rightContainer{
