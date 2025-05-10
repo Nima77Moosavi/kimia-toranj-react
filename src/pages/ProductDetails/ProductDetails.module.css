@@ -171,7 +171,27 @@
   vertical-align: middle;
   font-size: 1.5rem;
 }
+.progress {
+  appearance: none;
+  -webkit-appearance: none;
+  height: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 8px;
+  direction: rtl;
+}
+.progress::-webkit-progress-bar {
+  background-color: rgba(128, 128, 128, 0.158);
+  border-radius: 20px;
+}
+.progress::-webkit-progress-value {
+  background-color: #4caf50;
+  border-radius: 20px;
+}
 
+.progress::-moz-progress-bar {
+  background-color: #4caf50;
+}
 
 /* در فایل productDetails.module.css */
 .reviewsWrapper {
@@ -309,6 +329,8 @@ background-color: unset;
   margin-left: 1%;
   text-align: center;
   justify-items: center;
+  justify-content: center;
+  align-items: center;
 }
 .leftSidebar p{
   justify-self: end;
@@ -341,7 +363,6 @@ background-color: unset;
   background-color: #f7ecec;
   margin-right: 2%;
 }
-
 
 
 
