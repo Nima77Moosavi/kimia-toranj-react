@@ -347,11 +347,12 @@ background-color: unset;
   padding: 10px;
   font-size: 1rem;
   display: flex;
+  direction: rtl;
   flex-direction: row-reverse;
 }
 .leftSidebar p .icon{
   color: #023047;
-  vertical-align: middle;
+  vertical-align: bottom;
   font-size: 1.2rem;
   margin-left: 5px;
 }
