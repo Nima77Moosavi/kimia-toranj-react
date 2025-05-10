@@ -130,6 +130,7 @@
   display: flex;
   flex-direction: row;
   gap: 10px;
+  margin: 0 auto;
   margin-top: 10px;
   justify-content: center;
   background-color: white;
@@ -154,7 +155,7 @@
   background-color: white;
  border-radius: 20px;
   border:  rgba(128, 128, 128, 0.158) solid 1px;
-  margin: 10px 0px;
+  margin: 10px auto;
 }
 .rateContainer .rightPart{
   width: 60%;
@@ -355,6 +356,7 @@ background-color: unset;
   width: 95%;
   border-radius: 20px;
   margin-top: 10px;
+  margin: 0 auto;
 }
 
 .rightContainer{
