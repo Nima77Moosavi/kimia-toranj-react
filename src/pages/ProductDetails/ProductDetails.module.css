@@ -253,7 +253,8 @@
   overflow-x: auto; /* اجازه اسکرول افقی */
   white-space: nowrap; /* جلوگیری از شکستن دکمه‌ها به خط بعد */
   width: 100%; /* عرض کامل صفحه */
-  justify-content: flex-end; 
+  /* justify-content: flex-end;  */
+  text-align: right;
   padding: 0 1rem; /* کمی فاصله از دو طرف */
   direction: rtl; /* حفظ راست به چپ */
   background-color: #f7ecec;
@@ -297,11 +298,10 @@ background-color: unset;
 .dimensionsSection,
 .maintenanceSection,
 .reviewsContainer {
-  width: 70%;
-  justify-self: flex-end;
-  margin: 2rem;
+  width: 90%;
   text-align: right;
   direction: rtl;
+  margin: 0 5%;
   border-bottom: #3333333a solid 1px;
 }
 .specsSection h2,.descriptionSection h2,
