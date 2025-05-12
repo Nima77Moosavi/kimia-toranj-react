@@ -163,6 +163,9 @@
 .rateContainer .rightPart p{
   font-size: 1rem;
   vertical-align: bottom;
+  display: flex;
+  flex-direction: row-reverse;
+  padding-right: 10px;
 }
 .rateContainer .leftPart{
   width: 40%;
@@ -342,7 +345,7 @@ background-color: unset;
   align-items: center;
   
 }
-.leftSidebar p{
+.leftSidebar .priceContainer p{
   justify-self: end;
   text-align: right !important; 
   padding: 10px;
