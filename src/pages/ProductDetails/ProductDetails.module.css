@@ -104,6 +104,7 @@
   border-radius: 10px;
   margin-bottom: 5px;
   text-align: center;
+  justify-self: center;
 }
 .price:hover {
   background-color: #ffffff;
@@ -121,6 +122,7 @@
   transition: background-color 0.3s;
   white-space: nowrap;
   text-align: center;
+  justify-self: center;
 }
 
 .addToCart:hover {
@@ -348,7 +350,7 @@ background-color: unset;
   
 }
 .priceContainer p{
-  /* justify-self: end; */
+  justify-self: start;
   text-align: right !important; 
   padding: 10px;
   font-size: 1rem;
@@ -376,6 +378,7 @@ background-color: unset;
   justify-content: center;
   align-items: center;
   text-align: center;
+  direction: rtl;
 }
 
 
