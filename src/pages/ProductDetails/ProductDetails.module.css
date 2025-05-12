@@ -356,7 +356,7 @@ background-color: unset;
   
 }
 .priceContainer p{
-  /* justify-self: start; */
+  justify-self: self-start;
   text-align: right !important; 
   padding: 10px;
   font-size: 1rem;
