@@ -130,6 +130,7 @@
   display: flex;
   flex-direction: row;
   gap: 10px;
+  margin: 0 auto;
   margin-top: 10px;
   justify-content: center;
   background-color: white;
@@ -154,24 +155,52 @@
   background-color: white;
  border-radius: 20px;
   border:  rgba(128, 128, 128, 0.158) solid 1px;
-  margin: 10px 0px;
+  margin: 10px auto;
 }
 .rateContainer .rightPart{
   width: 60%;
 }
+.rateContainer .rightPart p{
+  font-size: 1rem;
+  vertical-align: bottom;
+}
 .rateContainer .leftPart{
   width: 40%;
- text-align: left;
- font-size: 3rem;
- color: #4d4d4d;
- padding-left: 20px;
+  text-align: left;
+  align-items: start;
+  display: flex;
+}
+.rateContainer .leftPart p{
+
+  font-size: 3rem;
+  color: #4d4d4d;
 }
 .rateContainer .rightPart .icon{
   color: #ffd700;
   vertical-align: middle;
   font-size: 1.5rem;
 }
+.progress {
+  appearance: none;
+  -webkit-appearance: none;
+  height: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 8px;
+  direction: rtl;
+}
+.progress::-webkit-progress-bar {
+  background-color: rgba(128, 128, 128, 0.158);
+  border-radius: 20px;
+}
+.progress::-webkit-progress-value {
+  background-color: #4caf50;
+  border-radius: 20px;
+}
 
+.progress::-moz-progress-bar {
+  background-color: #4caf50;
+}
 
 /* در فایل productDetails.module.css */
 .reviewsWrapper {
@@ -224,7 +253,8 @@
   overflow-x: auto; /* اجازه اسکرول افقی */
   white-space: nowrap; /* جلوگیری از شکستن دکمه‌ها به خط بعد */
   width: 100%; /* عرض کامل صفحه */
-  justify-content: flex-end; 
+  /* justify-content: flex-end;  */
+  text-align: right;
   padding: 0 1rem; /* کمی فاصله از دو طرف */
   direction: rtl; /* حفظ راست به چپ */
   background-color: #f7ecec;
@@ -268,11 +298,10 @@ background-color: unset;
 .dimensionsSection,
 .maintenanceSection,
 .reviewsContainer {
-  width: 70%;
-  justify-self: flex-end;
-  margin: 2rem;
+  width: 90%;
   text-align: right;
   direction: rtl;
+  margin: 0 5%;
   border-bottom: #3333333a solid 1px;
 }
 .specsSection h2,.descriptionSection h2,
@@ -309,6 +338,9 @@ background-color: unset;
   margin-left: 1%;
   text-align: center;
   justify-items: center;
+  justify-content: center;
+  align-items: center;
+  
 }
 .leftSidebar p{
   justify-self: end;
@@ -316,11 +348,12 @@ background-color: unset;
   padding: 10px;
   font-size: 1rem;
   display: flex;
+  direction: rtl;
   flex-direction: row-reverse;
 }
 .leftSidebar p .icon{
   color: #023047;
-  vertical-align: middle;
+  vertical-align: bottom;
   font-size: 1.2rem;
   margin-left: 5px;
 }
@@ -332,7 +365,7 @@ background-color: unset;
   background-color: white;
   width: 95%;
   border-radius: 20px;
-  margin-top: 10px;
+  margin: 10px auto;
 }
 
 .rightContainer{
@@ -341,7 +374,6 @@ background-color: unset;
   background-color: #f7ecec;
   margin-right: 2%;
 }
-
 
 
 
