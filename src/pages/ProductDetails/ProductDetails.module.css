@@ -119,6 +119,7 @@
   cursor: pointer;
   transition: background-color 0.3s;
   white-space: nowrap;
+  
 }
 
 .addToCart:hover {
@@ -339,13 +340,13 @@ background-color: unset;
   width: 26%;
   height: max-content;
   margin-left: 1%;
-  text-align: center;
+  /* text-align: right; */
   justify-items: center;
   justify-content: center;
   align-items: center;
   
 }
-.leftSidebar .priceContainer p{
+.priceContainer p{
   justify-self: end;
   text-align: right !important; 
   padding: 10px;
@@ -354,6 +355,7 @@ background-color: unset;
   direction: rtl;
   flex-direction: row-reverse;
 }
+
 .leftSidebar p .icon{
   color: #023047;
   vertical-align: bottom;
@@ -369,6 +371,10 @@ background-color: unset;
   width: 95%;
   border-radius: 20px;
   margin: 10px auto;
+  justify-items: center;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .rightContainer{
