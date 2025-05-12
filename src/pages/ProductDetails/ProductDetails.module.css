@@ -103,6 +103,7 @@
   font-size: 1.3rem;
   border-radius: 10px;
   margin-bottom: 5px;
+  text-align: center;
 }
 .price:hover {
   background-color: #ffffff;
@@ -119,7 +120,7 @@
   cursor: pointer;
   transition: background-color 0.3s;
   white-space: nowrap;
-  
+  text-align: center;
 }
 
 .addToCart:hover {
@@ -376,6 +377,7 @@ background-color: unset;
   align-items: center;
   text-align: center;
 }
+
 
 .rightContainer{
   width: 70%;
