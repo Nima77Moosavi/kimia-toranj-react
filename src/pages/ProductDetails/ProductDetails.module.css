@@ -105,6 +105,8 @@
   margin-bottom: 5px;
   text-align: center;
   justify-self: center;
+  margin: 10px 0; /* فاصله از بالا و پایین */
+  width: auto;
 }
 .price:hover {
   background-color: #ffffff;
@@ -123,6 +125,8 @@
   white-space: nowrap;
   text-align: center;
   justify-self: center;
+  margin: 10px 0; /* فاصله از بالا و پایین */
+  width: auto;
 }
 
 .addToCart:hover {
@@ -163,6 +167,7 @@
 }
 .rateContainer .rightPart{
   width: 60%;
+  padding: 2px;
 }
 .rateContainer .rightPart p{
   font-size: 1rem;
@@ -176,6 +181,7 @@
   text-align: left;
   align-items: start;
   display: flex;
+  padding: 2px;
 }
 .rateContainer .leftPart p{
 
