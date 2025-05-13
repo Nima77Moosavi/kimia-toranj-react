@@ -248,21 +248,29 @@ const ProductDetails = () => {
               <div className={styles.rightPart}>
                 <p>
                   1<FaStar className={styles.icon} />
+                  <progress value={0} max={100} className={styles.progress} />
+
                 </p>
                 <p>
                   2<FaStar className={styles.icon} />
+                  <progress value={20} max={100} className={styles.progress} />
                 </p>
                 <p>
                   3<FaStar className={styles.icon} />
+                  <progress value={0} max={100} className={styles.progress} />
                 </p>
                 <p>
                   4<FaStar className={styles.icon} />
+                  <progress value={80} max={100} className={styles.progress} />
                 </p>
                 <p>
                   5<FaStar className={styles.icon} />
+                  <progress value={70} max={100} className={styles.progress} />
                 </p>
               </div>
-              <div className={styles.leftPart}>4</div>
+              <div className={styles.leftPart}>
+                <p>4</p>
+                </div>
             </div>
           </div>
 
