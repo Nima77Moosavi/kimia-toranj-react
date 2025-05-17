@@ -1,26 +1,19 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { IoMenu, IoSearch } from "react-icons/io5";
-import { GoHeartFill } from "react-icons/go";
 import { FaCartShopping } from "react-icons/fa6";
 import { BsFileEarmarkPerson } from "react-icons/bs";
 import styles from "./HeaderMobile.module.css";
 
 const HeaderMobile = () => {
-  // State for toggling the profile dropdown (profile, cart, likes)
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
-  // State for toggling the hamburger menu dropdown
+  // Remove profile dropdown state since we're now showing two static icons.
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Refs for detecting clicks outside these dropdown areas
-  const profileRef = useRef(null);
+  // Ref for the hamburger menu dropdown
   const menuRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (profileRef.current && !profileRef.current.contains(event.target)) {
-        setIsProfileOpen(false);
-      }
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsMenuOpen(false);
       }
@@ -34,30 +27,14 @@ const HeaderMobile = () => {
 
   return (
     <header className={styles.headerMobile}>
-      {/* Left: Profile button with dropdown */}
-      <div className={styles.profileContainer} ref={profileRef}>
-        <button
-          className={styles.profileButton}
-          onClick={() => setIsProfileOpen((prev) => !prev)}
-          aria-label="User profile options"
-        >
-          <span>
-            <BsFileEarmarkPerson />
-          </span>
-        </button>
-        {isProfileOpen && (
-          <div className={styles.profileDropdown}>
-            <Link to="/profile" className={styles.dropdownIcon}>
-              <BsFileEarmarkPerson />
-            </Link>
-            <Link to="/cart" className={styles.dropdownIcon}>
-              <FaCartShopping />
-            </Link>
-            <Link to="/favorites" className={styles.dropdownIcon}>
-              <GoHeartFill />
-            </Link>
-          </div>
-        )}
+      {/* Left: Two icons side by side for login and cart */}
+      <div className={styles.profileContainer}>
+        <Link to="/login" className={styles.iconLink}>
+          <BsFileEarmarkPerson />
+        </Link>
+        <Link to="/" className={styles.iconLink}>
+          <FaCartShopping />
+        </Link>
       </div>
 
       {/* Center: Search box */}
@@ -89,7 +66,7 @@ const HeaderMobile = () => {
               <li className={styles.menuIcon}>
                 <Link to="/blog">مقالات</Link>
               </li>
-              {/* Add more icons as needed */}
+              {/* Add more items as needed */}
             </ul>
           </div>
         )}

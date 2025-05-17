@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // اضافه شده
 import styles from "./Login.module.css";
 import logo from "../../assets/logo.png";
+import { API_URL } from "../../config";
+import axios from "axios";
 
 const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -47,6 +49,11 @@ const Login = () => {
     }
     setIsLoading(true);
     try {
+      const response = await axios.post(`${API_URL}api/users/send-otp/`, {
+        phoneNumber,
+      });
+      console.log(response);
+
       await new Promise((resolve) => setTimeout(resolve, 1500));
       setIsCodeSent(true);
       setTimer(90);
@@ -69,6 +76,12 @@ const Login = () => {
     }
     setIsLoading(true);
     try {
+      const response = await axios.post(`${API_URL}api/users/verify-otp`, {
+        phoneNumber,
+        otp: verificationCode,
+      });
+      console.log(response);
+
       await new Promise((resolve) => setTimeout(resolve, 1500));
       setIsVerified(true);
       setError("");

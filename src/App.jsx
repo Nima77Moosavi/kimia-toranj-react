@@ -5,7 +5,7 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
-import Home from "./pages/Home.jsx"
+import Home from "./pages/Home.jsx";
 import HighlightMedia from "./components/HighlightMedia/HighlightMedia";
 import CollectionDetail from "./pages/CollectionDetail/CollectionDetail";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
@@ -31,6 +31,7 @@ import UserOrders from "./pages/UserOrders/UserOrders";
 import Wishlist from "./pages/WishList/WishList";
 import UserReviews from "./pages/UserReviews/UserReviews";
 import UserAddresses from "./pages/UserAddresses/UserAddresses";
+import ContactButton from "./components/ContactButton/ContactButton.jsx";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -68,6 +69,7 @@ const App = () => {
         {/* Default Redirect */}
         <Route path="*" element={<Home />} />
       </Routes>
+      <ContactButton />
     </Router>
   );
 };

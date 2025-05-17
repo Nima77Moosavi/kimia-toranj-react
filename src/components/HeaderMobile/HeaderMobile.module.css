@@ -12,61 +12,13 @@
   z-index: 20;
 }
 
-/* ------ Profile Section ------ */
+/* ------ Profile Section as Two Static Icons ------ */
 .profileContainer {
-  position: relative;
-}
-
-.profileButton {
-  width: 40px;
-  height: 40px;
-  background-color: #023047;
-  border: none;
-  border-radius: 50%;
-  color: #fff;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-.profileButton span {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.profileButton span svg {
-  font-size: 20px; /* Adjust as desired */
-}
-
-.profileDropdown {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-top: 5px;
-  display: flex;
-  flex-direction: column;
   gap: 10px;
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  animation: slideDown 0.3s ease-out;
 }
 
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-}
-
-.dropdownIcon {
+.iconLink {
   width: 40px;
   height: 40px;
   background-color: #023047;
@@ -79,11 +31,7 @@
   transition: background-color 0.3s ease;
 }
 
-.dropdownIcon svg {
-  font-size: 20px;
-}
-
-.dropdownIcon:hover {
+.iconLink:hover {
   background-color: #011c30;
 }
 
@@ -141,42 +89,40 @@
 }
 
 .hamburgerButton:hover {
-  transform: scale(1.1); /* Gently enlarges on hover */
-  color: #001f2d; /* A slightly darker shade on hover */
+  transform: scale(1.1);
+  color: #001f2d;
 }
 
-/* Animated dropdown for the hamburger menu */
 .menuDropdown {
   position: absolute;
   top: 45px; /* Positioned just below the button */
   right: 0;
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* Align items to the right side */
+  align-items: flex-end;
   gap: 10px;
-  background: transparent; /* Remove white background */
-  border: none; /* Remove border */
-  box-shadow: none; /* Remove shadow */
-  animation: fadeInDown 0.3s ease-out; /* Applies the animation */
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  animation: fadeInDown 0.3s ease-out;
 }
 
 @keyframes fadeInDown {
   0% {
     opacity: 0;
-    transform: translateY(-10px); /* Start a little above */
+    transform: translateY(-10px);
   }
   100% {
     opacity: 1;
-    transform: translateY(0); /* End in the natural position */
+    transform: translateY(0);
   }
 }
 
-/* Style individual items as circular icons */
 .menuDropdown li {
   list-style: none;
 }
 
-/* New class for each menu icon inside the hamburger dropdown */
+/* Menu icons inside the hamburger dropdown */
 .menuIcon {
   width: 100px;
   height: 40px;
@@ -188,7 +134,6 @@
   transition: background-color 0.3s ease;
 }
 
-/* Style the link inside each circular menu icon */
 .menuIcon a {
   color: #fff;
   text-decoration: none;
