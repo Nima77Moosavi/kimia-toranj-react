@@ -1,111 +1,77 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./CollectionDetail.module.css";
-// import ProductList from "../../components/ProductList/ProductList";
-import SidebarFilter from "../../components/SidebarFilter/SidebarFilter";
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
+import ProductCard from "../../components/ProductCard/ProductCard";
 
 const CollectionDetail = () => {
-  const { id } = useParams();
-  const [collection, setCollection] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  const [selectedAttributes, setSelectedAttributes] = useState({});
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
+  const [collections, setCollections] = useState([]);
 
   useEffect(() => {
-    const fetchCollectionDetail = async () => {
+    const fetchProducts = async () => {
       try {
         const response = await fetch(
-          `https://kimiatoranj-api.liara.run/api/store/collections/${id}/`
+          "https://kimiatoranj-api.liara.run/api/store/products/"
         );
-        if (!response.ok) {
-          throw new Error("Failed to fetch collection details");
-        }
+        if (!response.ok) throw new Error("Network response was not ok");
         const data = await response.json();
-        setCollection(data);
-      } catch (err) {
-        setError(err.message);
+        setProducts(data);
+      } catch (error) {
+        setError(error.message);
       } finally {
         setLoading(false);
       }
     };
+    fetchProducts();
+  }, []);
 
+  useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          `https://kimiatoranj-api.liara.run/api/store/collections/${id}/products/`
+          "https://kimiatoranj-api.liara.run/api/store/collections/"
         );
-        if (!response.ok) {
-          throw new Error("Failed to fetch products");
-        }
+        if (!response.ok) throw new Error("Network response was not ok");
         const data = await response.json();
-        setProducts(data);
-      } catch (err) {
-        setError(err.message);
+        setCollections(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
       }
     };
-
-    fetchCollectionDetail();
     fetchProducts();
-  }, [id]);
-
-  // Wrap the function in useCallback to avoid infinite re-renders
-  const handleFilters = useCallback((filterParams) => {
-    console.log("Applied Filters:", filterParams);
-    fetchFilteredProducts(filterParams);
   }, []);
 
-  const fetchFilteredProducts = async (filterParams) => {
-    const queryParams = new URLSearchParams(filterParams).toString();
-    try {
-      const response = await fetch(
-        `https://kimiatoranj-api.liara.run/api/store/collections/${id}/products/?${queryParams}`
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch filtered products");
-      }
-      const data = await response.json();
-      setProducts(data);
-    } catch (err) {
-      setError(err.message);
-    }
-  };
-
-  if (loading) return <div className={styles.loading}>Loading...</div>;
-  if (error) return <div className={styles.error}>Error: {error}</div>;
-  if (!collection)
-    return <div className={styles.error}>No collection found.</div>;
-
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <img
-          src={collection.image}
-          alt={collection.title}
-          className={styles.image}
-        />
-        <div className={styles.details}>
-          <h1 className={styles.title}>{collection.title}</h1>
-          <p className={styles.description}>{collection.description}</p>
+    <div>
+      <div className={styles.circle}></div>
+      <Header />
+      <h2 className={styles.title}>محصولات پرفروش</h2>
+      <div className={styles.container}>
+        <div className={styles.productContainer}>
+          {products.map((product) => (
+            <ProductCard product={product} key={product.id} />
+          ))}
+        </div>
+        <div className={styles.sidebarContainer}>
+          <div className={styles.collections}>
+            <h2 className={styles.collectionsTitle}>همه محصولات پرفروش</h2>
+            {collections.map((collection) => (
+              <p key={collection.id}>{collection.title}</p>
+            ))}
+          </div>
+          <div className={styles.sort}>
+            <h2 className={styles.sortTitle}>مرتب کردن بر اساس</h2>
+            <p>ارزان ترین</p>
+            <p>گرانترین</p>
+          </div>
         </div>
       </div>
-
-      <div className={styles.content}>
-        <SidebarFilter
-          attributes={collection.attributes || []}
-          selectedAttributes={selectedAttributes}
-          setSelectedAttributes={setSelectedAttributes}
-          minPrice={minPrice}
-          setMinPrice={setMinPrice}
-          maxPrice={maxPrice}
-          setMaxPrice={setMaxPrice}
-          onFilterChange={handleFilters}
-        />
-        {/* <ProductList products={products} /> */}
-      </div>
+      <Footer />
     </div>
   );
 };
