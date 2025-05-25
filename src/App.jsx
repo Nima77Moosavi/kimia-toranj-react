@@ -1,29 +1,8 @@
-import React, { useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-} from "react-router-dom";
-import Home from "./pages/Home.jsx"
-import HighlightMedia from "./components/HighlightMedia/HighlightMedia";
-import CollectionDetail from "./pages/CollectionDetail/CollectionDetail";
-import ProductDetails from "./pages/ProductDetails/ProductDetails";
-import Login from "./pages/Login/Login";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import BestsellersPage from "./pages/BestsellersPage/BestsellersPage";
-
-import Blog from "./pages/Blog/Blog";
-
+// Import your layout, ProtectedRoute, and pages
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-import Dashboard from "./pages/Dashboard/Dashboard";
-import AdminRoute from "./components/AdminRoute/AdminRoute";
-import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
-import ManageCollections from "./pages/ManageCollections/ManageCollections";
-import CreateCollection from "./pages/CreateCollection/CreateCollection";
-import ManageProducts from "./pages/ManageProducts/ManageProducts";
-import CreateProduct from "./pages/CreateProduct/CreateProduct";
-import AdminLayout from "./pages/AdminDashboard/AdminLayout/AdminLayout";
 import UserPanel from "./pages/UserPanel/UserPanel";
 import AccountInfo from "./pages/AccountInfo/AccountInfo";
 import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
@@ -32,42 +11,54 @@ import Wishlist from "./pages/WishList/WishList";
 import UserReviews from "./pages/UserReviews/UserReviews";
 import UserAddresses from "./pages/UserAddresses/UserAddresses";
 
-const ScrollToTop = () => {
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0); // اسکرول به بالای صفحه هنگام تغییر مسیر
-  }, [pathname]);
-
-  return null;
-};
+// Public pages
+import Home from "./pages/Home.jsx";
+import Login from "./pages/Login/Login";
+import Blog from "./pages/Blog/Blog";
+import BlogDetail from "./pages/BlogDetail/BlogDetail.jsx";
+import HighlightMedia from "./components/HighlightMedia/HighlightMedia";
+import CollectionDetail from "./pages/CollectionDetail/CollectionDetail";
+import ProductDetails from "./pages/ProductDetails/ProductDetails";
+import BestsellersPage from "./pages/BestsellersPage/BestsellersPage";
+import ContactButton from "./components/ContactButton/ContactButton.jsx";
 
 const App = () => {
   return (
     <Router>
-      <ScrollToTop />
       <Routes>
-        {/* General routes */}
+        {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:id" element={<BlogDetail />} />
         <Route path="/highlight/:id" element={<HighlightMedia />} />
         <Route path="/collection/:id" element={<CollectionDetail />} />
-
         <Route path="/productDetails/:id" element={<ProductDetails />} />
         <Route path="/bestsellersPage" element={<BestsellersPage />} />
 
-        <Route path="/user-panel" element={<UserPanel />} />
-        <Route path="/account-info" element={<AccountInfo />} />
-        <Route path="/cart" element={<ShoppingCart />} />
-        <Route path="/orders" element={<UserOrders />} />
-        <Route path="/wishlist" element={<Wishlist />} />
-        <Route path="/reviews" element={<UserReviews />} />
-        <Route path="/addresses" element={<UserAddresses />} />
+        {/* Protected UserPanel Routes */}
+        <Route
+          path="/user-panel/*"
+          element={
+            <ProtectedRoute>
+              <UserPanel />
+            </ProtectedRoute>
+          }
+        >
+          {/* Default /user-panel shows AccountInfo */}
+          <Route index element={<AccountInfo />} />
+          <Route path="account-info" element={<AccountInfo />} />
+          <Route path="cart" element={<ShoppingCart />} />
+          <Route path="orders" element={<UserOrders />} />
+          <Route path="wishlist" element={<Wishlist />} />
+          <Route path="reviews" element={<UserReviews />} />
+          <Route path="addresses" element={<UserAddresses />} />
+        </Route>
 
-        {/* Default Redirect */}
+        {/* Fallback Route */}
         <Route path="*" element={<Home />} />
       </Routes>
+      <ContactButton />
     </Router>
   );
 };

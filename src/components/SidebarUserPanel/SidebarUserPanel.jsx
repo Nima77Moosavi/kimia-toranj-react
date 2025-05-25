@@ -1,81 +1,55 @@
+// Example inside SidebarUserPanel.jsx
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styles from "./SidebarUserPanel.module.css";
 
-const SidebarUserPanel = ({ setSelectedSection, activeSection }) => {
-  const navigate = useNavigate();
-
-  // تابع برای تغییر بخش فعال و هدایت کاربر (در صورت نیاز)
-  const handleLinkClick = (section, path) => {
-    setSelectedSection(section);
-    if (path) {
-      navigate(path);
-    }
-  };
-
+const SidebarUserPanel = () => {
   return (
-    <div className={styles.sidebar}>
-      {/* مستطیل اطلاعات کاربر */}
-      <div className={styles.userInfo}>
-        <p className={styles.username}>محمد رضایی</p>
-        <button
-          className={styles.editButton}
-          onClick={() => handleLinkClick("accountInfo", "/account-info")}
-        >
-          ویرایش
-        </button>
-      </div>
-
-      {/* منوی سایدبار */}
-      <div className={styles.menuContainer}>
-        <div className={styles.menu}>
-          <p
-            className={`${styles.link} ${
-              activeSection === "accountInfo" ? styles.active : ""
-            }`}
-            onClick={() => handleLinkClick("accountInfo", "/account-info")}
-          >
-            اطلاعات حساب
-          </p>
-          <p
-            className={styles.link}
-            onClick={() => handleLinkClick("cart", "/cart")}
-          >
-            سبد خرید
-          </p>
-          <p
-            className={styles.link}
-            onClick={() => handleLinkClick("orders", "/orders")}
-          >
-            سفارش‌های من
-          </p>
-          <p
-            className={styles.link}
-            onClick={() => handleLinkClick("wishlist", "/wishlist")}
-          >
-            لیست موردعلاقه‌ها
-          </p>
-          <p
-            className={styles.link}
-            onClick={() => handleLinkClick("reviews", "/reviews")}
-          >
-            دیدگاه‌ها
-          </p>
-          <p
-            className={styles.link}
-            onClick={() => handleLinkClick("addresses", "/addresses")}
-          >
-            آدرس‌ها
-          </p>
-          <p
-            className={styles.link}
-            onClick={() => handleLinkClick("logout", "/")}
-          >
-            خروج
-          </p>
-        </div>
-      </div>
-    </div>
+    <nav className={styles.sidebarNav}>
+      <NavLink
+        to="/user-panel"
+        end
+        className={({ isActive }) => (isActive ? styles.active : "")}
+      >
+        داشبورد
+      </NavLink>
+      <NavLink
+        to="/user-panel/account-info"
+        className={({ isActive }) => (isActive ? styles.active : "")}
+      >
+        اطلاعات حساب
+      </NavLink>
+      <NavLink
+        to="/user-panel/cart"
+        className={({ isActive }) => (isActive ? styles.active : "")}
+      >
+        سبد خرید
+      </NavLink>
+      <NavLink
+        to="/user-panel/orders"
+        className={({ isActive }) => (isActive ? styles.active : "")}
+      >
+        سفارش‌ها
+      </NavLink>
+      <NavLink
+        to="/user-panel/wishlist"
+        className={({ isActive }) => (isActive ? styles.active : "")}
+      >
+        علاقه‌مندی‌ها
+      </NavLink>
+      <NavLink
+        to="/user-panel/reviews"
+        className={({ isActive }) => (isActive ? styles.active : "")}
+      >
+        دیدگاه‌ها
+      </NavLink>
+      <NavLink
+        to="/user-panel/addresses"
+        className={({ isActive }) => (isActive ? styles.active : "")}
+      >
+        آدرس‌ها
+      </NavLink>
+    </nav>
   );
 };
 

@@ -1,24 +1,53 @@
-/* استایل اصلی کانتینر */
 .container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  box-sizing: border-box;
   display: flex;
-  flex-direction: column; /* ترتیب عمودی: هدر، بخش اصلی، فوتر */
-  min-height: 100vh; /* ارتفاع حداقل برای پر کردن کل صفحه */
-  background-color: none;
+  flex-direction: column;
 }
 
-/* بخش محتوا */
+/* Main layout container: content (left) and sidebar (right) */
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex: 1;
+  margin-top: 60px; /* Adjust as needed, e.g., if Header is fixed */
+}
+
+/* Content area takes the remaining space */
 .content {
-  flex: 1; /* محتوا باقی‌مانده فضای اصلی را می‌گیرد */
+  flex: 1;
   padding: 20px;
+  background-color: #fff;
+  box-sizing: border-box;
 }
 
-/* تنظیمات ریسپانسیو */
+/* Sidebar is fixed width and on the right */
+.sidebar {
+  width: 250px;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-left: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+/* Responsive layout for mobile: stack content and sidebar */
 @media (max-width: 768px) {
   .main {
-    flex-direction: column; /* نمایش عمودی سایدبار و محتوا */
+    flex-direction: column;
   }
-
+  
   .sidebar {
-    width: 100%; /* عرض کامل برای سایدبار در حالت موبایل */
+    width: 100%;
+    padding: 15px;
+    border-left: none;
+    border-top: 1px solid #ddd;
+  }
+  
+  .content {
+    padding: 15px;
   }
 }

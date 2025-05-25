@@ -1,9 +1,11 @@
 // Blog.jsx
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styles from "./Blog.module.css";
 import axios from "axios";
 import { BASE_URL, API_URL } from "../../config"; // Optional: if you’re using a constants file
 import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 
 const Blog = () => {
   const [posts, setPosts] = useState([]);
@@ -33,8 +35,8 @@ const Blog = () => {
     return <div className={styles.blogContainer}>{error}</div>;
   }
 
-  // Separate the first 4 posts, and the rest as other posts.
-  const topPosts = posts.slice(0, 3);
+  // Separate the first 3 posts as top posts, and the rest as other posts.
+  const topPosts = posts.slice(0, 4);
   const otherPosts = posts.slice(3);
 
   return (
@@ -43,43 +45,56 @@ const Blog = () => {
       <div className={styles.blogContainer}>
         <h1 className={styles.title}>مقالات پربازدید</h1>
 
-        {/* Other posts: remaining posts in list view */}
-        <div className={styles.posts}>
+        {/* Top Posts: first 3 posts in a grid */}
+        <div className={styles.topPosts}>
           {topPosts.map((post) => (
-            <div key={post.id} className={styles.post}>
-              {post.images && post.images.length > 0 && (
-                <img
-                  src={post.images[0].image}
-                  alt={post.title}
-                  className={styles.postSideImage}
-                />
-              )}
-              <div className={styles.postText}>
+            <Link
+              key={post.id}
+              to={`/blog/${post.id}`}
+              className={styles.topPostLink}
+            >
+              <div className={styles.topPost}>
+                {/* Display the first image if it exists */}
+                {post.images && post.images.length > 0 && (
+                  <img
+                    src={post.images[0].image}
+                    alt={post.title}
+                    className={styles.postImage}
+                  />
+                )}
                 <h2 className={styles.postTitle}>{post.title}</h2>
                 <p className={styles.postContent}>{post.content}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
-        {/* Top Posts: first 4 posts in a grid */}
-        <div className={styles.topPosts}>
+        {/* Other posts: remaining posts in list view */}
+        <div className={styles.posts}>
           {otherPosts.map((post) => (
-            <div key={post.id} className={styles.topPost}>
-              {/* Display the first image if it exists */}
-              {post.images && post.images.length > 0 && (
-                <img
-                  src={post.images[0].image}
-                  alt={post.title}
-                  className={styles.postImage}
-                />
-              )}
-              <h2 className={styles.postTitle}>{post.title}</h2>
-              <p className={styles.postContent}>{post.content}</p>
-            </div>
+            <Link
+              key={post.id}
+              to={`/blog/${post.id}`}
+              className={styles.postLink}
+            >
+              <div className={styles.post}>
+                {post.images && post.images.length > 0 && (
+                  <img
+                    src={post.images[0].image}
+                    alt={post.title}
+                    className={styles.postSideImage}
+                  />
+                )}
+                <div className={styles.postText}>
+                  <h2 className={styles.postTitle}>{post.title}</h2>
+                  <p className={styles.postContent}>{post.content}</p>
+                </div>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
+      <Footer />
     </>
   );
 };

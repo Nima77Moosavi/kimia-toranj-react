@@ -1,37 +1,39 @@
-/* سبک کلی سایدبار */
-.sidebar {
-  width: 20%;
-  height: 100%;
+/* Sidebar for User Panel (Desktop Style) */
+.sidebarNav {
+  width: 250px;           /* Fixed width on desktop */
+  flex-shrink: 0;         /* Prevent the sidebar from shrinking */
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  direction: rtl; /* راست‌چین کردن محتوا */
-  text-align: right; /* هم‌ترازی متن به سمت راست */
-  position: absolute; /* تعیین موقعیت مطلق */
-  right: 0; /* سمت راست صفحه */
+  direction: rtl;         /* Right-to-left content */
+  text-align: right;
+  background-color: #fff;
+  border-left: 2px solid rgba(2, 48, 71, 0.41); /* Subtle left border */
+  box-sizing: border-box;
 }
 
-/* مستطیل اول: اطلاعات کاربر */
+/* User Information Box */
 .userInfo {
   background-color: #fff;
   border-radius: 18px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 15px;
-  width: 100%; /* مستطیل تمام عرض سایدبار را می‌گیرد */
-  display: flex; /* نمایش نام و دکمه کنار هم */
-  justify-content: space-between; /* فاصله بین نام و دکمه */
-  align-items: center; /* هم‌ترازی عمودی */
-  border: 1px solid #02304768;
-  padding-top: 0%;
+  width: 100%; /* Take full width of sidebar */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid rgba(2, 48, 71, 0.41);
 }
 
+/* Username styling */
 .username {
   font-size: 16px;
   color: #023047;
   padding-right: 15px;
 }
 
+/* Edit Button styling */
 .editButton {
   background-color: #40e0d0;
   color: white;
@@ -39,78 +41,86 @@
   border-radius: 5px;
   padding: 5px 10px;
   cursor: pointer;
-  margin-bottom: 15px;
 }
 
 .editButton:hover {
   background-color: #096cad;
 }
 
-/* مستطیل دوم: لینک‌ها */
+/* Menu Container (for Links) */
 .menuContainer {
   background-color: #fff;
   border-radius: 18px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 15px;
-  width: 100%; /* مستطیل تمام عرض سایدبار را می‌گیرد */
-  border: 1px solid #02304768;
+  width: 100%;
+  border: 1px solid rgba(2, 48, 71, 0.41);
 }
 
+/* Menu items container */
 .menu {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
+/* Link Styles */
 .link {
   padding: 10px 15px;
   border-radius: 5px;
-  font-size: 20px;
+  font-size: 18px;
   cursor: pointer;
-  text-align: right; /* راست‌چین کردن متن لینک‌ها */
+  text-align: right;
   transition: all 0.3s ease;
   color: #023047;
+  text-decoration: none;
 }
 
 .link:hover {
   background-color: #40e0d0;
-  width: 70%;
+  width: 90%;
   color: white;
   border-radius: 9px;
 }
 
-/* تعریف کلاس active مشابه حالت هاور */
+/* Active Link Style (similar to hover) */
 .active {
   background-color: #40e0d0;
-  width: 70%;
+  width: 90%;
   color: white;
   border-radius: 9px;
   font-weight: bold;
+  text-decoration: none;
 }
 
+/* Responsive adjustments for mobile devices */
 @media (max-width: 768px) {
-  .sidebar {
-    width: 100%; /* عرض کامل صفحه */
-    height: auto; /* ارتفاع خودکار متناسب با محتوا */
-    padding: 15px; /* فاصله داخلی مناسب‌تر */
-    gap: 15px; /* فاصله بین مستطیل‌ها کمتر */
+  .sidebarNav {
+    width: 100%;
+    padding: 15px;
+    gap: 15px;
+    /* Replace the left border with a top border for mobile */
+    border-left: none;
+    border-top: 2px solid rgba(2, 48, 71, 0.41);
   }
 
   .userInfo,
   .menuContainer {
-    width: 35%; /* عرض کامل برای مستطیل‌ها */
-    margin-bottom: 15px; /* فاصله مناسب بین مستطیل‌ها */
+    width: 100%;
+    margin-bottom: 15px;
   }
+
   .editButton {
     margin-top: 25px;
     padding-bottom: 10px;
   }
+
   .username {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .link {
-    font-size: 11px; /* کاهش اندازه فونت لینک‌ها برای تطبیق */
-    padding: 8px 10px; /* پدینگ مناسب‌تر در حالت موبایل */
+    font-size: 14px;
+    padding: 8px 10px;
   }
 }

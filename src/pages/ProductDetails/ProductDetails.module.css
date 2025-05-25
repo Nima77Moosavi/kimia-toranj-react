@@ -272,7 +272,7 @@
   direction: rtl; /* حفظ راست به چپ */
   background-color: #f7ecec;
   position: sticky;
-  top: 0;
+  top: 60px;
   z-index: 1000;
   scroll-snap-type: x mandatory; /* اختیاری: اسکرول اسنپ برای بهتر چسبیدن تب‌ها */
   border-radius: 20px;

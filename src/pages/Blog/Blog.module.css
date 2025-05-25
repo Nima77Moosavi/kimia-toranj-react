@@ -14,7 +14,7 @@
   color: #333;
 }
 
-/* Styling for the top posts grid in smaller cards */
+/* Top Posts Grid (for “پربازدید”) */
 .topPosts {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -34,19 +34,15 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Ensuring images are all the same size */
+/* Uniform Images for Top Posts */
 .postImage {
   width: 100%;
   height: 200px; /* Fixed height for consistent display */
-
   margin-bottom: 10px;
   border-radius: 4px;
 }
 
-/* Styling for remaining posts (vertical list) */
-/* Existing styles remain unchanged... */
-
-/* Styling for remaining posts (vertical list) modified to display side by side */
+/* Vertical Posts (Remaining Posts) */
 .posts {
   display: flex;
   flex-direction: column;
@@ -54,10 +50,11 @@
   margin-bottom: 30px;
 }
 
+/* Desktop: Display image and text side by side */
 .post {
-  display: flex; /* Make image and text side by side */
-  gap: 20px; /* Space between the image and text */
-  align-items: center; /* Center items vertically */
+  display: flex;
+  gap: 20px;
+  align-items: center;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -69,20 +66,19 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* New styles for the image in side-by-side posts */
+/* Side-by-side image for post – fixed dimensions */
 .postSideImage {
-  width: 150px; /* Fixed width for the image */
-  height: 150px; /* Fixed height for uniform display */
-  object-fit: cover; /* Ensure the image fills the area, cropping if necessary */
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
   border-radius: 4px;
 }
 
-/* Container for the text to fill the remaining space */
+/* Text container occupies remaining space */
 .postText {
-  flex: 1; /* Text takes up remaining horizontal space */
+  flex: 1;
 }
 
-/* The rest of your text styles */
 .postTitle {
   font-size: 1.8rem;
   margin-bottom: 10px;
@@ -93,8 +89,103 @@
   font-size: 1.2rem;
   color: #666;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Limit text to three lines */
+  -webkit-line-clamp: 3; /* Limit to three lines */
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* Remove default link styling so posts look consistent */
+.topPostLink,
+.postLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ------------------
+   Mobile Responsive
+   ------------------ */
+@media (max-width: 768px) {
+  .blogContainer {
+    padding: 10px;
+  }
+
+  .title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+
+  /* Adjust top posts grid to smaller columns */
+  .topPosts {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+
+  .topPost {
+    padding: 15px;
+  }
+
+  /* Reduce top post image height */
+  .postImage {
+    height: 150px;
+  }
+
+  /* For vertical posts, stack image and text vertically */
+  .posts {
+    flex-direction: column;
+  }
+
+  .post {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  /* Make the side image full width and auto-height */
+  .postSideImage {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+  .postTitle {
+    font-size: 1.6rem;
+  }
+
+  .postContent {
+    font-size: 1rem;
+  }
+}
+
+/* Further small-device tweaks (optional) */
+@media (max-width: 480px) {
+  .blogContainer {
+    margin-top: 60px;
+  }
+
+  .title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  .topPosts {
+    grid-template-columns: 1fr; /* Single column for smallest screens */
+  }
+
+  .topPost {
+    padding: 10px;
+  }
+
+  .post {
+    padding: 10px;
+  }
+
+  .postTitle {
+    font-size: 1.4rem;
+  }
+
+  .postContent {
+    font-size: 0.9rem;
+  }
 }
