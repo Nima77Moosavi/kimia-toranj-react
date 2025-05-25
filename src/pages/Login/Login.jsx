@@ -50,7 +50,7 @@ const Login = () => {
     setIsLoading(true);
     try {
       const response = await axios.post(`${API_URL}api/users/send-otp/`, {
-        phoneNumber,
+        phone_number: phoneNumber,
       });
       console.log(response);
 
@@ -76,11 +76,13 @@ const Login = () => {
     }
     setIsLoading(true);
     try {
-      const response = await axios.post(`${API_URL}api/users/verify-otp`, {
-        phoneNumber,
-        otp: verificationCode,
+      const response = await axios.post(`${API_URL}api/users/verify-otp/`, {
+        phone_number: phoneNumber,
+        code: verificationCode,
       });
-      console.log(response);
+      console.log(response.data);
+      localStorage.setItem("accessToken", response.data.access);
+      localStorage.setItem("refreshToken", response.data.refresh);
 
       await new Promise((resolve) => setTimeout(resolve, 1500));
       setIsVerified(true);
