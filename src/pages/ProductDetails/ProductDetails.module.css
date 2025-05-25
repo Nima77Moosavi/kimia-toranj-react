@@ -106,7 +106,7 @@
   text-align: center;
   justify-self: center;
   margin: 10px 0; /* فاصله از بالا و پایین */
-  width: auto;
+ 
 }
 .price:hover {
   background-color: #ffffff;
@@ -355,15 +355,17 @@ background-color: unset;
   align-items: center;
   
 }
-.priceContainer p{
-  justify-content: flex-start !important;
-  text-align: right !important; 
-  padding: 10px;
-  font-size: 1rem;
+.priceContainer p {
   display: flex;
-  direction: rtl;
   flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 8px 0; /* یا هرچقدر خواستی بالا و پایین فاصله بده */
+  font-size: 0.9rem;
+  gap: 6px; /* فاصله بین متن و آیکون */
+  direction: rtl;
 }
+
 
 .leftSidebar p .icon{
   color: #023047;
