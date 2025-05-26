@@ -1,0 +1,36 @@
+.title{
+    text-align: right;
+    color: #023047;
+    font-size: 2.2rem;
+    font-weight: 400;
+    margin-right: 60px;
+}
+.itemContainer{
+    background-color: white;
+    border: #b0b0b1da solid 0.5px;
+}
+.item{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+.quantityDisplay {
+    display: inline-block;
+    min-width: 30px;
+    text-align: center;
+    color: #f86666;
+  }
+.quantityControl{
+    border: #b0b0b1a4 solid 0.5px;
+    border-radius: 20px;
+}
+.quantityButton{
+    background: none;
+    font-size: 1.5rem;
+    padding: 0% 5px;
+    color: #f86666;
+}
+.deleteButton{
+    font-size: 1rem;
+    padding: 0% 3px;
+}
