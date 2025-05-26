@@ -1,22 +1,23 @@
 .container {
   width: 100%;
   min-height: 100vh;
-  background-color: #f5f5f5;
+  padding: 30px;
+  /* background-color: #f5f5f5; */
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
 }
 
-/* Main layout container: content (left) and sidebar (right) */
+
 .main {
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;
   width: 100%;
   flex: 1;
-  margin-top: 60px; /* Adjust as needed, e.g., if Header is fixed */
+  margin-top: 60px;
 }
 
-/* Content area takes the remaining space */
+
 .content {
   flex: 1;
   padding: 20px;
@@ -24,17 +25,17 @@
   box-sizing: border-box;
 }
 
-/* Sidebar is fixed width and on the right */
+
 .sidebar {
   width: 250px;
   padding: 20px;
-  background-color: #f7f7f7;
-  border-left: 1px solid #ddd;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  /* background-color: #f7f7f7; */
+  /* border-left: 1px solid #ddd; */
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
   box-sizing: border-box;
 }
 
-/* Responsive layout for mobile: stack content and sidebar */
+
 @media (max-width: 768px) {
   .main {
     flex-direction: column;

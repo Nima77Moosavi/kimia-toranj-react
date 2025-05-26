@@ -19,6 +19,8 @@ import { TbShieldStar } from "react-icons/tb";
 import { BsBoxSeam } from "react-icons/bs";
 import { BiSolidOffer } from "react-icons/bi";
 import { FaStar } from "react-icons/fa";
+import axiosInstance from "../../utils/axiosInstance";
+import { API_URL } from "../../config";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -54,6 +56,43 @@ const ProductDetails = () => {
 
   const { addFavorite, removeFavorite, isFavorite } =
     useContext(FavoritesContext);
+
+  const handleAddToCart = async () => {
+    try {
+      // Retrieve the current cart
+      const response = await axiosInstance.get(`${API_URL}api/store/cart`);
+      const currentCart = response.data;
+      let currentItems = currentCart.items || [];
+
+      // Check if the product variant is already in the cart
+      const existingItem = currentItems.find(
+        (item) => item.product_variant?.id === productVariantId
+      );
+
+      let newItems;
+      if (existingItem) {
+        // If exists, update its quantity by incrementing it
+        newItems = currentItems.map((item) =>
+          item.product_variant?.id === productVariantId
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      } else {
+        // If not, add the new product variant with a quantity of 1
+        newItems = [
+          ...currentItems,
+          { product_variant_id: productVariantId, quantity: 1 },
+        ];
+      }
+
+      // Update the cart on the backend
+      await axiosInstance.patch(`${API_URL}api/store/cart`, {
+        items: newItems,
+      });
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+    }
+  };
 
   const likeHandler = () => {
     if (isFavorite(product.id)) {
@@ -218,23 +257,25 @@ const ProductDetails = () => {
           <div className={styles.leftSidebar}>
             <div className={styles.priceContainer}>
               <p>
-              بازگشت محصول تا 7 روز طبق شرایط مرجوعی
-              <AiOutlineSafety className={styles.icon} />
-            </p>
-            <p>
-              گارانتی ضمانت اصالت و سلامت فیزیکی کالا
-              <TbShieldStar className={styles.icon} />
-            </p>
-            <p className={styles.inventory}>
-              تنها 2 عدد در انبار باقی مانده
-              <BsBoxSeam className={styles.icon} />
-            </p>
-            <button className={styles.price}>
-              {product.variants[0].price} &nbsp; تومان
-            </button>
-            <button className={styles.addToCart}>افزودن به سبد خرید</button>
+                بازگشت محصول تا 7 روز طبق شرایط مرجوعی
+                <AiOutlineSafety className={styles.icon} />
+              </p>
+              <p>
+                گارانتی ضمانت اصالت و سلامت فیزیکی کالا
+                <TbShieldStar className={styles.icon} />
+              </p>
+              <p className={styles.inventory}>
+                تنها 2 عدد در انبار باقی مانده
+                <BsBoxSeam className={styles.icon} />
+              </p>
+              <button className={styles.price}>
+                {product.variants[0].price} &nbsp; تومان
+              </button>
+              <button className={styles.addToCart} onClick={handleAddToCart}>
+                افزودن به سبد خرید
+              </button>
             </div>
-            
+
             <div className={styles.iconsContainer}>
               {like ? (
                 <GoHeartFill onClick={likeHandler} className={styles.icon} />
@@ -249,7 +290,6 @@ const ProductDetails = () => {
                 <p>
                   1<FaStar className={styles.icon} />
                   <progress value={0} max={100} className={styles.progress} />
-
                 </p>
                 <p>
                   2<FaStar className={styles.icon} />
@@ -270,7 +310,7 @@ const ProductDetails = () => {
               </div>
               <div className={styles.leftPart}>
                 <p>4</p>
-                </div>
+              </div>
             </div>
           </div>
 
