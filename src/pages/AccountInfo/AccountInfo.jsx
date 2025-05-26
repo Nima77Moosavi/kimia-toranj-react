@@ -8,17 +8,16 @@ import Footer from "../../components/Footer/Footer";
 const AccountInfo = () => {
   return (
     <div className={styles.container}>
-      <Header />
+      
       <div className={styles.main}>
         <aside className={styles.sidebar}>
-          {/* ارسال به صورت استاتیک activeSection به "accountInfo" برای حفظ حالت active */}
-          <SidebarUserPanel activeSection="accountInfo" />
+          
         </aside>
         <div className={styles.content}>
           <UserInfoForm />
         </div>
       </div>
-      <Footer />
+      
     </div>
   );
 };

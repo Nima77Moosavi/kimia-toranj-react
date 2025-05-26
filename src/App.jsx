@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Import your layout, ProtectedRoute, and pages
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-import UserPanel from "./pages/UserPanel/UserPanel";
+import UserPanel from './pages/UserPanel/UserPanel.jsx'
 import AccountInfo from "./pages/AccountInfo/AccountInfo";
 import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
 import UserOrders from "./pages/UserOrders/UserOrders";
@@ -46,7 +46,6 @@ const App = () => {
           }
         >
           {/* Default /user-panel shows AccountInfo */}
-          <Route index element={<AccountInfo />} />
           <Route path="account-info" element={<AccountInfo />} />
           <Route path="cart" element={<ShoppingCart />} />
           <Route path="orders" element={<UserOrders />} />
