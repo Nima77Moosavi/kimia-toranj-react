@@ -64,29 +64,44 @@ const ProductDetails = () => {
       const currentCart = response.data;
       let currentItems = currentCart.items || [];
 
-      // Check if the product variant is already in the cart
-      const existingItem = currentItems.find(
-        (item) => item.product_variant?.id === productVariantId
+      // Filter and format the current items to include only product_variant_id and quantity.
+      const formattedItems = currentItems
+        .filter((item) => item.product_variant && item.product_variant.id)
+        .map((item) => ({
+          product_variant_id: item.product_variant.id,
+          quantity: item.quantity,
+        }));
+
+      const variantId = product?.variants?.[0]?.id;
+      if (!variantId) {
+        console.error("Variant ID not available.");
+        return;
+      }
+
+      // Check if the product variant is already in the cart.
+      const existingItem = formattedItems.find(
+        (item) => item.product_variant_id === variantId
       );
 
       let newItems;
       if (existingItem) {
-        // If exists, update its quantity by incrementing it
-        newItems = currentItems.map((item) =>
-          item.product_variant?.id === productVariantId
-            ? { ...item, quantity: item.quantity + 1 }
+        // If it exists, update its quantity by incrementing it.
+        newItems = formattedItems.map((item) =>
+          item.product_variant_id === variantId
+            ? { product_variant_id: variantId, quantity: item.quantity + 1 }
             : item
         );
       } else {
-        // If not, add the new product variant with a quantity of 1
+        // If not, add the new product variant with a quantity of 1.
         newItems = [
-          ...currentItems,
-          { product_variant_id: productVariantId, quantity: 1 },
+          ...formattedItems,
+          { product_variant_id: variantId, quantity: 1 },
         ];
       }
+      console.log(newItems);
 
-      // Update the cart on the backend
-      await axiosInstance.patch(`${API_URL}api/store/cart`, {
+      // Update the cart on the backend with the correctly formatted payload
+      await axiosInstance.patch(`${API_URL}api/store/cart/`, {
         items: newItems,
       });
     } catch (error) {
