@@ -103,6 +103,10 @@
   font-size: 1.3rem;
   border-radius: 10px;
   margin-bottom: 5px;
+  text-align: center;
+  justify-self: center;
+  margin: 10px 0; /* فاصله از بالا و پایین */
+ 
 }
 .price:hover {
   background-color: #ffffff;
@@ -119,6 +123,10 @@
   cursor: pointer;
   transition: background-color 0.3s;
   white-space: nowrap;
+  text-align: center;
+  justify-self: center;
+  margin: 10px 0; /* فاصله از بالا و پایین */
+  width: auto;
 }
 
 .addToCart:hover {
@@ -159,6 +167,7 @@
 }
 .rateContainer .rightPart{
   width: 60%;
+  padding: 2px;
 }
 .rateContainer .rightPart p{
   font-size: 1rem;
@@ -172,6 +181,7 @@
   text-align: left;
   align-items: start;
   display: flex;
+  padding: 2px;
 }
 .rateContainer .leftPart p{
 
@@ -339,21 +349,24 @@ background-color: unset;
   width: 26%;
   height: max-content;
   margin-left: 1%;
-  text-align: center;
+  /* text-align: right; */
   justify-items: center;
   justify-content: center;
   align-items: center;
   
 }
-.leftSidebar .priceContainer p{
-  justify-self: end;
-  text-align: right !important; 
-  padding: 10px;
-  font-size: 1rem;
+.priceContainer p {
   display: flex;
-  direction: rtl;
   flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 8px 0; /* یا هرچقدر خواستی بالا و پایین فاصله بده */
+  font-size: 0.9rem;
+  gap: 6px; /* فاصله بین متن و آیکون */
+  direction: rtl;
 }
+
+
 .leftSidebar p .icon{
   color: #023047;
   vertical-align: bottom;
@@ -369,7 +382,13 @@ background-color: unset;
   width: 95%;
   border-radius: 20px;
   margin: 10px auto;
+  justify-items: center;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  direction: rtl;
 }
+
 
 .rightContainer{
   width: 70%;
