@@ -10,7 +10,6 @@ const ShoppingCart = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Fetch the cart data when the component mounts
   useEffect(() => {
     const fetchCart = async () => {
       try {
@@ -125,7 +124,7 @@ const ShoppingCart = () => {
               </div>
             </div>
           ) : (
-            !loading && <p>Your cart is empty.</p>
+            !loading && <p>سبد خرید شما خالی است.</p>
           )}
         </div>
       </div>
