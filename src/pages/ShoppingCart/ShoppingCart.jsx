@@ -1,18 +1,12 @@
-// ShoppingCart.jsx
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_URL } from "../../config";
-import Header from "../../components/Header/Header"; // Header component
-import SidebarUserPanel from "../../components/SidebarUserPanel/SidebarUserPanel"; // Sidebar navigation
-import OrderStatusTabs from "../../components/OrderStatusTabs/OrderStatusTabs";
+import Header from "../../components/Header/Header";
+import SidebarUserPanel from "../../components/SidebarUserPanel/SidebarUserPanel";
 import styles from "./ShoppingCart.module.css";
 
 const ShoppingCart = () => {
-  // activeTab to control OrderStatusTabs (if you use this for filtering or similar)
-  const [activeTab, setActiveTab] = useState(0);
-  // State to hold the cart data returned from the API
   const [cartData, setCartData] = useState(null);
-  // Track loading and error state
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -21,8 +15,6 @@ const ShoppingCart = () => {
     const fetchCart = async () => {
       try {
         setLoading(true);
-        // Assuming your API endpoint returns the authenticated customer's cart
-        // and that your JWT middleware takes care of authentication
         const response = await axiosInstance.get(`${API_URL}api/store/cart`);
         setCartData(response.data);
         setLoading(false);
@@ -32,80 +24,105 @@ const ShoppingCart = () => {
         setLoading(false);
       }
     };
-
     fetchCart();
   }, []);
 
-  // Sample function to update the quantity of an item
-  // This just updates local state; you’d normally send a PATCH/PUT request to the API.
+  // Function to update the quantity of an item in the cart.
   const updateQuantity = async (itemId, newQuantity) => {
     if (!cartData) return;
-    // Generate a new array of items with the updated quantity for the matching item.
-    const updatedItems = cartData.items.map((item) =>
+
+    const updatedItems = cartData.items.map((item) => {
+      return item.id === itemId
+        ? { product_variant_id: item.product_variant.id, quantity: newQuantity }
+        : {
+            product_variant_id: item.product_variant.id,
+            quantity: item.quantity,
+          };
+    });
+
+    // Optimistically update local state
+    const updatedLocalItems = cartData.items.map((item) =>
       item.id === itemId ? { ...item, quantity: newQuantity } : item
     );
-    // Update local state first
-    setCartData({ ...cartData, items: updatedItems });
+    setCartData({ ...cartData, items: updatedLocalItems });
 
-    // Then update backend (this assumes your API accepts a PATCH with an items array)
     try {
       await axiosInstance.patch(`${API_URL}api/store/cart`, {
         items: updatedItems,
       });
     } catch (err) {
       console.error("Failed to update item quantity", err);
-      // Optionally: revert local state on error.
+      // Optionally revert local state on error.
     }
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.main}>
-        <div className={styles.content}>
-          {/* <OrderStatusTabs activeTab={activeTab} setActiveTab={setActiveTab} /> */}
-
+    <div className={styles.cartContainer}>
+      <div className={styles.cartMain}>
+        <div className={styles.cartContent}>
           {loading && <p>Loading cart...</p>}
-          {error && <p>{error}</p>}
-
+          {error && <p className={styles.error}>{error}</p>}
           {cartData && cartData.items && cartData.items.length > 0 ? (
             <div>
-              <h2>Your Shopping Cart</h2>
-              <ul>
-                {cartData.items.map((item) => (
-                  <li key={item.id}>
-                    <div>
-                      {/* Assuming product_variant has a name or description */}
-                      <p>
-                        <strong>Product:</strong>{" "}
-                        {item.product_variant?.name || "Product name"}
-                      </p>
-                      <p>
-                        <strong>Quantity:</strong> {item.quantity}
-                      </p>
-                      <div>
-                        <button
-                          onClick={() =>
-                            updateQuantity(item.id, item.quantity + 1)
+              <h2 className={styles.cartTitle}>Your Shopping Cart</h2>
+              <div className={styles.itemsList}>
+                {cartData.items.map((item) => {
+                  // Attempt to get the first image URL from product images.
+                  const imageUrl =
+                    item.product_variant?.product?.images &&
+                    item.product_variant.product.images.length > 0
+                      ? item.product_variant.product.images[0].image
+                      : "/placeholder.png"; // Fallback to placeholder if no image
+
+                  return (
+                    <div key={item.id} className={styles.cartItem}>
+                      <div className={styles.itemImage}>
+                        <img
+                          src={imageUrl}
+                          alt={
+                            item.product_variant?.product?.title ||
+                            "Product Image"
                           }
-                        >
-                          +
-                        </button>
-                        <button
-                          disabled={item.quantity <= 1}
-                          onClick={() =>
-                            updateQuantity(
-                              item.id,
-                              item.quantity > 1 ? item.quantity - 1 : 1
-                            )
-                          }
-                        >
-                          -
-                        </button>
+                        />
+                      </div>
+                      <div className={styles.itemDetails}>
+                        <h3 className={styles.itemTitle}>
+                          {item.product_variant?.product?.title ||
+                            "Product Name"}
+                        </h3>
+                        <p className={styles.itemDescription}>
+                          {item.product_variant?.product?.description || ""}
+                        </p>
+                        <p className={styles.itemPrice}>
+                          Price: {item.product_variant?.price} تومان
+                        </p>
+                        <p className={styles.itemQuantity}>
+                          Quantity: <span>{item.quantity}</span>
+                        </p>
+                        <div className={styles.quantityControls}>
+                          <button
+                            className={styles.qtyButton}
+                            onClick={() =>
+                              updateQuantity(item.id, item.quantity - 1)
+                            }
+                            disabled={item.quantity <= 1}
+                          >
+                            –
+                          </button>
+                          <button
+                            className={styles.qtyButton}
+                            onClick={() =>
+                              updateQuantity(item.id, item.quantity + 1)
+                            }
+                          >
+                            +
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </li>
-                ))}
-              </ul>
+                  );
+                })}
+              </div>
             </div>
           ) : (
             !loading && <p>Your cart is empty.</p>
