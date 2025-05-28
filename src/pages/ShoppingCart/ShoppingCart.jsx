@@ -4,6 +4,9 @@ import { API_URL } from "../../config";
 import Header from "../../components/Header/Header";
 import SidebarUserPanel from "../../components/SidebarUserPanel/SidebarUserPanel";
 import styles from "./ShoppingCart.module.css";
+import { MdDeleteOutline } from "react-icons/md";
+import { FiPlus } from "react-icons/fi";
+import { FiMinus } from "react-icons/fi";
 
 const ShoppingCart = () => {
   const [cartData, setCartData] = useState(null);
@@ -26,7 +29,6 @@ const ShoppingCart = () => {
     fetchCart();
   }, []);
 
-  // Function to update the quantity of an item in the cart.
   const updateQuantity = async (itemId, newQuantity) => {
     if (!cartData) return;
 
@@ -39,7 +41,6 @@ const ShoppingCart = () => {
           };
     });
 
-    // Optimistically update local state
     const updatedLocalItems = cartData.items.map((item) =>
       item.id === itemId ? { ...item, quantity: newQuantity } : item
     );
@@ -51,7 +52,41 @@ const ShoppingCart = () => {
       });
     } catch (err) {
       console.error("Failed to update item quantity", err);
-      // Optionally revert local state on error.
+    }
+  };
+
+  const removeItem = async (itemId) => {
+    if (!cartData) return;
+    
+    try {
+      await axiosInstance.delete(`${API_URL}api/store/cart/items/${itemId}`);
+      const updatedItems = cartData.items.filter(item => item.id !== itemId);
+      setCartData({ ...cartData, items: updatedItems });
+    } catch (err) {
+      console.error("Failed to remove item", err);
+    }
+  };
+
+  // تابع جدید برای محاسبه جمع کل
+  const calculateTotal = () => {
+    if (!cartData?.items) return 0;
+    return cartData.items.reduce(
+      (total, item) => total + (item.product_variant?.price * item.quantity),
+      0
+    );
+  };
+
+  // تابع جدید برای ثبت سفارش
+  const handleCheckout = async () => {
+    try {
+      setLoading(true);
+      const response = await axiosInstance.post(`${API_URL}api/store/checkout`);
+      console.log('Checkout successful:', response.data);
+    } catch (err) {
+      console.error('Checkout failed:', err);
+      setError('Error during checkout');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -63,15 +98,14 @@ const ShoppingCart = () => {
           {error && <p className={styles.error}>{error}</p>}
           {cartData && cartData.items && cartData.items.length > 0 ? (
             <div>
-              <h2 className={styles.cartTitle}>Your Shopping Cart</h2>
+              <h2 className={styles.cartTitle}>سبد خرید شما</h2>
               <div className={styles.itemsList}>
                 {cartData.items.map((item) => {
-                  // Attempt to get the first image URL from product images.
                   const imageUrl =
                     item.product_variant?.product?.images &&
                     item.product_variant.product.images.length > 0
                       ? item.product_variant.product.images[0].image
-                      : "/placeholder.png"; // Fallback to placeholder if no image
+                      : "/placeholder.png";
 
                   return (
                     <div key={item.id} className={styles.cartItem}>
@@ -93,35 +127,63 @@ const ShoppingCart = () => {
                           {item.product_variant?.product?.description || ""}
                         </p>
                         <p className={styles.itemPrice}>
-                          Price: {item.product_variant?.price} تومان
+                          {item.product_variant?.price} تومان
                         </p>
-                        <p className={styles.itemQuantity}>
-                          Quantity: <span>{item.quantity}</span>
-                        </p>
-                        <div className={styles.quantityControls}>
-                          <button
-                            className={styles.qtyButton}
-                            onClick={() =>
-                              updateQuantity(item.id, item.quantity - 1)
-                            }
-                            disabled={item.quantity <= 1}
-                          >
-                            –
-                          </button>
-                          <button
-                            className={styles.qtyButton}
-                            onClick={() =>
-                              updateQuantity(item.id, item.quantity + 1)
-                            }
-                          >
-                            +
-                          </button>
+                        <div className={styles.quantityControl}>
+                          <div className={styles.quantityBox}>
+                            <button
+                              className={`${styles.quantityButton} ${styles.plusButton}`}
+                              onClick={() =>
+                                updateQuantity(item.id, item.quantity + 1)
+                              }
+                            >
+                              <FiPlus />
+                            </button>
+                            
+                            <span className={styles.quantityNumber}>
+                              {item.quantity}
+                            </span>
+
+                            {item.quantity > 1 ? (
+                              <button
+                                className={`${styles.quantityButton} ${styles.minusButton}`}
+                                onClick={() =>
+                                  updateQuantity(item.id, item.quantity - 1)
+                                }
+                              >
+                                <FiMinus />
+                              </button>
+                            ) : (
+                              <button
+                                className={`${styles.quantityButton} ${styles.deleteButton}`}
+                                onClick={() => removeItem(item.id)}
+                              >
+                               <MdDeleteOutline />
+                              </button>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
                   );
                 })}
               </div>
+
+              {/* بخش جدید: جمع کل و دکمه ثبت سفارش */}
+              <div className={styles.cartSummary}>
+                <div className={styles.totalPrice}>
+                  <span>جمع کل:</span>
+                  <span>{calculateTotal().toLocaleString()} تومان</span>
+                </div>
+                <button 
+                  className={styles.checkoutButton}
+                  onClick={handleCheckout}
+                  disabled={loading}
+                >
+                  {loading ? "در حال پردازش..." : "ثبت نهایی سفارش"}
+                </button>
+              </div>
+
             </div>
           ) : (
             !loading && <p>سبد خرید شما خالی است.</p>
