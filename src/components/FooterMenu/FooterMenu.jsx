@@ -7,38 +7,56 @@ import { BsPerson } from "react-icons/bs";
 
 const FooterMenu = () => {
   const [isFooterVisible, setIsFooterVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const footerRef = useRef(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // اگر فوتر اصلی در viewport قرار گرفت، منو را مخفی کنید
-        setIsFooterVisible(!entry.isIntersecting);
-      },
-      {
-        root: null,
-        threshold: 0.1, // وقتی ۱۰٪ فوتر وارد viewport شد
-      }
-    );
-
-    if (footerRef.current) {
-      observer.observe(footerRef.current);
-    }
-
-    return () => {
-      if (footerRef.current) {
-        observer.unobserve(footerRef.current);
-      }
+    // بررسی سایز صفحه در اولین بارگذاری
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 768);
     };
+    
+    checkScreenSize();
+
+    // تنظیم Intersection Observer فقط در موبایل
+    if (isMobile) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          setIsFooterVisible(!entry.isIntersecting);
+        },
+        {
+          root: null,
+          threshold: 0.1,
+        }
+      );
+
+      if (footerRef.current) {
+        observer.observe(footerRef.current);
+      }
+
+      return () => {
+        if (footerRef.current) {
+          observer.unobserve(footerRef.current);
+        }
+      };
+    }
+  }, [isMobile]);
+
+  // اضافه کردن event listener برای تغییر سایز صفحه
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
     <>
-      {/* این div در انتهای صفحه (قبل از فوتر اصلی) قرار می‌گیرد */}
       <div ref={footerRef} style={{ height: '1px' }}></div>
-
-      {/* منوی پایین صفحه (فقط وقتی فوتر اصلی دیده نمی‌شود نمایش داده می‌شود) */}
-      {isFooterVisible && (
+      
+      {isMobile && isFooterVisible && (
         <div className={styles.container}>
           <ul>
             <li>خانه<span><IoHomeOutline /></span></li>
