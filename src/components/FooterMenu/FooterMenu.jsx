@@ -58,7 +58,7 @@ const FooterMenu = () => {
       
       {isMobile && isFooterVisible && (
         <div className={styles.container}>
-          <ul>
+          <ul className={styles.footerul}>
             <li>خانه<span><IoHomeOutline /></span></li>
             <li>دسته‌بندی<span><HiOutlineSquares2X2 /></span></li>
             <li>مقالات<span><MdOutlineArticle /></span></li>
