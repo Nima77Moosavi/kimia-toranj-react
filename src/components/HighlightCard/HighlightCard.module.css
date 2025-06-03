@@ -49,3 +49,10 @@
   text-decoration: none; /* Remove underline */
   color: inherit; /* Inherit text color */
 }
+
+
+@media (max-width: 480px) {
+  .card{
+    width: 80px;
+  }
+}

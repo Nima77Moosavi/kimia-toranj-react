@@ -9,15 +9,49 @@ import { BsFileEarmarkPerson } from "react-icons/bs";
 import { TbDeviceIpadHorizontalStar } from "react-icons/tb";
 import { PiArticleBold } from "react-icons/pi";
 import { FaTrashAlt } from "react-icons/fa";
-import { FavoritesContext } from "../../context/FavoritesContext"; // مسیر درست رو بزن
+import { FavoritesContext } from "../../context/FavoritesContext";
+import axiosInstance from "../../utils/axiosInstance";
+import { API_URL } from "../../config";
 
 const HeaderDesktop = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
-  const { favorites, removeFavorite } = useContext(FavoritesContext); // 👈🏻 گرفتن اطلاعات از Context
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
+  const { favorites, removeFavorite } = useContext(FavoritesContext);
 
   const menuRef = useRef();
   const favoritesRef = useRef();
+  const cartRef = useRef();
+
+  // دریافت سبد خرید از API
+  const fetchCart = async () => {
+    try {
+      const response = await axiosInstance.get(`${API_URL}api/store/cart`);
+      setCartItems(response.data?.items || []);
+    } catch (error) {
+      console.error("Error fetching cart:", error);
+      setCartItems([]);
+    }
+  };
+
+  // حذف آیتم از سبد خرید
+  const handleRemoveItem = async (itemId) => {
+    try {
+      await axiosInstance.delete(`${API_URL}api/store/cart/items/${itemId}`);
+      fetchCart();
+    } catch (error) {
+      console.error("Error removing item:", error);
+    }
+  };
+
+  // مدیریت باز/بسته شدن پاپ‌آپ سبد خرید
+  const toggleCartPopup = async (isOpen) => {
+    if (isOpen) {
+      await fetchCart();
+    }
+    setIsCartOpen(isOpen);
+  };
 
   // بستن منوها هنگام کلیک بیرون
   useEffect(() => {
@@ -25,20 +59,19 @@ const HeaderDesktop = () => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsMenuOpen(false);
       }
-      if (
-        favoritesRef.current &&
-        !favoritesRef.current.contains(event.target)
-      ) {
+      if (favoritesRef.current && !favoritesRef.current.contains(event.target)) {
         setIsFavoritesOpen(false);
+      }
+      if (cartRef.current && !cartRef.current.contains(event.target)) {
+        setIsCartOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
 
-    // بستن منو علاقه‌مندی‌ها هنگام اسکرول
+    // بستن منوها هنگام اسکرول
     const handleScroll = () => {
-      if (isFavoritesOpen) {
-        setIsFavoritesOpen(false);
-      }
+      setIsFavoritesOpen(false);
+      setIsCartOpen(false);
     };
     document.addEventListener("scroll", handleScroll);
 
@@ -46,9 +79,8 @@ const HeaderDesktop = () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("scroll", handleScroll);
     };
-  }, [isFavoritesOpen]);
+  }, [isFavoritesOpen, isCartOpen]);
 
-  // حذف محصول از لیست علاقه‌مندی‌ها
   const handleDeleteFavorite = (id) => {
     removeFavorite(id);
   };
@@ -58,8 +90,14 @@ const HeaderDesktop = () => {
       <div className={styles.container}>
         {/* آیکن‌ها */}
         <div className={styles.icons}>
-          <span>
+          <span
+            onClick={() => toggleCartPopup(!isCartOpen)}
+            className={styles.cartIcon}
+          >
             <FaCartShopping />
+            {cartItems.length > 0 && (
+              <span className={styles.cartCount}>{cartItems.length}</span>
+            )}
           </span>
 
           <span
@@ -67,7 +105,6 @@ const HeaderDesktop = () => {
             className={styles.favoriteIcon}
           >
             <GoHeartFill />
-            {/* نمایش تعداد علاقه‌مندی‌ها */}
             {favorites.length > 0 && (
               <span className={styles.favoriteCount}>{favorites.length}</span>
             )}
@@ -111,7 +148,7 @@ const HeaderDesktop = () => {
               </Link>
               <Link to="/about">
                 <li>
-                  درباره کیمیا ترنج <BsFileEarmarkPerson />
+                  درباره ما <BsFileEarmarkPerson />
                 </li>
               </Link>
               <Link to="/">
@@ -149,6 +186,70 @@ const HeaderDesktop = () => {
                 </li>
               ))}
             </ul>
+          )}
+        </div>
+      )}
+
+      {/* پاپ‌آپ سبد خرید با استایل جدید */}
+      {isCartOpen && (
+        <div className={styles.cartPopup} ref={cartRef}>
+          <h5 className={styles.cartTitle}>سبد خرید شما</h5>
+          {cartItems.length === 0 ? (
+            <p className={styles.emptyCartText}>سبد خرید شما خالی است</p>
+          ) : (
+            <div className={styles.cartItemsContainer}>
+              {cartItems.map((item) => {
+                const imageUrl = item.product_variant?.product?.images?.[0]?.image || '/placeholder-product.png';
+                
+                return (
+                  <div key={item.id} className={styles.cartItem}>
+                    <div className={styles.cartItemImageContainer}>
+                      <img 
+                        src={imageUrl} 
+                        alt={item.product_variant?.product?.title || "محصول"} 
+                        className={styles.cartItemImage}
+                      />
+                    </div>
+                    <div className={styles.cartItemDetails}>
+                      <Link 
+                        to={`/productDetails/${item.product_variant?.product?.id}`}
+                        className={styles.cartItemTitle}
+                      >
+                        {item.product_variant?.product?.title || "محصول"}
+                      </Link>
+                      <div className={styles.cartItemPrice}>
+                        {item.product_variant?.price?.toLocaleString() || "۰"} تومان
+                      </div>
+                      <div className={styles.cartItemActions}>
+                        <span className={styles.cartItemQuantity}>
+                          تعداد: {item.quantity}
+                        </span>
+                        <button 
+                          onClick={() => handleRemoveItem(item.id)}
+                          className={styles.cartItemDelete}
+                        >
+                          <FaTrashAlt />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+              <div className={styles.cartSummary}>
+                <div className={styles.cartTotal}>
+                  <span>جمع کل:</span>
+                  <span>
+                    {cartItems.reduce(
+                      (total, item) => total + (item.product_variant?.price * item.quantity || 0),
+                      0
+                    ).toLocaleString()} تومان
+                  </span>
+                </div>
+                <Link to="/checkout" className={styles.checkoutButton}>
+                  پرداخت و ثبت سفارش
+                </Link>
+              </div>
+            </div>
           )}
         </div>
       )}

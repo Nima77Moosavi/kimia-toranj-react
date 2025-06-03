@@ -18,8 +18,8 @@
 
 .highlights {
   display: inline-flex;
-  gap: 10px;
-  padding: 0 16px;
+  gap: 5px;
+  padding: 0 0px;
   transition: transform 0.5s ease-in-out;
 }
 
@@ -70,14 +70,14 @@
   }
   
   .highlights {
-    gap: 20px; /* Increase gap on larger screens */
-    padding: 0 24px;
+    gap: 10px; /* Increase gap on larger screens */
+    padding: 0 0px;
   }
 }
 
 @media (min-width: 1024px) {
   .highlights {
-    gap: 30px; /* Further increase gap on desktops */
+    gap: 25px; /* Further increase gap on desktops */
     padding: 0 32px;
   }
   
@@ -91,7 +91,7 @@
 /* Mobile-specific adjustments */
 @media (max-width: 480px) {
   .highlights {
-    gap: 15px;
+    gap: 5px;
     padding: 0px 0px;
     margin: 0%;
   }
