@@ -1,18 +1,75 @@
-.tabs {
-  display: flex;
-  gap: 10px;
+/* AddressForm.module.css */
+
+/* Form container styling */
+.addressForm {
+  direction: rtl;
+  margin-top: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.tabs button {
+/* Form heading */
+.addressForm h3 {
+  font-size: 20px;
+  color: #023047;
+  margin-bottom: 15px;
+}
+
+/* Grouping label and input */
+.formGroup {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Labels in the form */
+.formGroup label {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #023047;
+}
+
+/* Input and textarea styling */
+.formGroup input,
+.formGroup textarea {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px 10px;
+  font-size: 16px;
+}
+
+/* Allow vertical resize for the textarea */
+.formGroup textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+/* Submit button styling */
+.addressForm button {
+  background-color: #ffd700;
+  color: #023047;
+  border: none;
   padding: 10px 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  font-size: 16px;
+  border-radius: 4px;
   cursor: pointer;
-  background-color: #fff;
   transition: background-color 0.3s ease;
 }
 
-.tabs button:hover {
-  background-color: #3498db;
-  color: white;
+/* Submit button hover effect */
+.addressForm button:hover {
+  background-color: #023047;
+  color: #ffd700;
+}
+
+/* Error message styling within the form */
+.error {
+  background-color: #fde8e8;
+  color: #d32f2f;
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 15px;
 }

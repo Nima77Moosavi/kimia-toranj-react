@@ -23,7 +23,8 @@ import axiosInstance from "../../utils/axiosInstance";
 import { API_URL } from "../../config";
 
 const ProductDetails = () => {
-  const { id } = useParams();
+  const { slugAndId } = useParams();
+  const id = slugAndId.substring(slugAndId.lastIndexOf("-") + 1);
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
