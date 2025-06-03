@@ -21,6 +21,7 @@ import CollectionDetail from "./pages/CollectionDetail/CollectionDetail";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import BestsellersPage from "./pages/BestsellersPage/BestsellersPage";
 import ContactButton from "./components/ContactButton/ContactButton.jsx";
+import FooterMenu from "./components/FooterMenu/FooterMenu.jsx"
 
 const App = () => {
   return (
@@ -58,6 +59,7 @@ const App = () => {
         <Route path="*" element={<Home />} />
       </Routes>
       <ContactButton />
+      <FooterMenu/>
     </Router>
   );
 };
