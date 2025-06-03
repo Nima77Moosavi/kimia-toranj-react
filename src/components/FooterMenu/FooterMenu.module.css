@@ -1,0 +1,30 @@
+.container{
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    direction: rtl;
+    background-color: white;
+}
+.container ul {
+    background-color: inherit;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .container li {
+    background-color: inherit;
+    width: max-content;
+    display: flex;
+    color: #023047;
+    font-size: 14px;
+    flex-direction: column-reverse;
+    align-items: center;
+    cursor: pointer;
+  }
+  .container li span{
+    font-size: 22px;
+    font-weight: 700;
+  }

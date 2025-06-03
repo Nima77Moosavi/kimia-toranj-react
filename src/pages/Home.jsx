@@ -9,6 +9,7 @@ import SpecialProducts from "../components/SpecialProducts/SpecialProducts";
 import Footer from "../components/Footer/Footer";
 import HomePageHeader from "../components/HomePageHeader/HomePageHeader";
 import styles from "./Home.module.css";
+import FooterMenu from "../components/FooterMenu/FooterMenu";
 
 const Home = () => {
   const [latestProducts, setLatestProducts] = useState([]);
@@ -41,6 +42,7 @@ const Home = () => {
           {/* <ProductList products={latestProducts} /> */}
         </div>
       <Footer />
+      <FooterMenu/>
     </div>
   );
 };
