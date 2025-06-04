@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Import your layout, ProtectedRoute, and pages
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-import UserPanel from './pages/UserPanel/UserPanel.jsx'
+import UserPanel from "./pages/UserPanel/UserPanel.jsx";
 import AccountInfo from "./pages/AccountInfo/AccountInfo";
 import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
 import UserOrders from "./pages/UserOrders/UserOrders";
@@ -22,6 +22,8 @@ import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import BestsellersPage from "./pages/BestsellersPage/BestsellersPage";
 import ContactButton from "./components/ContactButton/ContactButton.jsx";
 import FooterMenu from "./components/FooterMenu/FooterMenu.jsx"
+import CheckoutPage from "./pages/CheckoutPage/CheckoutPage.jsx";
+
 
 const App = () => {
   return (
@@ -34,9 +36,9 @@ const App = () => {
         <Route path="/blog/:id" element={<BlogDetail />} />
         <Route path="/highlight/:id" element={<HighlightMedia />} />
         <Route path="/collection/:id" element={<CollectionDetail />} />
-        <Route path="/productDetails/:id" element={<ProductDetails />} />
+        <Route path="/productDetails/:slugAndId" element={<ProductDetails />} />
         <Route path="/bestsellersPage" element={<BestsellersPage />} />
-
+        <Route path="/checkout" element={<CheckoutPage />} />
         {/* Protected UserPanel Routes */}
         <Route
           path="/user-panel/*"
@@ -49,6 +51,7 @@ const App = () => {
           {/* Default /user-panel shows AccountInfo */}
           <Route path="account-info" element={<AccountInfo />} />
           <Route path="cart" element={<ShoppingCart />} />
+
           <Route path="orders" element={<UserOrders />} />
           <Route path="wishlist" element={<Wishlist />} />
           <Route path="reviews" element={<UserReviews />} />

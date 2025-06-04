@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_URL } from "../../config";
 import Header from "../../components/Header/Header";
@@ -12,6 +13,7 @@ const ShoppingCart = () => {
   const [cartData, setCartData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -57,10 +59,10 @@ const ShoppingCart = () => {
 
   const removeItem = async (itemId) => {
     if (!cartData) return;
-    
+
     try {
       await axiosInstance.delete(`${API_URL}api/store/cart/items/${itemId}`);
-      const updatedItems = cartData.items.filter(item => item.id !== itemId);
+      const updatedItems = cartData.items.filter((item) => item.id !== itemId);
       setCartData({ ...cartData, items: updatedItems });
     } catch (err) {
       console.error("Failed to remove item", err);
@@ -71,23 +73,14 @@ const ShoppingCart = () => {
   const calculateTotal = () => {
     if (!cartData?.items) return 0;
     return cartData.items.reduce(
-      (total, item) => total + (item.product_variant?.price * item.quantity),
+      (total, item) => total + item.product_variant?.price * item.quantity,
       0
     );
   };
 
   // تابع جدید برای ثبت سفارش
   const handleCheckout = async () => {
-    try {
-      setLoading(true);
-      const response = await axiosInstance.post(`${API_URL}api/store/checkout`);
-      console.log('Checkout successful:', response.data);
-    } catch (err) {
-      console.error('Checkout failed:', err);
-      setError('Error during checkout');
-    } finally {
-      setLoading(false);
-    }
+    navigate("/checkout");
   };
 
   return (
@@ -139,7 +132,7 @@ const ShoppingCart = () => {
                             >
                               <FiPlus />
                             </button>
-                            
+
                             <span className={styles.quantityNumber}>
                               {item.quantity}
                             </span>
@@ -158,7 +151,7 @@ const ShoppingCart = () => {
                                 className={`${styles.quantityButton} ${styles.deleteButton}`}
                                 onClick={() => removeItem(item.id)}
                               >
-                               <MdDeleteOutline />
+                                <MdDeleteOutline />
                               </button>
                             )}
                           </div>
@@ -175,7 +168,7 @@ const ShoppingCart = () => {
                   <span>جمع کل:</span>
                   <span>{calculateTotal().toLocaleString()} تومان</span>
                 </div>
-                <button 
+                <button
                   className={styles.checkoutButton}
                   onClick={handleCheckout}
                   disabled={loading}
@@ -183,7 +176,6 @@ const ShoppingCart = () => {
                   {loading ? "در حال پردازش..." : "ثبت نهایی سفارش"}
                 </button>
               </div>
-
             </div>
           ) : (
             !loading && <p>سبد خرید شما خالی است.</p>
