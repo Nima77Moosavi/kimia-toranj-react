@@ -2,14 +2,14 @@
     /* position: absolute; */
   width: 100%;
   display: flex;
-  z-index: 1000;
+  z-index: 1;
 }
 .dastImg{
     width: 600px;
   height: 350px;
   object-fit: cover;
   padding-left: -200px;
-    
+    z-index: 1;
 }
 .textImg{
     width: 70%;

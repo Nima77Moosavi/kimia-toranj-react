@@ -225,7 +225,7 @@ ul li:hover {
   border: 1px solid #ddd;
   border-radius: 10px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.15);
-  z-index: 9999; /* خیلی بالا */
+  z-index: 100000; /* خیلی بالا */
   padding: 15px;
   text-align: right;
 }

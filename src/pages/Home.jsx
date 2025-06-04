@@ -10,6 +10,7 @@ import Footer from "../components/Footer/Footer";
 import HomePageHeader from "../components/HomePageHeader/HomePageHeader";
 import styles from "./Home.module.css";
 import FooterMenu from "../components/FooterMenu/FooterMenu";
+import Banner from "../components/Banner/Banner";
 
 const Home = () => {
   const [latestProducts, setLatestProducts] = useState([]);
@@ -30,7 +31,8 @@ const Home = () => {
       <div className={styles.circle}></div>
 
       <Header />
-      <HomePageHeader />
+      <Banner/>
+      {/* <HomePageHeader /> */}
       
         <div className={styles.content}>
           <Highlights />
