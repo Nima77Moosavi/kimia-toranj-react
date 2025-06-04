@@ -71,7 +71,7 @@ const HeaderMobile = () => {
           </div>
         )}
       </div>
-
+        
    
     </header>
   );

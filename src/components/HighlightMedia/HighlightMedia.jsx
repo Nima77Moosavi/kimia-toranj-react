@@ -140,13 +140,13 @@ const HighlightMedia = () => {
         {/* Media with navigation for desktop */}
         <div className={styles.mediaWrapper}>
           <button onClick={goToPreviousMedia} className={styles.navButton}>
-            <GrFormPrevious />
+            <GrFormPrevious className={styles.navIcon}/>
           </button>
           <div className={styles.mediaItem}>
             <MediaPlayer media={currentMedia} />
           </div>
           <button onClick={goToNextMedia} className={styles.navButton}>
-            <GrFormNext />
+            <GrFormNext className={styles.navIcon}/>
           </button>
         </div>
 

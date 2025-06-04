@@ -96,6 +96,7 @@
 
 
 .price {
+  width: auto;
   background-color: #ffffff;
   color: #023047;
   border: 0.5px solid rgb(109, 224, 240);
@@ -240,6 +241,7 @@
 }
 
 .showMoreButton {
+  width: max-content;
   background-color: #023047;
   color: white;
   padding: 0.5rem 1rem;
@@ -279,6 +281,7 @@
 }
 
 .tabContainer button {
+  width: max-content;
   flex: 0 0 auto; /* جلوگیری از کش آمدن دکمه‌ها */
   scroll-snap-align: start; /* اختیاری: چسبیدن تب به ابتدای کانتینر هنگام اسکرول */
   color: rgb(98, 102, 109);
