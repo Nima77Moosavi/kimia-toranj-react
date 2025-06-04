@@ -25,6 +25,7 @@
 }
 
 .closeButton {
+  width: max-content;
   position: absolute;
   top: 20px;
   right: 20px;
@@ -62,21 +63,23 @@
 }
 
 .navButton {
-  background: #FFD700;
+  background-color: #FFD700;
   color: #023047;
   border: none;
   border-radius: 50%;
   width: 40px;
   height: 40px;
   cursor: pointer;
-  font-size: 50px;
+  font-size: 50px !important;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.1);
   z-index: 1;
 }
-
+.navButton .navIcon{
+  font-size: 1rem;
+}
 .navButton:disabled {
   cursor: not-allowed;
 }
@@ -221,5 +224,5 @@
     font-size: 28px;
     top: 20px;
   }
-
+ 
 }
