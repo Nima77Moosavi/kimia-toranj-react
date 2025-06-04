@@ -12,35 +12,12 @@
   z-index: 20;
 }
 
-/* ------ Profile Section as Two Static Icons ------ */
-.profileContainer {
-  display: flex;
-  gap: 10px;
-}
-
-.iconLink {
-  width: 40px;
-  height: 40px;
-  background-color: #023047;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-}
-
-.iconLink:hover {
-  background-color: #011c30;
-}
-
 /* ------ Search Section ------ */
 .searchContainer {
   flex-grow: 1;
   display: flex;
   justify-content: center;
-  margin: 0 10px;
+  margin-right: 10px;
 }
 
 .searchBox {
@@ -69,7 +46,7 @@
 /* ------ Hamburger Menu Section ------ */
 .hamburgerContainer {
   position: relative;
-  width: 40px; /* Matching dimensions for consistency */
+  width: 40px;
   height: 40px;
   display: flex;
   justify-content: center;
@@ -78,9 +55,9 @@
 
 .hamburgerButton {
   background: none;
+  padding: 0;
+  height: 40px;
   border: none;
-  font-size: 60px; /* Increased size for better prominence */
-  color: #023047; /* Base color */
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -95,16 +72,18 @@
 
 .menuDropdown {
   position: absolute;
-  top: 45px; /* Positioned just below the button */
+  top: 45px;
   right: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 10px;
-  background: transparent;
-  border: none;
-  box-shadow: none;
+  background: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   animation: fadeInDown 0.3s ease-out;
+  z-index: 30;
 }
 
 @keyframes fadeInDown {
@@ -118,11 +97,12 @@
   }
 }
 
-.menuDropdown li {
+.menuDropdown ul {
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-/* Menu icons inside the hamburger dropdown */
 .menuIcon {
   width: 100px;
   height: 40px;
@@ -137,11 +117,9 @@
 .menuIcon a {
   color: #fff;
   text-decoration: none;
-  font-size: 10px;
+  font-size: 14px;
 }
 
 .menuIcon:hover {
   background-color: #011c30;
 }
-
-

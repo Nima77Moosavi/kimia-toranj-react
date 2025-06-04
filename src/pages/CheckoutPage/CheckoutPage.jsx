@@ -17,6 +17,8 @@ const CheckoutPage = () => {
       try {
         setLoading(true);
         const response = await axiosInstance.get("/api/store/shipping-addresses/");
+        console.log(response.data);
+        
         // Ensure that we always have an array.
         setAddresses(Array.isArray(response.data) ? response.data : []);
         setLoading(false);
@@ -40,6 +42,8 @@ const CheckoutPage = () => {
       setLoading(true);
       // The payload must include the shipping_address_id field
       const payload = { shipping_address_id: selectedAddressId };
+      console.log(selectedAddressId);
+      
       
       // Call the order creation endpoint—this API will convert the cart to an order.
       const response = await axiosInstance.post("/api/store/orders/", payload);

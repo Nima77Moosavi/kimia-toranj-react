@@ -1,15 +1,10 @@
+import { IoMenu, IoSearch } from "react-icons/io5";
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { IoMenu, IoSearch } from "react-icons/io5";
-import { FaCartShopping } from "react-icons/fa6";
-import { BsFileEarmarkPerson } from "react-icons/bs";
 import styles from "./HeaderMobile.module.css";
 
 const HeaderMobile = () => {
-  // Remove profile dropdown state since we're now showing two static icons.
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // Ref for the hamburger menu dropdown
   const menuRef = useRef(null);
 
   useEffect(() => {
@@ -27,16 +22,6 @@ const HeaderMobile = () => {
 
   return (
     <header className={styles.headerMobile}>
-      {/* Left: Two icons side by side for login and cart */}
-      <div className={styles.profileContainer}>
-        <Link to="/login" className={styles.iconLink}>
-          <BsFileEarmarkPerson />
-        </Link>
-        <Link to="/" className={styles.iconLink}>
-          <FaCartShopping />
-        </Link>
-      </div>
-
       {/* Center: Search box */}
       <div className={styles.searchContainer}>
         <div className={styles.searchBox}>
@@ -45,14 +30,14 @@ const HeaderMobile = () => {
         </div>
       </div>
 
-      {/* Right: Hamburger menu */}
+      {/* Right: Hamburger Menu */}
       <div className={styles.hamburgerContainer} ref={menuRef}>
         <button
           className={styles.hamburgerButton}
           onClick={() => setIsMenuOpen((prev) => !prev)}
           aria-label="Navigation menu"
         >
-          <IoMenu />
+          <IoMenu size={36} color="#023047" />
         </button>
         {isMenuOpen && (
           <div className={styles.menuDropdown}>
@@ -71,8 +56,6 @@ const HeaderMobile = () => {
           </div>
         )}
       </div>
-
-   
     </header>
   );
 };
