@@ -42,7 +42,7 @@ const Home = () => {
           {/* <ProductList products={latestProducts} /> */}
         </div>
       <Footer />
-      <FooterMenu/>
+      {/* <FooterMenu/> */}
     </div>
   );
 };
