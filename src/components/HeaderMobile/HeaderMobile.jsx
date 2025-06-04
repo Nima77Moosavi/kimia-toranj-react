@@ -2,6 +2,7 @@ import { IoMenu, IoSearch } from "react-icons/io5";
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./HeaderMobile.module.css";
+import Banner from "../Banner/Banner";
 
 const HeaderMobile = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -56,7 +57,8 @@ const HeaderMobile = () => {
           </div>
         )}
       </div>
-
+     
+  
     </header>
   );
 };

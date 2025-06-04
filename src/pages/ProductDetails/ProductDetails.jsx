@@ -21,6 +21,7 @@ import { BiSolidOffer } from "react-icons/bi";
 import { FaStar } from "react-icons/fa";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_URL } from "../../config";
+import Banner from "../../components/Banner/Banner";
 
 const ProductDetails = () => {
   const { slugAndId } = useParams();
@@ -229,6 +230,7 @@ const ProductDetails = () => {
       <Header />
       <div className={styles.pageContent}>
         <div className={styles.circle}></div>
+        <Banner/>
 
         {product.images && product.images.length > 0 && (
           <div className={styles.sliderContainer}>
