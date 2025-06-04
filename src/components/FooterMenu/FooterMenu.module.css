@@ -4,13 +4,14 @@
   flex-direction: row-reverse;
   direction: rtl;
   background-color: white;
-  position: fixed; /* ثابت شدن در پایین صفحه */
+  position: fixed; /* Fixed at bottom of page */
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 10000;
   justify-content: center;
 }
+
 .container .footerul {
   background-color: inherit;
   display: flex;
@@ -20,18 +21,31 @@
   padding: 0;
   margin: 0;
 }
+
 .footerul li {
   background-color: inherit;
   width: max-content;
   display: flex;
-  color: #023047;
-  font-size: 14px;
-  flex-direction: column-reverse;
   align-items: center;
   cursor: pointer;
-  margin-bottom: 15px;
+  margin-bottom: 15px; /* Spacing between li elements */
 }
-.container li span {
+
+/* New styling for the link so that icon is above text */
+.footerLink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #023047;
+  font-size: 14px;
+}
+
+.footerLink svg {
   font-size: 22px;
   font-weight: 700;
+}
+
+.footerLink span {
+  margin-top: 4px; /* Add some space between icon and text */
 }
