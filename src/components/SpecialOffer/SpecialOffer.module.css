@@ -85,7 +85,7 @@
 }
 
 .price {
-  width: 50%;
+  width: max-content;
   background-color: #ffffff;
   color: #023047;
   border: 0.5px solid rgb(109, 224, 240);
@@ -102,7 +102,7 @@
 }
 
 .addtocard {
-  width: 50%;
+  width: max-content;
   background-color: #FFD700;
   color: #023047;
   border: none;
