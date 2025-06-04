@@ -1,22 +1,23 @@
 /* استایل عمومی برای کانتینر */
 .container {
-  position: fixed;
-  top: 0;
-  left: 0;
+  /* Instead of fixed, let it be relative so content can scroll */
+  position: relative;
+  min-height: 100vh;
   width: 100vw;
-  height: 100vh;
   background: url(../../assets/login.png) no-repeat center center/cover;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   padding: 20px;
 }
+
 
 /* جعبه اصلی */
 /* استفاده از justify-content: space-between برای توزیع اجزا در بالا و پایین باکس */
 .box {
   background-color: rgba(255, 255, 255, 0.772);
   padding: 40px;
+  margin-bottom: 100px; /* Reserve space at bottom for FooterMenu */
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -28,6 +29,7 @@
   justify-content: space-between;
   animation: fadeIn 0.5s ease-out;
 }
+
 
 /* لوگو */
 .logoImage {

@@ -4,6 +4,7 @@ import styles from "./Login.module.css";
 import logo from "../../assets/logo.png";
 import { API_URL } from "../../config";
 import axios from "axios";
+import FooterMenu from "../../components/FooterMenu/FooterMenu";
 
 const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -197,6 +198,7 @@ const Login = () => {
           کیمیا ترنج است
         </p>
       </div>
+      <FooterMenu />
     </div>
   );
 };

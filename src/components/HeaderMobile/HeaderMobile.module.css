@@ -63,11 +63,14 @@
   justify-content: center;
   align-items: center;
   transition: transform 0.3s ease, color 0.3s ease;
+  color: #fff;
+  background-color: #fff;
 }
 
 .hamburgerButton:hover {
   transform: scale(1.1);
-  color: #001f2d;
+  color: #fff;
+  background-color: #fff;
 }
 
 .menuDropdown {
