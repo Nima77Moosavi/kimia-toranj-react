@@ -1,38 +1,49 @@
-.container{
-    /* position: absolute; */
+.container {
   width: 100%;
   display: flex;
   z-index: 1;
+  overflow-x: hidden;  /* Prevents any horizontal overflow from this container */
 }
-.dastImg{
-    width: 600px;
+
+/* Desktop Styles */
+.dastImg {
+  max-width: 600px;
+  width: 100%;
   height: 350px;
   object-fit: cover;
-  padding-left: -200px;
-    z-index: 1;
+  /* Removed problematic padding/margin */
+  z-index: 1;
 }
-.textImg{
-    width: 70%;
+
+.textImg {
+  width: 70%;
+  max-width: 600px;
   height: 200px;
   object-fit: fill;
-  margin-right: 280px;
+  /* Removed large margin-right */
   margin-top: 50px;
 }
 
-
+/* Mobile Styles */
 @media (max-width: 480px) {
- .container{
-    margin-top: -130px;
- }
-    .dastImg{
-        width: 200px;
-    height: 120px;
-    
-    }
-    .textImg{
-        width: 70%;
-        height: 70px;
-        margin-right: 50px;
-        margin-top: 20px;
-    }
+  .container {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 130px;
+    /* Ensure container doesn’t cause overflowing */
+    overflow-x: hidden;
+  }
+
+  .dastImg {
+    width: 90%;   /* Make image width relative to container */
+    max-width: 300px;  /* Adjust as needed */
+    height: auto;
+  }
+
+  .textImg {
+    width: 90%;
+    max-width: 300px;
+    height: auto;
+    margin: 20px auto 0 auto;
+  }
 }
