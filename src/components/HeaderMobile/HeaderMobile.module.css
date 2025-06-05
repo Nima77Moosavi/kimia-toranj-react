@@ -4,33 +4,30 @@
   align-items: center;
   padding: 10px 20px;
   height: 60px;
-  background-color: transparent;
-  border-bottom: none;
+  background-color: white;
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 200;
+  z-index: 1000;
 }
 
-/* ------ Search Section ------ */
 .searchContainer {
-  flex-grow: 1;
+  flex: 1;
   display: flex;
   justify-content: center;
-  margin-right: 10px;
 }
 
 .searchBox {
-  width: 80%;
   position: relative;
+  width: 80%;
 }
 
 .searchBox input {
   width: 100%;
-  padding: 8px 40px 8px 10px;
+  padding: 8px 10px;
   font-size: 16px;
   border: 1px solid #023047;
-  border-radius: 50px;
+  border-radius: 25px;
 }
 
 .searchIcon {
@@ -43,90 +40,92 @@
   pointer-events: none;
 }
 
-/* ------ Hamburger Menu Section ------ */
 .hamburgerContainer {
-  background-color: inherit;
-  position: relative;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  z-index: 1100; /* above header */
 }
 
 .hamburgerButton {
-
   background: none;
-  padding: 0;
-  height: 40px;
-
   border: none;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.3s ease, color 0.3s ease;
-  color: #fff;
-  background-color: #fff;
+  transition: transform 0.3s ease;
 }
 
 .hamburgerButton:hover {
-  background-color: unset;
   transform: scale(1.1);
-  color: #fff;
-  background-color: #fff;
 }
 
-.menuDropdown {
-  position: absolute;
-  top: 45px;
-  right: 0;
+/* --------------------------- Menu Overlay Styles --------------------------- */
+.menuOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1050;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.menuPanel {
+  width: 50%;
+  height: 100%;
+  background-color: white;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: 10px;
-  background: #fff;
-  padding: 10px;
-  border-radius: 4px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  animation: fadeInDown 0.3s ease-out;
-  z-index: 30;
+  animation: slideIn 0.3s ease-out;
+  position: relative;
 }
 
-@keyframes fadeInDown {
-  0% {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.closeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-bottom: 5px;
+  transition: transform 0.3s ease;
 }
 
-.menuDropdown ul {
+.closeButton:hover {
+  transform: scale(1.1);
+}
+
+/* Menu List and Items */
+.menuList {
   list-style: none;
   padding: 0;
   margin: 0;
+  flex-grow: 1;
 }
 
-.menuIcon {
-  width: 100px;
-  height: 40px;
-  background-color: #023047;
-  border-radius: 10%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: background-color 0.3s ease;
-}
-
-.menuIcon a {
+.menuItem {
+  padding: 10px 0;
+  /* Remove backgrounds and add a border separator */
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
   color: #fff;
-  text-decoration: none;
-  font-size: 14px;
 }
 
-.menuIcon:hover {
-  background-color: #011c30;
+.menuItem:last-child {
+  border-bottom: none;
+}
+
+.menuItem a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Slide-in animation */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }

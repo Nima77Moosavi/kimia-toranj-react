@@ -1,12 +1,13 @@
-import { IoMenu, IoSearch } from "react-icons/io5";
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { IoMenu, IoSearch, IoClose } from "react-icons/io5";
 import styles from "./HeaderMobile.module.css";
 
 const HeaderMobile = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
+  // Close the menu if clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -14,11 +15,11 @@ const HeaderMobile = () => {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+    if (isMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isMenuOpen]);
 
   return (
     <header className={styles.headerMobile}>
@@ -30,33 +31,51 @@ const HeaderMobile = () => {
         </div>
       </div>
 
-      {/* Right: Hamburger Menu */}
-      <div className={styles.hamburgerContainer} ref={menuRef}>
-        <button
-          className={styles.hamburgerButton}
-          onClick={() => setIsMenuOpen((prev) => !prev)}
-          aria-label="Navigation menu"
-        >
-          <IoMenu size={36} color="#023047" />
-        </button>
-        {isMenuOpen && (
-          <div className={styles.menuDropdown}>
-            <ul>
-              <li className={styles.menuIcon}>
-                <Link to="/">صفحه اصلی</Link>
+      {/* Right: Hamburger Button (only if menu is closed) */}
+      {!isMenuOpen && (
+        <div className={styles.hamburgerContainer}>
+          <button
+            className={styles.hamburgerButton}
+            onClick={() => setIsMenuOpen(true)}
+            aria-label="Navigation menu"
+          >
+            <IoMenu size={36} color="#023047" />
+          </button>
+        </div>
+      )}
+
+      {/* Menu Overlay with sliding panel */}
+      {isMenuOpen && (
+        <div className={styles.menuOverlay}>
+          <div className={styles.menuPanel} ref={menuRef}>
+            <button
+              className={styles.closeButton}
+              onClick={() => setIsMenuOpen(false)}
+              aria-label="Close menu"
+            >
+              <IoClose size={36} color="#023047" />
+            </button>
+            <ul className={styles.menuList}>
+              <li className={styles.menuItem}>
+                <Link to="/" onClick={() => setIsMenuOpen(false)}>
+                  صفحه اصلی
+                </Link>
               </li>
-              <li className={styles.menuIcon}>
-                <Link to="/about">درباره ما</Link>
+              <li className={styles.menuItem}>
+                <Link to="/about" onClick={() => setIsMenuOpen(false)}>
+                  درباره ما
+                </Link>
               </li>
-              <li className={styles.menuIcon}>
-                <Link to="/blog">مقالات</Link>
+              <li className={styles.menuItem}>
+                <Link to="/blog" onClick={() => setIsMenuOpen(false)}>
+                  مقالات
+                </Link>
               </li>
               {/* Add more items as needed */}
             </ul>
           </div>
-        )}
-      </div>
-
+        </div>
+      )}
     </header>
   );
 };
