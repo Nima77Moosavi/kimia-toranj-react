@@ -1,53 +1,40 @@
-/* Ensure all elements include padding and border in their total width */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-.container {
-  position: relative;   /* establishes a positioning context */
+.container{
+  /* position: absolute; */
   width: 100%;
-  overflow: hidden;     /* ensures nothing overflows horizontally */
+  display: flex;
+  z-index: 1;
 }
 
-/* Your left/background image */
-.baseImg {
-  display: block;
-  width: 100%;
-  max-width: 600px;    /* adjust as needed for larger screens */
-  height: auto;
+.dastImg{
+  width: 600px;
+  height: 350px;
+  object-fit: cover;
+  padding-left: -200px;
+  z-index: 1;
 }
 
-/* The text image appears on top, aligned to the right */
-.textImg {
-  position: absolute;
-  top: 50%;            /* Center vertically relative to container */
-  right: 0;            /* Align to the right edge */
-  transform: translateY(-50%);
-  width: 50%;          /* It will take up about half the container – adjust as needed */
-  max-width: 300px;    /* Optional maximum width so it doesn’t become too large */
-  height: auto;
-  z-index: 2;
+.textImg{
+  width: 70%;
+  height: 200px;
+  object-fit: fill;
+  margin-right: 280px;
+  margin-top: 50px;
 }
 
-/* Mobile Styles */
 @media (max-width: 480px) {
-  .container {
-    margin-top: 50px;
+  .container{
+    margin-top: 70px;
   }
-  
-  .baseImg {
-    width: 40%;        /* Scale down for mobile */
-    max-width: 300px;
+
+  .dastImg{
+    width: 200px;
+    height: 120px;
   }
-  
-  .textImg {
-    width: 100%;        /* Increase the relative size or reposition as needed */
-    max-width: 200px;
-    /* You might also tweak the top/right values for a better mobile layout */
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
+
+  .textImg{
+    width: 70%;
+    height: 70px;
+    margin-right: 50px;
+    margin-top: 20px;
   }
 }
