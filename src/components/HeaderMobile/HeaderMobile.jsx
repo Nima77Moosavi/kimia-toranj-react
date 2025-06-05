@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { IoMenu, IoSearch, IoClose } from "react-icons/io5";
 import styles from "./HeaderMobile.module.css";
+import Banner from "../Banner/Banner";
 
 const HeaderMobile = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -74,6 +75,7 @@ const HeaderMobile = () => {
               {/* Add more items as needed */}
             </ul>
           </div>
+
         </div>
       )}
     </header>

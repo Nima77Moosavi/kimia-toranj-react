@@ -473,7 +473,9 @@ background-color: unset;
   .pageContent {
     margin-top: 200px;
   }
-
+.container{
+  margin-bottom: 40px;
+}
   .circle {
     width: 400px;
     height: 400px;
@@ -482,11 +484,11 @@ background-color: unset;
   }
   .sliderContainer {
     width: 90%;
-    top: -100px;
+    top: 0px;
   }
   .descriptionContainer {
     position: relative;
-    top: -110px;
+    top: 0px;
   }
   .prevButton,
   .nextButton {
@@ -524,7 +526,7 @@ background-color: unset;
     flex-direction: column;
     gap: 10px;
     position: relative;
-    top: -100px;
+    top: 100px;
   }
   .selectInput,
   .numberInput {
@@ -549,13 +551,13 @@ background-color: unset;
     width: 90%;
     margin: 0 auto;
     position: relative;
-    top: -50px;
+    top: 50px;
   }
   .leftSidebar{
     width: 90%;
     position: relative;
     margin: 0 auto;
-    top: -100px;
+    top: 50px;
   }
   .tabContainer button{
     padding: 0.5rem 0.5rem;
