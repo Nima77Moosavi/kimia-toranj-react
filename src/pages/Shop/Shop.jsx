@@ -10,6 +10,8 @@ const Shop = () => {
   const [collections, setCollections] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  // New state for toggling filters dropdown in mobile
+  const [showFilters, setShowFilters] = useState(false);
 
   // Get and update query parameters.
   const [searchParams, setSearchParams] = useSearchParams();
@@ -30,7 +32,7 @@ const Shop = () => {
     return qs ? `?${qs}` : "";
   };
 
-  // Fetch products from the API using query parameters.
+  // Fetch products using query parameters.
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
@@ -68,36 +70,67 @@ const Shop = () => {
     fetchCollections();
   }, []);
 
-  // When filtering by collection by name, we pass the collection title.
+  // When filtering by collection by name, pass the collection title.
   const filterByCollection = (collectionTitle) => {
-    // In your FilterSet, the filtering is based on collection name.
-    // If your FilterSet is defined as:
-    //   collection = filters.CharFilter(field_name='collection__name', lookup_expr='icontains')
-    // then make sure that your Collection model has a "name" field.
-    // Otherwise, if the title is used (e.g. field_name="collection__title"),
-    // then pass collection.title.
     const newParams = new URLSearchParams(searchParams);
     newParams.set("collection", collectionTitle);
     setSearchParams(newParams);
+    // Optionally hide filters after selection (useful on mobile)
+    setShowFilters(false);
   };
 
-  // Handlers: update ordering.
+  // Handlers for sorting.
   const sortCheapest = () => {
     const newParams = new URLSearchParams(searchParams);
     newParams.set("order_by", "price");
     setSearchParams(newParams);
+    setShowFilters(false);
   };
 
   const sortExpensive = () => {
     const newParams = new URLSearchParams(searchParams);
     newParams.set("order_by", "-price");
     setSearchParams(newParams);
+    setShowFilters(false);
   };
 
   return (
     <div>
       <Header />
       <h2 className={styles.title}>فروشگاه</h2>
+      <div className={styles.filterDropdownMobile}>
+        <button
+          className={styles.filterToggleButton}
+          onClick={() => setShowFilters(!showFilters)}
+        >
+          {showFilters ? "بستن فیلتر" : "فیلترها"}
+        </button>
+        {showFilters && (
+          <div className={styles.dropdownFilters}>
+            <div className={styles.collections}>
+              <h2 className={styles.collectionsTitle}>فیلتر بر اساس مجموعه</h2>
+              {collections.map((collection) => (
+                <p
+                  key={collection.id}
+                  onClick={() => filterByCollection(collection.title)}
+                  className={styles.collectionFilter}
+                >
+                  {collection.title}
+                </p>
+              ))}
+            </div>
+            <div className={styles.sort}>
+              <h2 className={styles.sortTitle}>مرتب کردن بر اساس</h2>
+              <p onClick={sortCheapest} className={styles.sortOption}>
+                ارزان‌ترین
+              </p>
+              <p onClick={sortExpensive} className={styles.sortOption}>
+                گران‌ترین
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
       <div className={styles.container}>
         <div className={styles.productContainer}>
           {loading ? (
@@ -112,30 +145,37 @@ const Shop = () => {
             ))
           )}
         </div>
+
+        {/* Desktop sidebar for filters */}
         <div className={styles.sidebarContainer}>
-          <div className={styles.collections}>
-            <h2 className={styles.collectionsTitle}>فیلتر بر اساس مجموعه</h2>
-            {collections.map((collection) => (
-              <p
-                key={collection.id}
-                onClick={() => filterByCollection(collection.title)}
-                className={styles.collectionFilter}
-              >
-                {collection.title}
+          <div className={styles.sidebarInner}>
+            <div className={styles.collections}>
+              <h2 className={styles.collectionsTitle}>فیلتر بر اساس مجموعه</h2>
+              {collections.map((collection) => (
+                <p
+                  key={collection.id}
+                  onClick={() => filterByCollection(collection.title)}
+                  className={styles.collectionFilter}
+                >
+                  {collection.title}
+                </p>
+              ))}
+            </div>
+            <div className={styles.sort}>
+              <h2 className={styles.sortTitle}>مرتب کردن بر اساس</h2>
+              <p onClick={sortCheapest} className={styles.sortOption}>
+                ارزان‌ترین
               </p>
-            ))}
-          </div>
-          <div className={styles.sort}>
-            <h2 className={styles.sortTitle}>مرتب کردن بر اساس</h2>
-            <p onClick={sortCheapest} className={styles.sortOption}>
-              ارزان‌ترین
-            </p>
-            <p onClick={sortExpensive} className={styles.sortOption}>
-              گران‌ترین
-            </p>
+              <p onClick={sortExpensive} className={styles.sortOption}>
+                گران‌ترین
+              </p>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Mobile: Filter dropdown toggle button */}
+
       <Footer />
     </div>
   );
