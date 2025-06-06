@@ -21,9 +21,9 @@ import CollectionDetail from "./pages/CollectionDetail/CollectionDetail";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
 import BestsellersPage from "./pages/BestsellersPage/BestsellersPage";
 import ContactButton from "./components/ContactButton/ContactButton.jsx";
-import FooterMenu from "./components/FooterMenu/FooterMenu.jsx"
+import FooterMenu from "./components/FooterMenu/FooterMenu.jsx";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage.jsx";
-
+import Shop from "./pages/Shop/Shop.jsx";
 
 const App = () => {
   return (
@@ -39,6 +39,7 @@ const App = () => {
         <Route path="/productDetails/:slugAndId" element={<ProductDetails />} />
         <Route path="/bestsellersPage" element={<BestsellersPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/shop" element={<Shop />} />
         {/* Protected UserPanel Routes */}
         <Route
           path="/user-panel/*"
@@ -62,7 +63,7 @@ const App = () => {
         <Route path="*" element={<Home />} />
       </Routes>
       <ContactButton />
-      <FooterMenu/>
+      <FooterMenu />
     </Router>
   );
 };

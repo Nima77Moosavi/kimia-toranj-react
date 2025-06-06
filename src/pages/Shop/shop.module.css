@@ -1,0 +1,72 @@
+.title {
+  text-align: center;
+  font-size: 28px;
+  margin: 20px 0;
+}
+
+.container {
+  display: flex;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Product area */
+.productContainer {
+  flex: 3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Sidebar area for filters */
+.sidebarContainer {
+  flex: 1;
+  margin-left: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.collections,
+.sort {
+  margin-bottom: 30px;
+}
+
+.collectionsTitle,
+.sortTitle {
+  font-size: 20px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+}
+
+.collectionFilter {
+  cursor: pointer;
+  margin: 8px 0;
+  color: #023047;
+  transition: color 0.3s ease;
+}
+
+.collectionFilter:hover {
+  color: #40e0d0;
+}
+
+.sortOption {
+  cursor: pointer;
+  margin: 8px 0;
+  color: #023047;
+  transition: color 0.3s ease;
+}
+
+.sortOption:hover {
+  color: #40e0d0;
+}
+
+.loading,
+.error,
+.empty {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 20px;
+}
