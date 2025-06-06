@@ -42,7 +42,7 @@ const FooterMenu = () => {
           </Link>
         </li>
         <li>
-          <Link to="/articles" className={styles.footerLink}>
+          <Link to="/blog" className={styles.footerLink}>
             <MdOutlineArticle />
             <span>مقالات</span>
           </Link>
