@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import CollectionCard from "../CollectionCard/CollectionCard";
 import styles from "./Collections.module.css";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
@@ -10,35 +10,9 @@ const Collections = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [visibleSlides, setVisibleSlides] = useState(5);
-  const [startX, setStartX] = useState(null);
-  const [isDragging, setIsDragging] = useState(false);
-
-  const handleDragStart = (positionX) => {
-    setStartX(positionX);
-    setIsDragging(true);
-  };
-
-  const handleDragMove = (positionX) => {
-    if (!isDragging || startX === null) return;
-    // میتونی اینجا افکت‌های ویژوال اضافه کنی
-  };
-
-  const handleDragEnd = (e) => {
-    if (!isDragging || startX === null) return;
-    setIsDragging(false);
-
-    const threshold = 50;
-    const endX = e.changedTouches?.[0]?.clientX || e.clientX;
-    const diff = endX - startX;
-
-    if (diff > threshold) {
-      handlePrev();
-    } else if (diff < -threshold) {
-      handleNext();
-    }
-
-    setStartX(null);
-  };
+  const sliderRef = useRef(null);
+  const [touchStartX, setTouchStartX] = useState(0);
+  const [touchEndX, setTouchEndX] = useState(0);
 
   const handleNext = useCallback(() => {
     if (isTransitioning || collections.length === 0) return;
@@ -57,6 +31,34 @@ const Collections = () => {
     );
     setTimeout(() => setIsTransitioning(false), 600);
   }, [collections.length, isTransitioning]);
+
+  // توابع جدید برای هندل کردن Swipe
+  const handleTouchStart = (e) => {
+    setTouchStartX(e.touches[0].clientX);
+    setTouchEndX(e.touches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEndX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX || !touchEndX) return;
+    
+    const threshold = 50; // حداقل فاصله برای تشخیص Swipe
+    const diff = touchStartX - touchEndX;
+    
+    if (diff > threshold) {
+      // Swipe به چپ
+      handleNext();
+    } else if (diff < -threshold) {
+      // Swipe به راست
+      handlePrev();
+    }
+    
+    setTouchStartX(0);
+    setTouchEndX(0);
+  };
 
   useEffect(() => {
     const fetchCollections = async () => {
@@ -84,7 +86,7 @@ const Collections = () => {
     if (collections.length <= 1) return;
     const timer = setInterval(() => {
       handleNext();
-    }, 4000); // هر ۴ ثانیه یکبار
+    }, 4000);
     return () => clearInterval(timer);
   }, [collections.length, handleNext]);
 
@@ -118,14 +120,11 @@ const Collections = () => {
         </button>
 
         <div
+          ref={sliderRef}
           className={styles.slider}
-          onMouseDown={(e) => handleDragStart(e.clientX)}
-          onMouseMove={(e) => handleDragMove(e.clientX)}
-          onMouseUp={handleDragEnd}
-          onMouseLeave={handleDragEnd}
-          onTouchStart={(e) => handleDragStart(e.touches[0].clientX)}
-          onTouchMove={(e) => handleDragMove(e.touches[0].clientX)}
-          onTouchEnd={handleDragEnd}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
           {/* اسلایدهای سمت چپ */}
           {Array.from({ length: slidesPerSide }).map((_, i) => {
