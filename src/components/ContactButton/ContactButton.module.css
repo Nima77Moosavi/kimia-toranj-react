@@ -4,7 +4,7 @@
 .contactContainer {
   position: fixed;
   bottom: 90px;
-  right: 20px;
+  left: 20px; /* Changed from right: 20px to left: 20px */
   z-index: 1000;
 }
 
@@ -13,7 +13,7 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background-color: #023047; /* Use your desired color */
+  background-color: #023047;
   color: #fff;
   border: none;
   display: flex;
@@ -41,7 +41,7 @@
   align-items: center;
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0; /* Changed from right: 0 to left: 0 */
   transition: transform 0.3s ease, opacity 0.3s ease;
   opacity: 0;
   pointer-events: none;
@@ -53,9 +53,9 @@
   pointer-events: auto;
 }
 
-/* Position the buttons in a 90° arc (a quarter circle) above and to the left */
+/* Position the buttons in a 90° arc (a quarter circle) above and to the right */
 
-/* Icon 1 (Telegram) → Angle: 270° (directly upward): dx= 0, dy = –80px */
+/* Icon 1 (Telegram) → Angle: 270° (directly upward): dx = 0, dy = –80px */
 .option1 {
   transform: translate(0, 0);
 }
@@ -63,26 +63,26 @@
   transform: translate(0, -80px);
 }
 
-/* Icon 2 (WhatsApp) → Angle: 240°: dx ≈ -40px, dy ≈ -70px */
+/* Icon 2 (WhatsApp) → Angle: 300°: dx ≈ 40px, dy ≈ -70px */
 .option2 {
   transform: translate(0, 0);
 }
 .open .option2 {
-  transform: translate(-40px, -70px);
+  transform: translate(40px, -70px);
 }
 
-/* Icon 3 (Phone) → Angle: 210°: dx ≈ -70px, dy ≈ -40px */
+/* Icon 3 (Phone) → Angle: 330°: dx ≈ 70px, dy ≈ -40px */
 .option3 {
   transform: translate(0, 0);
 }
 .open .option3 {
-  transform: translate(-70px, -40px);
+  transform: translate(70px, -40px);
 }
 
-/* Icon 4 (Email) → Angle: 180° (to the left): dx = -80px, dy = 0 */
+/* Icon 4 (Email) → Angle: 0° (to the right): dx = 80px, dy = 0 */
 .option4 {
   transform: translate(0, 0);
 }
 .open .option4 {
-  transform: translate(-80px, 0);
+  transform: translate(80px, 0);
 }

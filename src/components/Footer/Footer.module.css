@@ -57,6 +57,7 @@ p {
 @media (max-width: 991px) {
   .container {
     padding-right: 4rem;
+    
   }
 
   .adresses,
@@ -83,6 +84,7 @@ p {
     padding-right: 1rem;
     flex-direction: column;
     align-items: flex-start;
+    padding-bottom: 4rem;
   }
 
   .title {

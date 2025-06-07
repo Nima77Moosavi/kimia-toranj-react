@@ -24,6 +24,7 @@ import ContactButton from "./components/ContactButton/ContactButton.jsx";
 import FooterMenu from "./components/FooterMenu/FooterMenu.jsx";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage.jsx";
 import Shop from "./pages/Shop/Shop.jsx";
+import GiftSelector from "./pages/GiftSelector/GiftSelector.jsx";
 
 const App = () => {
   return (
@@ -40,6 +41,7 @@ const App = () => {
         <Route path="/bestsellersPage" element={<BestsellersPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/gift-selector" element={<GiftSelector />} />
         {/* Protected UserPanel Routes */}
         <Route
           path="/user-panel/*"
