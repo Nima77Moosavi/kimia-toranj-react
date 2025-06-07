@@ -1,0 +1,129 @@
+/* General Styles */
+/* renamed file */
+.title {
+  text-align: center;
+  font-size: 28px;
+  margin: 20px 0;
+}
+
+.container {
+  display: flex;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Desktop Product Area */
+.productContainer {
+  flex: 3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Desktop Sidebar for filters */
+.sidebarContainer {
+  flex: 1;
+  margin-left: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  display: block;
+}
+
+.sidebarInner {
+  display: flex;
+  flex-direction: column;
+}
+
+.collections,
+.sort {
+  margin-bottom: 30px;
+}
+
+.collectionsTitle,
+.sortTitle {
+  font-size: 20px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+}
+
+.collectionFilter,
+.sortOption {
+  cursor: pointer;
+  margin: 8px 0;
+  color: #023047;
+  transition: color 0.3s ease;
+}
+
+.collectionFilter:hover,
+.sortOption:hover {
+  color: #40e0d0;
+}
+
+.loading,
+.error,
+.empty {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 480px) {
+  .container {
+    flex-direction: column;
+    padding: 10px;
+  }
+  /* Hide the desktop sidebar on mobile */
+  .sidebarContainer {
+    display: none;
+  }
+
+  /* Product grid remains similar or can be modified as needed */
+  .productContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  /* Mobile filter dropdown */
+  .filterDropdownMobile {
+    display: block;
+    margin: 10px;
+    text-align: center;
+  }
+
+  .filterToggleButton {
+    background-color: #023047;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .dropdownFilters {
+    background-color: #f6f6f6;
+    margin-top: 10px;
+    padding: 15px;
+    border-radius: 5px;
+  }
+
+  /* Optionally reduce font sizes for dropdown filters */
+  .collectionsTitle,
+  .sortTitle {
+    font-size: 18px;
+  }
+
+  .collectionFilter,
+  .sortOption {
+    font-size: 16px;
+    margin: 6px 0;
+  }
+}
