@@ -1,5 +1,6 @@
 /* کانتینر کلی صفحه */
 .container {
+  width: 100%;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -7,6 +8,7 @@
 
 /* بخش اصلی شامل سایدبار و محتوا */
 .main {
+  width: 100%;
   display: flex;
   flex: 1;
   align-items: flex-start; /* جلوگیری از پایین‌تر بودن کانتنت */
