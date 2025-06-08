@@ -87,10 +87,11 @@
 .active {
   background-color: #40e0d0;
   width: 90%;
-  color: white;
+  color: #023047;
   border-radius: 9px;
   font-weight: bold;
   text-decoration: none;
+  padding-right: 10px;
 }
 
 /* Responsive adjustments for mobile devices */
