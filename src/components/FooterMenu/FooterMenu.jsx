@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { IoHomeOutline } from "react-icons/io5";
-import { MdOutlineArticle } from "react-icons/md";
-import { BsPerson } from "react-icons/bs";
-import { FaShoppingBag } from "react-icons/fa";
+import { 
+  IoHomeOutline, 
+  IoBagOutline, 
+  IoCartOutline, 
+  IoPersonOutline 
+} from "react-icons/io5";
 import styles from "./FooterMenu.module.css";
 
 const FooterMenu = () => {
@@ -31,25 +33,25 @@ const FooterMenu = () => {
       <ul className={styles.footerul}>
         <li>
           <Link to="/" className={styles.footerLink}>
-            <IoHomeOutline />
+            <IoHomeOutline size={24} />
             <span>خانه</span>
           </Link>
         </li>
         <li>
           <Link to="/shop" className={styles.footerLink}>
-            <FaShoppingBag />
+            <IoBagOutline size={24} />
             <span>فروشگاه</span>
           </Link>
         </li>
         <li>
-          <Link to="/blog" className={styles.footerLink}>
-            <MdOutlineArticle />
-            <span>مقالات</span>
+          <Link to="/user-panel/cart" className={styles.footerLink}>
+            <IoCartOutline size={24} />
+            <span>سبد خرید</span>
           </Link>
         </li>
         <li>
           <Link to="/login" className={styles.footerLink}>
-            <BsPerson />
+            <IoPersonOutline size={24} />
             <span>ورود</span>
           </Link>
         </li>

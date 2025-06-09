@@ -72,10 +72,15 @@ const HeaderMobile = () => {
                   مقالات
                 </Link>
               </li>
+              {/* New menu item for gift selection */}
+              <li className={styles.menuItem}>
+                <Link to="/gift-selector" onClick={() => setIsMenuOpen(false)}>
+                  کادو چی بخرم؟
+                </Link>
+              </li>
               {/* Add more items as needed */}
             </ul>
           </div>
-
         </div>
       )}
     </header>
