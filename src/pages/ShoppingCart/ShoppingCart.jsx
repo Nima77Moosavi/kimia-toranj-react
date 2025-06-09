@@ -87,7 +87,7 @@ const ShoppingCart = () => {
     <div className={styles.cartContainer}>
       <div className={styles.cartMain}>
         <div className={styles.cartContent}>
-          {loading && <p>Loading cart...</p>}
+          {loading && <p>در حال بارگذاری...</p>}
           {error && <p className={styles.error}>{error}</p>}
           {cartData && cartData.items && cartData.items.length > 0 ? (
             <div>

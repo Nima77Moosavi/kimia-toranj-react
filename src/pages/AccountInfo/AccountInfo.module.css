@@ -11,7 +11,6 @@
   width: 100%;
   display: flex;
   flex: 1;
-  align-items: flex-start; /* جلوگیری از پایین‌تر بودن کانتنت */
 }
 
 /* سایدبار */
@@ -23,7 +22,7 @@
 .content {
   flex: 1;
   width: 75%;
-  padding: 20px;
+  /* padding: 20px; */
   margin-top: 0%;
 }
 
@@ -43,4 +42,15 @@
     padding-top: 0%;
     width: 70%; /* محتوا در سمت چپ */
   }
+}
+@media (max-width: 480px) {
+.main{
+  flex-direction: column;
+}
+.sidebar{
+  width: 100%;
+}
+.content{
+  width: 100%;
+}
 }

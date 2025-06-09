@@ -64,7 +64,7 @@ const Bestsellers = () => {
     return visibleProducts;
   };
 
-  if (loading) return <div className={styles.loading}>Loading...</div>;
+  if (loading) return <div className={styles.loading}></div>;
   if (error) return <div className={styles.error}>Error: {error}</div>;
 
   return (

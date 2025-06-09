@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import styles from "./AddressList.module.css";
+import { FiTrash2 } from "react-icons/fi";
 
 const AddressList = () => {
   const [addresses, setAddresses] = useState([]);
@@ -40,6 +41,7 @@ const AddressList = () => {
 
   return (
     <div className={styles.addressList}>
+      <h2>آدرس های شما </h2>
       {loading && <p>در حال بارگذاری آدرس‌ها...</p>}
       {error && <p className={styles.error}>{error}</p>}
       {(!addresses || addresses.length === 0) && !loading ? (
@@ -60,7 +62,7 @@ const AddressList = () => {
               <p>
                 <strong>کد پستی:</strong> {address.postal_code}
               </p>
-              <button onClick={() => handleDelete(address.id)}>حذف</button>
+              <button onClick={() => handleDelete(address.id)} className={styles.deleteButton}><FiTrash2 /></button>
             </li>
           ))}
         </ul>

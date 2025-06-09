@@ -74,6 +74,7 @@ const UserInfoForm = () => {
     firstName: false,
     lastName: false,
     nationalCode: false,
+    phoneNumber: false,
   });
 
   const handleChange = (e) => {
@@ -88,18 +89,25 @@ const UserInfoForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // اعتبارسنجی قبل از ارسال
+    if (!formData.firstName || !formData.lastName || !formData.nationalCode || !formData.phoneNumber) {
+      alert("لطفا فیلدهای الزامی را تکمیل کنید!");
+      return;
+    }
+    
     console.log("اطلاعات ثبت شد:", formData);
     alert("اطلاعات شما با موفقیت ثبت شد!");
   };
 
   return (
-    <div className={styles.formWrapper}>
-      <form className={styles.formContainer} onSubmit={handleSubmit}>
+    <div className={styles.formContainer}>
+      <form className={styles.formWrapper} onSubmit={handleSubmit}>
         <h2 className={styles.title}>ویرایش اطلاعات کاربر</h2>
 
         <div className={styles.formGrid}>
           {/* نام */}
-          <div className={`${styles.inputGroup} ${styles.nameField}`}>
+          <div className={styles.inputGroup}>
             <label>نام <span className={styles.required}>*</span></label>
             <input
               type="text"
@@ -117,7 +125,7 @@ const UserInfoForm = () => {
           </div>
 
           {/* نام خانوادگی */}
-          <div className={`${styles.inputGroup} ${styles.lastNameField}`}>
+          <div className={styles.inputGroup}>
             <label>نام خانوادگی <span className={styles.required}>*</span></label>
             <input
               type="text"
@@ -145,6 +153,7 @@ const UserInfoForm = () => {
               onBlur={handleBlur}
               placeholder="کد ملی"
               required
+              maxLength="10"
               className={touched.nationalCode && !formData.nationalCode ? styles.error : ""}
             />
             {touched.nationalCode && !formData.nationalCode && (
@@ -160,13 +169,18 @@ const UserInfoForm = () => {
               name="phoneNumber"
               value={formData.phoneNumber}
               onChange={handleChange}
+              onBlur={handleBlur}
               placeholder="شماره تماس"
               required
+              className={touched.phoneNumber && !formData.phoneNumber ? styles.error : ""}
             />
+            {touched.phoneNumber && !formData.phoneNumber && (
+              <span className={styles.errorMessage}>این فیلد الزامی است</span>
+            )}
           </div>
 
           {/* تاریخ تولد */}
-          <div className={`${styles.inputGroup} ${styles.birthDate}`}>
+          <div className={styles.inputGroup}>
             <label>تاریخ تولد</label>
             <div className={styles.dateFields}>
               <select
@@ -291,6 +305,7 @@ const UserInfoForm = () => {
               value={formData.postalCode}
               onChange={handleChange}
               placeholder="کد پستی"
+              maxLength="10"
             />
           </div>
         </div>
@@ -303,7 +318,7 @@ const UserInfoForm = () => {
             value={formData.address}
             onChange={handleChange}
             placeholder="آدرس کامل"
-            rows="3"
+            rows="4"
             className={styles.addressTextarea}
           ></textarea>
         </div>
