@@ -10,9 +10,9 @@ const AccountInfo = () => {
     <div className={styles.container}>
       
       <div className={styles.main}>
-        <aside className={styles.sidebar}>
+        {/* <aside className={styles.sidebar}>
           
-        </aside>
+        </aside> */}
         <div className={styles.content}>
           <UserInfoForm />
         </div>

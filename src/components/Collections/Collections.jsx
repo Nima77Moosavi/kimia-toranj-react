@@ -104,7 +104,7 @@ const Collections = () => {
   }
 
   if (loading) {
-    return <div className={styles.loading}>در حال بارگذاری...</div>;
+    return <div className={styles.loading}></div>;
   }
 
   if (collections.length === 0) {

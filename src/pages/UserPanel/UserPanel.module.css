@@ -70,5 +70,13 @@
     top: -180px;
     left: -180px;
   }
-
+  .main{
+    flex-direction: column;
+  }
+  .sidebar{
+    width: 100%;
+  }
+  .content{
+    width: 100%;
+  }
 }

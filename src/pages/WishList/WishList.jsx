@@ -5,8 +5,11 @@ import styles from "./WishList.module.css";
 const Wishlist = () => {
   return (
     <div className={styles.wishlistPage}>
-      <h2>لیست علاقه‌مندی‌ها</h2>
-      <WishlistItems />
+      {/* <h2>لیست علاقه‌مندی‌ها</h2> */}
+     
+       <WishlistItems />  
+      
+     
     </div>
   );
 };
