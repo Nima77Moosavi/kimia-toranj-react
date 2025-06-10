@@ -57,36 +57,45 @@
   position: relative;
 }
 
-.mediaItem {
-  width: 100%;
-  max-width: 800px;
-}
+  .mediaItem {
+    width: 100%;
+    max-width: 800px;
+  }
 
-.navButton {
-  background-color: #FFD700;
-  color: #023047;
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  font-size: 50px !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.1);
-  z-index: 1;
-}
-.navButton .navIcon{
-  font-size: 1rem;
-}
-.navButton:disabled {
-  cursor: not-allowed;
-}
+  .navButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 237, 0, 0.7);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+  }
 
-.navButton:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 1);
-}
+  .navButton:hover {
+    background: rgba(255, 237, 0, 0.9);
+  }
+
+  .prevButton {
+    left: 10px;
+  }
+
+  .nextButton {
+    right: 10px;
+  }
+
+  .navIcon {
+    color: #000;
+    font-size: 24px;
+    z-index: 1000;
+  }
 
 .mediaIndicator,
 .highlightIndicator {
@@ -145,12 +154,7 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9999;
 }
-.mobileNavButtons {
-  display: none;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 1rem;
-}
+
 
 
 /* ------------------ */
@@ -170,30 +174,6 @@
     flex-direction: column;
   }
 
-  .mediaWrapper .navButton {
-    display: none;
-  }
-
-  .mobileNavButtons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 12px;
-  }
-  .mobileNavButtons .navButton {
-    width: 44px; /* کوچیک تر */
-    height: 44px;
-    border-radius: 50%; /* دایره ای */
-    background-color: #ffed00;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .navButton {
-    width: 30px;
-    height: 30px;
-    font-size: 22px;
-  }
 
   .closeButton {
     font-size: 32px;
@@ -214,7 +194,9 @@
   .progressBarContainer {
     height: 4px;
   }
-
+  .navButton{
+    top: 100%;
+  }
   .indicatorDot {
     width: 6px;
     height: 6px;
