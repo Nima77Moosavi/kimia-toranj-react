@@ -137,26 +137,25 @@ const HighlightMedia = () => {
 
         <h2 className={styles.title}>{currentHighlight.title}</h2>
 
-        {/* Media with navigation for desktop */}
-        <div className={styles.mediaWrapper}>
-          <button onClick={goToPreviousMedia} className={styles.navButton}>
+        {/* Media container */}
+        <div className={styles.mediaContainer}>
+          {/* Navigation buttons */}
+          <button 
+            onClick={goToPreviousMedia} 
+            className={`${styles.navButton} ${styles.prevButton}`}
+          >
             <GrFormPrevious className={styles.navIcon}/>
           </button>
+          
           <div className={styles.mediaItem}>
             <MediaPlayer media={currentMedia} />
           </div>
-          <button onClick={goToNextMedia} className={styles.navButton}>
+          
+          <button 
+            onClick={goToNextMedia} 
+            className={`${styles.navButton} ${styles.nextButton}`}
+          >
             <GrFormNext className={styles.navIcon}/>
-          </button>
-        </div>
-
-        {/* Mobile navigation below media */}
-        <div className={styles.mobileNavButtons}>
-          <button onClick={goToPreviousMedia} className={styles.navButton}>
-            <GrFormPrevious />
-          </button>
-          <button onClick={goToNextMedia} className={styles.navButton}>
-            <GrFormNext />
           </button>
         </div>
 

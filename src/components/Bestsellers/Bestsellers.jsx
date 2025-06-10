@@ -37,8 +37,8 @@ const Bestsellers = () => {
 
     autoPlayRef.current = setInterval(() => {
       setCurrentSlide((prev) => {
-        // زمانی که به آخرین محصول رسیدیم به اولین محصول برمی‌گردیم
-        return (prev + 1) % Math.max(products.length, itemsPerSlide);
+        // زمانی که به آخرین اسلاید رسیدیم به اولین اسلاید برمی‌گردیم
+        return (prev + 1) % Math.ceil(products.length / itemsPerSlide);
       });
     }, 3000);
 
@@ -47,7 +47,7 @@ const Bestsellers = () => {
 
   // محاسبه محصولات قابل مشاهده
   const getVisibleProducts = () => {
-    const startIndex = currentSlide;
+    const startIndex = currentSlide * itemsPerSlide;
     let visibleProducts = products.slice(
       startIndex,
       startIndex + itemsPerSlide
@@ -63,6 +63,9 @@ const Bestsellers = () => {
 
     return visibleProducts;
   };
+
+  // محاسبه تعداد اسلایدها
+  const slideCount = Math.ceil(products.length / itemsPerSlide);
 
   if (loading) return <div className={styles.loading}></div>;
   if (error) return <div className={styles.error}>Error: {error}</div>;
@@ -86,10 +89,10 @@ const Bestsellers = () => {
         </div>
       </div>
 
-      {/* نمایش نقاط به تعداد محصولات */}
-      {products.length > 0 && (
+      {/* نمایش نقاط به تعداد اسلایدها */}
+      {slideCount > 0 && (
         <div className={styles.dotsContainer}>
-          {Array.from({ length: products.length }).map((_, index) => (
+          {Array.from({ length: slideCount }).map((_, index) => (
             <button
               key={index}
               className={`${styles.dot} ${
