@@ -28,23 +28,26 @@ const SpecialProducts = () => {
     fetchProducts();
   }, []);
 
-  // Auto Play Logic (برای جابجایی یکی یکی محصولات)
+  // Auto Play Logic
   useEffect(() => {
     if (products.length === 0 || isHovered) return;
 
     autoPlayRef.current = setInterval(() => {
       setCurrentSlide(prev => {
-        // زمانی که به آخرین محصول رسیدیم به اولین محصول برمی‌گردیم
-        return (prev + 1) % Math.max(products.length, itemsPerSlide);
+        // زمانی که به آخرین اسلاید رسیدیم به اولین اسلاید برمی‌گردیم
+        return (prev + 1) % Math.ceil(products.length / itemsPerSlide);
       });
     }, 3000);
 
     return () => clearInterval(autoPlayRef.current);
   }, [products.length, isHovered]);
 
-  // محاسبه محصولات قابل مشاهده
+  // محاسبه تعداد اسلایدها
+  const totalSlides = Math.ceil(products.length / itemsPerSlide);
+
+  // محاسبه محصولات قابل مشاهده در اسلاید جاری
   const getVisibleProducts = () => {
-    const startIndex = currentSlide;
+    const startIndex = currentSlide * itemsPerSlide;
     let visibleProducts = products.slice(startIndex, startIndex + itemsPerSlide);
 
     // اگر تعداد محصولات کمتر از itemsPerSlide باشد، از اول دوباره محصولات را اضافه کن
@@ -79,10 +82,10 @@ const SpecialProducts = () => {
         </div>
       </div>
 
-      {/* نمایش نقاط به تعداد محصولات */}
-      {products.length > 0 && (
+      {/* نمایش نقاط به تعداد اسلایدها */}
+      {totalSlides > 0 && (
         <div className={styles.dotsContainer}>
-          {Array.from({ length: products.length }).map((_, index) => (
+          {Array.from({ length: totalSlides }).map((_, index) => (
             <button
               key={index}
               className={`${styles.dot} ${

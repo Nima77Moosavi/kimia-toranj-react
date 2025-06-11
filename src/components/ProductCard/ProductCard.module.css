@@ -1,6 +1,7 @@
 
 .card{
     width: 180px;
+    background-color: white;
     height: max-content;
     border-radius: 20px;
     border: 0.5px solid rgba(128, 128, 128, 0.233);
@@ -10,6 +11,7 @@
     box-shadow: 0 4px 12px rgba(73, 73, 73, 0.5);
     margin-bottom: 20px;
     cursor: pointer;
+    z-index: 1000;
 }
 .card:hover {
     transform: translateY(-5px); /* Add hover effect */
@@ -39,7 +41,7 @@
     background-color: #023047;
     border-radius: 10px;
     border: none;
-    padding: 2px 20px;
+    padding: 2px 10px;
     font-size: 16px;
     margin-bottom: 10px;
     direction: rtl;
@@ -72,6 +74,7 @@
     .card{
         width: 110px;
         height: max-content;
+        border-radius: 10px;
     }
     .img{
         width: 98%;
@@ -84,7 +87,7 @@
     .price{
         font-size: 12px;
         font-weight: lighter;
-        padding: 3px 3px;
+        padding: 3px 1px;
         border-radius: 5px;
     }
 }

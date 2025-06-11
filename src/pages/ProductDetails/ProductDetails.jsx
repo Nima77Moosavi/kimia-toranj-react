@@ -41,6 +41,10 @@ const ProductDetails = () => {
   const tabContainerRef = useRef(null);
   const activeButtonRef = useRef(null);
 
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat("fa-IR").format(price);
+  };
+
   const sampleReviews = [
     { user: "علی", comment: "محصول فوق‌العاده‌ای بود، خیلی راضیم." },
     { user: "زهرا", comment: "بسته‌بندی تمیز و ارسال سریع، ممنون." },
@@ -285,7 +289,7 @@ const ProductDetails = () => {
                 <BsBoxSeam className={styles.icon} />
               </p>
               <button className={styles.price}>
-                {product.variants[0].price} &nbsp; تومان
+                {formatPrice(product.variants[0].price)} &nbsp; تومان
               </button>
               <button className={styles.addToCart} onClick={handleAddToCart}>
                 افزودن به سبد خرید
