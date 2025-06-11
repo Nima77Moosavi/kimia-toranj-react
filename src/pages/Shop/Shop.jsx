@@ -43,7 +43,7 @@ const Shop = () => {
         );
         if (!response.ok) throw new Error("مشکل در دریافت محصولات");
         const data = await response.json();
-        setProducts(data);
+        setProducts(data.results);
       } catch (err) {
         setError(err.message);
       } finally {

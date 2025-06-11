@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./Bestsellers.module.css";
 import ProductCard from "../ProductCard/ProductCard";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Bestsellers = () => {
   const [products, setProducts] = useState([]);
@@ -21,7 +21,7 @@ const Bestsellers = () => {
         );
         if (!response.ok) throw new Error("Network response was not ok");
         const data = await response.json();
-        setProducts(data);
+        setProducts(data.results);
       } catch (error) {
         setError(error.message);
       } finally {

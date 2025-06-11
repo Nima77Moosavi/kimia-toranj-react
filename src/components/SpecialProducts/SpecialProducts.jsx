@@ -18,7 +18,7 @@ const SpecialProducts = () => {
         const response = await fetch("https://kimiatoranj-api.liara.run/api/store/products/");
         if (!response.ok) throw new Error("Network response was not ok");
         const data = await response.json();
-        setProducts(data);
+        setProducts(data.results);
       } catch (error) {
         setError(error.message);
       } finally {
