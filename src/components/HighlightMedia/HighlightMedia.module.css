@@ -214,15 +214,5 @@
     font-size: 28px;
     top: 20px;
   }
-  .navButton{
-    top: 90%;
-    margin-bottom: 20px;
-  }
-  .prevButton {
-    left: 40%;
-  }
   
-  .nextButton {
-    right: 40%;
-  }
 }
