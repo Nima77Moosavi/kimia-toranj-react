@@ -62,41 +62,51 @@
     max-width: 800px;
   }
 
+  .mediaWrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
   .navButton {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 237, 0, 0.7);
-    border: none;
+    width: min-content;
+    height: min-content;
+    background-color: inherit;
+    /* border: solid 0.5px #ffed00; */
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
+    /* display: flex; */
     align-items: center;
     justify-content: center;
     cursor: pointer;
     z-index: 10;
-    transition: all 0.3s ease;
+    color: #333;
+    padding: 0;
   }
-
-  .navButton:hover {
-    background: rgba(255, 237, 0, 0.9);
-  }
-
+  
   .prevButton {
     left: 10px;
   }
-
+  
   .nextButton {
     right: 10px;
   }
-
+  
   .navIcon {
-    color: #000;
-    font-size: 24px;
-    z-index: 1000;
+    justify-self: center;
+    align-self: center;
+    margin: 0 auto;
+    color: #ffed00!important;
+    font-size: 44px;
+    padding: 0;
+    vertical-align: middle;
   }
-
+  .navIcon:hover {
+    color: #f1cd01d5!important;
+  }
 .mediaIndicator,
 .highlightIndicator {
   display: flex;
@@ -194,9 +204,7 @@
   .progressBarContainer {
     height: 4px;
   }
-  .navButton{
-    top: 100%;
-  }
+ 
   .indicatorDot {
     width: 6px;
     height: 6px;
@@ -206,5 +214,5 @@
     font-size: 28px;
     top: 20px;
   }
- 
+  
 }

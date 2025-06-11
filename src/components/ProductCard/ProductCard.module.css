@@ -1,6 +1,6 @@
 
 .card{
-    width: 180px;
+    width: 200px;
     background-color: white;
     height: max-content;
     border-radius: 20px;
@@ -23,17 +23,23 @@
   }
 .img{
     width: 90%;
-    height: 70%;
+    height: 190px;
     padding: 5%;
     border-radius: 20px;
     margin: 0 auto;
 }
 .title{
+    height: 70px;
     font-size: 20px;
     font-weight: 300;
     color: #023047;
    padding: 0px;
-   margin-top: 0px;
+   vertical-align: middle;
+   margin: 0 auto;
+   display: flex;
+    align-items: center; /* وسط عمودی متن */
+    justify-content: center; /* وسط افقی متن */
+    text-align: center; /* برای مطمئن شدن از وسط‌چین چندخطی */
 }
 .price{
     width: 90%;
@@ -81,10 +87,12 @@
         height: 50%;
     }
     .title{
+        height: 50px;
         font-size: 14px;
         margin-bottom: 1px;
     }
     .price{
+        width: 95%;
         font-size: 12px;
         font-weight: lighter;
         padding: 3px 1px;
