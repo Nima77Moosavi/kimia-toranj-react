@@ -30,9 +30,9 @@
 
 .title {
   margin-top: 8px;
-  font-size: 14px;
+  font-size: 20px;
   color: #023047; /* Instagram-like text color */
-  font-weight:200;
+  /* font-weight:200; */
   white-space: nowrap; /* Prevents text from wrapping */
   overflow: hidden;
   text-overflow: ellipsis; /* Adds ellipsis if the text is too long */
@@ -54,5 +54,8 @@
 @media (max-width: 480px) {
   .card{
     width: 80px;
+  }
+  .title{
+    font-size: 16px;
   }
 }

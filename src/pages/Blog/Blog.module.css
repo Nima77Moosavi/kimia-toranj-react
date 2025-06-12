@@ -1,20 +1,47 @@
 /* Blog.module.css */
+.circle {
+  position: absolute;
+  left: -100px;
+  top: -300px;
+  width: 700px;
+  height: 700px;
+  background-color: rgba(128, 128, 128, 0.158);
+  border-radius: 50%;
+  z-index: 0;
+  margin-bottom: 100px;
+}
 
 .blogContainer {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
   direction: rtl;
+  z-index: 1000;
+  position: relative;
 }
 
 .title {
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 50px;
-  color: #333;
+  color: #2c3e50;
+  position: relative;
+  padding-bottom: 15px;
 }
 
-/* Top Posts Grid (for “پربازدید”) */
+.title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 50%;
+  transform: translateX(50%);
+  width: 100px;
+  height: 4px;
+  background: #40e0d0;
+  border-radius: 2px;
+}
+
+/* Top Posts Grid (for "پربازدید") */
 .topPosts {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -24,22 +51,30 @@
 
 .topPost {
   padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
   background: #fff;
-  transition: box-shadow 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .topPost:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
 }
 
 /* Uniform Images for Top Posts */
 .postImage {
   width: 100%;
-  height: 200px; /* Fixed height for consistent display */
-  margin-bottom: 10px;
-  border-radius: 4px;
+  height: 200px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.topPost:hover .postImage {
+  transform: scale(1.03);
 }
 
 /* Vertical Posts (Remaining Posts) */
@@ -53,25 +88,32 @@
 /* Desktop: Display image and text side by side */
 .post {
   display: flex;
-  gap: 20px;
+  gap: 25px;
   align-items: center;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  padding: 25px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
   background: #fff;
-  transition: box-shadow 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .post:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
 }
 
-/* Side-by-side image for post – fixed dimensions */
+/* Side-by-side image for post - fixed dimensions */
 .postSideImage {
-  width: 150px;
-  height: 150px;
+  width: 180px;
+  height: 180px;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.post:hover .postSideImage {
+  transform: scale(1.03);
 }
 
 /* Text container occupies remaining space */
@@ -81,18 +123,40 @@
 
 .postTitle {
   font-size: 1.8rem;
-  margin-bottom: 10px;
-  color: #444;
+  margin-bottom: 15px;
+  color: #2c3e50;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.postTitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50px;
+  height: 3px;
+  background: #40e0d0;
+  border-radius: 2px;
 }
 
 .postContent {
-  font-size: 1.2rem;
-  color: #666;
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* Limit to three lines */
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.postMeta {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+  color: #7f8c8d;
+  font-size: 0.9rem;
 }
 
 /* Remove default link styling so posts look consistent */
@@ -100,6 +164,7 @@
 .postLink {
   text-decoration: none;
   color: inherit;
+  display: block;
 }
 
 /* ------------------
@@ -107,12 +172,17 @@
    ------------------ */
 @media (max-width: 768px) {
   .blogContainer {
-    padding: 10px;
+    padding: 15px;
   }
 
   .title {
     font-size: 2rem;
     margin-bottom: 30px;
+  }
+
+  .title::after {
+    width: 80px;
+    height: 3px;
   }
 
   /* Adjust top posts grid to smaller columns */
@@ -128,29 +198,35 @@
 
   /* Reduce top post image height */
   .postImage {
-    height: 150px;
+    height: 160px;
   }
 
   /* For vertical posts, stack image and text vertically */
   .posts {
-    flex-direction: column;
+    gap: 20px;
   }
 
   .post {
     flex-direction: column;
     align-items: flex-start;
-    padding: 15px;
+    padding: 20px;
+    gap: 15px;
   }
 
   /* Make the side image full width and auto-height */
   .postSideImage {
     width: 100%;
-    height: auto;
-    margin-bottom: 10px;
+    height: 200px;
+  margin-bottom: 10px;
   }
 
   .postTitle {
     font-size: 1.6rem;
+    padding-bottom: 8px;
+  }
+
+  .postTitle::after {
+    height: 2px;
   }
 
   .postContent {
@@ -158,7 +234,7 @@
   }
 }
 
-/* Further small-device tweaks (optional) */
+/* Further small-device tweaks */
 @media (max-width: 480px) {
   .blogContainer {
     margin-top: 60px;
@@ -166,19 +242,27 @@
 
   .title {
     font-size: 1.8rem;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+  }
+
+  .title::after {
+    width: 60px;
   }
 
   .topPosts {
-    grid-template-columns: 1fr; /* Single column for smallest screens */
+    grid-template-columns: 1fr;
   }
 
   .topPost {
-    padding: 10px;
+    padding: 15px;
+  }
+
+  .postImage {
+    height: 140px;
   }
 
   .post {
-    padding: 10px;
+    padding: 15px;
   }
 
   .postTitle {
@@ -187,5 +271,12 @@
 
   .postContent {
     font-size: 0.9rem;
+  }
+
+  .circle {
+    width: 400px;
+    height: 400px;
+    top: -180px;
+    left: -180px;
   }
 }

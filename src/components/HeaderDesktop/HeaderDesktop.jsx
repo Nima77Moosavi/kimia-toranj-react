@@ -90,6 +90,7 @@ const HeaderDesktop = () => {
       <div className={styles.container}>
         {/* آیکن‌ها */}
         <div className={styles.icons}>
+          <Link to="/user-panel/cart">
           <span
             onClick={() => toggleCartPopup(!isCartOpen)}
             className={styles.cartIcon}
@@ -99,6 +100,8 @@ const HeaderDesktop = () => {
               <span className={styles.cartCount}>{cartItems.length}</span>
             )}
           </span>
+          </Link>
+          
 
           <span
             onClick={() => setIsFavoritesOpen((prev) => !prev)}
@@ -191,7 +194,7 @@ const HeaderDesktop = () => {
       )}
 
       {/* پاپ‌آپ سبد خرید با استایل جدید */}
-      {isCartOpen && (
+      {/* {isCartOpen && (
         <div className={styles.cartPopup} ref={cartRef}>
           <h5 className={styles.cartTitle}>سبد خرید شما</h5>
           {cartItems.length === 0 ? (
@@ -252,7 +255,7 @@ const HeaderDesktop = () => {
             </div>
           )}
         </div>
-      )}
+      )} */}
     </header>
   );
 };
