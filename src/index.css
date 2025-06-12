@@ -8,7 +8,7 @@
 @font-face {
   font-family: 'B-NAZANIN';
   src: local('B-NAZANIN'), url(./fonts/B-NAZANIN.ttf) format('truetype');
-  /* Change font */
+  /* Change font    */
 }
 * {
   box-sizing: border-box;
