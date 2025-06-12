@@ -1,50 +1,55 @@
-
-.card{
+.card {
     width: 200px;
-    background-color: white;
-    height: max-content;
+    background-color: var(--bg-color); /* Uses white from your global variable */
+    height: 320px;
     border-radius: 20px;
-    border: 0.5px solid rgba(128, 128, 128, 0.233);
+    border: 0.5px solid var(--secondary-color); /* Luxurious gold border */
     justify-content: center;
     text-align: center;
     align-content: center;
-    box-shadow: 0 4px 12px rgba(73, 73, 73, 0.5);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer shadow */
     margin-bottom: 20px;
     cursor: pointer;
     z-index: 1000;
 }
+
 .card:hover {
-    transform: translateY(-5px); /* Add hover effect */
-    transition: .5s ease;
-  }
-  .cardLink{
+    transform: translateY(-5px);
+    transition: 0.5s ease;
+}
+
+.cardLink {
     text-decoration: none;
     color: inherit;
-  }
-.img{
+}
+
+.img {
     width: 90%;
     height: 190px;
     padding: 5%;
     border-radius: 20px;
     margin: 0 auto;
+    object-fit: cover;
 }
-.title{
+
+.title {
     height: 70px;
     font-size: 20px;
-    /* font-weight: 300; */
-    color: #023047;
-   padding: 0px;
-   vertical-align: middle;
-   margin: 0 auto;
-   display: flex;
-    align-items: center; /* وسط عمودی متن */
-    justify-content: center; /* وسط افقی متن */
-    text-align: center; /* برای مطمئن شدن از وسط‌چین چندخطی */
+    font-weight: 300;
+    color: var(--primary-color); /* Luxurious deep blue */
+    padding: 0;
+    vertical-align: middle;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
-.price{
+
+.price {
     width: 90%;
     color: white;
-    background-color: #023047;
+    background-color: var(--primary-color); /* Blue background for the price button */
     border-radius: 10px;
     border: none;
     padding: 2px 10px;
@@ -52,46 +57,49 @@
     margin-bottom: 10px;
     direction: rtl;
     cursor: pointer;
-}
-.price:hover{
-    background-color: #FFD700;
-    color: #023047;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+.price:hover {
+    background-color: var(--secondary-color); /* Gold on hover */
+    color: var(--primary-color);
+}
 
-/* responsive */
+/* Responsive styling for tablet-sized screens */
 @media (max-width: 768px) {
-    .card{
+    .card {
         width: 150px;
         height: max-content;
     }
-    .img{
+    .img {
         width: 80%;
         height: 60%;
     }
-    .title{
+    .title {
         font-size: 16px;
     }
-    .price{
+    .price {
         font-size: 18px;
     }
 }
+
+/* Responsive styling for mobile screens */
 @media (max-width: 480px) {
-    .card{
+    .card {
         width: 110px;
-        height: max-content;
+        height: 220px;
         border-radius: 10px;
     }
-    .img{
+    .img {
         width: 98%;
         height: 120px;
     }
-    .title{
+    .title {
         height: 50px;
         font-size: 14px;
         margin-bottom: 1px;
     }
-    .price{
+    .price {
         width: 95%;
         font-size: 14px;
         font-weight: lighter;
