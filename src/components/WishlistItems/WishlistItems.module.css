@@ -103,6 +103,7 @@
 }
 
 .itemPrice {
+  height: min-content;
   font-size: 16px;
   color: #023047;
   font-weight: bold;
@@ -132,6 +133,23 @@
 .deleteButton:hover {
   color: #d32f2f;
   background-color: rgba(255, 71, 87, 0.1);
+}
+
+.addToCart {
+  height: min-content;
+  font-size: 16px;
+  color: #023047;
+  font-weight: bold;
+  padding: 5px 10px;
+  border: 1px solid rgba(64, 224, 208, 0.5);
+  border-radius: 12px;
+  width: max-content;
+  background-color: rgba(64, 224, 208, 0.1);
+}
+
+.addToCart:hover {
+  background-color: #023047;
+  color: #ffd700;
 }
 
 /* Empty Message */

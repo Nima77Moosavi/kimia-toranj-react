@@ -68,7 +68,7 @@
 .link {
   padding: 10px 15px;
   border-radius: 5px;
-  font-size: 18px;
+  font-size: 25px !important;
   cursor: pointer;
   text-align: right;
   transition: all 0.3s ease;

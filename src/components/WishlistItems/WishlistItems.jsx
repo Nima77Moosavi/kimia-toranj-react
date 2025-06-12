@@ -30,6 +30,7 @@ const WishlistItems = () => {
               <div className={styles.itemDetails}>
                 <span className={styles.itemName}>{item.name}</span>
                 <span className={styles.itemPrice}>{item.price}</span>
+              <button className={styles.addToCart}>افزودن به سبد خرید</button>
               </div>
               <button 
                 className={styles.deleteButton}

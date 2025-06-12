@@ -17,7 +17,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   border-radius: 4px;
-  font-weight: 500;
+  /* font-weight: 500; */
 }
 
 .tabs button:hover {
