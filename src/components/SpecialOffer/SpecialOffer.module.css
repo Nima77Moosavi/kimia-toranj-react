@@ -86,8 +86,8 @@
 
 .price {
   width: max-content;
-  background-color: #ffffff;
-  color: #023047;
+  background-color: var(--primary-color);
+  color: #fff;
   border: 0.5px solid rgb(109, 224, 240);
   padding: 0.5rem 1.5rem;
   font-size: 30px; /* Responsive font size */
@@ -97,27 +97,27 @@
 }
 
 .price:hover {
-  background-color: #ffffff;
-  color: #023047;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
 }
 
 .addtocard {
   width: max-content;
-  background-color: #FFD700;
-  color: #023047;
+  background-color: var(--primary-color);
+  color: #fff;
   border: none;
   padding: 0.8rem 1.5rem;
   font-size: 30px; /* Responsive font size */
   /* font-weight: 500; */
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  /* transition: background-color 0.3s; */
   white-space: nowrap;
 }
 
 .addtocard:hover {
-  background-color: #023047;
-  color: #FFD700;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
 }
 
 .attr1, .attr2, .attr3 {

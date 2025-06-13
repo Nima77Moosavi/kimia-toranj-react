@@ -3,11 +3,11 @@
     background-color: var(--bg-color); /* Uses white from your global variable */
     height: 320px;
     border-radius: 20px;
-    border: 0.5px solid var(--secondary-color); /* Luxurious gold border */
+    border: 0.5px solid var(--primary-color); /* Luxurious gold border */
     justify-content: center;
     text-align: center;
     align-content: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
     margin-bottom: 20px;
     cursor: pointer;
     z-index: 1000;

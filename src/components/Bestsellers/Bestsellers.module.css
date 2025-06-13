@@ -31,6 +31,7 @@
   gap: 15px; /* spacing between items */
   transition: transform 0.5s ease-in-out;
   padding-bottom: 10px; /* extra space for scroll */
+  padding-top: 10px;
 }
 
 .slideItem {

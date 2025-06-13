@@ -17,6 +17,7 @@
   width: 700px;
   height: 700px;
   background-color: rgba(128, 128, 128, 0.158);
+  /* background-color: var(--primary-color); */
   border-radius: 50%;
   z-index: 0;
   margin-bottom: 100px;
