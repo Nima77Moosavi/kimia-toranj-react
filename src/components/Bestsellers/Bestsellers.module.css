@@ -62,4 +62,8 @@
   .slider {
     gap: 10px;
   }
+
+  .bestsellersContainer {
+    margin: 0 10px;
+  }
 }

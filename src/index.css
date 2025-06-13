@@ -1,9 +1,18 @@
 :root {
   --primary-color: #002147;    /* Luxurious deep blue */
-  --secondary-color: #ceaf00;  /* Rich, luxurious gold */
+  --secondary-color: #FFD700;  /* Rich, luxurious gold */
   --text-color: #333333;
   --bg-color: #ffffff;
 }
+
+body {
+    overflow-x: hidden;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
 
 @font-face {
   font-family: 'B-NAZANIN';
