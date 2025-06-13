@@ -26,8 +26,8 @@ const HeaderMobile = () => {
     <header className={styles.headerMobile}>
       {/* Center: Search box */}
       <div className={styles.searchContainer}>
-        <div className={styles.searchBox}>
-          <input type="text" placeholder="جستجو کنید..." />
+        <div className={styles.searchBox} dir="rtl">
+          <input type="text" placeholder="در کیمیاترنج جستجو کنید ..." />
           <IoSearch className={styles.searchIcon} />
         </div>
       </div>
@@ -40,7 +40,7 @@ const HeaderMobile = () => {
             onClick={() => setIsMenuOpen(true)}
             aria-label="Navigation menu"
           >
-            <IoMenu size={36} color="#023047" />
+            <IoMenu size={56} color="#002147" />
           </button>
         </div>
       )}

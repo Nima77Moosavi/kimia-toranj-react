@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  /* padding: 10px 20px; */
   height: 60px;
   /* background-color: white; */
   position: fixed;
@@ -19,7 +19,8 @@
 
 .searchBox {
   position: relative;
-  width: 80%;
+  width: 100%;
+  margin-left: 10px;
 }
 
 .searchBox input {
@@ -32,16 +33,19 @@
 
 .searchIcon {
   position: absolute;
-  right: 10px;
+  left: 10px;
   top: 50%;
   transform: translateY(-50%);
   font-size: 20px;
-  color: #023047;
+  color: #002147;
   pointer-events: none;
 }
 
 .hamburgerContainer {
   z-index: 1100; /* above header */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hamburgerButton {
@@ -49,6 +53,12 @@
   border: none;
   cursor: pointer;
   transition: transform 0.3s ease;
+  /* Adjust padding so the icon doesn’t shift off-center */
+  padding: 0;  
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hamburgerButton:hover {

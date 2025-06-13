@@ -1,3 +1,4 @@
+/* ===== Base (Desktop/Tablet) Styles ===== */
 .container {
   display: flex;
   flex-direction: row;
@@ -54,16 +55,14 @@
 }
 
 .title {
-  font-size: clamp(1.5rem, 2.5vw, 2rem); /* Responsive font size */
-  /* font-weight: 200; */
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
   margin-bottom: 1rem;
   color: #023047;
   text-align: right;
 }
 
 .description {
-  font-size: 20px; /* Responsive font size */
-  /* font-weight: 200; */
+  font-size: 20px;
   text-align: right;
   line-height: 1.6;
   color: #023047;
@@ -73,7 +72,6 @@
 .description span {
   display: block;
   margin-top: 0.5rem;
- 
 }
 
 .priceContainer {
@@ -90,7 +88,7 @@
   color: #fff;
   border: 0.5px solid rgb(109, 224, 240);
   padding: 0.5rem 1.5rem;
-  font-size: 30px; /* Responsive font size */
+  font-size: 30px;
   border-radius: 10px;
   margin-bottom: 0;
   white-space: nowrap;
@@ -107,11 +105,9 @@
   color: #fff;
   border: none;
   padding: 0.8rem 1.5rem;
-  font-size: 30px; /* Responsive font size */
-  /* font-weight: 500; */
+  font-size: 30px;
   border-radius: 10px;
   cursor: pointer;
-  /* transition: background-color 0.3s; */
   white-space: nowrap;
 }
 
@@ -120,7 +116,10 @@
   color: var(--secondary-color);
 }
 
-.attr1, .attr2, .attr3 {
+/* Attributes styling (unchanged) */
+.attr1,
+.attr2,
+.attr3 {
   position: absolute;
   background-color: rgb(255, 255, 255);
   color: #023047;
@@ -130,7 +129,7 @@
   font-size: clamp(0.8rem, 1vw, 1rem);
   font-weight: 700;
   z-index: 20;
-  white-space: nowrap; /* جلوگیری از شکستن خط */
+  white-space: nowrap;
 }
 
 .attr1::before,
@@ -147,7 +146,6 @@
   border-radius: 50%;
 }
 
-/* موقعیت‌دهی ریسپانسیو با درصد */
 .attr1 {
   top: 10%;
   left: 30%;
@@ -165,9 +163,9 @@
   transform: translateY(-50%);
 }
 
+/* ===== Media Queries ===== */
 
-/* Media Queries for different screen sizes */
-
+/* For screens up to 990px */
 @media (max-width: 990px) {
   .img {
     width: 70%;
@@ -190,55 +188,67 @@
   }
 }
 
+/* For screens up to 768px - Change layout to grid with 4 rows */
 @media (max-width: 768px) {
   .container {
-    flex-direction: column;
+    display: grid;
+    grid-template-areas:
+      "title"
+      "image"
+      "desc"
+      "buttons";
+    grid-row-gap: 0.5rem;  /* Reduced gap between rows */
     padding: 1.5rem;
   }
-
-  .rightDiv, .leftDiv {
-    min-width: unset;
-    width: 100%;
-    padding: 1rem 0;
+  
+  /* Flatten rightDiv so its children become direct grid items */
+  .rightDiv {
+    display: contents;
   }
-
+  
+  /* Title is at the top */
+  .title {
+    grid-area: title;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* LeftDiv (image) goes in the second row */
+  .leftDiv {
+    grid-area: image;
+    justify-self: center;
+    position: relative;
+  }
+  
+  /* Description goes in the third row */
+  .description {
+    grid-area: desc;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Buttons go in the fourth row; display them side by side */
+  .priceContainer {
+    grid-area: buttons;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
   .img {
-    width: 40%;
-    right: -10%;
-    max-height: 300px;
+    width: 80%;
+    right: 0;
   }
-
-  .attr1,
-  .attr2,
-  .attr3 {
-    padding: 0.4rem 2rem 0.4rem 0.4rem;
-    font-size: 0.85rem;
-  }
-
-  .attr1 {
-    top: 10%;
-    left: 30%;
-  }
-
-  .attr2 {
-    top: 50%;
-    left: 25%;
-  }
-
-  .attr3 {
-    top: 80%;
-    left: 28%;
-  }
- 
 }
 
+/* For screens up to 480px */
 @media (max-width: 480px) {
   .img {
     width: 70%;
     max-height: 250px;
     right: -25%;
   }
-
+  
   .attr1,
   .attr2,
   .attr3 {
@@ -260,6 +270,7 @@
     top: 75%;
     left: 20%;
   }
+  
   .leftDiv::before {
     content: "";
     position: absolute;
@@ -269,15 +280,20 @@
     border-radius: 50% / 55%;
     z-index: -1;
   }
-  .title{
+
+  .title {
     font-size: 20px;
   }
-  .description{
+  
+  .description {
     font-size: 16px;
   }
+  
+  
   .price {
     font-size: 20px;
   }
+  
   .addtocard {
     font-size: 20px;
     padding: 0.6rem 1.2rem;
