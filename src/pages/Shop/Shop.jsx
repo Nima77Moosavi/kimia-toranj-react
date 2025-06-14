@@ -17,7 +17,7 @@ const Shop = () => {
   // Get and update query parameters.
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Automatically set a default ordering (cheapest first) if not set.
+  // Set a default ordering (cheapest first) if not set.
   useEffect(() => {
     if (!searchParams.get("order_by")) {
       const newParams = new URLSearchParams(searchParams);
@@ -30,7 +30,6 @@ const Shop = () => {
   // Helper: build query string from searchParams and current page.
   const buildQueryString = () => {
     const qs = searchParams.toString();
-    // Append page query parameter once you want to support pagination
     return qs ? `?${qs}&page=${page}` : `?page=${page}`;
   };
 
@@ -38,25 +37,40 @@ const Shop = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
+
       try {
         const query = buildQueryString();
         const response = await fetch(
           `https://kimiatoranj-api.liara.run/api/store/products/${query}`
         );
-        if (!response.ok) throw new Error("مشکل در دریافت محصولات");
+
+        // If a 404 is returned (often meaning no more products), set hasMore to false.
+        if (!response.ok) {
+          if (response.status === 404) {
+            setHasMore(false);
+            setLoading(false);
+            return;
+          }
+          throw new Error("مشکل در دریافت محصولات");
+        }
+
         const data = await response.json();
 
-        // Assuming `data.results` contains the list of products for this page
-        // and that you can detect if there are more products via data.next or number of results.
+        // Clear any previous error on a successful fetch.
+        setError(null);
+
         if (page === 1) {
           setProducts(data.results);
         } else {
           setProducts((prevProducts) => [...prevProducts, ...data.results]);
         }
 
-        // If API supplies a next page indicator or returns fewer items than expected,
-        // then mark hasMore to false.
-        data.results.length === 0 ? setHasMore(false) : setHasMore(true);
+        // If no products were returned, assume there are no further pages.
+        if (data.results.length === 0) {
+          setHasMore(false);
+        } else {
+          setHasMore(true);
+        }
       } catch (err) {
         setError(err.message);
       } finally {
@@ -85,12 +99,11 @@ const Shop = () => {
     fetchCollections();
   }, []);
 
-  // When filtering by collection, update the query parameters and reset the product list.
+  // When filtering by collection, update query parameters and reset product list.
   const filterByCollection = (collectionTitle) => {
     const newParams = new URLSearchParams(searchParams);
     newParams.set("collection", collectionTitle);
     setSearchParams(newParams);
-    // Reset the product list pagination.
     setProducts([]);
     setPage(1);
     setShowFilters(false);
@@ -115,12 +128,12 @@ const Shop = () => {
     setShowFilters(false);
   };
 
-  // Intersection Observer for lazy loading.
+  // Intersection Observer for lazy loading of additional pages.
   const observer = useRef();
   const lastProductElementRef = useCallback(
     (node) => {
       if (loading) return;
-      if (observer.current) observer.current.disconnect(); // remove previous observer instance
+      if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
           setPage((prevPage) => prevPage + 1);
@@ -174,7 +187,6 @@ const Shop = () => {
         <div className={styles.container}>
           <div className={styles.productContainer}>
             {products.map((product, index) => {
-              // Attach the ref to the last element so we can trigger lazy loading.
               if (products.length === index + 1) {
                 return (
                   <div ref={lastProductElementRef} key={product.id}>
@@ -189,8 +201,15 @@ const Shop = () => {
               <div className={styles.loading}>در حال بارگذاری...</div>
             )}
             {error && <div className={styles.error}>خطا: {error}</div>}
+            {/* Render "empty" message if no product is found on page 1 */}
             {!loading && products.length === 0 && (
               <div className={styles.empty}>هیچ محصولی یافت نشد.</div>
+            )}
+            {/* If products exist and hasMore is false, display end-of-content message */}
+            {!loading && !hasMore && products.length > 0 && (
+              <div className={styles.endMessage}>
+                هیچ محصول بیشتری موجود نیست.
+              </div>
             )}
           </div>
 
@@ -224,7 +243,6 @@ const Shop = () => {
           </div>
         </div>
       </div>
-
       <Footer />
     </div>
   );
