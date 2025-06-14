@@ -11,6 +11,7 @@
   right: 0;
   z-index: 10000;
   justify-content: center;
+  max-height: 80px;
 }
 
 .footerul {
@@ -39,13 +40,13 @@
   align-items: center;
   text-decoration: none;
   color: #023047;
-  font-size: 14px;
+  font-size: 11px;
   padding: 8px; /* Added padding to better see the background change */
   transition: background-color 0.3s ease;
 }
 
 .footerLink svg {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
 }
 
