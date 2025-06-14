@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { 
   IoHomeOutline, 
   IoBagOutline, 
@@ -18,9 +18,7 @@ const FooterMenu = () => {
 
     checkScreenSize();
 
-    const handleResize = () => {
-      checkScreenSize();
-    };
+    const handleResize = () => checkScreenSize();
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -32,28 +30,40 @@ const FooterMenu = () => {
     <div className={styles.container}>
       <ul className={styles.footerul}>
         <li>
-          <Link to="/" className={styles.footerLink}>
+          <NavLink 
+            to="/" 
+            className={({ isActive }) => `${styles.footerLink} ${isActive ? styles.active : ""}` }
+          >
             <IoHomeOutline size={24} />
             <span>خانه</span>
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link to="/shop" className={styles.footerLink}>
+          <NavLink 
+            to="/shop" 
+            className={({ isActive }) => `${styles.footerLink} ${isActive ? styles.active : ""}` }
+          >
             <IoBagOutline size={24} />
             <span>فروشگاه</span>
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link to="/user-panel/cart" className={styles.footerLink}>
+          <NavLink 
+            to="/user-panel/cart" 
+            className={({ isActive }) => `${styles.footerLink} ${isActive ? styles.active : ""}` }
+          >
             <IoCartOutline size={24} />
             <span>سبد خرید</span>
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link to="/login" className={styles.footerLink}>
+          <NavLink 
+            to="/login" 
+            className={({ isActive }) => `${styles.footerLink} ${isActive ? styles.active : ""}` }
+          >
             <IoPersonOutline size={24} />
             <span>ورود</span>
-          </Link>
+          </NavLink>
         </li>
       </ul>
     </div>
