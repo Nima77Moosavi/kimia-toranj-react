@@ -1,5 +1,9 @@
 /* General Styles */
 /* renamed file */
+.content {
+  margin-top: 60px;
+}
+
 .title {
   text-align: center;
   font-size: 28px;
