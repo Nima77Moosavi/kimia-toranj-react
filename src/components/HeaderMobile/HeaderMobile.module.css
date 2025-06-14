@@ -2,9 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* padding: 10px 20px; */
   height: 60px;
-  /* background-color: white; */
   position: fixed;
   top: 0;
   width: 100%;
@@ -42,7 +40,7 @@
 }
 
 .hamburgerContainer {
-  z-index: 1100; /* above header */
+  z-index: 1100;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,8 +51,7 @@
   border: none;
   cursor: pointer;
   transition: transform 0.3s ease;
-  /* Adjust padding so the icon doesn’t shift off-center */
-  padding: 0;  
+  padding: 0;
   margin-right: 10px;
   display: flex;
   align-items: center;
@@ -103,7 +100,7 @@
   transform: scale(1.1);
 }
 
-/* Menu List and Items */
+/* --------------------------- Simple Menu List Styles --------------------------- */
 .menuList {
   list-style: none;
   padding: 0;
@@ -113,12 +110,12 @@
 
 .menuItem {
   padding: 10px 0;
-  /* Remove backgrounds and add a border separator */
   border-bottom: 1px solid #ddd;
   text-align: center;
-  font-size: 18px;
-  font-weight: bold;
-  color: #fff;
+  border-radius: 0px;
+  background-color: #fff;
+  color: var(--primary-color);
+  box-shadow: none;
 }
 
 .menuItem:last-child {
@@ -139,4 +136,3 @@
     transform: translateX(0);
   }
 }
-
