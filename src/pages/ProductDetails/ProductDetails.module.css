@@ -359,6 +359,7 @@ background-color: unset;
   
 }
 .priceContainer p {
+  color: #023047;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
