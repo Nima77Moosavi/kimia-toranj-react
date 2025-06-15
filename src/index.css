@@ -15,14 +15,14 @@ body {
 
 
 @font-face {
-  font-family: 'B-NAZANIN';
-  src: local('B-NAZANIN'), url(./fonts/B-NAZANIN.ttf) format('truetype');
+  font-family: 'BNazanin';
+  src: local('BNazanin'), url(./fonts/BNazanin.woff) format('truetype');
   /* Change font    */
 }
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "B-NAZANIN";
+  font-family: "BNazanin";
   font-weight: 600;
 }
