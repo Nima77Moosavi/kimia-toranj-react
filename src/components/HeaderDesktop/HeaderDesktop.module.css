@@ -164,13 +164,15 @@ ul li:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  vertical-align: middle;
+  
 }
 
 .hamburgerMenu span {
   font-size: 50px;
   cursor: pointer;
   color: #023047;
-  /* margin-top: 18px; */
+  margin-top: 18px;
 }
 
 /* دایره طوسی */
