@@ -15,7 +15,7 @@ const SpecialOffer = () => {
           <span>ارتفاع 23cm , دهانه 34cm</span>
         </p>
         <div className={styles.priceContainer}>
-          <button className={styles.price}>3150000 تومان</button>
+          <button className={styles.price}>3,150,000 تومان</button>
           <button className={styles.addtocard}>افزودن به سبد خرید</button>
         </div>
       </div>
