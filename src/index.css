@@ -3,6 +3,8 @@
   --secondary-color: #FFD700;  /* Rich, luxurious gold */
   --text-color: #333333;
   --bg-color: #ffffff;
+  --primary-color-light: rgba(0, 33, 71, 0.3);
+  --primary-color-dark: rgba(0, 33, 71, 0.3);
 }
 
 body {

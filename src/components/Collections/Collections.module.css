@@ -1,150 +1,85 @@
-/* اصل استایل‌ها بدون تغییر */
+/* Container */
 .collections {
-  text-align: center;
   padding: 20px;
-  background: linear-gradient(to bottom, #ffffff 50%, #cfcfcf 70%);
+  text-align: center;
 }
 
+/* Section title */
 .sectionTitle {
-  font-size: 30px;
-  /* font-weight: 300; */
+  font-size: 28px;
+  color: #023047;
   margin-bottom: 20px;
-  color: #023047;
-  cursor: pointer;
 }
 
-.sliderContainer {
+/* Each row container: using flexbox for a horizontal row */
+.row {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
-  position: relative;
-  overflow: hidden;
-  width: 80%;
-  margin: auto;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
-.slider {
+/* Each Collection Card */
+.collectionCard {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 300px;
-  width: 100%;
+  width: calc(33.33% - 10px); /* roughly three per row */
+  min-width: 250px;
+  height: 200px;
+  background-position: center;
+  background-size: contain; /* Changed from cover to contain */
+  background-repeat: no-repeat;
+  background-color: #fff; /* Fallback background color if image doesn't cover */
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform 0.3s ease;
 }
 
-.slide {
+.collectionCard:hover {
+  transform: scale(1.03);
+}
+
+/* Overlay styling for darkening and text container */
+.overlay {
   position: absolute;
-  opacity: 0.6;
-  z-index: 5;
-  transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.active {
-  z-index: 10;
-  opacity: 1;
-  transform: scale(1.05);
-}
-
-.prevButton,
-.nextButton {
-  background: rgba(255, 255, 255, 0.8);
-  color: #023047;
-  border: none;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  font-size: 38px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Use the transparent variations of your primary color in a linear gradient */
+  background: var(--primary-color-dark);
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 20;
-  transition: background-color 0.3s ease;
 }
 
-/* هوور دکمه‌ها */
-.prevButton:hover,
-.nextButton:hover {
-  background-color: #e4e4e4;
+.description {
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 10px;
+  text-align: center;
 }
-.prevButton,
-.nextButton {
-  display: none !important;
-}
-/* ===== فقط قسمت ریسپانسیو ===== */
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .collections {
-    padding: 15px;
-    
+  .collectionCard {
+    width: calc(50% - 10px);
+    height: 180px;
   }
-
-  .sectionTitle {
-    font-size: 20px;
-    margin-bottom: 15px;
-  }
-
-  .slider {
-    height: 220px;
-  }
-
-  .prevButton,
-  .nextButton {
-    width: 26px;
-    height: 26px;
-    font-size: 30px;
+  .description {
+    font-size: 16px;
   }
 }
 
 @media (max-width: 480px) {
-  .collections {
-    position: relative;
-    padding: 10px 0;
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    background: transparent; /* بکگراند اصلی را حذف می‌کنیم */
-    overflow: hidden; /* برای محدود کردن پس‌زمینه خاکستری */
-  }
-
-  /* ایجاد پس‌زمینه خاکستری برای نیمه پایینی */
-  .collections::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 70%; /* ارتفاع نیمه پایینی */
-    background: linear-gradient(to bottom, #ffffff 50%, #cfcfcf 70%);
-    z-index: -1000; /* قرار گرفتن در پشت محتوا */
-  }
-  .sliderContainer {
+  .collectionCard {
     width: 100%;
-    padding: 0 20%; /* فضای بیشتر برای نمایش peek */
-    overflow: visible;
+    height: 160px;
   }
-
-  .slider {
-    height: 180px; /* ارتفاع کمتر */
-    gap:0px; /* فاصله کمتر بین اسلایدها */
-
-
-  }
-
-  .slide {
-    width: 38%; /* عرض کمتر برای اسلایدها */
-    transform: scale(0.7); /* کوچکتر کردن بیشتر */
-    opacity: 0.2; /* شفافیت کمتر برای اسلایدهای غیرفعال */
-  }
-
-  .active {
-    transform: scale(0.75); /* اسلاید فعال کمی بزرگتر از بقیه */
-    opacity: 1;
-    z-index: 10;
-  }
-
-  /* مخفی کردن کامل دکمه‌ها */
-  .prevButton,
-  .nextButton {
-    display: none !important;
+  .row {
+    flex-direction: column;
+    gap: 10px;
   }
 }

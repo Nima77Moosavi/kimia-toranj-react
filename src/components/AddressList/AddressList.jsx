@@ -1,20 +1,18 @@
-// AddressList.jsx
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import styles from "./AddressList.module.css";
 import { FiTrash2 } from "react-icons/fi";
 
-const AddressList = () => {
+const AddressList = ({ refresh }) => {
   const [addresses, setAddresses] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Fetch all shipping addresses for the current customer
+  // Fetch all shipping addresses for the current customer.
   const fetchAddresses = async () => {
     try {
       setLoading(true);
       const response = await axiosInstance.get("/api/store/shipping-addresses/");
-      // Ensure that response.data is an array; if not, default to an empty array.
       setAddresses(Array.isArray(response.data) ? response.data : []);
       setLoading(false);
     } catch (err) {
@@ -26,9 +24,9 @@ const AddressList = () => {
 
   useEffect(() => {
     fetchAddresses();
-  }, []);
+  }, [refresh]); // Re-fetch whenever refresh flag changes
 
-  // Handle deletion of an address
+  // Handle deletion of an address.
   const handleDelete = async (id) => {
     try {
       await axiosInstance.delete(`/api/store/shipping-addresses/${id}/`);
@@ -41,7 +39,7 @@ const AddressList = () => {
 
   return (
     <div className={styles.addressList}>
-      <h2>آدرس های شما </h2>
+      <h2>آدرس های شما</h2>
       {loading && <p>در حال بارگذاری آدرس‌ها...</p>}
       {error && <p className={styles.error}>{error}</p>}
       {(!addresses || addresses.length === 0) && !loading ? (
@@ -62,7 +60,12 @@ const AddressList = () => {
               <p>
                 <strong>کد پستی:</strong> {address.postal_code}
               </p>
-              <button onClick={() => handleDelete(address.id)} className={styles.deleteButton}><FiTrash2 /></button>
+              <button
+                onClick={() => handleDelete(address.id)}
+                className={styles.deleteButton}
+              >
+                <FiTrash2 />
+              </button>
             </li>
           ))}
         </ul>

@@ -1,7 +1,6 @@
-// AddressForm.jsx
 import React, { useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
-import styles from "./AddressForm.module.css"; // Create or adjust this CSS file as needed
+import styles from "./AddressForm.module.css";
 
 const AddressForm = ({ onAddressAdded }) => {
   const [stateInput, setStateInput] = useState("");
@@ -27,16 +26,19 @@ const AddressForm = ({ onAddressAdded }) => {
       );
       setLoading(false);
 
-      // Optionally, inform the parent component of the new address
+      // Inform the parent that a new address has been added.
       if (onAddressAdded) {
         onAddressAdded(response.data);
       }
 
-      // Clear the form fields after successful submission
+      // Clear the form fields.
       setStateInput("");
       setCityInput("");
       setAddressInput("");
       setPostalCodeInput("");
+      
+      // Also clear any previous error.
+      setError("");
     } catch (err) {
       console.error("Error adding address:", err);
       setError("خطا در افزودن آدرس");
