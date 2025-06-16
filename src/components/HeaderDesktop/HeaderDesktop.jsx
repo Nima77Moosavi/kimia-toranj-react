@@ -12,6 +12,8 @@ import { FaTrashAlt } from "react-icons/fa";
 import { FavoritesContext } from "../../context/FavoritesContext";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_URL } from "../../config";
+import {IoBagOutline} from "react-icons/io5";
+import { GoGift } from "react-icons/go";
 
 const HeaderDesktop = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -59,7 +61,10 @@ const HeaderDesktop = () => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsMenuOpen(false);
       }
-      if (favoritesRef.current && !favoritesRef.current.contains(event.target)) {
+      if (
+        favoritesRef.current &&
+        !favoritesRef.current.contains(event.target)
+      ) {
         setIsFavoritesOpen(false);
       }
       if (cartRef.current && !cartRef.current.contains(event.target)) {
@@ -91,17 +96,16 @@ const HeaderDesktop = () => {
         {/* آیکن‌ها */}
         <div className={styles.icons}>
           <Link to="/user-panel/cart">
-          <span
-            onClick={() => toggleCartPopup(!isCartOpen)}
-            className={styles.cartIcon}
-          >
-            <FaCartShopping />
-            {cartItems.length > 0 && (
-              <span className={styles.cartCount}>{cartItems.length}</span>
-            )}
-          </span>
+            <span
+              onClick={() => toggleCartPopup(!isCartOpen)}
+              className={styles.cartIcon}
+            >
+              <FaCartShopping />
+              {cartItems.length > 0 && (
+                <span className={styles.cartCount}>{cartItems.length}</span>
+              )}
+            </span>
           </Link>
-          
 
           <span
             onClick={() => setIsFavoritesOpen((prev) => !prev)}
@@ -159,9 +163,19 @@ const HeaderDesktop = () => {
                   اخذ نمایندگی <TbDeviceIpadHorizontalStar />
                 </li>
               </Link>
+              <Link to="/shop">
+                <li>
+                  فروشگاه <IoBagOutline />
+                </li>
+              </Link>
               <Link to="/blog">
                 <li>
                   مقالات <PiArticleBold />
+                </li>
+              </Link>
+              <Link to="/gift-selector">
+                <li>
+                  کادو چی بخرم <GoGift />
                 </li>
               </Link>
             </ul>

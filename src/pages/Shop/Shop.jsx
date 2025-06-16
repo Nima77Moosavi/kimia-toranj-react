@@ -146,6 +146,7 @@ const Shop = () => {
 
   return (
     <div>
+      <div className={styles.circle}></div>
       <Header />
       <div className={styles.content}>
         <h2 className={styles.title}>فروشگاه</h2>

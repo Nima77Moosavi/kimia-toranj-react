@@ -32,6 +32,7 @@ const ProductDetails = () => {
   const [like, setLike] = useState(false);
   const [showAllReviews, setShowAllReviews] = useState(false);
   const [activeTab, setActiveTab] = useState("specs");
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const specsRef = useRef(null);
   const descriptionRef = useRef(null);
@@ -59,8 +60,7 @@ const ProductDetails = () => {
   ];
   const duplicatedReviews = [...sampleReviews, ...sampleReviews];
 
-  const { addFavorite, removeFavorite, isFavorite } =
-    useContext(FavoritesContext);
+  const { addFavorite, removeFavorite, isFavorite } = useContext(FavoritesContext);
 
   const handleAddToCart = async () => {
     try {
@@ -103,14 +103,23 @@ const ProductDetails = () => {
           { product_variant_id: variantId, quantity: 1 },
         ];
       }
-      console.log(newItems);
 
       // Update the cart on the backend with the correctly formatted payload
       await axiosInstance.patch(`${API_URL}api/store/cart/`, {
         items: newItems,
       });
+
+      // نمایش پیغام موفقیت
+      setShowSuccessMessage(true);
+      
+      // مخفی کردن پیغام پس از 3 ثانیه
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 3000);
+
     } catch (error) {
       console.error("Error adding to cart:", error);
+      setError("خطا در اضافه کردن به سبد خرید");
     }
   };
 
@@ -213,7 +222,7 @@ const ProductDetails = () => {
     if (ref.current) {
       const offsetTop =
         ref.current.getBoundingClientRect().top + window.scrollY;
-      const offset = window.innerWidth <= 768 ? 80 : 120; // موبایل کمتر، دسکتاپ بیشتر
+      const offset = window.innerWidth <= 768 ? 80 : 120;
       window.scrollTo({ top: offsetTop - offset, behavior: "smooth" });
       setActiveTab(tabName);
     }
@@ -231,6 +240,16 @@ const ProductDetails = () => {
   return (
     <div>
       <Header />
+      {/* پیغام موفقیت اضافه شدن به سبد خرید */}
+      {showSuccessMessage && (
+        <div className={styles.successToast}>
+          <div className={styles.toastContent}>
+            <span>✓</span>
+            <p>محصول مورد نظر به سبد خرید اضافه شد</p>
+          </div>
+        </div>
+      )}
+      
       <div className={styles.pageContent}>
         <div className={styles.circle}></div>
 
