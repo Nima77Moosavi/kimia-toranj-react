@@ -148,6 +148,8 @@
 }
 
 .quantityBox {
+  width: 100px;
+  height: 40px;
   display: flex;
   align-items: center;
   border: 1px solid #ddd;
@@ -157,24 +159,38 @@
 }
 
 .quantityNumber {
+  width: 30px;
+  height: 30px;
   padding: 5px 15px;
   font-size: 16px;
   background-color: white;
   color: #023047;
+
 }
 
 .quantityButton {
+  width: 30px;
+  height: 30px;
   border: none;
-  padding: 5px 12px;
+  border-radius: 15px;
+  padding: 5px 15px;
   font-size: 16px;
   cursor: pointer;
   background-color: #f9f9f9;
   transition: all 0.2s;
   color: #023047;
+  text-align: center;
+  border-radius: 50%; /* تغییر یافته به دایره کامل */
+  padding: 0; /* تغییر یافته */
+  display: flex; /* اضافه شده */
+  align-items: center; /* اضافه شده */
+  justify-content: center; /* اضافه شده */
+  margin: 5px; /* اضافه شده */
 }
 
 .plusButton {
   color: #40e0d0;
+  background-color: inherit;
 }
 
 .plusButton:hover {
@@ -184,6 +200,7 @@
 
 .minusButton {
   color: #ff4757;
+  background-color: inherit;
 }
 
 .minusButton:hover {
@@ -242,14 +259,14 @@
 
 .checkoutButton {
   background-color: #40e0d0;
-  color: white;
+  color: #023047;
   padding: 12px 30px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s;
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 600;
   width: min(200px, 100%);
 }
 

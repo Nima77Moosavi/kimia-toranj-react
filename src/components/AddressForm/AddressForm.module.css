@@ -88,16 +88,15 @@
 
 .addressForm button {
   background-color: #40e0d0;
-  color: white;
+  color: #023047;
   padding: 12px 30px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s;
-  font-size: 16px;
-  /* font-weight: 500; */
-  width: 100%;
-  margin-top: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  width: min(200px, 100%);
 }
 
 .addressForm button:hover {
