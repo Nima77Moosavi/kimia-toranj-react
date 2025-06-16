@@ -93,6 +93,7 @@
     .img {
         width: 98%;
         height: 120px;
+        border-radius: 10px;
     }
     .title {
         height: 50px;
