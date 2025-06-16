@@ -24,9 +24,9 @@
 }
 
 .img {
-    width: 90%;
+    width: 96%;
     height: 190px;
-    padding: 5%;
+    padding: 2%;
     border-radius: 20px;
     margin: 0 auto;
     object-fit: cover;
