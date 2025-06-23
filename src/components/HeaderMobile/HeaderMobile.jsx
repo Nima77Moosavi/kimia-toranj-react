@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { IoMenu, IoSearch, IoClose } from "react-icons/io5";
 import styles from "./HeaderMobile.module.css";
 import Banner from "../Banner/Banner";
+import image1 from "../../assets/banner1.png";
 
 const HeaderMobile = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

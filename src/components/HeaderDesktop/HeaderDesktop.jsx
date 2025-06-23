@@ -12,8 +12,9 @@ import { FaTrashAlt } from "react-icons/fa";
 import { FavoritesContext } from "../../context/FavoritesContext";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_URL } from "../../config";
-import {IoBagOutline} from "react-icons/io5";
+import { IoBagOutline } from "react-icons/io5";
 import { GoGift } from "react-icons/go";
+import image1 from "../../assets/banner1.png";
 
 const HeaderDesktop = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -94,7 +95,7 @@ const HeaderDesktop = () => {
     <header className={styles.header}>
       <div className={styles.container}>
         {/* آیکن‌ها */}
-        <div className={styles.icons}>
+        {/* <div className={styles.icons}>
           <Link to="/user-panel/cart">
             <span
               onClick={() => toggleCartPopup(!isCartOpen)}
@@ -116,6 +117,9 @@ const HeaderDesktop = () => {
               <span className={styles.favoriteCount}>{favorites.length}</span>
             )}
           </span>
+        </div> */}
+        <div className={styles.logoContainer}>
+          <img src={image1} alt="کیمیاترنج" className={styles.logo} />
         </div>
 
         {/* دکمه ورود/ثبت نام */}

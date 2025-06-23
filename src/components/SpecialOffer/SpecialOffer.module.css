@@ -37,7 +37,7 @@
   position: absolute;
   width: 250px;
   height: 320px;
-  background-color: #cfcfcf;
+  background-color: var(--primary-color-dark);
   border-radius: 50% / 55%;
   z-index: -1;
 }
