@@ -29,7 +29,7 @@ const Home = () => {
 
   return (
     <div className={styles.home}>
-      <div className={styles.circle}></div>
+      {/* <div className={styles.circle}></div> */}
 
       <Header />
       {/* <HomePageHeader /> */}
