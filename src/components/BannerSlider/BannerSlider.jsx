@@ -4,7 +4,7 @@ import styles from "./BannerSlider.module.css";
 
 import banner1 from "../../assets/banner11.jpg";
 import banner2 from "../../assets/banner23.jpg";
-import banner3 from "../../assets/banner33.png";
+import banner3 from "../../assets/banner33.jpg";
 import patternImg from "../../assets/forground-banner.png";
 
 const BannerSlider = () => {

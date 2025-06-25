@@ -1,3 +1,5 @@
+/* Collections.module.css */
+
 /* Container */
 .collections {
   padding: 20px;
@@ -11,7 +13,7 @@
   margin-bottom: 20px;
 }
 
-/* Each row container: using flexbox for a horizontal row */
+/* One flex‐row that wraps, with constant 15px gap */
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -20,40 +22,33 @@
   margin-bottom: 20px;
 }
 
-/* Each Collection Card */
+/* ——— DESKTOP: 6 cards per row ——— */
 .collectionCard {
   position: relative;
-  width: calc(33.33% - 10px); /* roughly three per row */
-  min-width: 250px;
+  width: calc((100% - 5 * 15px) / 6);
   height: 200px;
   background-position: center;
-  background-size: contain; /* Changed from cover to contain */
+  background-size: cover;
   background-repeat: no-repeat;
-  background-color: #fff; /* Fallback background color if image doesn't cover */
+  background-color: #fff;
   border-radius: 8px;
   text-decoration: none;
   transition: transform 0.3s ease;
 }
-
 .collectionCard:hover {
   transform: scale(1.03);
 }
 
-/* Overlay styling for darkening and text container */
+/* Overlay & text */
 .overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  /* Use the transparent variations of your primary color in a linear gradient */
+  inset: 0;
   background: var(--primary-color-dark);
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 .description {
   color: #fff;
   font-size: 18px;
@@ -62,24 +57,18 @@
   text-align: center;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
+/* ——— TABLET: 4 cards per row ——— */
+@media (max-width: 1024px) {
   .collectionCard {
-    width: calc(50% - 10px);
+    width: calc((100% - 3 * 15px) / 4);
     height: 180px;
-  }
-  .description {
-    font-size: 16px;
   }
 }
 
-@media (max-width: 480px) {
+/* ——— MOBILE: 3 cards per row ——— */
+@media (max-width: 768px) {
   .collectionCard {
-    width: 100%;
+    width: calc((100% - 2 * 15px) / 3);
     height: 160px;
-  }
-  .row {
-    flex-direction: column;
-    gap: 10px;
   }
 }

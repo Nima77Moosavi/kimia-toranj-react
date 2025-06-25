@@ -1,69 +1,152 @@
+/* CONTAINER: no box, just spacing */
 .bestsellersContainer {
-  text-align: center;
-  max-width: 1200px;
-  margin:40px auto;
+  direction: rtl;
+  margin: 20px;
   position: relative;
 }
 
-.title {
-  font-size: 30px;
-  /* font-weight: 300; */
-  margin-bottom: 5px;
-  color: var(--primary-color); /* replaced old blue with luxurious blue */
-  cursor: pointer;
+/* HEADER: link on left, title+icon on right */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
 }
 
-.link {
-  text-decoration: none;
+/* “View all” shop link */
+.shopLink {
+  font-size: 24px;
   color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid #000;
+  margin-left: 10px;
 }
 
-/* Retain your existing slider/slide styling */
+/* Title + icon wrapper */
+.titleContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid #000;
+}
+
+/* Section title */
+.title {
+  font-size: 24px;
+  color: var(--text-color, #333);
+  margin: 0;
+}
+
+/* Trending icon */
+.icon {
+  font-size: 1.8rem;
+  color: var(--text-color, #333);
+  transition: transform 0.2s;
+}
+.titleContainer:hover .icon {
+  color: var(--highlight-color, #f90);
+}
+.titleContainer:hover .title {
+  color: var(--highlight-color, #f90);
+}
+
+/* ARROWS */
+.arrowLeft,
+.arrowRight {
+  position: absolute;
+  top: calc(50% + 24px); /* 24px = header bottom margin */
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.4);
+  border: none;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+}
+.arrowLeft {
+  right: 10px;
+}
+.arrowRight {
+  left: 10px;
+}
+
+/* hide arrows on mobile */
+@media (max-width: 768px) {
+  .arrowLeft,
+  .arrowRight {
+    display: none;
+  }
+}
+
+.shopLink {
+  font-size: 20px;
+}
+
+.title {
+  font-size: 20px;
+}
+
+.icon {
+  font-size: 20px;
+}
+
+/* SLIDER WRAPPER: hidden scrollbar */
 .sliderWrapper {
-  overflow: hidden;
-  width: 95%;
-  margin: auto;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+
+  /* Firefox */
+  scrollbar-width: none;
+  /* IE/Edge */
+  -ms-overflow-style: none;
+}
+.sliderWrapper::-webkit-scrollbar {
+  display: none;
 }
 
+/* SLIDER TRACK */
 .slider {
   display: flex;
-  overflow-x: auto; /* horizontal scrolling */
-  gap: 15px; /* spacing between items */
-  transition: transform 0.5s ease-in-out;
-  padding-bottom: 10px; /* extra space for scroll */
-  padding-top: 10px;
+  gap: 15px;
+  padding: 10px 0;
 }
 
+/* EACH CARD */
 .slideItem {
-  flex: 0 0 calc(20% - 15px); /* Keeps items consistent with your existing style */
+  flex: 0 0 calc(20% - 15px);
   box-sizing: border-box;
+  transition: transform 0.2s;
+}
+.slideItem:hover {
+  transform: translateY(-4px);
 }
 
-/* New styling for the shop link card (if you decide to use it) */
-/* Uncomment this section if you’d like the extra card in your slider */
-.shopLink {
-  display: inline-block;
-  padding: 5px 10px;
-  font-size: 14px;
-  color: var(--primary-color);
-  text-decoration: none;
-  border: 1px solid var(--primary-color);
-  border-radius: 6px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+/* LOADING & ERROR */
+.loading,
+.error {
+  text-align: center;
+  padding: 40px 0;
+}
+.error {
+  color: red;
 }
 
-.shopLink:hover {
-  background-color: var(--primary-color);
-  color: var(--secondary-color);
-}
-
-/* Responsive adjustments (if needed) */
 @media (max-width: 480px) {
-  .slider {
-    gap: 10px;
+  .shopLink {
+    font-size: 16px;
   }
 
-  .bestsellersContainer {
-    margin: 20px 0px;
+  .title {
+    font-size: 16px;
+  }
+
+  .icon {
+    font-size: 16px;
   }
 }

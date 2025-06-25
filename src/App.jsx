@@ -25,10 +25,12 @@ import FooterMenu from "./components/FooterMenu/FooterMenu.jsx";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage.jsx";
 import Shop from "./pages/Shop/Shop.jsx";
 import GiftSelector from "./pages/GiftSelector/GiftSelector.jsx";
+import ScrollToTop from "./utils/ScrollToTop.jsx";
 
 const App = () => {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Home />} />

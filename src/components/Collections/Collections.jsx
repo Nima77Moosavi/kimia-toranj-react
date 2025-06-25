@@ -10,7 +10,9 @@ const Collections = () => {
   useEffect(() => {
     const fetchCollections = async () => {
       try {
-        const response = await fetch("https://kimiatoranj-api.liara.run/api/store/collections/");
+        const response = await fetch(
+          "https://kimiatoranj-api.liara.run/api/store/collections/"
+        );
         if (!response.ok) {
           throw new Error("مشکل در دریافت اطلاعات");
         }
@@ -43,30 +45,31 @@ const Collections = () => {
   // Split collections data into 3 equal parts (or close to equal)
   const collectionsPerRow = Math.ceil(collections.length / rows);
   const rowsData = Array.from({ length: rows }, (_, rowIndex) =>
-    collections.slice(rowIndex * collectionsPerRow, (rowIndex + 1) * collectionsPerRow)
+    collections.slice(
+      rowIndex * collectionsPerRow,
+      (rowIndex + 1) * collectionsPerRow
+    )
   );
 
   return (
     <div className={styles.collections}>
       <h2 className={styles.sectionTitle}>دسته‌بندی محصولات</h2>
-      {rowsData.map((row, rowIndex) => (
-        <div key={`row-${rowIndex}`} className={styles.row}>
-          {row.map((collection) => (
-            <Link 
-              to={`/shop?collection=${encodeURIComponent(collection.title)}`} 
-              key={collection.id}
-              className={styles.collectionCard}
-              style={{ backgroundImage: `url(${collection.image})` }} 
-            >
-              <div className={styles.overlay}>
-                <div className={styles.description}>
-                  {collection.description || collection.title}
-                </div>
+      <div className={styles.row}>
+        {collections.map((collection) => (
+          <Link
+            to={`/shop?collection=${encodeURIComponent(collection.title)}`}
+            key={collection.id}
+            className={styles.collectionCard}
+            style={{ backgroundImage: `url(${collection.image})` }}
+          >
+            <div className={styles.overlay}>
+              <div className={styles.description}>
+                {collection.description || collection.title}
               </div>
-            </Link>
-          ))}
-        </div>
-      ))}
+            </div>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 };
