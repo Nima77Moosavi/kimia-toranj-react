@@ -5,7 +5,7 @@ import { BsChatTextFill } from "react-icons/bs";
 import { IoCallSharp } from "react-icons/io5";
 import { AiFillInstagram } from "react-icons/ai";
 import { RiWhatsappFill } from "react-icons/ri";
-
+import EnamadSeal from "../EnamadSeal/EnamadSeal";
 
 const Footer = () => {
   return (
@@ -16,7 +16,7 @@ const Footer = () => {
         <p>شعبه دو: اصفهان, میدان نقش جهان, بازار آفرینش</p>
         <p>شعبه سه: اصفهان, میدان نقش جهان, بازار آفرینش غربی</p>
         <p>دفتر مرکزی: اصفهان, خیابان حکیم, مجتمع حکیم طبقه اول واحد 294</p>
-        <p>کارگاه تولیدی: روبه روی شهرک صنعتی جی، کوچه فروردین، فروردین 6</p>
+        <p>کارگاه تولیدی: روبرو شهرک صنعتی جی، کوچه فروردین، فروردین 6</p>
       </div>
 
       <div className={styles.acricles}>
@@ -40,6 +40,9 @@ const Footer = () => {
         <IoCallSharp className={styles.icon} />
         <AiFillInstagram className={styles.icon} />
         <RiWhatsappFill className={styles.icon} />
+      </div>
+      <div className={styles.enamadWrapper}>
+        <EnamadSeal />
       </div>
     </div>
   );

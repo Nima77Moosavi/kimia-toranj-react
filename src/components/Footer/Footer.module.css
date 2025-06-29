@@ -5,7 +5,7 @@
   align-items: center;
   padding-top: 1rem;
   padding-right: 10rem;
-  background-color:var(--primary-color);
+  background-color: var(--primary-color);
   flex-wrap: wrap;
   direction: rtl;
 }
@@ -30,9 +30,9 @@ p {
   margin: 0 5px;
   cursor: pointer;
 }
-.icon:hover{
+.icon:hover {
   transform: scale(1.2);
-  transition: .8s ease;
+  transition: 0.8s ease;
 }
 .adresses,
 .contactUs,
@@ -51,13 +51,33 @@ p {
 .socials {
   height: 150px;
 }
+
+.enamadWrapper {
+  margin-top: 24px;
+  /* center or float as you like */
+  text-align: center;
+}
+
+/* make sure the container holds the 100×100 badge */
+.enamad-seal {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+}
+
+.enamad-img {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  object-fit: contain;
+}
+
 /* responsiv */
 
 /* ریسپانسیو برای تبلت */
 @media (max-width: 991px) {
   .container {
     padding-right: 4rem;
-    
   }
 
   .adresses,
