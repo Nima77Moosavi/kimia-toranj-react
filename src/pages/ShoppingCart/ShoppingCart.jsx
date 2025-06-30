@@ -80,7 +80,7 @@ const ShoppingCart = () => {
 
   // تابع جدید برای ثبت سفارش
   const handleCheckout = async () => {
-    navigate("/checkout");
+    navigate("/user-panel/checkout");
   };
 
   return (

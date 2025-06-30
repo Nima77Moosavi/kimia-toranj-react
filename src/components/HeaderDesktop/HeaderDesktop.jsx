@@ -95,7 +95,7 @@ const HeaderDesktop = () => {
     <header className={styles.header}>
       <div className={styles.container}>
         {/* آیکن‌ها */}
-        {/* <div className={styles.icons}>
+        <div className={styles.icons}>
           <Link to="/user-panel/cart">
             <span
               onClick={() => toggleCartPopup(!isCartOpen)}
@@ -107,17 +107,7 @@ const HeaderDesktop = () => {
               )}
             </span>
           </Link>
-
-          <span
-            onClick={() => setIsFavoritesOpen((prev) => !prev)}
-            className={styles.favoriteIcon}
-          >
-            <GoHeartFill />
-            {favorites.length > 0 && (
-              <span className={styles.favoriteCount}>{favorites.length}</span>
-            )}
-          </span>
-        </div> */}
+        </div>
         <div className={styles.logoContainer}>
           <img src={image1} alt="کیمیاترنج" className={styles.logo} />
         </div>

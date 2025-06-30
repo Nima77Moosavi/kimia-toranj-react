@@ -41,7 +41,6 @@ const App = () => {
         <Route path="/collection/:id" element={<CollectionDetail />} />
         <Route path="/productDetails/:slugAndId" element={<ProductDetails />} />
         <Route path="/bestsellersPage" element={<BestsellersPage />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/gift-selector" element={<GiftSelector />} />
         {/* Protected UserPanel Routes */}
@@ -56,7 +55,7 @@ const App = () => {
           {/* Default /user-panel shows AccountInfo */}
           <Route path="account-info" element={<AccountInfo />} />
           <Route path="cart" element={<ShoppingCart />} />
-
+          <Route path="checkout" element={<CheckoutPage />} />
           <Route path="orders" element={<UserOrders />} />
           <Route path="wishlist" element={<Wishlist />} />
           <Route path="reviews" element={<UserReviews />} />

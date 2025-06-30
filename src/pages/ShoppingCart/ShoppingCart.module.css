@@ -258,8 +258,8 @@
 }
 
 .checkoutButton {
-  background-color: #40e0d0;
-  color: #023047;
+  background-color: var(--primary-color);
+  color: #fff;
   padding: 12px 30px;
   border: none;
   border-radius: 8px;
@@ -271,7 +271,7 @@
 }
 
 .checkoutButton:hover {
-  background-color: #38b2a3;
+  background-color: var(--primary-color);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }

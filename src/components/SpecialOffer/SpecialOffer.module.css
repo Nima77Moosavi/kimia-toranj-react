@@ -88,7 +88,7 @@
   color: #fff;
   border: 0.5px solid rgb(109, 224, 240);
   padding: 0.8rem 1.5rem;
-  font-size:25px;
+  font-size: 25px;
   border-radius: 10px;
   margin-bottom: 0;
   white-space: nowrap;
@@ -197,36 +197,36 @@
       "image"
       "desc"
       "buttons";
-    grid-row-gap: 0.5rem;  /* Reduced gap between rows */
+    grid-row-gap: 0.5rem; /* Reduced gap between rows */
     padding: 1.5rem;
   }
-  
+
   /* Flatten rightDiv so its children become direct grid items */
   .rightDiv {
     display: contents;
   }
-  
+
   /* Title is at the top */
   .title {
     grid-area: title;
     text-align: center;
     margin-bottom: 0.5rem;
   }
-  
+
   /* LeftDiv (image) goes in the second row */
   .leftDiv {
     grid-area: image;
     justify-self: center;
     position: relative;
   }
-  
+
   /* Description goes in the third row */
   .description {
     grid-area: desc;
     text-align: center;
     margin-bottom: 0.5rem;
   }
-  
+
   /* Buttons go in the fourth row; display them side by side */
   .priceContainer {
     grid-area: buttons;
@@ -234,7 +234,7 @@
     justify-content: center;
     gap: 1rem;
   }
-  
+
   .img {
     width: 80%;
     right: 0;
@@ -248,7 +248,7 @@
     max-height: 250px;
     right: -25%;
   }
-  
+
   .attr1,
   .attr2,
   .attr3 {
@@ -270,7 +270,7 @@
     top: 75%;
     left: 20%;
   }
-  
+
   .leftDiv::before {
     content: "";
     position: absolute;
@@ -284,18 +284,16 @@
   .title {
     font-size: 20px;
   }
-  
+
   .description {
     font-size: 16px;
   }
-  
-  
+
   .price {
-    font-size: 20px;
+    font-size: 16px;
   }
-  
+
   .addtocard {
-    font-size: 20px;
-    padding: 0.6rem 1.2rem;
+    font-size: 16px;
   }
 }

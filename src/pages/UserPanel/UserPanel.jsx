@@ -6,7 +6,6 @@ import styles from "./UserPanel.module.css";
 const UserPanel = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.circle}></div>
       <Header />
       <div className={styles.main}>
         <aside className={styles.sidebar}>
