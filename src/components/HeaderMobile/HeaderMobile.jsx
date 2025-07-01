@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { IoMenu, IoSearch, IoClose } from "react-icons/io5";
 import styles from "./HeaderMobile.module.css";
 import Banner from "../Banner/Banner";
-import image1 from "../../assets/banner1.png";
+import image1 from "../../assets/banner11.png";
 
 const HeaderMobile = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,6 +25,9 @@ const HeaderMobile = () => {
 
   return (
     <header className={styles.headerMobile}>
+      <div className={styles.logoContainer}>
+          <img src={image1} alt="کیمیاترنج" className={styles.logo} />
+        </div>
       {/* Center: Search box */}
       <div className={styles.searchContainer}>
         <div className={styles.searchBox} dir="rtl">
@@ -66,6 +69,11 @@ const HeaderMobile = () => {
               <li className={styles.menuItem}>
                 <Link to="/about" onClick={() => setIsMenuOpen(false)}>
                   درباره ما
+                </Link>
+              </li>
+              <li className={styles.menuItem}>
+                <Link to="/about" onClick={() => setIsMenuOpen(false)}>
+                  اخذ نمایندگی
                 </Link>
               </li>
               <li className={styles.menuItem}>

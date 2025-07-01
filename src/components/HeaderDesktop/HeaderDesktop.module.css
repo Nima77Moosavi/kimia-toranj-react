@@ -77,7 +77,8 @@ ul li:hover {
 }
 
 .logoContainer {
-  width: 200px;
+  width: 240px;
+  height:auto;
 }
 
 .logo {
