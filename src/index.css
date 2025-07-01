@@ -17,14 +17,16 @@ body {
 
 
 @font-face {
-  font-family: 'BNazanin';
-  src: local('BNazanin'), url(./fonts/BNazanin.woff) format('truetype');
+  font-family: 'Yekan';
+  src: local('Yekan'), url(./fonts/Yekan.woff) format('truetype');
   /* Change font    */
 }
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "BNazanin";
-  font-weight: 600;
+  font-family: "Yekan", sans-serif;
+  -webkit-font-feature-settings: "numr";
+    font-feature-settings: "numr";
+  /* font-weight: 600; */
 }
