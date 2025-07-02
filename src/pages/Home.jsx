@@ -12,6 +12,7 @@ import styles from "./Home.module.css";
 import FooterMenu from "../components/FooterMenu/FooterMenu";
 import Banner from "../components/Banner/Banner";
 import BannerSlider from "../components/BannerSlider/BannerSlider";
+import FeaturesLine from "../components/FeaturesLine/FeaturesLine";
 
 const Home = () => {
   const [latestProducts, setLatestProducts] = useState([]);
@@ -44,6 +45,7 @@ const Home = () => {
           <SpecialProducts />
           {/* <ProductList products={latestProducts} /> */}
         </div>
+        <FeaturesLine/>
       <Footer />
       {/* <FooterMenu/> */}
     </div>

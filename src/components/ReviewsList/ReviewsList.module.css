@@ -48,7 +48,8 @@
 
 .reviews li {
   color: #023047;
-
+  font-size: 20px;
+  direction: rtl;
   padding: 25px;
   border: 1px solid #eee;
   border-radius: 12px;

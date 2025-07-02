@@ -298,7 +298,7 @@ const UserInfoForm = () => {
 
           {/* کد پستی */}
           <div className={styles.inputGroup}>
-            <label>کد پستی</label>
+            <label>کد پستی<span className={styles.required}>*</span></label>
             <input
               type="text"
               name="postalCode"

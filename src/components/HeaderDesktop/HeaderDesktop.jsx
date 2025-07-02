@@ -14,7 +14,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import { API_URL } from "../../config";
 import { IoBagOutline } from "react-icons/io5";
 import { GoGift } from "react-icons/go";
-import image1 from "../../assets/banner1.png";
+import image1 from "../../assets/banner11.png";
 
 const HeaderDesktop = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -124,7 +124,7 @@ const HeaderDesktop = () => {
         {/* جعبه جستجو */}
         <div className={styles.searchContainer}>
           <div className={styles.searchBox}>
-            <input type="text" placeholder="جستجو کنید..." />
+            <input type="text" placeholder="در کیمیا ترنج جستجو کنید..." />
             <span className={styles.searchIcon}>
               <IoSearch />
             </span>

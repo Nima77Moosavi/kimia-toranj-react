@@ -7,15 +7,17 @@ const SpecialOffer = () => {
     <div className={styles.container}>
       {/* Right side content: title, description, and buttons */}
       <div className={styles.rightDiv}>
-        <h1 className={styles.title}>آجیل خوری قلمزنی طرح نقره</h1>
+        <h1 className={styles.title}>کاسه بشقاب لاله</h1>
         <p className={styles.description}>
-          دکوری زیبا با روکش قلع و قلم صورت ظریف از جنس برنج هنر ارزشمند و
-          دستساز و خاص دارای قابلیت سرمایه گذاری و دارای شناسنامه تمامی فرایند
-          ساخت محصول دست ساز بوده جنس زیر کار برنج هست و در نهایت روکش قلع شده.
-          <span>ارتفاع 23cm , دهانه 34cm</span>
+          <span>کار فاخر و خاص</span>
+          <span>جنس محصول برنج ضخیم</span>
+          <span>قمزنی صورت با روکش قلع</span>
+          <span>دور رنگ کارشده و تماما دست ساز</span>
+          <span>دارای شناسنامه</span>
+          <span>قطر بشقاب 50 سانتی متر دهانه کاسه 34 سانتی متر و ارتفاع 23 سانتی متر</span>
         </p>
         <div className={styles.priceContainer}>
-          <button className={styles.price}>3,150,000 تومان</button>
+          <button className={styles.price}>113,000,000 تومان</button>
           <button className={styles.addtocard}>افزودن به سبد خرید</button>
         </div>
       </div>
@@ -23,8 +25,8 @@ const SpecialOffer = () => {
       <div className={styles.leftDiv}>
         <img src={img} alt="" className={styles.img} />
         <div className={styles.attrContainer}>
-          <div className={styles.attr1}>قلم گل و بلبل</div>
-          <div className={styles.attr2}>سایز 50 * 70</div>
+          <div className={styles.attr1}>قلم  صورت </div>
+          <div className={styles.attr2}> قطر 50cm</div>
           <div className={styles.attr3}>نقش و نگار زیبا</div>
         </div>
       </div>

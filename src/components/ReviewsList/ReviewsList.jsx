@@ -3,8 +3,8 @@ import styles from "./ReviewsList.module.css";
 
 const ReviewsList = () => {
   const reviews = [
-    { id: 1, product: "محصول ۱", comment: "بسیار عالی بود!" },
-    { id: 2, product: "محصول ۲", comment: "کیفیت مناسب بود." },
+    { id: 1, product: " ", comment: "  " },
+    { id: 2, product: " ", comment: "  " },
   ];
 
   return (

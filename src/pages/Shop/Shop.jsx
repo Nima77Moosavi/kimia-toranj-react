@@ -209,7 +209,7 @@ const Shop = () => {
             {/* If products exist and hasMore is false, display end-of-content message */}
             {!loading && !hasMore && products.length > 0 && (
               <div className={styles.endMessage}>
-                هیچ محصول بیشتری موجود نیست.
+                هیچ محصول بیشتری موجود نیست
               </div>
             )}
           </div>
