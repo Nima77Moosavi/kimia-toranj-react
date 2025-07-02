@@ -14,7 +14,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import { API_URL } from "../../config";
 import { IoBagOutline } from "react-icons/io5";
 import { GoGift } from "react-icons/go";
-import image1 from "../../assets/banner11.png";
+import image1 from "../../assets/banner1.png";
 
 const HeaderDesktop = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,9 +22,15 @@ const HeaderDesktop = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const { favorites, removeFavorite } = useContext(FavoritesContext);
+
+  // Search autocomplete state
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-  
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  // Debounce ref
+  const debounceRef = useRef();
+
   const menuRef = useRef();
   const favoritesRef = useRef();
   const cartRef = useRef();
@@ -83,11 +89,45 @@ const HeaderDesktop = () => {
     };
     document.addEventListener("scroll", handleScroll);
 
+    if (!showSuggestions) return;
+    const q = searchTerm.trim();
+    if (q.length < 2) {
+      setSuggestions([]);
+      return;
+    }
+    clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(async () => {
+      try {
+        const { data } = await axiosInstance.get(
+          `${API_URL}api/store/products/?search=${encodeURIComponent(q)}`
+        );
+        setSuggestions(data.slice(0, 3));
+      } catch {
+        setSuggestions([]);
+      }
+    }, 300);
+
     return () => {
+      clearTimeout(debounceRef.current);
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("scroll", handleScroll);
     };
-  }, [isFavoritesOpen, isCartOpen]);
+  }, [isFavoritesOpen, isCartOpen, searchTerm, showSuggestions]);
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+    setShowSuggestions(true);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    const q = searchTerm.trim();
+    if (q) {
+      navigate(`/shop?search=${encodeURIComponent(q)}`);
+      setShowSuggestions(false);
+      setSearchTerm("");
+    }
+  };
 
   const handleDeleteFavorite = (id) => {
     removeFavorite(id);
@@ -124,7 +164,7 @@ const HeaderDesktop = () => {
         {/* جعبه جستجو */}
         <div className={styles.searchContainer}>
           <div className={styles.searchBox}>
-            <input type="text" placeholder="در کیمیا ترنج جستجو کنید..." />
+            <input type="text" placeholder="جستجو کنید..." />
             <span className={styles.searchIcon}>
               <IoSearch />
             </span>
