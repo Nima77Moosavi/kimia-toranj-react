@@ -22,7 +22,9 @@ const HeaderDesktop = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const { favorites, removeFavorite } = useContext(FavoritesContext);
-
+  const [searchTerm, setSearchTerm] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  
   const menuRef = useRef();
   const favoritesRef = useRef();
   const cartRef = useRef();
