@@ -77,7 +77,8 @@ ul li:hover {
 }
 
 .logoContainer {
-  width: 200px;
+  width: 240px;
+  height:auto;
 }
 
 .logo {
@@ -111,7 +112,7 @@ ul li:hover {
 }
 
 .loginButton button {
-  font-size: 22px;
+  font-size: 20px;
   padding: 8px 16px;
   background-color: #fff;
   color: #023047;
@@ -172,7 +173,7 @@ ul li:hover {
   align-items: center;
   justify-content: center;
   vertical-align: middle;
-  
+  width: max-content;
 }
 
 .hamburgerMenu span {
@@ -181,7 +182,12 @@ ul li:hover {
   color: #023047;
   margin-top: 18px;
 }
-
+.menu{
+  width:300px;
+}
+.menu li{
+  font-size: 22px;
+}
 /* دایره طوسی */
 .circle {
   position: absolute;

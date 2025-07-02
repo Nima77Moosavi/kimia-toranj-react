@@ -12,6 +12,7 @@
 .title {
   background-color: var(--secondary-color);
   color: var(--primary-color);
+  font-size: 20px;
   /* font-weight: 300; */
   border-radius: 10px;
   width: max-content;
@@ -20,8 +21,8 @@
 }
 p {
   color: #fff;
-  font-size: 20px;
-  /* font-weight: 200; */
+  font-size: 18px;
+  font-weight: 200;
   padding: 2px;
 }
 .icon {
@@ -41,7 +42,7 @@ p {
   width: 50%;
   height: 200px;
   text-align: right;
-  margin-bottom: 25px;
+  margin-bottom: 55px;
 }
 
 .acricles p {
