@@ -182,7 +182,7 @@ const HeaderDesktop = () => {
         <div className={styles.favoritesPopup} ref={favoritesRef}>
           <h5>علاقه‌مندی‌ها</h5>
           {favorites.length === 0 ? (
-            <p className={styles.emptyText}>هیچ محصولی اضافه نشده.</p>
+            <p className={styles.emptyText}>هیچ محصولی اضافه نشده</p>
           ) : (
             <ul className={styles.favoritesList}>
               {favorites.map((item) => (
