@@ -30,24 +30,18 @@ const Home = () => {
 
   return (
     <div className={styles.home}>
-      {/* <div className={styles.circle}></div> */}
-
       <Header />
-      {/* <HomePageHeader /> */}
-      <BannerSlider/>
-      
-        <div className={styles.content}>
-          <Highlights />
-          <Collections />
+      <BannerSlider />
 
-          <Bestsellers />
-          <SpecialOffer />
-          <SpecialProducts />
-          {/* <ProductList products={latestProducts} /> */}
-        </div>
-        <FeaturesLine/>
+      <div className={styles.content}>
+        <Highlights />
+        <Collections />
+        <Bestsellers />
+        <SpecialOffer />
+        <SpecialProducts />
+      </div>
+      <FeaturesLine />
       <Footer />
-      {/* <FooterMenu/> */}
     </div>
   );
 };

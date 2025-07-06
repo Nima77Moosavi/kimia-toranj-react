@@ -1,54 +1,58 @@
-/* CONTAINER: no box, just spacing */
-.bestsellersContainer {
+.container {
   direction: rtl;
   margin: 20px;
   position: relative;
+  display: flex;
+  flex-direction: row;
+  background-color: var(--primary-color);
+  border-radius: 30px;
+  overflow: hidden;
 }
 
-/* HEADER: link on left, title+icon on right */
 .header {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
+  margin-right: 40px;
 }
 
 /* “View all” shop link */
 .shopLink {
   font-size: 24px;
-  color: var(--primary-color);
+  color: #fff;
   text-decoration: none;
   font-weight: 500;
-  border-bottom: 1px solid #000;
   margin-left: 10px;
 }
 
 /* Title + icon wrapper */
 .titleContainer {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 8px;
-  border-bottom: 1px solid #000;
 }
 
 /* Section title */
 .title {
   font-size: 24px;
-  color: var(--text-color, #333);
+  color: #fff;
   margin: 0;
 }
 
 /* Trending icon */
 .icon {
   font-size: 1.8rem;
-  color: var(--text-color, #333);
+  color: #fff;
   transition: transform 0.2s;
 }
 .titleContainer:hover .icon {
-  color: var(--highlight-color, #f90);
+  color: var(--secondary-color, #f90);
 }
 .titleContainer:hover .title {
-  color: var(--highlight-color, #f90);
+  color: var(--secondary-color, #f90);
 }
 
 /* ARROWS */
@@ -74,6 +78,10 @@
 }
 .arrowRight {
   left: 10px;
+}
+
+.sliderWrapper {
+  margin-right: 20px;
 }
 
 /* hide arrows on mobile */
