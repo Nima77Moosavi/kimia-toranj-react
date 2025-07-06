@@ -20,11 +20,13 @@ const SpecialOffer = () => {
       <div className={styles.rightDiv}>
         <h1 className={styles.title}>کاسه بشقاب لاله</h1>
         <p className={styles.description}>
-          <span>کار فاخر و خاص</span>
-          <span>جنس محصول برنج ضخیم</span>
-          <span>قمزنی صورت با روکش قلع</span>
-          <span>دور رنگ کارشده و تماما دست ساز</span>
-          <span>دارای شناسنامه</span>
+          <span>کار فاخر و خاص
+          , جنس محصول برنج ضخیم
+          , قمزنی صورت با روکش قلع
+          , دور رنگ کارشده و تماما دست ساز
+          دارای شناسنامه
+          </span>
+
           <span>
             قطر بشقاب {toPersianDigits(plateDiameter)} سانتی‌متر،
             دهانه کاسه {toPersianDigits(bowlDiameter)} سانتی‌متر،
