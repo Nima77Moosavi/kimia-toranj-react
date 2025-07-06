@@ -19,7 +19,7 @@ const ContactButton = () => {
       </button>
 
       <a
-        href="https://t.me/+989130336606"
+        href="https://t.me/+989130095238"
         target="_blank"
         rel="noopener noreferrer"
         className={`${styles.contactOption} ${styles.option1}`}
@@ -28,7 +28,7 @@ const ContactButton = () => {
       </a>
 
       <a
-        href="https://wa.me/989130336606"
+        href="https://wa.me/989130095238"
         target="_blank"
         rel="noopener noreferrer"
         className={`${styles.contactOption} ${styles.option2}`}
@@ -37,14 +37,14 @@ const ContactButton = () => {
       </a>
 
       <a
-        href="tel:989130336606"
+        href="tel:989920784900"
         className={`${styles.contactOption} ${styles.option3}`}
       >
         <FaPhoneAlt size={22} />
       </a>
 
       <a
-        href="https://instagram.com/your_username"
+        href="https://instagram.com/kimia.toranj"
         target="_blank"
         rel="noopener noreferrer"
         className={`${styles.contactOption} ${styles.option4}`}
