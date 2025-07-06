@@ -1,11 +1,22 @@
+// src/components/SpecialOffer/SpecialOffer.jsx
 import React from "react";
 import styles from "./SpecialOffer.module.css";
 import img from "../../assets/special.png";
 
+// Helper: replaces 0-9 with Persian digits
+const toPersianDigits = (str) =>
+  str.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
+
 const SpecialOffer = () => {
+  // numeric values
+  const price = 113000000;
+  const plateDiameter = 50;
+  const bowlDiameter = 34;
+  const bowlHeight = 23;
+
   return (
     <div className={styles.container}>
-      {/* Right side content: title, description, and buttons */}
+      {/* Right side */}
       <div className={styles.rightDiv}>
         <h1 className={styles.title}>کاسه بشقاب لاله</h1>
         <p className={styles.description}>
@@ -14,19 +25,29 @@ const SpecialOffer = () => {
           <span>قمزنی صورت با روکش قلع</span>
           <span>دور رنگ کارشده و تماما دست ساز</span>
           <span>دارای شناسنامه</span>
-          <span>قطر بشقاب 50 سانتی متر دهانه کاسه 34 سانتی متر و ارتفاع 23 سانتی متر</span>
+          <span>
+            قطر بشقاب {toPersianDigits(plateDiameter)} سانتی‌متر، دهانه کاسه{" "}
+            {toPersianDigits(bowlDiameter)} سانتی‌متر، ارتفاع{" "}
+            {toPersianDigits(bowlHeight)} سانتی‌متر
+          </span>
         </p>
+
         <div className={styles.priceContainer}>
-          <button className={styles.price}>113,000,000 تومان</button>
+          <button className={styles.price}>
+            {toPersianDigits(price.toLocaleString("en-US"))} تومان
+          </button>
           <button className={styles.addtocard}>افزودن به سبد خرید</button>
         </div>
       </div>
-      {/* Left side: image and its decorative attributes */}
+
+      {/* Left side */}
       <div className={styles.leftDiv}>
         <img src={img} alt="" className={styles.img} />
         <div className={styles.attrContainer}>
-          <div className={styles.attr1}>قلم  صورت </div>
-          <div className={styles.attr2}> قطر 50cm</div>
+          <div className={styles.attr1}>قلم&nbsp;{toPersianDigits("صورت")}</div>
+          <div className={styles.attr2}>
+            قطر&nbsp;{toPersianDigits(plateDiameter)}cm
+          </div>
           <div className={styles.attr3}>نقش و نگار زیبا</div>
         </div>
       </div>
