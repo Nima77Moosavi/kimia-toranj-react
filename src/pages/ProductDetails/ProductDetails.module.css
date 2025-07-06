@@ -28,7 +28,7 @@
   margin: 40px auto;
   overflow: hidden;
   border-radius: 20px;
-  background-color: #f7ecec;
+  background-color: #f8f9fa;
 }
 
 .sliderImage {
@@ -101,7 +101,7 @@
   color: #023047;
   border: 0.5px solid rgb(109, 224, 240);
   padding: 0.5rem 1.5rem;
-  font-size: 25px;
+  font-size: 22px;
   border-radius: 10px;
   margin-bottom: 5px;
   text-align: center;
@@ -118,8 +118,8 @@
   color: #023047;
   border: none;
   padding: 1rem 1.5rem;
-  font-size: 25px;
-  /* font-weight: 500; */
+  font-size: 20px;
+  font-weight: 500;
   border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -171,11 +171,12 @@
   padding: 2px;
 }
 .rateContainer .rightPart p{
-  font-size: 1rem;
+  font-size: 1.2rem;
   vertical-align: bottom;
   display: flex;
   flex-direction: row-reverse;
   padding-right: 10px;
+  color: #333;
 }
 .rateContainer .leftPart{
   width: 40%;
@@ -272,7 +273,7 @@
   text-align: right;
   padding: 0 1rem; /* کمی فاصله از دو طرف */
   direction: rtl; /* حفظ راست به چپ */
-  background-color: #f7ecec;
+  background-color: #f8f9fa;
   position: sticky;
   top: 60px;
   z-index: 1000;
@@ -398,7 +399,7 @@ background-color: unset;
 .rightContainer{
   width: 70%;
   border-radius: 20px;
-  background-color: #f7ecec;
+  background-color: #f8f9fa;
   margin-right: 2%;
 }
 

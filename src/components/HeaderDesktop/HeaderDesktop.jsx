@@ -200,6 +200,7 @@ const HeaderDesktop = () => {
           </div>
         </div>
       )}
+
     </header>
   );
 };
