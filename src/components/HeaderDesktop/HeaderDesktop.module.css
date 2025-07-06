@@ -35,6 +35,10 @@
   background-color: #fff;
 }
 
+.menu a {
+  text-decoration: none;
+}
+
 @keyframes slideIn {
   from {
     transform: translateX(100%);

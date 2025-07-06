@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./SpecialOffer.module.css";
 import img from "../../assets/special.png";
 
-// Helper: replaces 0-9 with Persian digits
+// Helper: replaces Latin digits with Persian ones
 const toPersianDigits = (str) =>
   str.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
 
@@ -26,17 +26,18 @@ const SpecialOffer = () => {
           <span>دور رنگ کارشده و تماما دست ساز</span>
           <span>دارای شناسنامه</span>
           <span>
-            قطر بشقاب {toPersianDigits(plateDiameter)} سانتی‌متر، دهانه کاسه{" "}
-            {toPersianDigits(bowlDiameter)} سانتی‌متر، ارتفاع{" "}
-            {toPersianDigits(bowlHeight)} سانتی‌متر
+            قطر بشقاب {toPersianDigits(plateDiameter)} سانتی‌متر،
+            دهانه کاسه {toPersianDigits(bowlDiameter)} سانتی‌متر،
+            ارتفاع {toPersianDigits(bowlHeight)} سانتی‌متر
           </span>
         </p>
-
         <div className={styles.priceContainer}>
           <button className={styles.price}>
             {toPersianDigits(price.toLocaleString("en-US"))} تومان
           </button>
-          <button className={styles.addtocard}>افزودن به سبد خرید</button>
+          <button className={styles.addtocard}>
+            افزودن به سبد خرید
+          </button>
         </div>
       </div>
 
@@ -44,9 +45,11 @@ const SpecialOffer = () => {
       <div className={styles.leftDiv}>
         <img src={img} alt="" className={styles.img} />
         <div className={styles.attrContainer}>
-          <div className={styles.attr1}>قلم&nbsp;{toPersianDigits("صورت")}</div>
+          <div className={styles.attr1}>
+            قلم {toPersianDigits("صورت")}
+          </div>
           <div className={styles.attr2}>
-            قطر&nbsp;{toPersianDigits(plateDiameter)}cm
+            قطر {toPersianDigits(plateDiameter)} cm
           </div>
           <div className={styles.attr3}>نقش و نگار زیبا</div>
         </div>
