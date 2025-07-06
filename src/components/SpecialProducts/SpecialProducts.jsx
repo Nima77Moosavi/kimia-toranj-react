@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { MdTrendingUp } from "react-icons/md";
+import { MdLocalOffer } from "react-icons/md";
 import { GrFormPrevious, GrFormNext } from "react-icons/gr";
 import ProductCard from "../ProductCard/ProductCard";
 import styles from "./SpecialProducts.module.css";
@@ -50,36 +50,34 @@ const SpecialProducts = () => {
   if (error) return <div className={styles.error}>خطا: {error}</div>;
 
   return (
-    <div className={styles.bestsellersContainer}>
+    <div className={styles.container}>
       {/* HEADER */}
       <div className={styles.header}>
         <div className={styles.titleContainer}>
           <h2 className={styles.title}>محصولات تخفیف دار</h2>
-          <MdTrendingUp className={styles.icon} />
+          <MdLocalOffer className={styles.icon} />
         </div>
         <Link to="/shop" className={styles.shopLink}>
           مشاهده همه محصولات
         </Link>
       </div>
 
-      {/* ARROWS */}
-      <button
-        className={styles.arrowLeft}
-        onClick={() => slide(1)}
-        aria-label="قبلی"
-      >
-        <GrFormNext />
-      </button>
-      <button
-        className={styles.arrowRight}
-        onClick={() => slide(-1)}
-        aria-label="بعدی"
-      >
-        <GrFormPrevious />
-      </button>
-
       {/* SLIDER */}
       <div className={styles.sliderWrapper} ref={sliderRef}>
+        <button
+          className={styles.arrowLeft}
+          onClick={() => slide(1)}
+          aria-label="قبلی"
+        >
+          <GrFormNext />
+        </button>
+        <button
+          className={styles.arrowRight}
+          onClick={() => slide(-1)}
+          aria-label="بعدی"
+        >
+          <GrFormPrevious />
+        </button>
         <div className={styles.slider}>
           {products.map((product) => (
             <div key={product.id} className={styles.slideItem}>
