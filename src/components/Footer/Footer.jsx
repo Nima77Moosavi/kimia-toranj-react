@@ -7,6 +7,12 @@ import { AiFillInstagram } from "react-icons/ai";
 import { RiWhatsappFill } from "react-icons/ri";
 import EnamadSeal from "../EnamadSeal/EnamadSeal";
 
+// تابع تبدیل اعداد انگلیسی به فارسی
+const toPersianNumber = (num) => {
+  const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+  return num.toString().replace(/\d/g, (x) => persianNumbers[x]);
+};
+
 const Footer = () => {
   return (
     <div className={styles.container}>
@@ -15,8 +21,8 @@ const Footer = () => {
         <p>شعبه یک: اصفهان, میدان نقش جهان, بازار مسگرها</p>
         <p>شعبه دو: اصفهان, میدان نقش جهان, بازار آفرینش</p>
         <p>شعبه سه: اصفهان, میدان نقش جهان, بازار آفرینش غربی</p>
-        <p>دفتر مرکزی: اصفهان, خیابان حکیم, مجتمع حکیم طبقه اول واحد 294</p>
-        <p>کارگاه تولیدی: روبرو شهرک صنعتی جی، کوچه فروردین، فروردین 6</p>
+        <p>دفتر مرکزی: اصفهان, خیابان حکیم, مجتمع حکیم طبقه اول واحد ۲۹۴</p>
+        <p>کارگاه تولیدی: روبرو شهرک صنعتی جی، کوچه فروردین، فروردین ۶</p>
       </div>
 
       <div className={styles.acricles}>
@@ -29,9 +35,9 @@ const Footer = () => {
 
       <div className={styles.contactUs}>
         <h2 className={styles.title}>تماس با ما</h2>
-        <p>شعبه یک: 03132241443</p>
-        <p>شعبه دو: 03132218729</p>
-        <p>دفتر مرکزی: 03132120363</p>
+        <p>شعبه یک: {toPersianNumber("03132241443")}</p>
+        <p>شعبه دو: {toPersianNumber("03132218729")}</p>
+        <p>دفتر مرکزی: {toPersianNumber("03132120363")}</p>
       </div>
 
       <div className={styles.socials}>
