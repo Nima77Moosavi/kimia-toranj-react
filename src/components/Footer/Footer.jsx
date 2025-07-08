@@ -9,7 +9,7 @@ import EnamadSeal from "../EnamadSeal/EnamadSeal";
 
 // تابع تبدیل اعداد انگلیسی به فارسی
 const toPersianNumber = (num) => {
-  const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+  const persianNumbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
   return num.toString().replace(/\d/g, (x) => persianNumbers[x]);
 };
 
@@ -37,6 +37,7 @@ const Footer = () => {
         <h2 className={styles.title}>تماس با ما</h2>
         <p>شعبه یک: {toPersianNumber("03132241443")}</p>
         <p>شعبه دو: {toPersianNumber("03132218729")}</p>
+        <p>شعبه سه: {toPersianNumber("03132244430")}</p>
         <p>دفتر مرکزی: {toPersianNumber("03132120363")}</p>
       </div>
 

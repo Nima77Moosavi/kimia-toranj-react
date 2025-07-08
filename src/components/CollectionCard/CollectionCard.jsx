@@ -14,7 +14,6 @@ const CollectionCard = ({ collection }) => {
           />
         </div>
         <h3 className={styles.title}>{collection.title}</h3>
-        {/* <small className={styles.date}>{collection.created_at}</small> */}
       </div>
     </Link>
   );

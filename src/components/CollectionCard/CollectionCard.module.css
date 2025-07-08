@@ -4,6 +4,7 @@
 }
 
 .card {
+  position: relative;
   background: white;
   border-radius: 12px;
   overflow: hidden;
@@ -31,6 +32,8 @@
 }
 
 .title {
+  position: absolute;
+  bottom: 10px;
   padding: 5px;
   font-size: 16px;
   font-weight: 700;
