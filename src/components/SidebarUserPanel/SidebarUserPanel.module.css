@@ -12,6 +12,12 @@
   border-left: 2px solid rgba(2, 48, 71, 0.41); /* Subtle left border */
   box-sizing: border-box;
 }
+.sidebarNav a {
+  color: #023047;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 300;
+}
 
 /* User Information Box */
 .userInfo {
@@ -84,6 +90,14 @@
 }
 
 /* Active Link Style (similar to hover) */
+.sidebarNav .active {
+  background-color: var(--primary-color);
+  width: 90%;
+  color: #fff;
+  border-radius: 9px;
+  text-decoration: none;
+  padding-right: 10px;
+}
 .active {
   background-color: var(--primary-color);
   width: 90%;

@@ -18,7 +18,7 @@ body {
 
 @font-face {
   font-family: 'Yekan';
-  src: local('Yekan'), url(./fonts/Yekan.woff) format('truetype');
+  src: local('Yekan'), url(./fonts/Yekan.woff2) format('truetype');
   /* Change font    */
 }
 * {
@@ -28,5 +28,6 @@ body {
   font-family: "Yekan", sans-serif;
   -webkit-font-feature-settings: "numr";
     font-feature-settings: "numr";
+    font-variant-numeric: arabic-indic; /* استاندارد جدیدتر */
   /* font-weight: 600; */
 }
