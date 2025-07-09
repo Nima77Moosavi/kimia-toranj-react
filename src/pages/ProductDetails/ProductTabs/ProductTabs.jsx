@@ -6,6 +6,7 @@ import { RiRulerLine } from "react-icons/ri";
 import { BsQuestionSquare } from "react-icons/bs";
 import { LiaComments } from "react-icons/lia";
 import styles from "./ProductTabs.module.css";
+import { toPersianDigits } from "../../../utils/faDigits";
 
 const ProductTabs = ({
   product,
@@ -73,6 +74,7 @@ const ProductTabs = ({
 
       const scrollTo = buttonLeft - containerWidth / 2 + buttonWidth / 2;
       container.scrollTo({ left: scrollTo, behavior: "smooth" });
+      console.log(product);
     }
   }, [activeTab]);
 
@@ -131,7 +133,7 @@ const ProductTabs = ({
           <h2>
             <FaListUl className={styles.icons} /> مشخصات محصول
           </h2>
-          <p>مشخصات محصول اینجا نمایش داده می‌شود.</p>
+          <p>{product.title}</p>
         </div>
         <div ref={descriptionRef} className={styles.descriptionSection}>
           <h2>
@@ -143,7 +145,14 @@ const ProductTabs = ({
           <h2>
             <RiRulerLine className={styles.icons} /> ابعاد
           </h2>
-          <p>ابعاد محصول اینجا نمایش داده می‌شود.</p>
+          <ul className={styles.dimensions}>
+            {product.variants[0].attributes.map((attribute) => (
+              <li key={attribute.id} className={styles.dimensionItem}>
+                <span>{attribute.attribute}</span>:
+                <span>{toPersianDigits(attribute.value)}</span>
+              </li>
+            ))}
+          </ul>
         </div>
         <div ref={maintenanceRef} className={styles.maintenanceSection}>
           <h2>

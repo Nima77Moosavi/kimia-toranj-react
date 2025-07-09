@@ -6,12 +6,7 @@ import { IoCallSharp } from "react-icons/io5";
 import { AiFillInstagram } from "react-icons/ai";
 import { RiWhatsappFill } from "react-icons/ri";
 import EnamadSeal from "../EnamadSeal/EnamadSeal";
-
-// تابع تبدیل اعداد انگلیسی به فارسی
-const toPersianNumber = (num) => {
-  const persianNumbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
-  return num.toString().replace(/\d/g, (x) => persianNumbers[x]);
-};
+import { toPersianDigits } from "../../utils/faDigits";
 
 const Footer = () => {
   return (
@@ -35,10 +30,11 @@ const Footer = () => {
 
       <div className={styles.contactUs}>
         <h2 className={styles.title}>تماس با ما</h2>
-        <p>شعبه یک: {toPersianNumber("03132241443")}</p>
-        <p>شعبه دو: {toPersianNumber("03132218729")}</p>
-        <p>شعبه سه: {toPersianNumber("03132244430")}</p>
-        <p>دفتر مرکزی: {toPersianNumber("03132120363")}</p>
+        <p>شعبه یک: {toPersianDigits("03132241443")}</p>
+        <p>شعبه دو: {toPersianDigits("03132218729")}</p>
+        <p>شعبه سه: {toPersianDigits("03132244430")}</p>
+        <p>دفتر مرکزی: {toPersianDigits("03132120363")}</p>
+        <p>دفتر مرکزی: {toPersianDigits("03132120363")}</p>
       </div>
 
       <div className={styles.socials}>

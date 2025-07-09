@@ -1,6 +1,6 @@
 :root {
-  --primary-color: #002147;    /* Luxurious deep blue */
-  --secondary-color: #FFD700;  /* Rich, luxurious gold */
+  --primary-color: #002147; /* Luxurious deep blue */
+  --secondary-color: #ffd700; /* Rich, luxurious gold */
   --text-color: #333333;
   --bg-color: #ffffff;
   --primary-color-light: rgba(0, 33, 71, 0.3);
@@ -8,17 +8,21 @@
 }
 
 body {
-    overflow-x: hidden;
-    width: 100%;
-    -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-            box-sizing: border-box;
+  overflow-x: hidden;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  font-feature-settings: "zero"; /* some fonts use the 'zero' feature for localized zero */
+  font-feature-settings: "tnum"; /* tabular numbers */
+  /* or the shorthand: */
+  font-variant-numeric: lining-nums;
 }
 
-
 @font-face {
-  font-family: 'Yekan';
-  src: local('Yekan'), url(./fonts/Yekan.woff) format('truetype');
+  font-family: "Yekan";
+  src: local("Yekan"), url(./fonts/Yekan.woff) format("woff");
   /* Change font    */
 }
 * {
@@ -27,6 +31,6 @@ body {
   padding: 0;
   font-family: "Yekan", sans-serif;
   -webkit-font-feature-settings: "numr";
-    font-feature-settings: "numr";
+  font-feature-settings: "numr";
   /* font-weight: 600; */
 }
