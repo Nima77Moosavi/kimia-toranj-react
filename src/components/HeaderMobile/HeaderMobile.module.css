@@ -66,6 +66,7 @@
 
 /* Suggestions dropdown */
 .suggestionsList {
+  direction: rtl;
   position: absolute;
   top: 110%;
   right: 5%;
