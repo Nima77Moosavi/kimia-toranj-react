@@ -1,14 +1,16 @@
+/* Header container */
 .headerMobile {
   display: flex;
   justify-content: space-between;
-  background-color: rgba(255, 255, 255, 0.6);
   align-items: center;
+  background-color: rgba(255, 255, 255, 0.6);
   height: 60px;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
 }
+
 .logoContainer {
   width: 120px;
 }
@@ -16,59 +18,112 @@
 .logo {
   width: 100%;
 }
+
+/* Search */
 .searchContainer {
   flex: 1;
   display: flex;
   justify-content: center;
+  position: relative;
 }
 
 .searchBox {
+  width: 90%;
+  max-width: 300px;
   position: relative;
-  width: 100%;
 }
 
 .searchBox input {
   width: 100%;
-  padding: 8px 10px;
+  padding: 8px 12px 8px 40px;
   font-size: 12px;
   border: 1px solid #023047;
   border-radius: 25px;
+  outline: none;
+}
+
+.searchButton {
+  position: absolute;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .searchIcon {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
+  
   font-size: 20px;
   color: #002147;
   pointer-events: none;
 }
 
+/* Suggestions dropdown */
+.suggestionsList {
+  position: absolute;
+  top: 110%;
+  right: 5%;
+  width: 90%;
+  max-width: 300px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  z-index: 1100;
+}
+
+.suggestionItem {
+  padding: 8px 12px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+}
+
+.suggestionItem:last-child {
+  border-bottom: none;
+}
+
+.suggestionItem:hover {
+  background: #f7f7f7;
+}
+
+.suggestionTitle {
+  font-size: 14px;
+  color: #333;
+}
+
+.suggestionMeta {
+  font-size: 12px;
+  color: #666;
+  margin-top: 2px;
+}
+
+/* Hamburger */
 .hamburgerContainer {
   z-index: 1100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .hamburgerButton {
   background: none;
   border: none;
   cursor: pointer;
-  transition: transform 0.3s ease;
   padding: 0;
-  margin-right: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  transition: transform 0.2s ease;
 }
 
 .hamburgerButton:hover {
   transform: scale(1.1);
 }
 
-/* --------------------------- Menu Overlay Styles --------------------------- */
+/* Menu overlay & panel */
 .menuOverlay {
   position: fixed;
   top: 0;
@@ -83,30 +138,30 @@
 }
 
 .menuPanel {
-  width: 50%;
+  width: 60%;
+  max-width: 300px;
   height: 100%;
-  background-color: white;
+  background: #fff;
   padding: 20px;
   display: flex;
   flex-direction: column;
   animation: slideIn 0.3s ease-out;
-  position: relative;
 }
 
 .closeButton {
   background: none;
   border: none;
-  cursor: pointer;
   align-self: flex-end;
-  margin-bottom: 5px;
-  transition: transform 0.3s ease;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 10px;
+  transition: transform 0.2s ease;
 }
 
 .closeButton:hover {
   transform: scale(1.1);
 }
 
-/* --------------------------- Simple Menu List Styles --------------------------- */
 .menuList {
   list-style: none;
   padding: 0;
@@ -115,14 +170,11 @@
 }
 
 .menuItem {
-  padding: 10px 0;
+  padding: 12px 0;
   border-bottom: 1px solid #ddd;
   text-align: center;
-  border-radius: 0px;
-  background-color: #fff;
-  color: var(--primary-color);
-  box-shadow: none;
   font-size: 18px;
+  color: var(--primary-color);
 }
 
 .menuItem:last-child {

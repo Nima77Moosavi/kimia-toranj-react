@@ -1,42 +1,142 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoMenu, IoSearch, IoClose } from "react-icons/io5";
+import axiosInstance from "../../utils/axiosInstance";
 import styles from "./HeaderMobile.module.css";
-import Banner from "../Banner/Banner";
 import image1 from "../../assets/banner11.png";
 
 const HeaderMobile = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
-  // Close the menu if clicking outside
+  const navigate = useNavigate();
+  const menuRef = useRef(null);
+  const suggestionsRef = useRef(null);
+  const debounceRef = useRef();
+
+  // 1) Close menu when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+    if (!isMenuOpen) return;
+    const handleClick = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
         setIsMenuOpen(false);
       }
     };
-
-    if (isMenuOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
   }, [isMenuOpen]);
+
+  // 2) Close suggestions when clicking outside
+  useEffect(() => {
+    if (!showSuggestions) return;
+    const handleClick = (e) => {
+      if (
+        suggestionsRef.current &&
+        !suggestionsRef.current.contains(e.target)
+      ) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [showSuggestions]);
+
+  // 3) Debounced search
+  useEffect(() => {
+    if (searchTerm.trim().length < 3) {
+      setSuggestions([]);
+      setShowSuggestions(false);
+      return;
+    }
+
+    clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(async () => {
+      try {
+        const { data } = await axiosInstance.get(
+          `/api/store/products/?title=${encodeURIComponent(searchTerm)}`
+        );
+        // assuming your API returns { results: [...] }
+        const items = data.results || data;
+        setSuggestions(items.slice(0, 5));
+        setShowSuggestions(true);
+      } catch {
+        setSuggestions([]);
+        setShowSuggestions(false);
+      }
+    }, 300);
+
+    return () => clearTimeout(debounceRef.current);
+  }, [searchTerm]);
+
+  // Handlers
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    const q = searchTerm.trim();
+    if (q) {
+      navigate(`/shop?search=${encodeURIComponent(q)}`);
+      setShowSuggestions(false);
+    }
+  };
+
+  const handleSuggestionClick = (prod) => {
+    navigate(`/productDetails/${prod.url_title}-${prod.id}`);
+    setShowSuggestions(false);
+  };
 
   return (
     <header className={styles.headerMobile}>
+      {/* Logo */}
       <div className={styles.logoContainer}>
-          <img src={image1} alt="کیمیاترنج" className={styles.logo} />
-        </div>
-      {/* Center: Search box */}
-      <div className={styles.searchContainer}>
-        <div className={styles.searchBox} dir="rtl">
-          <input type="text" placeholder="در کیمیاترنج جستجو کنید ..." />
-          <IoSearch className={styles.searchIcon} />
-        </div>
+        <img src={image1} alt="کیمیاترنج" className={styles.logo} />
       </div>
 
-      {/* Right: Hamburger Button (only if menu is closed) */}
+      {/* Search box */}
+      <form
+        className={styles.searchContainer}
+        onSubmit={handleSearchSubmit}
+        ref={suggestionsRef}
+      >
+        <div className={styles.searchBox} dir="rtl">
+          <input
+            type="text"
+            placeholder="در کیمیاترنج جستجو کنید ..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            onFocus={() => {
+              if (suggestions.length) setShowSuggestions(true);
+            }}
+          />
+          <button type="submit" className={styles.searchButton}>
+            <IoSearch className={styles.searchIcon} />
+          </button>
+        </div>
+
+        {showSuggestions && suggestions.length > 0 && (
+          <ul className={styles.suggestionsList}>
+            {suggestions.map((prod) => (
+              <li
+                key={prod.id}
+                className={styles.suggestionItem}
+                onClick={() => handleSuggestionClick(prod)}
+              >
+                <div className={styles.suggestionTitle}>{prod.title}</div>
+                <div className={styles.suggestionMeta}>
+                  {prod.collection?.title} •{" "}
+                  {prod.variants?.[0]?.price.toLocaleString()} تومان
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </form>
+
+      {/* Hamburger toggle */}
       {!isMenuOpen && (
         <div className={styles.hamburgerContainer}>
           <button
@@ -44,12 +144,12 @@ const HeaderMobile = () => {
             onClick={() => setIsMenuOpen(true)}
             aria-label="Navigation menu"
           >
-            <IoMenu size={56} color="#002147" />
+            <IoMenu size={44} color="#002147" />
           </button>
         </div>
       )}
 
-      {/* Menu Overlay with sliding panel */}
+      {/* Sliding menu panel */}
       {isMenuOpen && (
         <div className={styles.menuOverlay}>
           <div className={styles.menuPanel} ref={menuRef}>
@@ -58,7 +158,7 @@ const HeaderMobile = () => {
               onClick={() => setIsMenuOpen(false)}
               aria-label="Close menu"
             >
-              <IoClose size={36} color="#023047" />
+              <IoClose size={28} color="#023047" />
             </button>
             <ul className={styles.menuList}>
               <li className={styles.menuItem}>
@@ -72,7 +172,7 @@ const HeaderMobile = () => {
                 </Link>
               </li>
               <li className={styles.menuItem}>
-                <Link to="/about" onClick={() => setIsMenuOpen(false)}>
+                <Link to="/agent" onClick={() => setIsMenuOpen(false)}>
                   اخذ نمایندگی
                 </Link>
               </li>
@@ -81,13 +181,11 @@ const HeaderMobile = () => {
                   مقالات
                 </Link>
               </li>
-              {/* New menu item for gift selection */}
               <li className={styles.menuItem}>
                 <Link to="/gift-selector" onClick={() => setIsMenuOpen(false)}>
                   کادو چی بخرم؟
                 </Link>
               </li>
-              {/* Add more items as needed */}
             </ul>
           </div>
         </div>
