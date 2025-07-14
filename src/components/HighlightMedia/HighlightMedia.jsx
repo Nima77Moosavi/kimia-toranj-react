@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import MediaPlayer from "../MediaPlayer/MediaPlayer";
 import styles from "./HighlightMedia.module.css";
 import { IoClose } from "react-icons/io5";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import PuffLoader from "react-spinners/PuffLoader";
 
-const HighlightMedia = () => {
+export default function HighlightMedia() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [highlight, setHighlight] = useState(null);
+
   const [allHighlight, setAllHighlight] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -17,98 +16,66 @@ const HighlightMedia = () => {
   const [currentHighlightIndex, setCurrentHighlightIndex] = useState(0);
   const [progressKey, setProgressKey] = useState(0);
 
+  // 1) Fetch all highlights on mount
   useEffect(() => {
-    const fetchHighlightMedia = async () => {
+    async function fetchAll() {
       try {
-        const response = await fetch(
-          `https://kimiatoranj-api.liara.run/api/highlights/highlights/${id}/`
+        const resp = await fetch(
+          "https://kimiatoranj-api.liara.run/api/highlights/highlights/"
         );
-        if (!response.ok) throw new Error("Network response was not ok");
-        const data = await response.json();
-        setHighlight(data);
-
-        const highlightIndex = allHighlight.findIndex(
-          (h) => h.id === parseInt(id)
-        );
-        if (highlightIndex !== -1) {
-          setCurrentHighlightIndex(highlightIndex);
-          setCurrentMediaIndex(0);
-          setProgressKey((prev) => prev + 1);
-        }
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchHighlightMedia();
-  }, [id, allHighlight]);
-
-  useEffect(() => {
-    const fetchAllHighlightMedia = async () => {
-      try {
-        const response = await fetch(
-          `https://kimiatoranj-api.liara.run/api/highlights/highlights/`
-        );
-        if (!response.ok) throw new Error("Network response was not ok");
-        const data = await response.json();
+        if (!resp.ok) throw new Error("Network response was not ok");
+        const data = await resp.json();
         setAllHighlight(data);
-      } catch (error) {
-        setError(error.message);
+
+        // pick the index matching the URL param
+        const idx = data.findIndex((h) => h.id === +id);
+        setCurrentHighlightIndex(idx >= 0 ? idx : 0);
+      } catch (e) {
+        setError(e.message);
       } finally {
         setLoading(false);
-      }
-    };
-
-    fetchAllHighlightMedia();
-  }, []);
-
-  useEffect(() => {
-    if (allHighlight.length === 0) return;
-    const interval = setInterval(() => {
-      goToNextMedia();
-    }, 10000);
-    return () => clearInterval(interval);
-  }, [allHighlight, currentHighlightIndex, currentMediaIndex]);
-
-  const goToNextMedia = () => {
-    const currentHighlight = allHighlight[currentHighlightIndex];
-    if (currentMediaIndex < currentHighlight.media.length - 1) {
-      setCurrentMediaIndex((prev) => prev + 1);
-    } else {
-      if (currentHighlightIndex < allHighlight.length - 1) {
-        setCurrentHighlightIndex((prev) => prev + 1);
-        setCurrentMediaIndex(0);
-      } else {
-        setCurrentHighlightIndex(0);
-        setCurrentMediaIndex(0);
       }
     }
-    setProgressKey((prev) => prev + 1);
+    fetchAll();
+  }, [id]);
+
+  // 2) Auto‐advance every 10 seconds
+  useEffect(() => {
+    if (!allHighlight.length) return;
+    const iv = setInterval(() => goToNextMedia(), 10000);
+    return () => clearInterval(iv);
+  }, [allHighlight, currentHighlightIndex, currentMediaIndex]);
+
+  // Helpers to move forward/backward
+  const goToNextMedia = () => {
+    const curr = allHighlight[currentHighlightIndex];
+    if (currentMediaIndex < curr.media.length - 1) {
+      setCurrentMediaIndex((p) => p + 1);
+    } else {
+      setCurrentHighlightIndex((p) =>
+        p < allHighlight.length - 1 ? p + 1 : 0
+      );
+      setCurrentMediaIndex(0);
+    }
+    setProgressKey((p) => p + 1);
   };
 
   const goToPreviousMedia = () => {
     if (currentMediaIndex > 0) {
-      setCurrentMediaIndex((prev) => prev - 1);
+      setCurrentMediaIndex((p) => p - 1);
     } else {
-      if (currentHighlightIndex > 0) {
-        const previousHighlight = allHighlight[currentHighlightIndex - 1];
-        setCurrentHighlightIndex((prev) => prev - 1);
-        setCurrentMediaIndex(previousHighlight.media.length - 1);
-      } else {
-        const lastHighlight = allHighlight[allHighlight.length - 1];
-        setCurrentHighlightIndex(allHighlight.length - 1);
-        setCurrentMediaIndex(lastHighlight.media.length - 1);
-      }
+      const prevIdx =
+        currentHighlightIndex > 0
+          ? currentHighlightIndex - 1
+          : allHighlight.length - 1;
+      const prev = allHighlight[prevIdx];
+      setCurrentHighlightIndex(prevIdx);
+      setCurrentMediaIndex(prev.media.length - 1);
     }
-    setProgressKey((prev) => prev + 1);
+    setProgressKey((p) => p + 1);
   };
 
-  const handleClose = () => {
-    navigate("/");
-  };
-
+  // Loading / error states
   if (loading) {
     return (
       <div className={styles.loadingContainer}>
@@ -116,63 +83,70 @@ const HighlightMedia = () => {
       </div>
     );
   }
-
   if (error) return <div>Error: {error}</div>;
-  if (!allHighlight || allHighlight.length === 0)
-    return <div>No highlights found.</div>;
+  if (!allHighlight.length) return <div>No highlights found.</div>;
 
   const currentHighlight = allHighlight[currentHighlightIndex];
-  const currentMedia = currentHighlight.media[currentMediaIndex];
 
   return (
     <div className={styles.overlay}>
       <div className={styles.card}>
+        {/* Progress bar */}
         <div key={progressKey} className={styles.progressBarContainer}>
           <div className={styles.progressBar}></div>
         </div>
 
-        <button onClick={handleClose} className={styles.closeButton}>
+        {/* Close */}
+        <button onClick={() => navigate("/")} className={styles.closeButton}>
           <IoClose />
         </button>
 
+        {/* Title */}
         <h2 className={styles.title}>{currentHighlight.title}</h2>
 
-        {/* Media container */}
+        {/* Media & nav */}
         <div className={styles.mediaContainer}>
-          {/* Navigation buttons */}
-          <button 
-            onClick={goToPreviousMedia} 
+          <button
+            onClick={goToPreviousMedia}
             className={`${styles.navButton} ${styles.prevButton}`}
           >
-            <GrFormPrevious className={styles.navIcon}/>
+            <GrFormPrevious className={styles.navIcon} />
           </button>
-          
+
+          {/* CONSTANT APARAT EMBED */}
           <div className={styles.mediaItem}>
-            <MediaPlayer media={currentMedia} />
+            <div className={styles.aparatWrapper}>
+              <span className={styles.ratio} />
+              <iframe
+                src="https://www.aparat.com/video/video/embed/videohash/fnvf84s/vt/frame"
+                frameBorder="0"
+                allowFullScreen
+                webkitallowfullscreen="true"
+                mozallowfullscreen="true"
+              />
+            </div>
           </div>
-          
-          <button 
-            onClick={goToNextMedia} 
+
+          <button
+            onClick={goToNextMedia}
             className={`${styles.navButton} ${styles.nextButton}`}
           >
-            <GrFormNext className={styles.navIcon}/>
+            <GrFormNext className={styles.navIcon} />
           </button>
         </div>
 
-        {/* Media indicators */}
+        {/* Dots */}
         <div className={styles.highlightIndicator}>
-          {allHighlight.map((_, index) => (
+          {allHighlight.map((_, i) => (
             <span
-              key={index}
+              key={i}
               className={`${styles.indicatorDot} ${
-                index === currentHighlightIndex ? styles.active : ""
+                i === currentHighlightIndex ? styles.active : ""
               }`}
-            ></span>
+            />
           ))}
         </div>
       </div>
     </div>
   );
-};
-
-export default HighlightMedia;
+}
