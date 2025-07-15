@@ -171,6 +171,16 @@ const HeaderDesktop = () => {
                   صفحه اصلی <FiHome />
                 </li>
               </Link>
+              <Link to="/shop">
+                <li>
+                  فروشگاه <IoBagOutline />
+                </li>
+              </Link>
+              <Link to="/gift-selector">
+                <li>
+                  کادو چی بخرم <GoGift />
+                </li>
+              </Link>
               <Link to="/about">
                 <li>
                   درباره ما <BsFileEarmarkPerson />
@@ -181,19 +191,10 @@ const HeaderDesktop = () => {
                   اخذ نمایندگی <TbDeviceIpadHorizontalStar />
                 </li>
               </Link>
-              <Link to="/shop">
-                <li>
-                  فروشگاه <IoBagOutline />
-                </li>
-              </Link>
+
               <Link to="/blog">
                 <li>
                   مقالات <PiArticleBold />
-                </li>
-              </Link>
-              <Link to="/gift-selector">
-                <li>
-                  کادو چی بخرم <GoGift />
                 </li>
               </Link>
             </ul>
