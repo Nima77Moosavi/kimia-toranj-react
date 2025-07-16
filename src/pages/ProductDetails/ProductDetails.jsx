@@ -180,20 +180,7 @@ const ProductDetails = () => {
               inventoryText="تنها 2 عدد در انبار باقی مانده"
             />
 
-            <IconsBox isLiked={like} onLikeClick={likeHandler} />
-
-            <ProductRating rating={product.average_rating || 4} />
-            
             {/* Moved ReviewForm here */}
-            <ReviewForm
-              productId={id}
-              onSubmit={async (reviewData) => {
-                // اینجا می‌توانید درخواست به API را مدیریت کنید
-                console.log("Review submitted:", reviewData);
-                // در حالت واقعی:
-                // await axiosInstance.post(`${API_URL}api/reviews/`, reviewData);
-              }}
-            />
           </div>
 
           {/* Right Content */}
@@ -206,6 +193,18 @@ const ProductDetails = () => {
             duplicatedReviews={duplicatedReviews}
           />
         </div>
+        <IconsBox isLiked={like} onLikeClick={likeHandler} />
+
+        <ProductRating rating={product.average_rating || 4} />
+        <ReviewForm
+          productId={id}
+          onSubmit={async (reviewData) => {
+            // اینجا می‌توانید درخواست به API را مدیریت کنید
+            console.log("Review submitted:", reviewData);
+            // در حالت واقعی:
+            // await axiosInstance.post(`${API_URL}api/reviews/`, reviewData);
+          }}
+        />
 
         {/* Recommendations */}
         <Bestsellers />
