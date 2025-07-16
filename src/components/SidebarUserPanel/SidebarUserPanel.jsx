@@ -1,56 +1,33 @@
-// Example inside SidebarUserPanel.jsx
+// SidebarUserPanel.jsx
 import React from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./SidebarUserPanel.module.css";
 
-const SidebarUserPanel = () => {
-  return (
-    <nav className={styles.sidebarNav}>
+const items = [
+  { to: "/user-panel", label: "داشبورد", end: true },
+  { to: "/user-panel/account-info", label: "اطلاعات حساب" },
+  { to: "/user-panel/cart", label: "سبد خرید" },
+  { to: "/user-panel/orders", label: "سفارش‌ها" },
+  { to: "/user-panel/wishlist", label: "علاقه‌مندی‌ها" },
+  { to: "/user-panel/reviews", label: "دیدگاه‌ها" },
+  { to: "/user-panel/addresses", label: "آدرس‌ها" },
+];
+
+const SidebarUserPanel = () => (
+  <nav className={styles.sidebarNav}>
+    {items.map(({ to, label, end }) => (
       <NavLink
-        to="/user-panel"
-        end
-        className={({ isActive }) => (isActive ? styles.active : "")}
+        key={to}
+        to={to}
+        end={end}
+        className={({ isActive }) =>
+          `${styles.link} ${isActive ? styles.active : ""}`
+        }
       >
-        داشبورد
+        {label}
       </NavLink>
-      <NavLink
-        to="/user-panel/account-info"
-        className={({ isActive }) => (isActive ? styles.active : "")}
-      >
-        اطلاعات حساب
-      </NavLink>
-      <NavLink
-        to="/user-panel/cart"
-        className={({ isActive }) => (isActive ? styles.active : "")}
-      >
-        سبد خرید
-      </NavLink>
-      <NavLink
-        to="/user-panel/orders"
-        className={({ isActive }) => (isActive ? styles.active : "")}
-      >
-        سفارش‌ها
-      </NavLink>
-      <NavLink
-        to="/user-panel/wishlist"
-        className={({ isActive }) => (isActive ? styles.active : "")}
-      >
-        علاقه‌مندی‌ها
-      </NavLink>
-      <NavLink
-        to="/user-panel/reviews"
-        className={({ isActive }) => (isActive ? styles.active : "")}
-      >
-        دیدگاه‌ها
-      </NavLink>
-      <NavLink
-        to="/user-panel/addresses"
-        className={({ isActive }) => (isActive ? styles.active : "")}
-      >
-        آدرس‌ها
-      </NavLink>
-    </nav>
-  );
-};
+    ))}
+  </nav>
+);
 
 export default SidebarUserPanel;
