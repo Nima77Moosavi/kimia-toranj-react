@@ -196,15 +196,7 @@ const ProductDetails = () => {
         <IconsBox isLiked={like} onLikeClick={likeHandler} />
 
         <ProductRating rating={product.average_rating || 4} />
-        <ReviewForm
-          productId={id}
-          onSubmit={async (reviewData) => {
-            // اینجا می‌توانید درخواست به API را مدیریت کنید
-            console.log("Review submitted:", reviewData);
-            // در حالت واقعی:
-            // await axiosInstance.post(`${API_URL}api/reviews/`, reviewData);
-          }}
-        />
+        <ReviewForm productId={id} />
 
         {/* Recommendations */}
         <Bestsellers />

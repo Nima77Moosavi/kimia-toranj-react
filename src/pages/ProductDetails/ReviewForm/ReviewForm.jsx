@@ -1,41 +1,44 @@
-import { useState } from "react";
+// src/components/ReviewForm/ReviewForm.jsx
+import React, { useState } from "react";
+import axiosInstance from "../../../utils/axiosInstance";
+import { API_URL } from "../../../config";
 import styles from "./ReviewForm.module.css";
 import { FaStar } from "react-icons/fa";
 
-const ReviewForm = ({ productId, onSubmit }) => {
+const ReviewForm = ({ productId }) => {
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (!rating) {
+    setError("");
+    if (rating === 0) {
       setError("لطفا امتیاز دهید");
       return;
     }
-    
     if (!comment.trim()) {
       setError("لطفا نظر خود را بنویسید");
       return;
     }
 
     setIsSubmitting(true);
-    setError(null);
-    
+
     try {
-      if (onSubmit) {
-        await onSubmit({ productId, rating, comment });
-      }
-      
+      await axiosInstance.post(`${API_URL}api/store/reviews/`, {
+        product: productId,
+        content: comment,
+        rating: rating,
+      });
       setSuccess(true);
       setComment("");
       setRating(0);
       setTimeout(() => setSuccess(false), 3000);
     } catch (err) {
+      console.error(err);
       setError("خطا در ارسال نظر");
     } finally {
       setIsSubmitting(false);
@@ -45,7 +48,7 @@ const ReviewForm = ({ productId, onSubmit }) => {
   return (
     <div className={styles.compactContainer}>
       <h4 className={styles.compactTitle}>ثبت نظر</h4>
-      
+
       <form onSubmit={handleSubmit} className={styles.compactForm}>
         <div className={styles.compactRating}>
           {[1, 2, 3, 4, 5].map((star) => (
@@ -63,7 +66,7 @@ const ReviewForm = ({ productId, onSubmit }) => {
             </button>
           ))}
         </div>
-        
+
         <textarea
           value={comment}
           onChange={(e) => setComment(e.target.value)}
@@ -71,17 +74,19 @@ const ReviewForm = ({ productId, onSubmit }) => {
           className={styles.compactTextarea}
           rows={3}
         />
-        
+
         <div className={styles.compactFooter}>
           {error && <span className={styles.compactError}>{error}</span>}
-          {success && <span className={styles.compactSuccess}>✓</span>}
-          
+          {success && (
+            <span className={styles.compactSuccess}>✓ نظر شما ثبت شد</span>
+          )}
+
           <button
             type="submit"
             disabled={isSubmitting}
             className={styles.compactButton}
           >
-            {isSubmitting ? "..." : "ارسال نظر"}
+            {isSubmitting ? "در حال ارسال..." : "ارسال نظر"}
           </button>
         </div>
       </form>
