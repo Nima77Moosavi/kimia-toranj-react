@@ -5,6 +5,8 @@ import Footer from "../../components/Footer/Footer";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import styles from "./Shop.module.css";
 
+const API_BASE = "https://kimiatoranj-api.liara.run/api/store";
+
 const Shop = () => {
   const [products, setProducts] = useState([]);
   const [collections, setCollections] = useState([]);
@@ -14,129 +16,105 @@ const Shop = () => {
   const [hasMore, setHasMore] = useState(true);
   const [showFilters, setShowFilters] = useState(false);
 
-  // Get and update query parameters.
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Set a default ordering (cheapest first) if not set.
+  // Ensure we always have an order_by param by default
   useEffect(() => {
     if (!searchParams.get("order_by")) {
-      const newParams = new URLSearchParams(searchParams);
-      newParams.set("order_by", "price");
-      setSearchParams(newParams);
+      const newP = new URLSearchParams(searchParams);
+      newP.set("order_by", "price");
+      setSearchParams(newP, { replace: true });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, []);
 
-  // Helper: build query string from searchParams and current page.
-  const buildQueryString = () => {
+  // Build the query string for current filters & page
+  const buildQuery = () => {
     const qs = searchParams.toString();
     return qs ? `?${qs}&page=${page}` : `?page=${page}`;
   };
 
-  // Fetch products when search parameters or page changes.
+  // Fetch products whenever searchParams or page changes
   useEffect(() => {
-    const fetchProducts = async () => {
+    let isActive = true;
+    const aborter = new AbortController();
+
+    async function load() {
       setLoading(true);
+      setError(null);
 
       try {
-        const query = buildQueryString();
-        const response = await fetch(
-          `https://kimiatoranj-api.liara.run/api/store/products/${query}`
-        );
-
-        // If a 404 is returned (often meaning no more products), set hasMore to false.
-        if (!response.ok) {
-          if (response.status === 404) {
-            setHasMore(false);
-            setLoading(false);
+        const res = await fetch(`${API_BASE}/products/${buildQuery()}`, {
+          signal: aborter.signal,
+        });
+        if (!res.ok) {
+          if (res.status === 404) {
+            // no more pages
+            if (isActive) setHasMore(false);
             return;
           }
           throw new Error("مشکل در دریافت محصولات");
         }
+        const data = await res.json();
+        if (!isActive) return; // ignore if unmounted/aborted
 
-        const data = await response.json();
-
-        // Clear any previous error on a successful fetch.
-        setError(null);
-
-        if (page === 1) {
-          setProducts(data.results);
-        } else {
-          setProducts((prevProducts) => [...prevProducts, ...data.results]);
-        }
-
-        // If no products were returned, assume there are no further pages.
-        if (data.results.length === 0) {
-          setHasMore(false);
-        } else {
-          setHasMore(true);
-        }
+        // Append or replace based on page
+        setProducts((prev) =>
+          page === 1 ? data.results : [...prev, ...data.results]
+        );
+        setHasMore(data.next !== null);
       } catch (err) {
-        setError(err.message);
+        if (isActive && err.name !== "AbortError") {
+          setError(err.message);
+        }
       } finally {
-        setLoading(false);
+        if (isActive) setLoading(false);
       }
-    };
+    }
 
-    fetchProducts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    load();
+
+    return () => {
+      isActive = false;
+      aborter.abort();
+    };
   }, [searchParams, page]);
 
-  // Fetch collections for filtering (only once).
+  // Load collections once
   useEffect(() => {
-    const fetchCollections = async () => {
-      try {
-        const response = await fetch(
-          "https://kimiatoranj-api.liara.run/api/store/collections/"
-        );
-        if (!response.ok) throw new Error("مشکل در دریافت مجموعه‌ها");
-        const data = await response.json();
-        setCollections(data);
-      } catch (err) {
-        console.error("Error fetching collections:", err);
-      }
-    };
-    fetchCollections();
+    fetch(`${API_BASE}/collections/`)
+      .then((r) => r.json())
+      .then(setCollections)
+      .catch(console.error);
   }, []);
 
-  // When filtering by collection, update query parameters and reset product list.
-  const filterByCollection = (collectionTitle) => {
-    const newParams = new URLSearchParams(searchParams);
-    newParams.set("collection", collectionTitle);
-    setSearchParams(newParams);
-    setProducts([]);
-    setPage(1);
+  // Common reset logic when applying a new filter/sort
+  const applyFilter = (key, value) => {
+    const newP = new URLSearchParams(searchParams);
+    newP.set(key, value);
+
+    setSearchParams(newP);
+    setProducts([]); // clear old
+    setPage(1); // start from first page
+    setHasMore(true); // reset paging
     setShowFilters(false);
   };
 
-  // Handlers for sorting.
-  const sortCheapest = () => {
-    const newParams = new URLSearchParams(searchParams);
-    newParams.set("order_by", "price");
-    setSearchParams(newParams);
-    setProducts([]);
-    setPage(1);
-    setShowFilters(false);
-  };
+  // Handlers
+  const filterByCollection = (title) => applyFilter("collection", title);
+  const sortCheapest = () => applyFilter("order_by", "price");
+  const sortExpensive = () => applyFilter("order_by", "-price");
 
-  const sortExpensive = () => {
-    const newParams = new URLSearchParams(searchParams);
-    newParams.set("order_by", "-price");
-    setSearchParams(newParams);
-    setProducts([]);
-    setPage(1);
-    setShowFilters(false);
-  };
-
-  // Intersection Observer for lazy loading of additional pages.
+  // IntersectionObserver for infinite scroll
   const observer = useRef();
-  const lastProductElementRef = useCallback(
+  const lastRef = useCallback(
     (node) => {
       if (loading) return;
+
       if (observer.current) observer.current.disconnect();
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
-          setPage((prevPage) => prevPage + 1);
+          setPage((p) => p + 1);
         }
       });
       if (node) observer.current.observe(node);
@@ -145,15 +123,18 @@ const Shop = () => {
   );
 
   return (
-    <div>
-      <div className={styles.circle}></div>
+    <>
       <Header />
+      <div className={styles.circle}></div>
+
       <div className={styles.content}>
         <h2 className={styles.title}>فروشگاه</h2>
+
+        {/* Mobile filter toggle */}
         <div className={styles.filterDropdownMobile}>
           <button
             className={styles.filterToggleButton}
-            onClick={() => setShowFilters(!showFilters)}
+            onClick={() => setShowFilters((s) => !s)}
           >
             {showFilters ? "بستن فیلتر" : "فیلترها"}
           </button>
@@ -163,13 +144,13 @@ const Shop = () => {
                 <h2 className={styles.collectionsTitle}>
                   فیلتر بر اساس مجموعه
                 </h2>
-                {collections.map((collection) => (
+                {collections.map((c) => (
                   <p
-                    key={collection.id}
-                    onClick={() => filterByCollection(collection.title)}
+                    key={c.id}
+                    onClick={() => filterByCollection(c.title)}
                     className={styles.collectionFilter}
                   >
-                    {collection.title}
+                    {c.title}
                   </p>
                 ))}
               </div>
@@ -185,28 +166,31 @@ const Shop = () => {
             </div>
           )}
         </div>
+
+        {/* Main Area */}
         <div className={styles.container}>
+          {/* Grid of products */}
           <div className={styles.productContainer}>
-            {products.map((product, index) => {
-              if (products.length === index + 1) {
-                return (
-                  <div ref={lastProductElementRef} key={product.id}>
-                    <ProductCard product={product} />
-                  </div>
-                );
-              } else {
-                return <ProductCard product={product} key={product.id} />;
-              }
+            {products.map((product, idx) => {
+              const isLast = idx === products.length - 1;
+              return (
+                <div
+                  key={product.id}
+                  ref={isLast ? lastRef : null}
+                  className={styles.productWrapper}
+                >
+                  <ProductCard product={product} />
+                </div>
+              );
             })}
+
             {loading && (
               <div className={styles.loading}>در حال بارگذاری...</div>
             )}
             {error && <div className={styles.error}>خطا: {error}</div>}
-            {/* Render "empty" message if no product is found on page 1 */}
             {!loading && products.length === 0 && (
               <div className={styles.empty}>هیچ محصولی یافت نشد.</div>
             )}
-            {/* If products exist and hasMore is false, display end-of-content message */}
             {!loading && !hasMore && products.length > 0 && (
               <div className={styles.endMessage}>
                 هیچ محصول بیشتری موجود نیست
@@ -214,20 +198,20 @@ const Shop = () => {
             )}
           </div>
 
-          {/* Desktop sidebar for filters */}
-          <div className={styles.sidebarContainer}>
+          {/* Desktop Sidebar */}
+          <aside className={styles.sidebarContainer}>
             <div className={styles.sidebarInner}>
               <div className={styles.collections}>
                 <h2 className={styles.collectionsTitle}>
                   فیلتر بر اساس مجموعه
                 </h2>
-                {collections.map((collection) => (
+                {collections.map((c) => (
                   <p
-                    key={collection.id}
-                    onClick={() => filterByCollection(collection.title)}
+                    key={c.id}
+                    onClick={() => filterByCollection(c.title)}
                     className={styles.collectionFilter}
                   >
-                    {collection.title}
+                    {c.title}
                   </p>
                 ))}
               </div>
@@ -241,11 +225,12 @@ const Shop = () => {
                 </p>
               </div>
             </div>
-          </div>
+          </aside>
         </div>
       </div>
+
       <Footer />
-    </div>
+    </>
   );
 };
 
