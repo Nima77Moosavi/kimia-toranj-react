@@ -10,26 +10,28 @@ import banner4 from "../../assets/banner44.jpg";
 import patternImg from "../../assets/forground-banner.png";
 
 const BannerSlider = () => {
-  // 1) your real slides
+  // 1) The real images
   const realSlides = useMemo(() => [banner1, banner2, banner3, banner4], []);
 
-  // 2) build infinite-track with clones
+  // 2) Build clones at front/back
   const slides = useMemo(
     () => [
-      realSlides[realSlides.length - 1], // clone of last
+      realSlides[realSlides.length - 1], // last clone
       ...realSlides,
-      realSlides[0], // clone of first
+      realSlides[0], // first clone
     ],
     [realSlides]
   );
 
-  // 3) state & refs
+  // 3) State & refs
   const [idx, setIdx] = useState(1);
   const [anim, setAnim] = useState(true);
-  const trackRef = useRef(null);
   const timeoutRef = useRef(null);
 
-  // 4) advance & retreat
+  const maxIndex = slides.length - 2; // last real slide
+  const minIndex = 1; // first real slide
+
+  // 4) Next / Prev handlers
   const nextSlide = () => {
     setIdx((i) => i + 1);
     setAnim(true);
@@ -39,44 +41,57 @@ const BannerSlider = () => {
     setAnim(true);
   };
 
-  // 5) snap when hitting a clone
+  // 5) Snap when landing on a clone
   const onTransitionEnd = () => {
-    if (idx === slides.length - 1) {
+    if (idx > maxIndex) {
+      // went past last real → snap to first real
       setAnim(false);
-      setIdx(1);
+      setIdx(minIndex);
     }
-    if (idx === 0) {
+    if (idx < minIndex) {
+      // went before first real → snap to last real
       setAnim(false);
-      setIdx(slides.length - 2);
+      setIdx(maxIndex);
     }
   };
 
-  // 6) re-enable animation immediately after a “snap”
+  // 6) Re-enable animation after any snap
   useEffect(() => {
     if (!anim) {
       requestAnimationFrame(() => setAnim(true));
     }
   }, [anim]);
 
-  // 7) AUTOMATICALLY advance 3s after every slide
+  // 7) Autoplay with per-slide timeout + clamp
   useEffect(() => {
-    // clear previous timer
+    // Clamp idx into [minIndex, maxIndex]
+    if (idx < minIndex) {
+      setIdx(minIndex);
+      return;
+    }
+    if (idx > maxIndex) {
+      setIdx(minIndex);
+      return;
+    }
+
+    // Clear previous timer
     clearTimeout(timeoutRef.current);
 
-    // schedule next slide
+    // Schedule next slide in 3s
     timeoutRef.current = setTimeout(() => {
       nextSlide();
     }, 3000);
 
+    // Cleanup
     return () => {
       clearTimeout(timeoutRef.current);
     };
-  }, [idx]);
+  }, [idx, minIndex, maxIndex]);
 
   return (
     <div className={styles.bannerWrapper}>
       <div className={styles.patternContainer}>
-        <img src={patternImg} alt="pattern" className={styles.patternImage} />
+        <img src={patternImg} alt="" className={styles.patternImage} />
       </div>
 
       <div className={styles.sliderWindow}>
@@ -95,7 +110,6 @@ const BannerSlider = () => {
 
         <div className={styles.trackContainer}>
           <div
-            ref={trackRef}
             className={styles.track}
             style={{
               transform: `translateX(-${idx * 100}%)`,

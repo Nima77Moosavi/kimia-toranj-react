@@ -60,15 +60,28 @@ const ShoppingCart = () => {
   const removeItem = async (itemId) => {
     if (!cartData) return;
 
+    // Build the new items payload without the removed one
+    const updatedItems = cartData.items
+      .filter((item) => item.id !== itemId)
+      .map((item) => ({
+        product_variant_id: item.product_variant.id,
+        quantity: item.quantity,
+      }));
+
+    // Optimistically update UI
+    setCartData({
+      ...cartData,
+      items: cartData.items.filter((item) => item.id !== itemId),
+    });
+
     try {
-      await axiosInstance.delete(`${API_URL}api/store/cart/items/${itemId}`);
-      const updatedItems = cartData.items.filter((item) => item.id !== itemId);
-      setCartData({ ...cartData, items: updatedItems });
+      await axiosInstance.patch(`${API_URL}api/store/cart`, {
+        items: updatedItems,
+      });
     } catch (err) {
       console.error("Failed to remove item", err);
     }
   };
-
   // تابع جدید برای محاسبه جمع کل
   const calculateTotal = () => {
     if (!cartData?.items) return 0;
