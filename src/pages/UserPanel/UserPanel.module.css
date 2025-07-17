@@ -54,6 +54,8 @@
 @media (max-width: 768px) {
   .main {
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   
   .sidebar {

@@ -136,7 +136,7 @@ const Shop = () => {
             className={styles.filterToggleButton}
             onClick={() => setShowFilters((s) => !s)}
           >
-            {showFilters ? "بستن فیلتر" : "فیلترها"}
+            {showFilters ? "بستن فیلتر" : "فیلتر و دسته بندی"}
           </button>
           {showFilters && (
             <div className={styles.dropdownFilters}>

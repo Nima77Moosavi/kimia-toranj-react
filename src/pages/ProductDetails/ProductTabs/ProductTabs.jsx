@@ -1,4 +1,4 @@
-// ProductTabs/ProductTabs.jsx
+// src/components/ProductTabs/ProductTabs.jsx
 import { useRef, useEffect } from "react";
 import { FaListUl } from "react-icons/fa";
 import { MdOutlineDescription } from "react-icons/md";
@@ -14,7 +14,6 @@ const ProductTabs = ({
   setActiveTab,
   showAllReviews,
   setShowAllReviews,
-  duplicatedReviews,
 }) => {
   const specsRef = useRef(null);
   const descriptionRef = useRef(null);
@@ -23,6 +22,9 @@ const ProductTabs = ({
   const reviewsRef = useRef(null);
   const tabContainerRef = useRef(null);
   const activeButtonRef = useRef(null);
+
+  // Grab the reviews array (may be empty)
+  const reviews = Array.isArray(product.reviews) ? product.reviews : [];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,59 +35,46 @@ const ProductTabs = ({
         { id: "maintenance", ref: maintenanceRef },
         { id: "reviews", ref: reviewsRef },
       ];
-
       const scrollPosition = window.scrollY + window.innerHeight / 4;
-
       let currentSection = "specs";
 
       for (let section of sections) {
-        const element = section.ref.current;
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const offsetHeight = element.offsetHeight;
-
-          if (
-            scrollPosition >= offsetTop &&
-            scrollPosition < offsetTop + offsetHeight
-          ) {
+        const el = section.ref.current;
+        if (el) {
+          const top = el.offsetTop;
+          const bottom = top + el.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < bottom) {
             currentSection = section.id;
             break;
           }
         }
       }
-
       setActiveTab(currentSection);
     };
 
     window.addEventListener("scroll", handleScroll);
     handleScroll();
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, [setActiveTab]);
 
   useEffect(() => {
     if (activeButtonRef.current && tabContainerRef.current) {
-      const button = activeButtonRef.current;
+      const btn = activeButtonRef.current;
       const container = tabContainerRef.current;
-
-      const buttonLeft = button.offsetLeft;
-      const buttonWidth = button.offsetWidth;
-      const containerWidth = container.offsetWidth;
-
-      const scrollTo = buttonLeft - containerWidth / 2 + buttonWidth / 2;
+      const left = btn.offsetLeft;
+      const width = btn.offsetWidth;
+      const cw = container.offsetWidth;
+      const scrollTo = left - cw / 2 + width / 2;
       container.scrollTo({ left: scrollTo, behavior: "smooth" });
-      console.log(product);
     }
   }, [activeTab]);
 
   const scrollToSection = (ref, tabName) => {
-    if (ref.current) {
-      const offsetTop =
-        ref.current.getBoundingClientRect().top + window.scrollY;
-      const offset = window.innerWidth <= 768 ? 80 : 120;
-      window.scrollTo({ top: offsetTop - offset, behavior: "smooth" });
-      setActiveTab(tabName);
-    }
+    if (!ref.current) return;
+    const top = ref.current.getBoundingClientRect().top + window.scrollY;
+    const off = window.innerWidth <= 768 ? 80 : 120;
+    window.scrollTo({ top: top - off, behavior: "smooth" });
+    setActiveTab(tabName);
   };
 
   return (
@@ -129,52 +118,62 @@ const ProductTabs = ({
       </div>
 
       <div className={styles.detailsWrapper}>
+        {/* Specs */}
         <div ref={specsRef} className={styles.specsSection}>
           <h2>
             <FaListUl className={styles.icons} /> مشخصات محصول
           </h2>
           <p>{product.title}</p>
         </div>
+
+        {/* Description */}
         <div ref={descriptionRef} className={styles.descriptionSection}>
           <h2>
             <MdOutlineDescription className={styles.icons} /> توضیحات
           </h2>
           <p>{product.description}</p>
         </div>
+
+        {/* Dimensions */}
         <div ref={dimensionsRef} className={styles.dimensionsSection}>
           <h2>
             <RiRulerLine className={styles.icons} /> ابعاد
           </h2>
           <ul className={styles.dimensions}>
-            {product.variants[0].attributes.map((attribute) => (
-              <li key={attribute.id} className={styles.dimensionItem}>
-                <span>{attribute.attribute}</span>:
-                <span>{toPersianDigits(attribute.value)}</span>
+            {product.variants?.[0]?.attributes?.map((attr) => (
+              <li key={attr.id} className={styles.dimensionItem}>
+                <span>{attr.attribute}</span>:{" "}
+                <span>{toPersianDigits(attr.value)}</span>
               </li>
             ))}
           </ul>
         </div>
+
+        {/* Maintenance */}
         <div ref={maintenanceRef} className={styles.maintenanceSection}>
           <h2>
             <BsQuestionSquare className={styles.icons} /> شرایط نگهداری
           </h2>
           <p>شرایط نگهداری محصول اینجا نمایش داده می‌شود.</p>
         </div>
+
+        {/* Reviews */}
         <div ref={reviewsRef} className={styles.reviewsContainer}>
           <h2>
             <LiaComments className={styles.icons} /> دیدگاه مشتریان
           </h2>
           <div className={styles.reviewsWrapper}>
-            {duplicatedReviews
-              .slice(0, showAllReviews ? duplicatedReviews.length : 4)
-              .map((review, index) => (
-                <div className={styles.reviewCard} key={index}>
-                  <p className={styles.reviewText}>{review.comment}</p>
+            {reviews
+              .slice(0, showAllReviews ? reviews.length : 4)
+              .map((review, idx) => (
+                <div className={styles.reviewCard} key={review.id || idx}>
+                  <p className={styles.reviewText}>{review.content}</p>
                   <p className={styles.reviewAuthor}>{review.user}</p>
                 </div>
               ))}
           </div>
-          {duplicatedReviews.length > 4 && !showAllReviews && (
+
+          {reviews.length > 4 && !showAllReviews && (
             <button
               className={styles.showMoreButton}
               onClick={() => setShowAllReviews(true)}
@@ -182,7 +181,7 @@ const ProductTabs = ({
               نمایش بیشتر
             </button>
           )}
-          {showAllReviews && duplicatedReviews.length > 4 && (
+          {showAllReviews && reviews.length > 4 && (
             <button
               className={styles.showMoreButton}
               onClick={() => setShowAllReviews(false)}
