@@ -144,7 +144,7 @@ const ProductDetails = () => {
             <PriceBox
               price={formatPrice(variant.price || 0)}
               onAddToCart={handleAddToCart}
-              inventoryText={`تنها ${variant.stock || 0} عدد در انبار`}
+              stock={variant.stock || 0}
             />
           </div>
 

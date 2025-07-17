@@ -1,3 +1,4 @@
+// src/pages/Shop/Shop.jsx
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import Header from "../../components/Header/Header";
@@ -18,69 +19,65 @@ const Shop = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Ensure we always have an order_by param by default
+  // Ensure a default order_by
   useEffect(() => {
     if (!searchParams.get("order_by")) {
-      const newP = new URLSearchParams(searchParams);
-      newP.set("order_by", "price");
-      setSearchParams(newP, { replace: true });
+      const newParams = new URLSearchParams(searchParams);
+      newParams.set("order_by", "price");
+      setSearchParams(newParams, { replace: true });
     }
     // eslint-disable-next-line
   }, []);
 
-  // Build the query string for current filters & page
+  // Build query string with filters & paging
   const buildQuery = () => {
     const qs = searchParams.toString();
     return qs ? `?${qs}&page=${page}` : `?page=${page}`;
   };
 
-  // Fetch products whenever searchParams or page changes
+  // Fetch products on filter or page change
   useEffect(() => {
-    let isActive = true;
-    const aborter = new AbortController();
+    let active = true;
+    const abort = new AbortController();
 
-    async function load() {
+    const load = async () => {
       setLoading(true);
       setError(null);
-
       try {
         const res = await fetch(`${API_BASE}/products/${buildQuery()}`, {
-          signal: aborter.signal,
+          signal: abort.signal,
         });
         if (!res.ok) {
           if (res.status === 404) {
-            // no more pages
-            if (isActive) setHasMore(false);
+            if (active) setHasMore(false);
             return;
           }
           throw new Error("مشکل در دریافت محصولات");
         }
         const data = await res.json();
-        if (!isActive) return; // ignore if unmounted/aborted
+        if (!active) return;
 
-        // Append or replace based on page
         setProducts((prev) =>
           page === 1 ? data.results : [...prev, ...data.results]
         );
         setHasMore(data.next !== null);
       } catch (err) {
-        if (isActive && err.name !== "AbortError") {
+        if (active && err.name !== "AbortError") {
           setError(err.message);
         }
       } finally {
-        if (isActive) setLoading(false);
+        if (active) setLoading(false);
       }
-    }
+    };
 
     load();
-
     return () => {
-      isActive = false;
-      aborter.abort();
+      active = false;
+      abort.abort();
     };
   }, [searchParams, page]);
 
-  // Load collections once
+  // Fetch collections once
   useEffect(() => {
     fetch(`${API_BASE}/collections/`)
       .then((r) => r.json())
@@ -88,30 +85,31 @@ const Shop = () => {
       .catch(console.error);
   }, []);
 
-  // Common reset logic when applying a new filter/sort
+  // Reset+apply a filter/sort
   const applyFilter = (key, value) => {
-    const newP = new URLSearchParams(searchParams);
-    newP.set(key, value);
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set(key, value);
 
-    setSearchParams(newP);
-    setProducts([]); // clear old
-    setPage(1); // start from first page
-    setHasMore(true); // reset paging
+    setSearchParams(newParams);
+    setProducts([]);
+    setPage(1);
+    setHasMore(true);
     setShowFilters(false);
   };
 
-  // Handlers
+  // Filter & sort handlers
   const filterByCollection = (title) => applyFilter("collection", title);
   const sortCheapest = () => applyFilter("order_by", "price");
   const sortExpensive = () => applyFilter("order_by", "-price");
+  const sortNewest = () => applyFilter("order_by", "-created_at");
 
-  // IntersectionObserver for infinite scroll
+  // Infinite-scroll observer
   const observer = useRef();
   const lastRef = useCallback(
     (node) => {
       if (loading) return;
-
       if (observer.current) observer.current.disconnect();
+
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
           setPage((p) => p + 1);
@@ -130,7 +128,7 @@ const Shop = () => {
       <div className={styles.content}>
         <h2 className={styles.title}>فروشگاه</h2>
 
-        {/* Mobile filter toggle */}
+        {/* Mobile filters */}
         <div className={styles.filterDropdownMobile}>
           <button
             className={styles.filterToggleButton}
@@ -162,17 +160,19 @@ const Shop = () => {
                 <p onClick={sortExpensive} className={styles.sortOption}>
                   گران‌ترین
                 </p>
+                <p onClick={sortNewest} className={styles.sortOption}>
+                  جدیدترین
+                </p>
               </div>
             </div>
           )}
         </div>
 
-        {/* Main Area */}
+        {/* Main */}
         <div className={styles.container}>
-          {/* Grid of products */}
           <div className={styles.productContainer}>
-            {products.map((product, idx) => {
-              const isLast = idx === products.length - 1;
+            {products.map((product, i) => {
+              const isLast = i === products.length - 1;
               return (
                 <div
                   key={product.id}
@@ -198,7 +198,7 @@ const Shop = () => {
             )}
           </div>
 
-          {/* Desktop Sidebar */}
+          {/* Sidebar (desktop) */}
           <aside className={styles.sidebarContainer}>
             <div className={styles.sidebarInner}>
               <div className={styles.collections}>
@@ -222,6 +222,9 @@ const Shop = () => {
                 </p>
                 <p onClick={sortExpensive} className={styles.sortOption}>
                   گران‌ترین
+                </p>
+                <p onClick={sortNewest} className={styles.sortOption}>
+                  جدیدترین
                 </p>
               </div>
             </div>
