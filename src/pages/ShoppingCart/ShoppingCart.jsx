@@ -19,7 +19,7 @@ const ShoppingCart = () => {
     const fetchCart = async () => {
       try {
         setLoading(true);
-        const response = await axiosInstance.get(`${API_URL}api/store/cart`);
+        const response = await axiosInstance.get(`${API_URL}api/store/cart/`);
         setCartData(response.data);
         setLoading(false);
       } catch (err) {
@@ -49,7 +49,7 @@ const ShoppingCart = () => {
     setCartData({ ...cartData, items: updatedLocalItems });
 
     try {
-      await axiosInstance.patch(`${API_URL}api/store/cart`, {
+      await axiosInstance.patch(`${API_URL}api/store/cart/`, {
         items: updatedItems,
       });
     } catch (err) {
