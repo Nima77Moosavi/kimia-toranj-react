@@ -30,7 +30,6 @@ const ProductDetails = () => {
   const { addFavorite, removeFavorite, isFavorite } =
     useContext(FavoritesContext);
 
-  const formatPrice = (price) => new Intl.NumberFormat("fa-IR").format(price);
 
   // Add to cart (unchanged)
   const handleAddToCart = async () => {
@@ -142,7 +141,7 @@ const ProductDetails = () => {
         <div className={styles.container}>
           <div className={styles.leftSidebar}>
             <PriceBox
-              price={formatPrice(variant.price || 0)}
+              price={(variant.price || 0)}
               onAddToCart={handleAddToCart}
               stock={variant.stock || 0}
             />
