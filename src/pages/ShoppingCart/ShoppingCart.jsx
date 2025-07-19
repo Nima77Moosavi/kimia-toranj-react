@@ -75,7 +75,7 @@ const ShoppingCart = () => {
     });
 
     try {
-      await axiosInstance.patch(`${API_URL}api/store/cart`, {
+      await axiosInstance.patch(`${API_URL}api/store/cart/`, {
         items: updatedItems,
       });
     } catch (err) {

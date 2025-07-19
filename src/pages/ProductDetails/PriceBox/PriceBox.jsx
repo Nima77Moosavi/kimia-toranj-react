@@ -24,7 +24,9 @@ const PriceBox = ({ price, onAddToCart, stock }) => {
 
       {/* ← ONLY THIS BLOCK CHANGED */}
       <p className={lowStock ? styles.inventory : ""}>
-        {lowStock ? `تنها ${stock} عدد در انبار` : `${stock} عدد در انبار`}
+        {lowStock
+          ? `تنها ${stock} عدد باقی مانده `
+          : `${stock} عدد باقی مانده `}
         <BsBoxSeam className={styles.icon} />
       </p>
 
