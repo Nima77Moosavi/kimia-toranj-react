@@ -95,7 +95,7 @@ const BannerSlider = () => {
       </div>
 
       <div className={styles.sliderWindow}>
-        <button
+        {/* <button
           className={`${styles.navButton} ${styles.prevButton}`}
           onClick={prevSlide}
         >
@@ -106,7 +106,7 @@ const BannerSlider = () => {
           onClick={nextSlide}
         >
           <GrFormNext />
-        </button>
+        </button> */}
 
         <div className={styles.trackContainer}>
           <div
