@@ -9,6 +9,7 @@ import Bestsellers from "../../components/Bestsellers/Bestsellers";
 import Footer from "../../components/Footer/Footer";
 import MoonLoader from "react-spinners/MoonLoader";
 
+import axiosInstanceNoRedirect from "../../utils/axiosInstanceNoRedirect";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_URL } from "../../config";
 
@@ -37,7 +38,7 @@ const ProductDetails = () => {
   useEffect(() => {
     const fetchLikedItems = async () => {
       try {
-        const { data } = await axiosInstance.get(
+        const { data } = await axiosInstanceNoRedirect.get(
           `${API_URL}api/store/liked-items/`
         );
         setLikedItems(data);
@@ -123,7 +124,7 @@ const ProductDetails = () => {
         if (!likedItem) return;
 
         // DELETE /liked-items/{pk}/
-        await axiosInstance.delete(
+        await axiosInstanceNoRedirect.delete(
           `${API_URL}api/store/liked-items/${likedItem.id}/`
         );
 
@@ -133,7 +134,7 @@ const ProductDetails = () => {
       } else {
         // POST /liked-items/ with only product_variant_id
         const payload = { product_variant_id: variantId };
-        const { data: newLikedItem } = await axiosInstance.post(
+        const { data: newLikedItem } = await axiosInstanceNoRedirect.post(
           `${API_URL}api/store/liked-items/`,
           payload
         );
