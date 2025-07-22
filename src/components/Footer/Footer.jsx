@@ -40,44 +40,43 @@ const Footer = () => {
         <p>شعبه دو: {toPersianDigits("03132218729")}</p>
         <p>شعبه سه: {toPersianDigits("03132244430")}</p>
         <p>دفتر مرکزی: {toPersianDigits("03132120363")}</p>
-        <p>دفتر مرکزی: {toPersianDigits("03132120363")}</p>
       </div>
 
       <div className={styles.socials}>
         <h2 className={styles.title}> راه های ارتباطی</h2>
         <a
-                href="https://t.me/+989130095238"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.icon}
-              >
-                <FaTelegramPlane size={22} />
-              </a>
-        
-              <a
-                href="https://wa.me/989130095238"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.icon}
-              >
-                <FaWhatsapp size={22} />
-              </a>
-        
-              <a
-                href="tel:989920784900"
-                className={styles.icon}
-              >
-                <FaPhoneAlt size={22} />
-              </a>
-        
-              <a
-                href="https://instagram.com/kimia.toranj"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.icon}
-              >
-                <FaInstagram size={22} />
-              </a>
+          href="https://t.me/+989130095238"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.icon}
+        >
+          <FaTelegramPlane size={22} />
+        </a>
+
+        <a
+          href="https://wa.me/989130095238"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.icon}
+        >
+          <FaWhatsapp size={22} />
+        </a>
+
+        <a
+          href="tel:989920784900"
+          className={styles.icon}
+        >
+          <FaPhoneAlt size={22} />
+        </a>
+
+        <a
+          href="https://instagram.com/kimia.toranj"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.icon}
+        >
+          <FaInstagram size={22} />
+        </a>
       </div>
       <div className={styles.enamadWrapper}>
         <EnamadSeal />

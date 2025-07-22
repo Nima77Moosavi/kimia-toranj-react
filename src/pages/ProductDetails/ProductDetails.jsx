@@ -1,13 +1,17 @@
-import React, { useState, useEffect, useContext } from "react";
+// src/pages/ProductDetails/ProductDetails.jsx
+
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./ProductDetails.module.css";
+
 import Header from "../../components/Header/Header";
 import Bestsellers from "../../components/Bestsellers/Bestsellers";
 import Footer from "../../components/Footer/Footer";
 import MoonLoader from "react-spinners/MoonLoader";
-import { FavoritesContext } from "../../context/FavoritesContext";
+
 import axiosInstance from "../../utils/axiosInstance";
 import { API_URL } from "../../config";
+
 import ImageSlider from "./ImageSlider/ImageSlider";
 import ProductTabs from "./ProductTabs/ProductTabs";
 import ProductRating from "./ProductRating/ProductRating";
@@ -20,31 +24,70 @@ const ProductDetails = () => {
   const id = slugAndId.substring(slugAndId.lastIndexOf("-") + 1);
 
   const [product, setProduct] = useState({});
+  const [likedItems, setLikedItems] = useState([]);
+  const [like, setLike] = useState(false);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [like, setLike] = useState(false);
   const [showAllReviews, setShowAllReviews] = useState(false);
   const [activeTab, setActiveTab] = useState("specs");
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-  const { addFavorite, removeFavorite, isFavorite } =
-    useContext(FavoritesContext);
+  // 1. Load user's liked-items from the server
+  useEffect(() => {
+    const fetchLikedItems = async () => {
+      try {
+        const { data } = await axiosInstance.get(
+          `${API_URL}api/store/liked-items/`
+        );
+        setLikedItems(data);
+      } catch (err) {
+        console.error("Failed to load liked items:", err);
+      }
+    };
+    fetchLikedItems();
+  }, []);
 
+  // 2. Load the product details (including reviews)
+  useEffect(() => {
+    const loadProduct = async () => {
+      try {
+        const { data } = await axiosInstance.get(
+          `${API_URL}api/store/products/${id}/`
+        );
+        setProduct(data);
+      } catch (err) {
+        console.error("Failed to load product:", err);
+        setError(err.message || "خطا در دریافت محصول");
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadProduct();
+  }, [id]);
 
-  // Add to cart (unchanged)
+  // 3. Derive the `like` flag from likedItems + current variant
+  useEffect(() => {
+    const variantId = product.variants?.[0]?.id;
+    setLike(
+      Boolean(likedItems.find((li) => li.product_variant.id === variantId))
+    );
+  }, [likedItems, product.variants]);
+
+  // Unchanged: Add to cart handler
   const handleAddToCart = async () => {
     try {
-      const response = await axiosInstance.get(`${API_URL}api/store/cart`);
-      const currentCart = response.data;
+      const res = await axiosInstance.get(`${API_URL}api/store/cart/`);
+      const currentCart = res.data;
       let currentItems =
         currentCart.items
-          ?.filter((item) => item.product_variant?.id)
-          .map((item) => ({
-            product_variant_id: item.product_variant.id,
-            quantity: item.quantity,
+          ?.filter((it) => it.product_variant?.id)
+          .map((it) => ({
+            product_variant_id: it.product_variant.id,
+            quantity: it.quantity,
           })) || [];
 
-      const variantId = product?.variants?.[0]?.id;
+      const variantId = product.variants?.[0]?.id;
       if (!variantId) throw new Error("Variant ID not available");
 
       const idx = currentItems.findIndex(
@@ -66,46 +109,43 @@ const ProductDetails = () => {
     }
   };
 
-  // Like/unlike handler (unchanged)
-  const likeHandler = () => {
-    if (isFavorite(product.id)) {
-      removeFavorite(product.id);
-      setLike(false);
-    } else {
-      addFavorite({
-        id: product.id,
-        title: product.title,
-        image: product.images?.[0]?.image || "",
-        price: product.variants?.[0]?.price || "",
-      });
-      setLike(true);
+  // 4. Like / Unlike handler matching your DRF serializer
+  const likeHandler = async () => {
+    try {
+      const variantId = product.variants?.[0]?.id;
+      if (!variantId) return;
+
+      if (like) {
+        // Find the LikedItem instance for this variant
+        const likedItem = likedItems.find(
+          (li) => li.product_variant.id === variantId
+        );
+        if (!likedItem) return;
+
+        // DELETE /liked-items/{pk}/
+        await axiosInstance.delete(
+          `${API_URL}api/store/liked-items/${likedItem.id}/`
+        );
+
+        // Update local state
+        setLikedItems((prev) => prev.filter((li) => li.id !== likedItem.id));
+        setLike(false);
+      } else {
+        // POST /liked-items/ with only product_variant_id
+        const payload = { product_variant_id: variantId };
+        const { data: newLikedItem } = await axiosInstance.post(
+          `${API_URL}api/store/liked-items/`,
+          payload
+        );
+
+        setLikedItems((prev) => [...prev, newLikedItem]);
+        setLike(true);
+      }
+    } catch (err) {
+      console.error("Error toggling like:", err);
+      // Show a toast or inline message if you like
     }
   };
-
-  // set initial like state
-  useEffect(() => {
-    setLike(isFavorite(parseInt(id)));
-  }, [id, isFavorite]);
-
-  // ─── HERE’S THE ONLY CHANGE ───
-  // fetch product (with real reviews) via axios
-  useEffect(() => {
-    const load = async () => {
-      try {
-        const { data } = await axiosInstance.get(
-          `${API_URL}api/store/products/${id}/`
-        );
-        setProduct(data);
-      } catch (err) {
-        console.error(err);
-        setError(err.message || "خطا در دریافت محصول");
-      } finally {
-        setLoading(false);
-      }
-    };
-    load();
-  }, [id]);
-  // ────────────────────────────────
 
   if (loading) {
     return (
@@ -141,7 +181,7 @@ const ProductDetails = () => {
         <div className={styles.container}>
           <div className={styles.leftSidebar}>
             <PriceBox
-              price={(variant.price || 0)}
+              price={variant.price || 0}
               onAddToCart={handleAddToCart}
               stock={variant.stock || 0}
             />

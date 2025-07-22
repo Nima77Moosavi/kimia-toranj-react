@@ -6,6 +6,7 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  padding-bottom: 80px;
 }
 
 
@@ -51,38 +52,33 @@
   z-index: -10;
   margin-bottom: 100px;
 }
+/* -------------------------------------------------- */
+/* MOBILE (≤768px)                                    */
+/* -------------------------------------------------- */
 @media (max-width: 768px) {
   .main {
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    /* add horizontal padding here once, instead of per-child margins */
+    padding: 0 15px;
   }
   
   .sidebar {
     width: 100%;
-    padding: 15px;
+    padding: 15px;           /* ← same inset as below */
     border-left: none;
     border-top: 1px solid #ddd;
+    box-sizing: border-box;
   }
   
   .content {
-    padding: 15px;
-  }
-}
-@media (max-width: 480px) {
-  .circle {
-    width: 400px;
-    height: 400px;
-    top: -180px;
-    left: -180px;
-  }
-  .main{
-    flex-direction: column;
-  }
-  .sidebar{
     width: 100%;
-  }
-  .content{
-    width: 100%;
+    /* remove your old margins and use padding from .main instead */
+    margin: 10px 0;          /* vertical only */
+    /* if you want inner breathing room: */
+    padding: 20px;
+    box-sizing: border-box;
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
   }
 }
