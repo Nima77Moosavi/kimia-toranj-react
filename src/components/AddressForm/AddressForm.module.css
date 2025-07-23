@@ -1,4 +1,4 @@
-/* AddressForm.module.css */
+/* src/components/AddressForm/AddressForm.module.css */
 
 .addressForm {
   max-width: 800px;
@@ -25,11 +25,10 @@
   content: '';
   position: absolute;
   bottom: 0;
-  right: 0;
+  right: 50%;
   width: 100px;
   height: 3px;
   background-color: #40e0d0;
-  right: 50%;
   transform: translateX(50%);
 }
 
@@ -45,6 +44,7 @@
 }
 
 .formGroup {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -52,7 +52,6 @@
 }
 
 .formGroup label {
-  /* font-weight: 500; */
   color: #023047;
   font-size: 16px;
 }
@@ -66,6 +65,7 @@
   transition: all 0.3s;
   background-color: #f9f9f9;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .formGroup input:focus,
@@ -86,6 +86,37 @@
   min-height: 100px;
 }
 
+/* Autocomplete suggestion list */
+.suggestions {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+  right: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  z-index: 100;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.suggestions li {
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.suggestions li:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+/* Submit button */
 .addressForm button {
   background-color: #40e0d0;
   color: #023047;
@@ -97,6 +128,8 @@
   font-size: 20px;
   font-weight: 600;
   width: min(200px, 100%);
+  margin: 0 auto;
+  display: block;
 }
 
 .addressForm button:hover {
@@ -112,17 +145,17 @@
   box-shadow: none;
 }
 
-/* Responsive Styles */
+/* Responsive */
 @media screen and (max-width: 768px) {
   .addressForm {
     padding: 20px;
   }
-  
+
   .addressForm h3 {
     font-size: 24px;
     margin-bottom: 20px;
   }
-  
+
   .formGroup {
     margin-bottom: 15px;
   }
@@ -132,16 +165,16 @@
   .addressForm h3 {
     font-size: 22px;
   }
-  
+
   .addressForm h3::after {
     width: 80px;
   }
-  
+
   .formGroup input,
   .formGroup textarea {
     padding: 10px 12px;
   }
-  
+
   .addressForm button {
     padding: 10px 20px;
   }
