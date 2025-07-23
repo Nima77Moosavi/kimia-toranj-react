@@ -1,11 +1,14 @@
+// src/components/ProductCard/ProductCard.jsx
+
 import React from "react";
-import styles from "./ProductCard.module.css"; // فرض کنید این فایل CSS را دارید
+import styles from "./ProductCard.module.css";
 import { Link } from "react-router-dom";
 import { formatPrice } from "../../utils/formatPrice";
 
 const ProductCard = ({ product }) => {
   const productLink = `/productDetails/${product.url_title}-${product.id}`;
-  const stock = product.variants[0].stock;
+  const variant = product.variants[0] || {};
+  const stock = variant.stock ?? 0;
 
   return (
     <Link to={productLink} className={styles.cardLink}>
@@ -13,21 +16,29 @@ const ProductCard = ({ product }) => {
         <img
           src={
             product.images.length > 0
-              ? `${product.images[0].image}`
+              ? product.images[0].image
               : "/placeholder.jpg"
           }
           alt={product.title}
           className={styles.img}
         />
         <h4 className={styles.title}>{product.title}</h4>
-        {stock < 4 && stock > 0 && (
+
+        {stock > 0 && stock < 4 && (
           <span className={styles.stock}>
             تنها {stock} عدد در انبار باقی مانده
           </span>
         )}
-        <button className={styles.price}>
-          {formatPrice(product.variants[0].price)} تومان
-        </button>
+
+        {stock > 0 ? (
+          <button className={styles.price}>
+            {formatPrice(variant.price)} تومان
+          </button>
+        ) : (
+          <button className={styles.callButton} disabled>
+            تماس بگیرید
+          </button>
+        )}
       </div>
     </Link>
   );

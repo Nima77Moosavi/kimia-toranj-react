@@ -1,15 +1,14 @@
-// src/components/PriceBox/PriceBox.jsx
 import React from "react";
 import { AiOutlineSafety } from "react-icons/ai";
 import { TbShieldStar } from "react-icons/tb";
 import { BsBoxSeam } from "react-icons/bs";
 
 import styles from "./PriceBox.module.css";
-
 import { formatPrice } from "../../../utils/formatPrice";
 
 const PriceBox = ({ price, onAddToCart, stock }) => {
-  const lowStock = stock < 3;
+  const lowStock = stock > 0 && stock < 3;
+  const outOfStock = stock === 0;
 
   return (
     <div className={styles.priceContainer}>
@@ -22,18 +21,29 @@ const PriceBox = ({ price, onAddToCart, stock }) => {
         <TbShieldStar className={styles.icon} />
       </p>
 
-      {/* ← ONLY THIS BLOCK CHANGED */}
       <p className={lowStock ? styles.inventory : ""}>
-        {lowStock
-          ? `تنها ${stock} عدد باقی مانده `
-          : `${stock} عدد باقی مانده `}
+        {stock} عدد باقی مانده
         <BsBoxSeam className={styles.icon} />
       </p>
 
-      <button className={styles.price}>{formatPrice(price)} تومان</button>
-      <button className={styles.addToCart} onClick={onAddToCart}>
-        افزودن به سبد خرید
-      </button>
+      {outOfStock ? (
+        <button className={styles.callButton} disabled>
+          تماس بگیرید
+        </button>
+      ) : (
+        <>
+          <button className={styles.price}>
+            {formatPrice(price)} تومان
+          </button>
+          <button
+            className={styles.addToCart}
+            onClick={onAddToCart}
+            disabled={stock === 0}
+          >
+            افزودن به سبد خرید
+          </button>
+        </>
+      )}
     </div>
   );
 };
