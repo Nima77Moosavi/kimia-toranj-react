@@ -16,7 +16,6 @@ export default defineConfig({
         "/login",
         "/blog",
         "/shop",
-        "/bestsellersPage",
         "/gift-selector",
       ],
 
