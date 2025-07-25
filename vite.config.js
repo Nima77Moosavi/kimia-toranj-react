@@ -33,6 +33,8 @@ export default defineConfig({
         '/login'
       ],
 
+      generateRobotsTxt:false,
+
       // Optional: changefreq and priority defaults
       defaults: {
         changefreq: 'weekly',
