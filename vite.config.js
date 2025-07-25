@@ -7,17 +7,11 @@ export default defineConfig({
     react(),
     Sitemap({
       // 1. Your live site URL
-      hostname: "https://www.yoursite.com",
+      hostname: "https://kimiatoranj.com",
 
       // 2. List all your routes here.
       //    Include static paths and any dynamic ones you can resolve at build time.
-      routes: [
-        "/",
-        "/login",
-        "/blog",
-        "/shop",
-        "/gift-selector",
-      ],
+      routes: ["/", "/login", "/blog", "/shop", "/gift-selector"],
 
       // 3. If you have dynamic pages (e.g. blog posts), enumerate them here
       dynamicRoutes: [
