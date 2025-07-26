@@ -11,14 +11,10 @@ export default defineConfig({
 
       // 2. List all your routes here.
       //    Include static paths and any dynamic ones you can resolve at build time.
-      routes: ["/", "/login", "/blog", "/shop", "/gift-selector"],
+      // routes: ["/", "/login", "/blog", "/shop", "/gift-selector"],
 
       // 3. If you have dynamic pages (e.g. blog posts), enumerate them here
-      dynamicRoutes: [
-        "/blog/1",
-        "/blog/2",
-        // …map your posts or products by ID/slug
-      ],
+      dynamicRoutes: ["/", "/login", "/blog", "/shop", "/gift-selector"],
 
       // 4. Exclude any client-only or private routes
       exclude: ["/user-panel/*", "/login"],
