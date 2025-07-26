@@ -35,7 +35,7 @@ const Highlights = () => {
       <div className={styles.highlightsContainer}>
         <div className={styles.highlights}>
           {loading
-            ? Array.from({ length: 5 }).map((_, i) => (
+            ? Array.from({ length: 12 }).map((_, i) => (
                 <HighlightCardSkeleton key={i} />
               ))
             : highlights.map((hl) => (
