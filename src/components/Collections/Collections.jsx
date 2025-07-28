@@ -6,8 +6,8 @@ import CollectionCardSkeleton from "./CollectionCard.Skeleton"; // ← new
 
 const Collections = () => {
   const [collections, setCollections] = useState([]);
-  const [loading, setLoading]         = useState(true);
-  const [error, setError]             = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchCollections = async () => {
@@ -37,24 +37,24 @@ const Collections = () => {
       <div className={styles.row}>
         {loading
           ? Array.from({ length: 9 }).map((_, i) => (
-              <CollectionCardSkeleton key={i} />
-            ))
+            <CollectionCardSkeleton key={i} />
+          ))
           : collections.map((collection) => (
-              <Link
-                to={`/shop?collection=${encodeURIComponent(
-                  collection.title
-                )}`}
-                key={collection.id}
-                className={styles.collectionCard}
-                style={{ backgroundImage: `url(${collection.image})` }}
-              >
-                <div className={styles.overlay}>
-                  <div className={styles.description}>
-                    {collection.description || collection.title}
-                  </div>
+            <Link
+              to={collection.landing_page_url || `/shop?collection=${encodeURIComponent(
+                collection.title
+              )}`}
+              key={collection.id}
+              className={styles.collectionCard}
+              style={{ backgroundImage: `url(${collection.image})` }}
+            >
+              <div className={styles.overlay}>
+                <div className={styles.description}>
+                  {collection.description || collection.title}
                 </div>
-              </Link>
-            ))}
+              </div>
+            </Link>
+          ))}
       </div>
     </div>
   );

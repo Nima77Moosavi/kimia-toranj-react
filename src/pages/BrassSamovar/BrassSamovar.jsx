@@ -40,7 +40,7 @@ const BrassSamovar = () => {
                     <p className={styles.heroSubtitle}>
                         {collection.description || 'سماور برنجی یکی از نمادهای اصیل فرهنگ چای نوشی در ایران است؛ محصولی که تلفیقی از کاربرد روزمره و هنر دست ساز ایرانی است.'}
                     </p>
-                    <Link to="/shop?collection=brass-samovar" className={styles.ctaButton}>
+                    <Link to={`/shop?collection=${encodeURIComponent(collection.title)}`} className={styles.ctaButton}>
                         مشاهده محصولات
                     </Link>
                 </div>
