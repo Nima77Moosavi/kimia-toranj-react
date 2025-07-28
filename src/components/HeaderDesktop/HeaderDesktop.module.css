@@ -55,15 +55,19 @@
   position: relative;
   z-index: 20;
   flex-wrap: wrap;
+  min-height: 80px;
 }
 
 .logoContainer {
   width: 240px;
   height: auto;
+  display: flex;
+  align-items: center;
 }
 
 .logo {
   width: 100%;
+  height: auto;
 }
 
 /* ───────────────────────────────────────────────────────
@@ -76,9 +80,9 @@
   font-size: 28px;
   color: #023047 !important;
   margin-left: 100px;
-  margin-top: 10px;
   cursor: pointer;
   align-items: center;
+  justify-content: center;
   position: relative;
   z-index: 30;
 }
@@ -89,7 +93,9 @@
   order: 2;
   color: #023047;
   margin-left: 10px;
-  margin-top: -10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .loginButton a {
@@ -108,6 +114,7 @@
   height: 40px;
   display: flex;
   align-items: center;
+  justify-content: center;
   pointer-events: none;
 }
 
@@ -127,11 +134,14 @@
   justify-content: flex-end;
   align-items: center;
   z-index: 10;
+  height: 40px;
 }
 
 .searchBox {
   width: 70%;
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .searchBox input {
@@ -143,17 +153,20 @@
   text-align: right;
   direction: rtl;
   font-size: 18px;
-  margin-top: -30px;
+  box-sizing: border-box;
 }
 
 .searchIcon {
   position: absolute;
   left: 10px;
-  top: 52%;
+  top: 50%;
   transform: translateY(-50%);
   color: #023047;
   font-size: 24px;
   pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ───────────────────────────────────────────────────────
@@ -213,13 +226,16 @@
   align-items: center;
   justify-content: center;
   width: max-content;
+  height: 50px;
 }
 
 .hamburgerMenu span {
   font-size: 50px;
   cursor: pointer;
   color: #023047;
-  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ───────────────────────────────────────────────────────
@@ -264,7 +280,9 @@
     font-size: 24px;
   }
   .loginButton {
-    margin-top: -15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .loginButton button {
     font-size: 18px;
@@ -298,12 +316,16 @@
   .icons {
     font-size: 20px;
   }
+  .loginButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .loginButton button {
     font-size: 16px;
     height: max-content;
     border: #023047 solid 1px;
     padding: 0 10px;
-    margin-top: 12px;
   }
   .searchContainer {
     width: 80%;

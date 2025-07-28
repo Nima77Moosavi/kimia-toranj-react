@@ -9,14 +9,18 @@
   top: 0;
   width: 100%;
   z-index: 1000;
+  padding: 0 15px;
 }
 
 .logoContainer {
   width: 120px;
+  display: flex;
+  align-items: center;
 }
 
 .logo {
   width: 100%;
+  height: auto;
 }
 
 /* Search */
@@ -24,6 +28,7 @@
   flex: 1;
   display: flex;
   justify-content: center;
+  align-items: center;
   position: relative;
 }
 
@@ -31,6 +36,8 @@
   width: 90%;
   max-width: 300px;
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .searchBox input {
@@ -40,14 +47,15 @@
   border: 1px solid #023047;
   border-radius: 25px;
   outline: none;
+  height: 36px;
+  box-sizing: border-box;
 }
 
 .searchButton {
   position: absolute;
   left: 10px;
-  top: 0;
-  bottom: 0;
-  margin: auto 0;
+  top: 50%;
+  transform: translateY(-50%);
   background: none;
   border: none;
   padding: 0;
@@ -55,11 +63,12 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  height: 20px;
+  width: 20px;
 }
 
 .searchIcon {
-  
-  font-size: 20px;
+  font-size: 18px;
   color: #002147;
   pointer-events: none;
 }
@@ -110,6 +119,9 @@
 /* Hamburger */
 .hamburgerContainer {
   z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hamburgerButton {
@@ -118,6 +130,11 @@
   cursor: pointer;
   padding: 0;
   transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px;
+  width: 44px;
 }
 
 .hamburgerButton:hover {

@@ -34,6 +34,22 @@ const ShoppingCart = () => {
   const updateQuantity = async (itemId, newQuantity) => {
     if (!cartData) return;
 
+    // Find the item to check its stock
+    const item = cartData.items.find(item => item.id === itemId);
+    if (!item) return;
+
+    // Check if new quantity exceeds stock
+    const availableStock = item.product_variant?.stock || 0;
+    if (newQuantity > availableStock) {
+      // Don't allow quantity to exceed stock
+      return;
+    }
+
+    // Don't allow quantity less than 1
+    if (newQuantity < 1) {
+      return;
+    }
+
     const updatedItems = cartData.items.map((item) => {
       return item.id === itemId
         ? { product_variant_id: item.product_variant.id, quantity: newQuantity }
@@ -91,6 +107,15 @@ const ShoppingCart = () => {
     );
   };
 
+  // تابع جدید برای بررسی اعتبار سبد خرید
+  const isCartValid = () => {
+    if (!cartData?.items) return false;
+    return cartData.items.every(item => {
+      const availableStock = item.product_variant?.stock || 0;
+      return item.quantity <= availableStock && item.quantity > 0;
+    });
+  };
+
   // تابع جدید برای ثبت سفارش
   const handleCheckout = async () => {
     navigate("/user-panel/checkout");
@@ -135,6 +160,10 @@ const ShoppingCart = () => {
                         <p className={styles.itemPrice}>
                           {item.product_variant?.price} تومان
                         </p>
+                        <p className={`${styles.itemStock} ${(item.product_variant?.stock || 0) < 3 ? styles.lowStock : ''}`}>
+                          موجودی: {item.product_variant?.stock || 0} عدد
+                          {(item.product_variant?.stock || 0) < 3 && (item.product_variant?.stock || 0) > 0 && ' (کم موجودی)'}
+                        </p>
                         <div className={styles.quantityControl}>
                           <div className={styles.quantityBox}>
                             <button
@@ -142,6 +171,7 @@ const ShoppingCart = () => {
                               onClick={() =>
                                 updateQuantity(item.id, item.quantity + 1)
                               }
+                              disabled={item.quantity >= (item.product_variant?.stock || 0)}
                             >
                               <FiPlus />
                             </button>
@@ -177,6 +207,11 @@ const ShoppingCart = () => {
 
               {/* بخش جدید: جمع کل و دکمه ثبت سفارش */}
               <div className={styles.cartSummary}>
+                {!isCartValid() && (
+                  <div className={styles.stockWarning}>
+                    ⚠️ برخی از محصولات در سبد خرید شما از موجودی موجود بیشتر هستند. لطفاً تعداد را کاهش دهید.
+                  </div>
+                )}
                 <div className={styles.totalPrice}>
                   <span>جمع کل:</span>
                   <span>{calculateTotal().toLocaleString()} تومان</span>
@@ -184,7 +219,7 @@ const ShoppingCart = () => {
                 <button
                   className={styles.checkoutButton}
                   onClick={handleCheckout}
-                  disabled={loading}
+                  disabled={loading || !isCartValid()}
                 >
                   {loading ? "در حال پردازش..." : "ثبت نهایی سفارش"}
                 </button>
