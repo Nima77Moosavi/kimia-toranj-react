@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { formatPrice } from "../../utils/formatPrice";
 
 const ProductCard = ({ product }) => {
-  const productLink = `/productDetails/${product.url_title}-${product.id}`;
+  const productLink = `/product/${product.url_title}-${product.id}`;
   const variant = product.variants[0] || {};
   const stock = variant.stock ?? 0;
 
