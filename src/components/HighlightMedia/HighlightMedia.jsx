@@ -39,13 +39,6 @@ export default function HighlightMedia() {
     fetchAll();
   }, [id]);
 
-  // 2) Auto‐advance every 10 seconds
-  useEffect(() => {
-    if (!allHighlight.length) return;
-    const iv = setInterval(() => goToNextMedia(), 10000);
-    return () => clearInterval(iv);
-  }, [allHighlight, currentHighlightIndex, currentMediaIndex]);
-
   // Helpers to move forward/backward
   const goToNextMedia = () => {
     const curr = allHighlight[currentHighlightIndex];
@@ -87,14 +80,11 @@ export default function HighlightMedia() {
   if (!allHighlight.length) return <div>No highlights found.</div>;
 
   const currentHighlight = allHighlight[currentHighlightIndex];
+  const currentMedia = currentHighlight.media[currentMediaIndex];
 
   return (
     <div className={styles.overlay}>
       <div className={styles.card}>
-        {/* Progress bar */}
-        <div key={progressKey} className={styles.progressBarContainer}>
-          <div className={styles.progressBar}></div>
-        </div>
 
         {/* Close */}
         <button onClick={() => navigate("/")} className={styles.closeButton}>
@@ -113,18 +103,27 @@ export default function HighlightMedia() {
             <GrFormPrevious className={styles.navIcon} />
           </button>
 
-          {/* CONSTANT APARAT EMBED */}
+          {/* Media logic: show Aparat iframe if aparat_url exists, else image */}
           <div className={styles.mediaItem}>
-            <div className={styles.aparatWrapper}>
-              <span className={styles.ratio} />
-              <iframe
-                src="https://www.aparat.com/video/video/embed/videohash/fnvf84s/vt/frame"
-                frameBorder="0"
-                allowFullScreen
-                webkitallowfullscreen="true"
-                mozallowfullscreen="true"
+            {currentMedia.aparat_url ? (
+              <div className={styles.aparatWrapper}>
+                <span className={styles.ratio} />
+                <iframe
+                  src={currentMedia.aparat_url}
+                  frameBorder="0"
+                  allowFullScreen
+                  webkitallowfullscreen="true"
+                  mozallowfullscreen="true"
+                  className={styles.aparatIframe}
+                />
+              </div>
+            ) : (
+              <img
+                src={currentMedia.media_file}
+                alt={currentHighlight.title}
+                className={styles.mediaImage}
               />
-            </div>
+            )}
           </div>
 
           <button

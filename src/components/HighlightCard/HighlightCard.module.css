@@ -22,7 +22,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  width: 100px;
+  width: 120px;
   margin: 0;
   padding: 0;
 }
@@ -58,13 +58,23 @@
 }
 
 .title {
+  direction: rtl;
   margin-top: 8px;
   font-size: 16px;
   color: #023047;
-  white-space: nowrap;
+  /* enable multi-line clamp */
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* up to 2 lines */
+  -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 100%;
+
+  /* allow wrapping instead of nowrap */
+  white-space: normal;
+  word-break: break-word;
+
+  /* match card width */
+  width: 100%;
 }
 
 @media (max-width: 480px) {
