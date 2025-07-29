@@ -79,9 +79,10 @@
 
 @media (max-width: 480px) {
   .card {
-    width: 80px;
+    width: 100px;
   }
   .title {
     font-size: 14px;
+    -webkit-line-clamp: 2;
   }
 }
