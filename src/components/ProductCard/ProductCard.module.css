@@ -82,6 +82,7 @@
    Price Button
    ————————————————————————————— */
 .price {
+  direction: rtl;
   grid-row: 4;
   display: block;
   width: 100%;

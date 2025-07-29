@@ -3,6 +3,7 @@
 .brassSamovarPage {
   direction: rtl;
   line-height: 1.6;
+  
   color: #333;
 }
 
@@ -455,6 +456,9 @@
 }
 
 @media (max-width: 480px) {
+  .brassSamovarPage {
+    margin-top: 60px;
+  }
   .heroTitle {
     font-size: 1.6rem;
   }
@@ -481,7 +485,7 @@
 
   .productGrid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
   }
   .productGridSection {
