@@ -1,15 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import styles from "./BrassSamovar.module.css";
 import axiosInstanceNoRedirect from "../../utils/axiosInstanceNoRedirect";
 import { API_URL } from "../../config";
+import ProductCard from "../../components/ProductCard/ProductCard";
 
 const BrassSamovar = () => {
     const [collection, setCollection] = useState({})
     const [loading, setLoading] = useState(true)
 
+    // Infinite scroll product states
+    const [products, setProducts] = useState([])
+    const [productsLoading, setProductsLoading] = useState(false)
+    const [productsError, setProductsError] = useState(null)
+    const [page, setPage] = useState(1)
+    const [hasMore, setHasMore] = useState(true)
+
+    // Fetch collection info (title, description, image)
     useEffect(() => {
         const getCollection = async () => {
             try {
@@ -21,15 +30,85 @@ const BrassSamovar = () => {
                 setLoading(false)
             }
         }
-
         getCollection()
     }, [])
+
+    // Fetch products for this collection with pagination
+    useEffect(() => {
+        let active = true;
+        setProductsLoading(true)
+        setProductsError(null)
+        const fetchProducts = async () => {
+            try {
+                const res = await axiosInstanceNoRedirect.get(`${API_URL}api/store/products/?collection=سماور برنجی&page=${page}`)
+                if (!active) return;
+                setProducts(prev => page === 1 ? (res.data.results || []) : [...prev, ...res.data.results])
+                setHasMore(res.data.next !== null)
+            } catch (err) {
+                if (active) setProductsError('خطا در دریافت محصولات')
+            } finally {
+                if (active) setProductsLoading(false)
+            }
+        }
+        fetchProducts()
+        return () => { active = false }
+    }, [page])
+
+    // Infinite scroll observer
+    const observer = useRef()
+    const lastProductRef = useCallback(
+        node => {
+            if (productsLoading) return
+            if (observer.current) observer.current.disconnect()
+            observer.current = new window.IntersectionObserver(entries => {
+                if (entries[0].isIntersecting && hasMore) {
+                    setPage(prev => prev + 1)
+                }
+            })
+            if (node) observer.current.observe(node)
+        },
+        [productsLoading, hasMore]
+    )
+
     return (
+
         <div className={styles.brassSamovarPage}>
             <div className={styles.header}>
-
                 <Header />
             </div>
+            {/* Product Grid Section at the top */}
+            <section className={styles.productGridSection}>
+                <div className={styles.container}>
+                    <h2 className={styles.sectionTitle}>محصولات سماور برنجی</h2>
+                    {products.length === 0 && productsLoading ? (
+                        <div className={styles.loading}>در حال بارگذاری...</div>
+                    ) : productsError ? (
+                        <div className={styles.error}>{productsError}</div>
+                    ) : products.length === 0 ? (
+                        <div className={styles.empty}>هیچ محصولی یافت نشد.</div>
+                    ) : (
+                        <div className={styles.productGrid}>
+                            {products.map((product, i) => {
+                                const isLast = i === products.length - 1;
+                                return (
+                                    <div
+                                        key={product.id}
+                                        ref={isLast ? lastProductRef : null}
+                                    >
+                                        <ProductCard product={product} />
+                                    </div>
+                                )
+                            })}
+                            {productsLoading && (
+                                <div className={styles.loading}>در حال بارگذاری...</div>
+                            )}
+                            {!hasMore && products.length > 0 && (
+                                <div className={styles.endMessage}>هیچ محصول بیشتری موجود نیست</div>
+                            )}
+                        </div>
+                    )}
+                </div>
+            </section>
 
             {/* Hero Section */}
             <section className={styles.heroSection}>
@@ -40,9 +119,6 @@ const BrassSamovar = () => {
                     <p className={styles.heroSubtitle}>
                         {collection.description || 'سماور برنجی یکی از نمادهای اصیل فرهنگ چای نوشی در ایران است؛ محصولی که تلفیقی از کاربرد روزمره و هنر دست ساز ایرانی است.'}
                     </p>
-                    <Link to={`/shop?collection=${encodeURIComponent(collection.title)}`} className={styles.ctaButton}>
-                        مشاهده محصولات
-                    </Link>
                 </div>
                 <div className={styles.heroImage}>
                     {loading ? (
