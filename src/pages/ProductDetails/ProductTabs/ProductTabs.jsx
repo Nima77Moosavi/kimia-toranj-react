@@ -121,7 +121,8 @@ const ProductTabs = ({
         {/* Specs */}
         <div ref={specsRef} className={styles.specsSection}>
           <h2>
-            <FaListUl className={styles.icons} /> مشخصات محصول
+            <FaListUl className={styles.icons} />
+            نام محصول
           </h2>
           <p>{product.title}</p>
         </div>
@@ -137,7 +138,7 @@ const ProductTabs = ({
         {/* Dimensions */}
         <div ref={dimensionsRef} className={styles.dimensionsSection}>
           <h2>
-            <RiRulerLine className={styles.icons} /> ابعاد
+            <RiRulerLine className={styles.icons} /> مشخصات
           </h2>
           <ul className={styles.dimensions}>
             {product.variants?.[0]?.attributes?.map((attr) => (
@@ -154,7 +155,7 @@ const ProductTabs = ({
           <h2>
             <BsQuestionSquare className={styles.icons} /> شرایط نگهداری
           </h2>
-          <p>شرایط نگهداری محصول اینجا نمایش داده می‌شود.</p>
+          <p>{product.warranty}</p>
         </div>
 
         {/* Reviews */}

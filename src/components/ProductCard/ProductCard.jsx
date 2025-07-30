@@ -4,6 +4,7 @@ import React from "react";
 import styles from "./ProductCard.module.css";
 import { Link } from "react-router-dom";
 import { formatPrice } from "../../utils/formatPrice";
+import { toPersianDigits } from "../../utils/faDigits";
 
 const ProductCard = ({ product }) => {
   const productLink = `/product/${product.url_title}-${product.id}`;
@@ -22,7 +23,7 @@ const ProductCard = ({ product }) => {
           alt={product.title}
           className={styles.img}
         />
-        <h4 className={styles.title}>{product.title}</h4>
+        <h4 className={styles.title}>{toPersianDigits(product.title)}</h4>
 
         {stock > 0 && stock < 4 && (
           <span className={styles.stock}>
