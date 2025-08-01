@@ -23,7 +23,7 @@ const ProductCard = ({ product }) => {
           alt={product.title}
           className={styles.img}
         />
-        <h4 className={styles.title}>{toPersianDigits(product.title)}</h4>
+        <h2 className={styles.title}>{toPersianDigits(product.title)}</h2>
 
         {stock > 0 && stock < 4 && (
           <span className={styles.stock}>

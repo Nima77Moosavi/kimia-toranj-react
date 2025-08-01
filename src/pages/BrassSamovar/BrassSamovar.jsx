@@ -33,6 +33,11 @@ const BrassSamovar = () => {
       }
     };
     getCollection();
+    document.title = "خرید سماور برنجی سنتی و مدرن";
+    const tag = document.querySelector('meta[name="description"]');
+    if (tag)
+      tag.content =
+        "انواع سماور برنجی زغالی، برقی و قلم‌زنی‌شده را با ضمانت اصالت از فروشگاه کیمیا ترنج تهیه کنید. تلفیقی از زیبایی، دوام و هنر ایرانی. ارسال سریع از اصفهان.";
   }, []);
 
   // Fetch products for this collection with pagination
@@ -241,7 +246,7 @@ const BrassSamovar = () => {
               <div className={styles.featureIcon}>
                 <span className={styles.iconText}>کیفیت</span>
               </div>
-              <h4>جنس فلز خالص</h4>
+              <h3>جنس فلز خالص</h3>
               <p>
                 بدنه از آلیاژ برنج خالص ساخته شده و معمولاً با روکش ضدکدر شدن
                 محافظت می شود.
@@ -252,7 +257,7 @@ const BrassSamovar = () => {
               <div className={styles.featureIcon}>
                 <span className={styles.iconText}>گرما</span>
               </div>
-              <h4>رسانای حرارتی عالی</h4>
+              <h3>رسانای حرارتی عالی</h3>
               <p>
                 برنج گرما را به خوبی منتقل می کند، بنابراین سماور در مصرف انرژی
                 بهینه تر عمل می‌کند.
@@ -263,7 +268,7 @@ const BrassSamovar = () => {
               <div className={styles.featureIcon}>
                 <span className={styles.iconText}>دوام</span>
               </div>
-              <h4>طول عمر بالا</h4>
+              <h3>طول عمر بالا</h3>
               <p>
                 برخلاف سماورهای ارزان قیمت از جنس آلومینیوم یا استیل بی کیفیت،
                 سماور برنجی سال ها دوام دارد.
@@ -274,7 +279,7 @@ const BrassSamovar = () => {
               <div className={styles.featureIcon}>
                 <span className={styles.iconText}>کاربرد</span>
               </div>
-              <h4>قابل استفاده یا تزئینی</h4>
+              <h3>قابل استفاده یا تزئینی</h3>
               <p>
                 برخی مدل ها کاملاً عملیاتی هستند، درحالی که مدل‌های خاص تر برای
                 دکوراسیون داخلی طراحی شده اند.
@@ -285,7 +290,7 @@ const BrassSamovar = () => {
               <div className={styles.featureIcon}>
                 <span className={styles.iconText}>ایرانی</span>
               </div>
-              <h4>ساخت ایران، هنر ایرانی</h4>
+              <h3>ساخت ایران، هنر ایرانی</h3>
               <p>
                 بسیاری از این سماورها ساخت دست هنرمندان اصفهانی هستند و هرکدام
                 دارای امضای خاص خود می باشند.
@@ -331,7 +336,7 @@ const BrassSamovar = () => {
 
           <div className={styles.buyingGuideGrid}>
             <div className={styles.guideItem}>
-              <h4>حجم و ظرفیت</h4>
+              <h3>حجم و ظرفیت</h3>
               <p>
                 اگر برای استفاده روزمره می‌خواید، مدل های ۳ تا ۵ لیتری
                 مناسب‌ترن.
@@ -339,14 +344,14 @@ const BrassSamovar = () => {
             </div>
 
             <div className={styles.guideItem}>
-              <h4>نوع سوخت</h4>
+              <h3>نوع سوخت</h3>
               <p>
                 ترجیح می‌دید زغالی باشه یا برقی؟ هرکدوم مزایای خودشون رو دارن.
               </p>
             </div>
 
             <div className={styles.guideItem}>
-              <h4>قیمت</h4>
+              <h3>قیمت</h3>
               <p>
                 بسته به ضخامت برنج، نوع پرداخت و هنرهای به کاررفته (مثل قلمزنی
                 یا میناکاری)، قیمت‌ها متفاوته.
@@ -354,7 +359,7 @@ const BrassSamovar = () => {
             </div>
 
             <div className={styles.guideItem}>
-              <h4>گارانتی و ارسال</h4>
+              <h3>گارانتی و ارسال</h3>
               <p>
                 تمام محصولات با ضمانت اصالت و ارسال سریع از اصفهان ارائه می‌شن.
               </p>
