@@ -27,6 +27,7 @@ import Shop from "./pages/Shop/Shop.jsx";
 import GiftSelector from "./pages/GiftSelector/GiftSelector.jsx";
 import ScrollToTop from "./utils/ScrollToTop.jsx";
 import BrassSamovar from "./pages/BrassSamovar/BrassSamovar.jsx";
+import MirrorCandleHolder from "./pages/MirrorCandleholder/MirrorCandleholder.jsx";
 
 const App = () => {
   return (
@@ -45,6 +46,7 @@ const App = () => {
         <Route path="/shop" element={<Shop />} />
         <Route path="/gift-selector" element={<GiftSelector />} />
         <Route path="/brass-samovar" element={<BrassSamovar />} />
+        <Route path="/mirror-candleholder" element={<MirrorCandleHolder />} />
         {/* Protected UserPanel Routes */}
         <Route
           path="/user-panel/*"
