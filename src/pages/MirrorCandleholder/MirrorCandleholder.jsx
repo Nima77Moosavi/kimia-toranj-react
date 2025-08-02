@@ -390,7 +390,7 @@ const MirrorCandleHolder = () => {
       </section>
 
       {/* CTA Section */}
-      <section className={styles.ctaSection}>
+      {/* <section className={styles.ctaSection}>
         <div className={styles.container}>
           <div className={styles.ctaContent}>
             <h2>آماده خرید سماور برنجی هستید؟</h2>
@@ -403,7 +403,7 @@ const MirrorCandleHolder = () => {
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <Footer />
     </div>
