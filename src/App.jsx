@@ -45,8 +45,8 @@ const App = () => {
         <Route path="/bestsellersPage" element={<BestsellersPage />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/gift-selector" element={<GiftSelector />} />
-        <Route path="/brass-samovar" element={<BrassSamovar />} />
-        <Route path="/mirror-candleholder" element={<MirrorCandleHolder />} />
+        <Route path="/category/brass-samovar" element={<BrassSamovar />} />
+        <Route path="/category/mirror-candleholder" element={<MirrorCandleHolder />} />
         {/* Protected UserPanel Routes */}
         <Route
           path="/user-panel/*"

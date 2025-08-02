@@ -37,24 +37,25 @@ const Collections = () => {
       <div className={styles.row}>
         {loading
           ? Array.from({ length: 9 }).map((_, i) => (
-            <CollectionCardSkeleton key={i} />
-          ))
+              <CollectionCardSkeleton key={i} />
+            ))
           : collections.map((collection) => (
-            <Link
-              to={collection.landing_page_url || `/shop?collection=${encodeURIComponent(
-                collection.title
-              )}`}
-              key={collection.id}
-              className={styles.collectionCard}
-              style={{ backgroundImage: `url(${collection.image})` }}
-            >
-              <div className={styles.overlay}>
-                <div className={styles.description}>
-                  {collection.description || collection.title}
+              <Link
+                to={
+                  `category/${collection.landing_page_url}` ||
+                  `/shop?collection=${encodeURIComponent(collection.title)}`
+                }
+                key={collection.id}
+                className={styles.collectionCard}
+                style={{ backgroundImage: `url(${collection.image})` }}
+              >
+                <div className={styles.overlay}>
+                  <div className={styles.description}>
+                    {collection.description || collection.title}
+                  </div>
                 </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            ))}
       </div>
     </div>
   );
