@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import styles from "./BrassSamovar.module.css";
+import styles from "./MirrorCandleholder.module.css";
 import axiosInstanceNoRedirect from "../../utils/axiosInstanceNoRedirect";
 import { API_URL } from "../../config";
 import ProductCard from "../../components/ProductCard/ProductCard";
