@@ -125,10 +125,10 @@ const MirrorCandleHolder = () => {
       {/* Hero Section */}
       <section className={styles.heroSection}>
         <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>
+          <h2 className={styles.heroTitle}>
             {collection.title ||
               "خرید آینه و شمعدان سنتی و مدرن | تبلور زیبایی در هنر ایرانی"}
-          </h1>
+          </h2>
           <p className={styles.heroSubtitle}>
             آینه و شمعدان یکی از اصیلترین عناصر دکوراسیون ایرانی است؛ محصولی که
             نهتنها یادآور رسوم و سنتهای کهن مثل سفره عقد و جهیزیه است، بلکه با
