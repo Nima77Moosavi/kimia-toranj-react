@@ -91,7 +91,7 @@ const BrassSamovar = () => {
       {/* Product Grid Section at the top */}
       <section className={styles.productGridSection}>
         <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>محصولات سماور برنجی</h2>
+          <h1 className={styles.sectionTitle}>محصولات سماور برنجی</h1>
           {products.length === 0 && productsLoading ? (
             <div className={styles.loading}>در حال بارگذاری...</div>
           ) : productsError ? (
