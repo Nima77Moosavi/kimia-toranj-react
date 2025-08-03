@@ -92,9 +92,11 @@ const HeaderMobile = () => {
   return (
     <header className={styles.headerMobile}>
       {/* Logo */}
-      <div className={styles.logoContainer}>
-        <img src={image1} alt="کیمیاترنج" className={styles.logo} />
-      </div>
+      <Link to="/">
+        <div className={styles.logoContainer}>
+          <img src={image1} alt="کیمیاترنج" className={styles.logo} />
+        </div>
+      </Link>
 
       {/* Search box */}
       <form

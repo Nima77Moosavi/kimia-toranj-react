@@ -102,9 +102,11 @@ const HeaderDesktop = () => {
             </span>
           </Link>
         </div>
-        <div className={styles.logoContainer}>
-          <img src={image1} alt="کیمیاترنج" className={styles.logo} />
-        </div>
+        <Link to="/">
+          <div className={styles.logoContainer}>
+            <img src={image1} alt="کیمیاترنج" className={styles.logo} />
+          </div>
+        </Link>
 
         {/* دکمه ورود/ثبت نام */}
         <div className={styles.loginButton}>
