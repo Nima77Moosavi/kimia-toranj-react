@@ -2,13 +2,13 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import styles from "./BrassSamovar.module.css";
+import styles from "./MirrorCandleholder.module.css";
 import axiosInstanceNoRedirect from "../../utils/axiosInstanceNoRedirect";
 import { API_URL } from "../../config";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import axios from "axios";
 
-const BrassSamovar = () => {
+const Khatamkari = () => {
   const [collection, setCollection] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -23,9 +23,7 @@ const BrassSamovar = () => {
   useEffect(() => {
     const getCollection = async () => {
       try {
-        const response = await axios.get(
-          `${API_URL}api/store/collections/6`
-        );
+        const response = await axios.get(`${API_URL}api/store/collections/10`);
         setCollection(response.data);
       } catch (error) {
         console.error("Error fetching collection:", error);
@@ -34,11 +32,11 @@ const BrassSamovar = () => {
       }
     };
     getCollection();
-    document.title = "خرید سماور برنجی سنتی و مدرن";
+    document.title = "خاتمکاری اصفهان اصل | خرید اینترنتی از کیمیا ترنج";
     const tag = document.querySelector('meta[name="description"]');
     if (tag)
       tag.content =
-        "انواع سماور برنجی زغالی، برقی و قلم‌زنی‌شده را با ضمانت اصالت از فروشگاه کیمیا ترنج تهیه کنید. تلفیقی از زیبایی، دوام و هنر ایرانی. ارسال سریع از اصفهان.";
+        "فروش انواع آثار خاتم کاری دست ساز، شامل جعبه، قاب، ست پذیرایی و هدیه های هنری.هنر اصیل ایرانی را از کیمیا ترنج تجربه کنید.ارسال تضمینی";
   }, []);
 
   // Fetch products for this collection with pagination
@@ -49,7 +47,7 @@ const BrassSamovar = () => {
     const fetchProducts = async () => {
       try {
         const res = await axios.get(
-          `${API_URL}api/store/products/?collection=سماور برنجی&page=${page}`
+          `${API_URL}api/store/products/?collection=خاتم کاری&page=${page}`
         );
         if (!active) return;
         setProducts((prev) =>
@@ -92,7 +90,7 @@ const BrassSamovar = () => {
       {/* Product Grid Section at the top */}
       <section className={styles.productGridSection}>
         <div className={styles.container}>
-          <h1 className={styles.sectionTitle}>محصولات سماور برنجی</h1>
+          <h1 className={styles.sectionTitle}>محصولات آینه شمعدان </h1>
           {products.length === 0 && productsLoading ? (
             <div className={styles.loading}>در حال بارگذاری...</div>
           ) : productsError ? (
@@ -125,13 +123,17 @@ const BrassSamovar = () => {
       {/* Hero Section */}
       <section className={styles.heroSection}>
         <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>
-            {collection.title ||
-              "خرید سماور برنجی سنتی و مدرن | جلوه ای از اصالت ایرانی"}
-          </h1>
+          <h2 className={styles.heroTitle}>
+            خرید محصوالت خاتمکاری اصفهان | ترکیب هنر، ظرافت و اصالت
+          </h2>
           <p className={styles.heroSubtitle}>
-            {collection.description ||
-              "سماور برنجی یکی از نمادهای اصیل فرهنگ چای نوشی در ایران است؛ محصولی که تلفیقی از کاربرد روزمره و هنر دست ساز ایرانی است."}
+            خاتمکاری یکی از زیباترین و ظریفترین هنرهای صنایعدستی ایران است؛ هنری
+            که با کنار هم نشاندن قطعات ریز چوب، فلز و استخوان، آثاری خیرهکننده
+            میآفریند. محصوالت خاتمکاری، ترکیبی بینظیر از دقت، صبر و هنر ایرانی
+            هستند؛ از جعبههای خاتم گرفته تا قاب آینه، میز، قلمدان و سرویسهای
+            پذیرایی. در این صفحه، مجموعهای از نفیسترین آثار خاتمکاری شده توسط
+            هنرمندان اصفهانی را میتوانید ببینید و خریداری کنید. آثاری کاربردی،
+            تزئینی و ماندگار، مناسب برای هدیه، دکوراسیون و تکمیل جهیزیه.
           </p>
         </div>
         <div className={styles.heroImage}>
@@ -142,7 +144,7 @@ const BrassSamovar = () => {
           ) : (
             <img
               src={collection.image || "/images/handmade-samovar-brass.jpg"}
-              alt={collection.title || "سماور برنجی دستساز با طرح سنتی"}
+              alt={collection.title || "خاتم کاری"}
               className={styles.heroImg}
               onError={(e) => {
                 e.target.src = "/images/handmade-samovar-brass.jpg";
@@ -153,7 +155,7 @@ const BrassSamovar = () => {
       </section>
 
       {/* Introduction Section */}
-      <section className={styles.introSection}>
+      {/* <section className={styles.introSection}>
         <div className={styles.container}>
           <div className={styles.introContent}>
             <p>
@@ -170,61 +172,55 @@ const BrassSamovar = () => {
             </p>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Product Types Section */}
       <section className={styles.productTypesSection}>
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>
-            انواع سماور برنجی موجود در فروشگاه کیمیا ترنج
+            انواع محصولات خاتم کاری موجود در فروشگاه کیمیا ترنج
           </h2>
           <p className={styles.sectionSubtitle}>
-            ما مجموعه ای متنوع و دسته‌بندی‌شده از سماورهای برنجی را برای سلیقه
-            ها و نیازهای مختلف آماده کرده ایم:
+            ما در فروشگاه کیمیا ترنج تنوع کاملی از محصولات خاتمکاری را با سلیقه
+            های مختلف آماده کردهایم:
           </p>
 
           <div className={styles.productTypesGrid}>
             <div className={styles.productTypeCard}>
-              <div className={styles.productTypeIcon}>
+              {/* <div className={styles.productTypeIcon}>
                 <span className={styles.iconText}>سنتی</span>
-              </div>
-              <h3>سماور برنجی زغالی سنتی</h3>
-              <p>
-                انتخابی کلاسیک برای علاقه مندان به روش های سنتی دم آوری چای. این
-                مدل ها حس نوستالژیک خانه مادربزرگ را زنده می کنند.
-              </p>
+              </div> */}
+              <h3>جعبه های خاتمکاری</h3>
+              <p>برای جواهرات، قرآن، چای، و یا هدیه. ترکیبی از هنر و کارایی.</p>
             </div>
 
             <div className={styles.productTypeCard}>
-              <div className={styles.productTypeIcon}>
+              {/* <div className={styles.productTypeIcon}>
                 <span className={styles.iconText}>برقی</span>
-              </div>
-              <h3>سماور برنجی برقی</h3>
+              </div> */}
+              <h3>آینه و شمعدان خاتم</h3>
               <p>
-                ترکیبی از زیبایی سنتی و تکنولوژی مدرن. مناسب برای استفاده راحت و
-                روزمره در آشپزخانه‌های امروزی.
+                مناسب سفره عقد یا دکوراسیون سنتی با جلوهای هنرمندانه و اصیل.
               </p>
             </div>
 
             <div className={styles.productTypeCard}>
-              <div className={styles.productTypeIcon}>
+              {/* <div className={styles.productTypeIcon}>
                 <span className={styles.iconText}>قلمزنی</span>
-              </div>
-              <h3>سماور برنجی با طرح قلمزنی</h3>
+              </div> */}
+              <h3>ست های پذیرایی خاتمکاری</h3>
               <p>
-                نمونه هایی هنرمندانه که توسط هنرمندان اصفهانی تزئین شده اند؛
-                گزینه ای بی نظیر برای هدیه یا دکور.
+                شامل سینی، قندان، شکالتخوری و سایر ظروف، زیبا و بادوام.
               </p>
             </div>
 
             <div className={styles.productTypeCard}>
-              <div className={styles.productTypeIcon}>
+              {/* <div className={styles.productTypeIcon}>
                 <span className={styles.iconText}>ست کامل</span>
-              </div>
-              <h3>ست چای خوری برنجی</h3>
+              </div> */}
+              <h3>قاب و تابلو خاتم</h3>
               <p>
-                شامل سماور، قوری، سینی و استکان نعلبکی هم سبک؛ مناسب جهیزیه یا
-                پذیرایی های خاص.
+                قاب های خوشنویسی، تزئین شده با خاتم، مناسب دفاتر رسمی و منازل کالسیک.
               </p>
             </div>
           </div>
@@ -235,66 +231,46 @@ const BrassSamovar = () => {
       <section className={styles.featuresSection}>
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>
-            ویژگی ها و مزایای سماور برنجی اصل
+            ویژگیها و مزایای آینه و شمعدان دست ساز ایرانی
           </h2>
           <p className={styles.sectionSubtitle}>
-            انتخاب سماور برنجی صرفا یک خرید نیست، بلکه یک سرمایه گذاری در زیبایی
-            و ماندگاری است.
+            انتخاب آینه و شمعدان صنایع دستی، فقط یک خرید تزئینی نیست؛ بلکه تجلی
+            احترام به هنر ایرانی و زیبایی ماندگار است. ویژگیهای این محصوالت:
           </p>
 
           <div className={styles.featuresGrid}>
             <div className={styles.featureItem}>
-              <div className={styles.featureIcon}>
+              {/* <div className={styles.featureIcon}>
                 <span className={styles.iconText}>کیفیت</span>
-              </div>
-              <h3>جنس فلز خالص</h3>
-              <p>
-                بدنه از آلیاژ برنج خالص ساخته شده و معمولاً با روکش ضدکدر شدن
-                محافظت می شود.
-              </p>
+              </div> */}
+              <h3>ساخته شده از متریال مرغوب</h3>
+              <p>فلز، چوب، شیشه و هنرهای دستی با بهترین کیفیت اجرا شدهاند.</p>
             </div>
 
             <div className={styles.featureItem}>
-              <div className={styles.featureIcon}>
+              {/* <div className={styles.featureIcon}>
                 <span className={styles.iconText}>گرما</span>
-              </div>
-              <h3>رسانای حرارتی عالی</h3>
-              <p>
-                برنج گرما را به خوبی منتقل می کند، بنابراین سماور در مصرف انرژی
-                بهینه تر عمل می‌کند.
-              </p>
+              </div> */}
+              <h3>زیبایی سنتی در قالب مدرن</h3>
+              <p>ترکیب فرمهای کالسیک با سلیقه امروزی برای فضاهای مختلف.</p>
             </div>
 
             <div className={styles.featureItem}>
-              <div className={styles.featureIcon}>
+              {/* <div className={styles.featureIcon}>
                 <span className={styles.iconText}>دوام</span>
-              </div>
-              <h3>طول عمر بالا</h3>
-              <p>
-                برخلاف سماورهای ارزان قیمت از جنس آلومینیوم یا استیل بی کیفیت،
-                سماور برنجی سال ها دوام دارد.
-              </p>
+              </div> */}
+              <h3>هدیه ای خاص و ماندگار</h3>
+              <p>گزینه ای فوق العاده برای هدیه عروسی، سالگرد یا افتتاحیه.</p>
             </div>
 
             <div className={styles.featureItem}>
-              <div className={styles.featureIcon}>
+              {/* <div className={styles.featureIcon}>
                 <span className={styles.iconText}>کاربرد</span>
-              </div>
-              <h3>قابل استفاده یا تزئینی</h3>
+              </div> */}
+              <h3>اثر هنری منحصر به فرد</h3>
               <p>
-                برخی مدل ها کاملاً عملیاتی هستند، درحالی که مدل‌های خاص تر برای
-                دکوراسیون داخلی طراحی شده اند.
-              </p>
-            </div>
-
-            <div className={styles.featureItem}>
-              <div className={styles.featureIcon}>
-                <span className={styles.iconText}>ایرانی</span>
-              </div>
-              <h3>ساخت ایران، هنر ایرانی</h3>
-              <p>
-                بسیاری از این سماورها ساخت دست هنرمندان اصفهانی هستند و هرکدام
-                دارای امضای خاص خود می باشند.
+                بسیاری از مدل ها دارای امضای استادکار هستند و مشابه آن یافت نمی
+                شود.
               </p>
             </div>
           </div>
@@ -305,20 +281,15 @@ const BrassSamovar = () => {
       <section className={styles.decorationSection}>
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>
-            سماور برنجی؛ تلفیقی از کاربرد و زیبایی در خانه ایرانی
+            آینه و شمعدان؛ روشنایی دل و فضا در خانه ایرانی
           </h2>
           <div className={styles.decorationContent}>
             <p>
-              اگر دکور خانه‌ات رو به سبک سنتی یا تلفیقی می‌چینی، یک سماور برنجی
-              دقیقاً همون قطعه‌ایه که فضا رو تکمیل می‌کنه. این محصولات با فرم
-              براق، جزئیات زیبا، و درخشندگی طلایی رنگ شون نه تنها حس گرما و
-              صمیمیت می‌دن، بلکه نشون دهنده احترام به هنر و میراث فرهنگی ایران
-              هم هستن.
-            </p>
-            <p>
-              چه در اتاق پذیرایی باشه، چه روی اپن آشپزخونه یا در ویترین شیشه‌ای،
-              سماور برنجی همیشه جلب توجه می‌کنه و به‌نوعی "امضای سبک زندگی
-              ایرانی" محسوب می‌شه.
+              چه بخوای خونهات رو با سبک سنتی بچینی، چه دنبال یک نقطهی کانونی خاص
+              برای پذیرایی یا اتاق خواب باشی، آینه و شمعدان صنایعدستی دقیقا همون
+              چیزی هستن که فضا رو متحول میکنن. درخشندگی فلز، نور بازتابشده در
+              آینه و خطوط هنرمندانه طرحها، ترکیبی ایجاد میکنن که حس صمیمیت و
+              اصالت ایرانی رو به زیبایی منتقل میکنه.
             </p>
           </div>
         </div>
@@ -328,41 +299,40 @@ const BrassSamovar = () => {
       <section className={styles.buyingGuideSection}>
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>
-            راهنمای خرید سماور برنجی از فروشگاه کیمیا ترنج
+            راهنمای خرید آینه و شمعدان از فروشگاه کیمیا ترنج
           </h2>
           <p className={styles.sectionSubtitle}>
-            ما در فروشگاه <Link to="/">کیمیا ترنج</Link> تلاش می کنیم تا خریدی
-            راحت، مطمئن و آگاهانه برای شما فراهم کنیم.
+            برای خریدی مطمئن و آگاهانه، به نکات زیر توجه داشته باشید:
           </p>
 
           <div className={styles.buyingGuideGrid}>
             <div className={styles.guideItem}>
-              <h3>حجم و ظرفیت</h3>
+              <h3>ابعاد و تناسب با فضا</h3>
               <p>
-                اگر برای استفاده روزمره می‌خواید، مدل های ۳ تا ۵ لیتری
-                مناسب‌ترن.
+                مدلهای کوچک برای میز توالت یا ویترین مناسبند، درحالیکه مدلهای
+                بزرگ برای سفره عقد یا دکور اصلی کاربرد دارند.
               </p>
             </div>
 
             <div className={styles.guideItem}>
-              <h3>نوع سوخت</h3>
-              <p>
-                ترجیح می‌دید زغالی باشه یا برقی؟ هرکدوم مزایای خودشون رو دارن.
-              </p>
+              <h3>نوع هنر به کاررفته</h3>
+              <p>خاتم کاری، مینا، قلمزنی یا ترکیبی از آنها؟</p>
             </div>
 
             <div className={styles.guideItem}>
-              <h3>قیمت</h3>
-              <p>
-                بسته به ضخامت برنج، نوع پرداخت و هنرهای به کاررفته (مثل قلمزنی
-                یا میناکاری)، قیمت‌ها متفاوته.
-              </p>
+              <h3>سبک شخصی</h3>
+              <p>دنبال طراحی کالسیک هستید یا مدرن و مینیمال؟</p>
             </div>
 
             <div className={styles.guideItem}>
-              <h3>گارانتی و ارسال</h3>
+              <h3>قیمت و ارزش هنری</h3>
+              <p>بسته به متریال و میزان هنر بهکاررفته، قیمتها متغیرند.</p>
+            </div>
+            <div className={styles.guideItem}>
+              <h3>ارسال و بستهبندی</h3>
               <p>
-                تمام محصولات با ضمانت اصالت و ارسال سریع از اصفهان ارائه می‌شن.
+                همه محصولات با ضمانت سلامت، ارسال مطمئن و بسته بندی ویژه عرضه می
+                شوند.
               </p>
             </div>
           </div>
@@ -373,31 +343,34 @@ const BrassSamovar = () => {
       <section className={styles.faqSection}>
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>
-            سؤالات متداول درباره سماور برنجی
+            سؤاالت متداول درباره آینه و شمعدان صنایع دستی
           </h2>
 
           <div className={styles.faqList}>
             <div className={styles.faqItem}>
-              <h3>آیا سماور برنجی تغییر رنگ می‌ده؟</h3>
+              <h3>
+                آیا آینه و شمعدانهای شما قابل استفاده هستند یا فقط تزئینی اند؟
+              </h3>
               <p>
-                بله، فلز برنج در تماس با هوا ممکنه کدر بشه یا لک بگیره. اما با
-                محلول های طبیعی یا پولیش مخصوص به راحتی براق می‌شه.
+                هر دو نوع موجود است؛ برخی فقط برای دکور طراحی شده اند، اما
+                بسیاری از مدلها کاملا قابل استفاده در سفره عقد، اتاق خواب یا میز
+                پذیرایی هستند.
               </p>
             </div>
 
             <div className={styles.faqItem}>
-              <h3>میتونم از سماور برنجی استفاده روزمره داشته باشم؟</h3>
+              <h3>امکان سفارشیسازی محصول وجود دارد؟</h3>
               <p>
-                بله. به خصوص مدل های برقی و ساده تر، کاملاً برای استفاده روزانه
-                طراحی شدن. فقط به نگهداری درست نیاز دارن.
+                بله. میتوانید مدلهای خاص را با ابعاد یا طرح دلخواه سفارش دهید.
+                برای این مورد با پشتیبانی تماس بگیرید.
               </p>
             </div>
 
             <div className={styles.faqItem}>
-              <h3>سماورهای شما تولید ایران هستن یا وارداتی؟</h3>
+              <h3>آیا این محصوالت ساخت ایران هستند؟</h3>
               <p>
-                تمام سماورهای ما ساخت ایران هستن و بسیاری از اون ها توسط
-                هنرمندان اصفهانی به‌صورت دستی ساخته شده ان.
+                بله. تمام آینه و شمعدانهای موجود در فروشگاه کیمیا ترنج ساخت
+                ایران و حاصل هنر استادکاران اصفهانی هستند.
               </p>
             </div>
           </div>
@@ -405,7 +378,7 @@ const BrassSamovar = () => {
       </section>
 
       {/* CTA Section */}
-      <section className={styles.ctaSection}>
+      {/* <section className={styles.ctaSection}>
         <div className={styles.container}>
           <div className={styles.ctaContent}>
             <h2>آماده خرید سماور برنجی هستید؟</h2>
@@ -418,11 +391,11 @@ const BrassSamovar = () => {
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <Footer />
     </div>
   );
 };
 
-export default BrassSamovar;
+export default Khatamkari;

@@ -42,8 +42,9 @@ const Collections = () => {
           : collections.map((collection) => (
               <Link
                 to={
-                  `category/${collection.landing_page_url}` ||
-                  `/shop?collection=${encodeURIComponent(collection.title)}`
+                  collection.landing_page_url
+                    ? `category/${collection.landing_page_url}`
+                    : `/shop?collection=${encodeURIComponent(collection.title)}`
                 }
                 key={collection.id}
                 className={styles.collectionCard}

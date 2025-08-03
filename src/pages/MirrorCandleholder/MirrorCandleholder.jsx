@@ -6,6 +6,7 @@ import styles from "./MirrorCandleholder.module.css";
 import axiosInstanceNoRedirect from "../../utils/axiosInstanceNoRedirect";
 import { API_URL } from "../../config";
 import ProductCard from "../../components/ProductCard/ProductCard";
+import axios from "axios";
 
 const MirrorCandleHolder = () => {
   const [collection, setCollection] = useState({});
@@ -22,7 +23,7 @@ const MirrorCandleHolder = () => {
   useEffect(() => {
     const getCollection = async () => {
       try {
-        const response = await axiosInstanceNoRedirect.get(
+        const response = await axios.get(
           `${API_URL}api/store/collections/10`
         );
         setCollection(response.data);
@@ -48,7 +49,7 @@ const MirrorCandleHolder = () => {
     setProductsError(null);
     const fetchProducts = async () => {
       try {
-        const res = await axiosInstanceNoRedirect.get(
+        const res = await axios.get(
           `${API_URL}api/store/products/?collection=آینه شمعدان&page=${page}`
         );
         if (!active) return;
