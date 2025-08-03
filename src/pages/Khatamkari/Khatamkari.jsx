@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import styles from "./MirrorCandleholder.module.css";
+import styles from "./Khatamkari.module.css";
 import axiosInstanceNoRedirect from "../../utils/axiosInstanceNoRedirect";
 import { API_URL } from "../../config";
 import ProductCard from "../../components/ProductCard/ProductCard";
@@ -209,9 +209,7 @@ const Khatamkari = () => {
                 <span className={styles.iconText}>قلمزنی</span>
               </div> */}
               <h3>ست های پذیرایی خاتمکاری</h3>
-              <p>
-                شامل سینی، قندان، شکالتخوری و سایر ظروف، زیبا و بادوام.
-              </p>
+              <p>شامل سینی، قندان، شکالتخوری و سایر ظروف، زیبا و بادوام.</p>
             </div>
 
             <div className={styles.productTypeCard}>
@@ -220,7 +218,8 @@ const Khatamkari = () => {
               </div> */}
               <h3>قاب و تابلو خاتم</h3>
               <p>
-                قاب های خوشنویسی، تزئین شده با خاتم، مناسب دفاتر رسمی و منازل کالسیک.
+                قاب های خوشنویسی، تزئین شده با خاتم، مناسب دفاتر رسمی و منازل
+                کالسیک.
               </p>
             </div>
           </div>
@@ -231,47 +230,47 @@ const Khatamkari = () => {
       <section className={styles.featuresSection}>
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>
-            ویژگیها و مزایای آینه و شمعدان دست ساز ایرانی
+            ویژگیها و مزایای خاتمکاری اصیل ایرانی
           </h2>
-          <p className={styles.sectionSubtitle}>
+          {/* <p className={styles.sectionSubtitle}>
             انتخاب آینه و شمعدان صنایع دستی، فقط یک خرید تزئینی نیست؛ بلکه تجلی
             احترام به هنر ایرانی و زیبایی ماندگار است. ویژگیهای این محصوالت:
-          </p>
+          </p> */}
 
           <div className={styles.featuresGrid}>
             <div className={styles.featureItem}>
               {/* <div className={styles.featureIcon}>
                 <span className={styles.iconText}>کیفیت</span>
               </div> */}
-              <h3>ساخته شده از متریال مرغوب</h3>
-              <p>فلز، چوب، شیشه و هنرهای دستی با بهترین کیفیت اجرا شدهاند.</p>
+              <h3>ظرافت بی نظیر :</h3>
+              <p>استفاده از قطعات ریز چوب، فلز و استخوان با نظم هندسی دقیق.</p>
             </div>
 
             <div className={styles.featureItem}>
               {/* <div className={styles.featureIcon}>
                 <span className={styles.iconText}>گرما</span>
               </div> */}
-              <h3>زیبایی سنتی در قالب مدرن</h3>
-              <p>ترکیب فرمهای کالسیک با سلیقه امروزی برای فضاهای مختلف.</p>
+              <h3>هنر دست :</h3>
+              <p>تمام مراحل با دستان هنرمندان خبره انجام می شود.</p>
             </div>
 
             <div className={styles.featureItem}>
               {/* <div className={styles.featureIcon}>
                 <span className={styles.iconText}>دوام</span>
               </div> */}
-              <h3>هدیه ای خاص و ماندگار</h3>
-              <p>گزینه ای فوق العاده برای هدیه عروسی، سالگرد یا افتتاحیه.</p>
+              <h3>دوام بالا :</h3>
+              <p>
+                با رعایت نکات نگهداری، محصولات خاتم کاری سال ها ماندگار می
+                مانند.
+              </p>
             </div>
 
             <div className={styles.featureItem}>
               {/* <div className={styles.featureIcon}>
                 <span className={styles.iconText}>کاربرد</span>
               </div> */}
-              <h3>اثر هنری منحصر به فرد</h3>
-              <p>
-                بسیاری از مدل ها دارای امضای استادکار هستند و مشابه آن یافت نمی
-                شود.
-              </p>
+              <h3>نماد فرهنگ ایرانی :</h3>
+              <p>حضور در موزه ها، کاخ ها و خانه های اصیل ایرانی.</p>
             </div>
           </div>
         </div>
@@ -281,15 +280,14 @@ const Khatamkari = () => {
       <section className={styles.decorationSection}>
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>
-            آینه و شمعدان؛ روشنایی دل و فضا در خانه ایرانی
+            خاتمکاری؛ هنر نجیب و درخشان اصفهان
           </h2>
           <div className={styles.decorationContent}>
             <p>
-              چه بخوای خونهات رو با سبک سنتی بچینی، چه دنبال یک نقطهی کانونی خاص
-              برای پذیرایی یا اتاق خواب باشی، آینه و شمعدان صنایعدستی دقیقا همون
-              چیزی هستن که فضا رو متحول میکنن. درخشندگی فلز، نور بازتابشده در
-              آینه و خطوط هنرمندانه طرحها، ترکیبی ایجاد میکنن که حس صمیمیت و
-              اصالت ایرانی رو به زیبایی منتقل میکنه.
+              محصولات خاتمکاری نه فقط برای تزئین، بلکه برای انتقال حس اصالت و
+              سنت به محیط زندگی طراحی شده اند. چه برای پذیرایی باشه، چه برای
+              ویترین یا هدیه دادن، یک اثر خاتمکاری همیشه حرفی برای گفتن دارد.
+              خون هات رو با ظرافت بی زمان خاتم، گرمتر و اصیلتر کن.
             </p>
           </div>
         </div>
@@ -299,7 +297,7 @@ const Khatamkari = () => {
       <section className={styles.buyingGuideSection}>
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>
-            راهنمای خرید آینه و شمعدان از فروشگاه کیمیا ترنج
+            راهنمای خرید خاتمکاری از فروشگاه کیمیا ترنج
           </h2>
           <p className={styles.sectionSubtitle}>
             برای خریدی مطمئن و آگاهانه، به نکات زیر توجه داشته باشید:
@@ -307,16 +305,13 @@ const Khatamkari = () => {
 
           <div className={styles.buyingGuideGrid}>
             <div className={styles.guideItem}>
-              <h3>ابعاد و تناسب با فضا</h3>
-              <p>
-                مدلهای کوچک برای میز توالت یا ویترین مناسبند، درحالیکه مدلهای
-                بزرگ برای سفره عقد یا دکور اصلی کاربرد دارند.
-              </p>
+              <h3>اندازه و کاربرد :</h3>
+              <p>جعبه بزرگ یا کوچک؟ قاب یا ست کامل؟</p>
             </div>
 
             <div className={styles.guideItem}>
-              <h3>نوع هنر به کاررفته</h3>
-              <p>خاتم کاری، مینا، قلمزنی یا ترکیبی از آنها؟</p>
+              <h3>طرح و سبک :</h3>
+              <p>کلاسیک یا ترکیبی با هنرهای دیگر مثل مینا یا میکرو خاتم؟</p>
             </div>
 
             <div className={styles.guideItem}>
@@ -325,13 +320,17 @@ const Khatamkari = () => {
             </div>
 
             <div className={styles.guideItem}>
-              <h3>قیمت و ارزش هنری</h3>
-              <p>بسته به متریال و میزان هنر بهکاررفته، قیمتها متغیرند.</p>
+              <h3>جنس و کیفیت مواد اولیه :</h3>
+              <p>هرچه ریزتر و متراکم تر، خاتم باارزش تر است.</p>
             </div>
             <div className={styles.guideItem}>
-              <h3>ارسال و بستهبندی</h3>
+              <h3>هدیه دادن؟</h3>
+              <p>حتما مدله ایی با جعبه و بسته بندی شیک را بررسی کنید.</p>
+            </div>
+            <div className={styles.guideItem}>
+              <h3>ارسال امن و تضمینی :</h3>
               <p>
-                همه محصولات با ضمانت سلامت، ارسال مطمئن و بسته بندی ویژه عرضه می
+                تمام محصولات کیمیا ترنج با بسته بندی ایمن و ضمانت اصالت ارسال می
                 شوند.
               </p>
             </div>
@@ -342,35 +341,29 @@ const Khatamkari = () => {
       {/* FAQ Section */}
       <section className={styles.faqSection}>
         <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>
-            سؤاالت متداول درباره آینه و شمعدان صنایع دستی
-          </h2>
+          <h2 className={styles.sectionTitle}>سؤالات متداول درباره خاتمکاری</h2>
 
           <div className={styles.faqList}>
             <div className={styles.faqItem}>
-              <h3>
-                آیا آینه و شمعدانهای شما قابل استفاده هستند یا فقط تزئینی اند؟
-              </h3>
+              <h3>محصولات خاتمکاری فقط تزئینی هستن؟</h3>
               <p>
-                هر دو نوع موجود است؛ برخی فقط برای دکور طراحی شده اند، اما
-                بسیاری از مدلها کاملا قابل استفاده در سفره عقد، اتاق خواب یا میز
-                پذیرایی هستند.
+                نه لزوما. بسیاری از آن ها کاملا کاربردی هستند (مثلا جعبه چای،
+                قندان یا سینی)
               </p>
             </div>
 
             <div className={styles.faqItem}>
-              <h3>امکان سفارشیسازی محصول وجود دارد؟</h3>
+              <h3>آیا خاتم کاری پوسته پوسته یا خراب میشه؟</h3>
               <p>
-                بله. میتوانید مدلهای خاص را با ابعاد یا طرح دلخواه سفارش دهید.
-                برای این مورد با پشتیبانی تماس بگیرید.
+                در صورت نگهداری درست )دوری از رطوبت و ضربه(، بسیار بادوام و
+                ماندگار است.
               </p>
             </div>
 
             <div className={styles.faqItem}>
-              <h3>آیا این محصوالت ساخت ایران هستند؟</h3>
+              <h3>محصولات شما ساخت ایران هستن؟</h3>
               <p>
-                بله. تمام آینه و شمعدانهای موجود در فروشگاه کیمیا ترنج ساخت
-                ایران و حاصل هنر استادکاران اصفهانی هستند.
+                بله. تمامی محصولات خاتمکاری فروشگاه کیمیا ترنج ساخت دست هنرمندان اصفهانی هستند.
               </p>
             </div>
           </div>
