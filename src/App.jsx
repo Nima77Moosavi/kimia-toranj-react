@@ -30,6 +30,7 @@ import BrassSamovar from "./pages/BrassSamovar/BrassSamovar.jsx";
 import MirrorCandleHolder from "./pages/MirrorCandleholder/MirrorCandleholder.jsx";
 import Khatamkari from "./pages/Khatamkari/Khatamkari.jsx";
 import BrassProducts from "./pages/BrassProducts/BrassProducts.jsx";
+import OrganizationalGiftPack from "./pages/OrganizationalGiftPack/OrganizationalGiftPack.jsx";
 
 const App = () => {
   return (
@@ -52,6 +53,10 @@ const App = () => {
         <Route
           path="/category/mirror-candleholder"
           element={<MirrorCandleHolder />}
+        />
+        <Route
+          path="/category/organizational-gift-pack"
+          element={<OrganizationalGiftPack />}
         />
         <Route path="/category/khatamkari" element={<Khatamkari />} />
         {/* Protected UserPanel Routes */}
