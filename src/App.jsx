@@ -29,6 +29,7 @@ import ScrollToTop from "./utils/ScrollToTop.jsx";
 import BrassSamovar from "./pages/BrassSamovar/BrassSamovar.jsx";
 import MirrorCandleHolder from "./pages/MirrorCandleholder/MirrorCandleholder.jsx";
 import Khatamkari from "./pages/Khatamkari/Khatamkari.jsx";
+import BrassProducts from "./pages/BrassProducts/BrassProducts.jsx";
 
 const App = () => {
   return (
@@ -47,6 +48,7 @@ const App = () => {
         <Route path="/shop" element={<Shop />} />
         <Route path="/gift-selector" element={<GiftSelector />} />
         <Route path="/category/brass-samovar" element={<BrassSamovar />} />
+        <Route path="/category/brass-products" element={<BrassProducts />} />
         <Route
           path="/category/mirror-candleholder"
           element={<MirrorCandleHolder />}
