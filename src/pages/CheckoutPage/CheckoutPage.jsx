@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
+// src/components/CheckoutPage.jsx
+import React, { useState, useEffect } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import styles from "./CheckoutPage.module.css";
 
@@ -8,6 +9,7 @@ const CheckoutPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  // Fetch user’s saved shipping addresses
   useEffect(() => {
     async function fetchAddresses() {
       try {
@@ -32,29 +34,19 @@ const CheckoutPage = () => {
       setError("لطفاً یک آدرس انتخاب کنید");
       return;
     }
+
     try {
       setLoading(true);
       setError("");
 
-      // 1) Create the order on your server
-      const { data: order } = await axiosInstance.post("/api/store/orders/", {
-        shipping_address_id: selectedAddressId,
-      });
-
-      // 2) Kick off ZarinPal payment
-      //    We assume `order.total_price` (or similar) is returned by your API
-      const { data: payRes } = await axiosInstance.post(
-        "/api/zarinpal/request/",
-        {
-          amount: order.total, // e.g. 125000
-          description: `سفارش شماره ${order.id}`, // any text you like
-          // email: order.customer_email, // optional
-          // mobile: order.customer_mobile, // optional
-        }
+      // Create order + request ZarinPal payment in one step
+      const { data } = await axiosInstance.post(
+        "/api/store/orders/create-pay/",
+        { shipping_address_id: selectedAddressId }
       );
 
-      // 3) Redirect to ZarinPal’s payment gateway
-      window.location.href = payRes.pay_url;
+      // Redirect to ZarinPal checkout
+      window.location.href = data.pay_url;
     } catch (err) {
       console.error(err);
       setError(
@@ -69,8 +61,8 @@ const CheckoutPage = () => {
     <div className={styles.checkoutPage}>
       <h2>تأیید نهایی سفارش</h2>
       {error && <p className={styles.error}>{error}</p>}
+
       <form onSubmit={handleSubmit}>
-        {/* …address selector markup… */}
         <ul className={styles.addressList}>
           {addresses.map((addr) => (
             <li key={addr.id}>
@@ -79,6 +71,7 @@ const CheckoutPage = () => {
                   type="radio"
                   name="selectedAddress"
                   value={addr.id}
+                  checked={selectedAddressId === addr.id}
                   onChange={() => setSelected(addr.id)}
                 />
                 {addr.state}، {addr.city}، {addr.address}
