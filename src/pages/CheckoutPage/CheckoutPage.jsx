@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import styles from "./CheckoutPage.module.css";
+import AddressForm from "../../components/AddressForm/AddressForm";
+import { Link } from "react-router-dom";
 
 const CheckoutPage = () => {
   const [addresses, setAddresses] = useState([]);
@@ -63,22 +65,28 @@ const CheckoutPage = () => {
       {error && <p className={styles.error}>{error}</p>}
 
       <form onSubmit={handleSubmit}>
-        <ul className={styles.addressList}>
-          {addresses.map((addr) => (
-            <li key={addr.id}>
-              <label>
-                <input
-                  type="radio"
-                  name="selectedAddress"
-                  value={addr.id}
-                  checked={selectedAddressId === addr.id}
-                  onChange={() => setSelected(addr.id)}
-                />
-                {addr.state}، {addr.city}، {addr.address}
-              </label>
-            </li>
-          ))}
-        </ul>
+        {addresses.length === 0 ? (
+          <Link to="/user-panel/addresses">
+            <button>افزودن آدرس جدید</button>
+          </Link>
+        ) : (
+          <ul className={styles.addressList}>
+            {addresses.map((addr) => (
+              <li key={addr.id}>
+                <label>
+                  <input
+                    type="radio"
+                    name="selectedAddress"
+                    value={addr.id}
+                    checked={selectedAddressId === addr.id}
+                    onChange={() => setSelected(addr.id)}
+                  />
+                  {addr.state}، {addr.city}، {addr.address}
+                </label>
+              </li>
+            ))}
+          </ul>
+        )}
 
         <button type="submit" disabled={loading}>
           {loading ? "در حال انتقال به درگاه…" : "پرداخت و ثبت سفارش"}

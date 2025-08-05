@@ -59,7 +59,7 @@ const HeaderMobile = () => {
         );
         // assuming your API returns { results: [...] }
         const items = data.results || data;
-        setSuggestions(items.slice(0, 5));
+        setSuggestions(items.slice(0, 8));
         setShowSuggestions(true);
       } catch {
         setSuggestions([]);
@@ -85,7 +85,7 @@ const HeaderMobile = () => {
   };
 
   const handleSuggestionClick = (prod) => {
-    navigate(`/productDetails/${prod.url_title}-${prod.id}`);
+    navigate(`/product/${prod.url_title}-${prod.id}`);
     setShowSuggestions(false);
   };
 

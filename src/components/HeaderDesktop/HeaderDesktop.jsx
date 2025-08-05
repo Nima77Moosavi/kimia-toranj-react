@@ -59,7 +59,7 @@ const HeaderDesktop = () => {
         );
         console.log(data);
 
-        setSuggestions(data.results.slice(0, 3));
+        setSuggestions(data.results.slice(0, 8));
         console.log(suggestions);
       } catch {
         setSuggestions([]);
