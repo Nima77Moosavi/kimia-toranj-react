@@ -45,7 +45,6 @@ const App = () => {
         <Route path="/highlight/:id" element={<HighlightMedia />} />
         <Route path="/collection/:id" element={<CollectionDetail />} />
         <Route path="/product/:slugAndId" element={<ProductDetails />} />
-        <Route path="/bestsellersPage" element={<BestsellersPage />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/gift-selector" element={<GiftSelector />} />
         <Route path="/category/brass-samovar" element={<BrassSamovar />} />
