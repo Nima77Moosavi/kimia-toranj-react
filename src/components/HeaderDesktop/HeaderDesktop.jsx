@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import axiosInstance from "../../utils/axiosInstance";
+import { formatPrice } from "../../utils/formatPrice";
 import { API_URL } from "../../config";
 import styles from "./HeaderDesktop.module.css";
 import { Link } from "react-router-dom";
@@ -15,6 +16,7 @@ import { FavoritesContext } from "../../context/FavoritesContext";
 import { IoBagOutline } from "react-icons/io5";
 import { GoGift } from "react-icons/go";
 import image1 from "../../assets/banner11.png";
+
 
 const HeaderDesktop = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -141,12 +143,12 @@ const HeaderDesktop = () => {
                     setSearchTerm("");
                   }}
                 >
-                  <Link to={`/productDetails/${prod.url_title}-${prod.id}`}>
+                  <Link to={`/product/${prod.url_title}-${prod.id}`}>
                     {/* Show title and optionally price or collection */}
                     <div className={styles.suggestionTitle}>{prod.title}</div>
                     <div className={styles.suggestionMeta}>
                       {prod.collection?.title} •{" "}
-                      {prod.variants[0]?.price.toLocaleString()} تومان
+                      {formatPrice(prod.variants?.[0]?.price.toLocaleString())} تومان
                     </div>
                   </Link>
                 </li>

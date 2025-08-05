@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IoMenu, IoSearch, IoClose } from "react-icons/io5";
 import axiosInstance from "../../utils/axiosInstance";
+import { toPersianDigits } from "../../utils/faDigits";
+import { formatPrice } from "../../utils/formatPrice";
 import styles from "./HeaderMobile.module.css";
 import image1 from "../../assets/banner11.png";
 
@@ -130,7 +132,8 @@ const HeaderMobile = () => {
                 <div className={styles.suggestionTitle}>{prod.title}</div>
                 <div className={styles.suggestionMeta}>
                   {prod.collection?.title} •{" "}
-                  {prod.variants?.[0]?.price.toLocaleString()} تومان
+                  {formatPrice(prod.variants?.[0]?.price.toLocaleString())}{" "}
+                  تومان
                 </div>
               </li>
             ))}
