@@ -84,6 +84,11 @@
   transition: opacity 0.3s;
 }
 
+.callButton a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .callButton:disabled {
   opacity: 0.6;
 }
