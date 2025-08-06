@@ -99,14 +99,14 @@ const ProductTabs = ({
           className={activeTab === "dimensions" ? styles.active : ""}
           ref={activeTab === "dimensions" ? activeButtonRef : null}
         >
-          <RiRulerLine className={styles.icons} /> ابعاد
+          <MdOutlineDescription className={styles.icons} /> مشخصات
         </button>
         <button
           onClick={() => scrollToSection(maintenanceRef, "maintenance")}
           className={activeTab === "maintenance" ? styles.active : ""}
           ref={activeTab === "maintenance" ? activeButtonRef : null}
         >
-          <BsQuestionSquare className={styles.icons} /> شرایط نگهداری
+          <BsQuestionSquare className={styles.icons} /> شرایط نگهداری و ضمانت
         </button>
         <button
           onClick={() => scrollToSection(reviewsRef, "reviews")}
@@ -138,7 +138,7 @@ const ProductTabs = ({
         {/* Dimensions */}
         <div ref={dimensionsRef} className={styles.dimensionsSection}>
           <h2>
-            <RiRulerLine className={styles.icons} /> مشخصات
+            <MdOutlineDescription className={styles.icons} /> مشخصات
           </h2>
           <ul className={styles.dimensions}>
             {product.variants?.[0]?.attributes?.map((attr) => (
@@ -153,7 +153,7 @@ const ProductTabs = ({
         {/* Maintenance */}
         <div ref={maintenanceRef} className={styles.maintenanceSection}>
           <h2>
-            <BsQuestionSquare className={styles.icons} /> شرایط نگهداری
+            <BsQuestionSquare className={styles.icons} /> شرایط نگهداری و ضمانت
           </h2>
           <p>{product.warranty}</p>
         </div>
