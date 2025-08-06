@@ -28,13 +28,18 @@ const PriceBox = ({ price, onAddToCart, stock }) => {
 
       {outOfStock ? (
         <button className={styles.callButton} disabled>
-          تماس بگیرید
+          <a
+            href="https://wa.me/989130095238"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${styles.contactOption} ${styles.option2}`}
+          >
+            تماس بگیرید
+          </a>
         </button>
       ) : (
         <>
-          <button className={styles.price}>
-            {formatPrice(price)} تومان
-          </button>
+          <button className={styles.price}>{formatPrice(price)} تومان</button>
           <button
             className={styles.addToCart}
             onClick={onAddToCart}
