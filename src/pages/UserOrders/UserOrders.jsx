@@ -1,29 +1,80 @@
-import React, { useState } from "react";
-import OrderCategoryTabs from "../../components/OrderCategoryTabs/OrderCategoryTabs";
-import OrderDetails from "../../components/OrderDetails/OrderDetails";
+import React, { useState, useEffect } from "react";
 import styles from "./UserOrders.module.css";
+import axiosInstance from "../../utils/axiosInstance";
+
+const statusMap = {
+  pending: "در انتظار",
+  processing: "در حال پردازش",
+  completed: "تکمیل شده",
+  cancelled: "لغو شده",
+};
 
 const UserOrders = () => {
-  const [selectedCategory, setSelectedCategory] = useState("current"); // دسته‌بندی سفارش‌ها
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const renderOrders = () => {
-    switch (selectedCategory) {
-      case "current":
-        return <OrderDetails type="current" />;
-      case "delivered":
-        return <OrderDetails type="delivered" />;
-      case "returned":
-        return <OrderDetails type="returned" />;
-      default:
-        return <OrderDetails type="current" />;
-    }
-  };
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await axiosInstance.get("api/store/orders/");
+        setOrders(Array.isArray(response.data) ? response.data : []);
+      } catch (error) {
+        console.error("خطا در بارگذاری سفارش ها", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchOrders();
+  }, []);
 
   return (
     <div className={styles.ordersPage}>
       <h2>سفارش‌های من</h2>
-      <OrderCategoryTabs setSelectedCategory={setSelectedCategory} />
-      {renderOrders()}
+      {loading ? (
+        <div>در حال بارگذاری...</div>
+      ) : orders.length === 0 ? (
+        <div>شما سفارشی ثبت نکرده‌اید.</div>
+      ) : (
+        <ul className={styles.ordersList}>
+          {orders.map((order) => (
+            <li key={order.id} className={styles.orderCard}>
+              <div>
+                <strong>شماره سفارش:</strong> {order.id}
+              </div>
+              <div>
+                <strong>وضعیت:</strong> {statusMap[order.status] || order.status}
+              </div>
+              <div>
+                <strong>آدرس:</strong>{" "}
+                {order.shipping_address_detail
+                  ? `${order.shipping_address_detail.state}، ${order.shipping_address_detail.city}، ${order.shipping_address_detail.address}`
+                  : "—"}
+              </div>
+              <div>
+                <strong>محصولات:</strong>
+                <ul>
+                  {order.items && order.items.length > 0 ? (
+                    order.items.map((item) => (
+                      <li key={item.id}>
+                        {item.product_variant?.product?.title || "محصول"}
+                        {item.product_variant?.variant_display && (
+                          <span> ({item.product_variant.variant_display})</span>
+                        )}
+                        {" - "}
+                        تعداد: {item.quantity}
+                        {" - "}
+                        قیمت: {item.price?.toLocaleString()} تومان
+                      </li>
+                    ))
+                  ) : (
+                    <li>—</li>
+                  )}
+                </ul>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
