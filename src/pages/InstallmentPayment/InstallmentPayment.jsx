@@ -29,7 +29,7 @@ const InstallmentPayment = () => {
     <>
       <Header />
       <div className={styles.installmentContainer}>
-        <h2>پرداخت اقساطی محصولات صنایع‌دستی</h2>
+        <h2>پرداخت اقساطی محصولات صنایع‌دستی کیمیا ترنج</h2>
         <div className={styles.summaryBox}>
           <div className={styles.summaryRow}>
             <span>قیمت کل محصول:</span>
