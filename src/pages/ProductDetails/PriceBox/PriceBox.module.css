@@ -93,6 +93,40 @@
   opacity: 0.6;
 }
 
+/* اقساطی پرداخت کنید button */
+.installmentPayment {
+  width: 100%;
+  margin-top: 12px;
+  background: #e0f7fa;
+  border: none;
+  border-radius: 8px;
+  padding: 0;
+  transition: background 0.2s;
+}
+
+.installmentPayment:hover {
+  background: #b2ebf2;
+}
+
+/* تماس با ما یا گزینه های دیگر */
+.contactOption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1976d2;
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 12px 0;
+  width: 100%;
+}
+
+.installmentPaymentIcon {
+  margin-right: 8px;
+  font-size: 22px;
+  vertical-align: middle;
+}
+
 /* Mobile tweaks */
 @media (max-width: 480px) {
   .priceContainer {

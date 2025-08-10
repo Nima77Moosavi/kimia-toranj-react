@@ -31,6 +31,7 @@ import MirrorCandleHolder from "./pages/MirrorCandleholder/MirrorCandleholder.js
 import Khatamkari from "./pages/Khatamkari/Khatamkari.jsx";
 import BrassProducts from "./pages/BrassProducts/BrassProducts.jsx";
 import OrganizationalGiftPack from "./pages/OrganizationalGiftPack/OrganizationalGiftPack.jsx";
+import InstallmentPayment from "./pages/InstallmentPayment/InstallmentPayment.jsx";
 
 const App = () => {
   return (
@@ -40,6 +41,7 @@ const App = () => {
         {/* Public Routes */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/installment-payment" element={<InstallmentPayment />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:id" element={<BlogDetail />} />
         <Route path="/highlight/:id" element={<HighlightMedia />} />

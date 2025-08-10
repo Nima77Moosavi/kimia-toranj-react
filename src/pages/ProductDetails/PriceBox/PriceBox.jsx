@@ -5,6 +5,7 @@ import { BsBoxSeam } from "react-icons/bs";
 
 import styles from "./PriceBox.module.css";
 import { formatPrice } from "../../../utils/formatPrice";
+import { Link } from "react-router-dom";
 
 const PriceBox = ({ price, onAddToCart, stock }) => {
   const lowStock = stock > 0 && stock < 3;
@@ -46,6 +47,15 @@ const PriceBox = ({ price, onAddToCart, stock }) => {
             disabled={stock === 0}
           >
             افزودن به سبد خرید
+          </button>
+          <button className={styles.installmentPayment}>
+            <Link
+              to={`/installment-payment?price=${price}`}
+              className={styles.contactOption}
+            >
+              پرداخت اقساطی
+              <span className={styles.installmentPaymentIcon}>💳</span>
+            </Link>
           </button>
         </>
       )}
