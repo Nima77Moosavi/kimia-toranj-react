@@ -156,7 +156,11 @@ const Login = () => {
                   onClick={handleLoginClick}
                   disabled={isLoading}
                 >
-                  {isLoading ? "در حال ارسال..." : "دریافت کد تأیید"}
+                  {isLoading ? (
+                    <span className={styles.spinner}></span>
+                  ) : (
+                    "دریافت کد تأیید"
+                  )}
                 </button>
               </>
             ) : (
