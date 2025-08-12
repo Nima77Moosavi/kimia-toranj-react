@@ -149,6 +149,7 @@ const Login = () => {
                   onChange={handlePhoneChange}
                   className={styles.input}
                   maxLength="11"
+                  autoFocus
                 />
                 <button
                   className={styles.button}
@@ -167,6 +168,7 @@ const Login = () => {
                   onChange={handleCodeChange}
                   className={styles.input}
                   maxLength="6"
+                  autoFocus
                 />
                 <button
                   className={styles.button}
