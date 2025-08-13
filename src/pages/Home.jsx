@@ -15,41 +15,59 @@ import styles from "./Home.module.css";
 const Home = () => {
   const [latestProducts, setLatestProducts] = useState([]);
 
-  const productSchema = latestProducts.map((p) => ({
-    "@context": "https://schema.org/",
-    "@type": "Product",
-    name: p.title,
-    image: p.images?.map((img) => img.image) || [],
-    description: p.description || "",
-    sku: p.sku || String(p.id),
-    offers: {
-      "@type": "Offer",
-      url: `https://kimiatoranj.com/product/${p.slug}-${p.id}`,
-      priceCurrency: "IRR",
-      price: p.variants?.[0]?.price || p.price || 0,
-      availability:
-        p.variants?.[0]?.inventory > 0
-          ? "https://schema.org/InStock"
-          : "https://schema.org/OutOfStock",
-    },
-    aggregateRating: p.average_rating
-      ? {
-          "@type": "AggregateRating",
-          ratingValue: p.average_rating,
-          reviewCount: p.reviews_count || 1,
-        }
-      : undefined,
-  }));
-
   useEffect(() => {
     const fetchLatestProducts = async () => {
-      const response = await axios.get(
-        "https://kimiatoranj-api.liara.run/api/store/products/"
-      );
-      setLatestProducts(response.data);
+      try {
+        const response = await axios.get(
+          "https://kimiatoranj-api.liara.run/api/store/products/"
+        );
+        // Normalize: ensure it's always an array
+        const list = Array.isArray(response.data)
+          ? response.data
+          : Array.isArray(response.data?.results)
+            ? response.data.results
+            : [];
+        setLatestProducts(list);
+      } catch (err) {
+        console.error("Error fetching latest products:", err);
+        setLatestProducts([]); // fallback to empty array
+      }
     };
     fetchLatestProducts();
   }, []);
+
+  // Safely build product schema
+  const productSchema = (Array.isArray(latestProducts) ? latestProducts : []).map(
+    (p) => ({
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      name: p.title,
+      image: Array.isArray(p.images)
+        ? p.images.map((img) => img.image).filter(Boolean)
+        : [],
+      description: p.description || "",
+      sku: p.sku || String(p.id),
+      offers: {
+        "@type": "Offer",
+        url: `https://kimiatoranj.com/product/${p.slug}-${p.id}`,
+        priceCurrency: "IRR",
+        price: p.variants?.[0]?.price || p.price || 0,
+        availability:
+          (p.variants?.[0]?.inventory ?? 0) > 0
+            ? "https://schema.org/InStock"
+            : "https://schema.org/OutOfStock",
+      },
+      ...(p.average_rating
+        ? {
+            aggregateRating: {
+              "@type": "AggregateRating",
+              ratingValue: p.average_rating,
+              reviewCount: p.reviews_count || 1,
+            },
+          }
+        : {}),
+    })
+  );
 
   return (
     <div className={styles.home}>
@@ -76,6 +94,7 @@ const Home = () => {
         />
         <html lang="fa" />
 
+        {/* Store structured data */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -98,8 +117,9 @@ const Home = () => {
             ],
           })}
         </script>
+
         {/* Product structured data */}
-        {latestProducts.length > 0 && (
+        {productSchema.length > 0 && (
           <script type="application/ld+json">
             {JSON.stringify(productSchema)}
           </script>
