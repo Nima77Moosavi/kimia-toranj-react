@@ -14,7 +14,18 @@ export default defineConfig({
       // routes: ["/", "/login", "/blog", "/shop", "/gift-selector"],
 
       // 3. If you have dynamic pages (e.g. blog posts), enumerate them here
-      dynamicRoutes: ["/", "/login", "/blog", "/shop", "/gift-selector"],
+      dynamicRoutes: [
+        "/",
+        "/login",
+        "/blog",
+        "/shop",
+        "/gift-selector",
+        "/category/brass-samovar",
+        "/category/mirror-candleholder",
+        "/category/khatamkari",
+        "/category/brass-products",
+        "/category/organizational-gift-pack",
+      ],
 
       // 4. Exclude any client-only or private routes
       exclude: ["/user-panel/*", "/login"],
