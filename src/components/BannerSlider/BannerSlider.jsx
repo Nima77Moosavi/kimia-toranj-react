@@ -1,37 +1,55 @@
 // src/components/BannerSlider/BannerSlider.jsx
 import React, { useState, useEffect, useRef, useMemo } from "react";
-import { GrFormNext, GrFormPrevious } from "react-icons/gr";
+// import { GrFormNext, GrFormPrevious } from "react-icons/gr"; // optional
 import styles from "./BannerSlider.module.css";
 
-import banner1 from "../../assets/banner11.jpg";
-import banner2 from "../../assets/banner22.jpg";
-import banner3 from "../../assets/banner33.jpg";
-import banner4 from "../../assets/banner44.jpg";
+// Import only the first (LCP) banner synchronously
+import banner1Jpg from "../../assets/banner11.jpg";
 import patternImg from "../../assets/forground-banner.png";
 
 const BannerSlider = () => {
-  // 1) The real images
-  const realSlides = useMemo(() => [banner1, banner2, banner3, banner4], []);
+  // Load non-critical banners after mount (don’t compete with LCP)
+  const [otherSlides, setOtherSlides] = useState([]); // array of JPG urls
 
-  // 2) Build clones at front/back
-  const slides = useMemo(
-    () => [
-      realSlides[realSlides.length - 1], // last clone
-      ...realSlides,
-      realSlides[0], // first clone
-    ],
-    [realSlides]
-  );
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const [b2, b3, b4] = await Promise.all([
+          import("../../assets/banner22.jpg"),
+          import("../../assets/banner33.jpg"),
+          import("../../assets/banner44.jpg"),
+        ]);
+        if (!cancelled) {
+          setOtherSlides([b2.default, b3.default, b4.default]);
+        }
+      } catch {
+        if (!cancelled) setOtherSlides([]);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
-  // 3) State & refs
-  const [idx, setIdx] = useState(1);
+  // Real slides: first (eager) + others (deferred)
+  const realSlides = useMemo(() => [banner1Jpg, ...otherSlides], [otherSlides]);
+
+  // Build clones for infinite loop
+  const slides = useMemo(() => {
+    if (realSlides.length === 0) return [];
+    return [realSlides[realSlides.length - 1], ...realSlides, realSlides[0]];
+  }, [realSlides]);
+
+  // State & refs
+  const [idx, setIdx] = useState(1); // start at first real slide
   const [anim, setAnim] = useState(true);
   const timeoutRef = useRef(null);
 
   const maxIndex = slides.length - 2; // last real slide
   const minIndex = 1; // first real slide
 
-  // 4) Next / Prev handlers
+  // Next / Prev handlers
   const nextSlide = () => {
     setIdx((i) => i + 1);
     setAnim(true);
@@ -41,30 +59,29 @@ const BannerSlider = () => {
     setAnim(true);
   };
 
-  // 5) Snap when landing on a clone
+  // Snap when landing on a clone
   const onTransitionEnd = () => {
     if (idx > maxIndex) {
-      // went past last real → snap to first real
       setAnim(false);
       setIdx(minIndex);
     }
     if (idx < minIndex) {
-      // went before first real → snap to last real
       setAnim(false);
       setIdx(maxIndex);
     }
   };
 
-  // 6) Re-enable animation after any snap
+  // Re-enable animation after any snap
   useEffect(() => {
     if (!anim) {
       requestAnimationFrame(() => setAnim(true));
     }
   }, [anim]);
 
-  // 7) Autoplay with per-slide timeout + clamp
+  // Autoplay with per-slide timeout + clamp
   useEffect(() => {
-    // Clamp idx into [minIndex, maxIndex]
+    if (slides.length === 0) return;
+
     if (idx < minIndex) {
       setIdx(minIndex);
       return;
@@ -74,36 +91,43 @@ const BannerSlider = () => {
       return;
     }
 
-    // Clear previous timer
     clearTimeout(timeoutRef.current);
+    // small delay so first paint isn’t competing with timer
+    timeoutRef.current = setTimeout(nextSlide, 3000);
 
-    // Schedule next slide in 3s
-    timeoutRef.current = setTimeout(() => {
-      nextSlide();
-    }, 3000);
-
-    // Cleanup
-    return () => {
-      clearTimeout(timeoutRef.current);
-    };
-  }, [idx, minIndex, maxIndex]);
+    return () => clearTimeout(timeoutRef.current);
+  }, [idx, minIndex, maxIndex, slides.length]);
 
   return (
     <div className={styles.bannerWrapper}>
-      <div className={styles.patternContainer}>
-        <img src={patternImg} alt="" className={styles.patternImage} />
+      <div className={styles.patternContainer} aria-hidden="true">
+        <img
+          src={patternImg}
+          alt=""
+          className={styles.patternImage}
+          loading="lazy"
+          decoding="async"
+        />
       </div>
 
-      <div className={styles.sliderWindow}>
+      <div
+        className={styles.sliderWindow}
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="بنرهای تبلیغاتی فروشگاه"
+      >
+        {/* Optional nav buttons */}
         {/* <button
           className={`${styles.navButton} ${styles.prevButton}`}
           onClick={prevSlide}
+          aria-label="بنر قبلی"
         >
           <GrFormPrevious />
         </button>
         <button
           className={`${styles.navButton} ${styles.nextButton}`}
           onClick={nextSlide}
+          aria-label="بنر بعدی"
         >
           <GrFormNext />
         </button> */}
@@ -117,15 +141,24 @@ const BannerSlider = () => {
             }}
             onTransitionEnd={onTransitionEnd}
           >
-            {slides.map((src, i) => (
-              <div key={i} className={styles.slide}>
-                <img
-                  src={src}
-                  alt={`banner-${i}`}
-                  className={styles.slideImage}
-                />
-              </div>
-            ))}
+            {slides.map((src, i) => {
+              const isFirstRealSlide = i === 1; // first non-clone
+              return (
+                <div key={i} className={styles.slide}>
+                  <img
+                    src={src}
+                    alt={`بنر شماره ${i}`}
+                    className={styles.slideImage}
+                    loading={isFirstRealSlide ? "eager" : "lazy"}
+                    fetchpriority={isFirstRealSlide ? "high" : "auto"}
+                    decoding="async"
+                    width="1920"
+                    height="600"
+                    sizes="100vw"
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

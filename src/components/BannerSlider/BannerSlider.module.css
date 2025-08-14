@@ -1,3 +1,5 @@
+/* src/components/BannerSlider/BannerSlider.module.css */
+
 :root {
   /* desktop: 30% pattern / 70% slider */
   --pattern-width: 30%;
@@ -6,16 +8,16 @@
 .bannerWrapper {
   position: relative;
   width: 100%;
-  height: 300px;
+  height: 300px; /* fixed height avoids CLS; adjust as needed */
 }
 
-/* LEFT PATTERN (on top) */
+/* LEFT PATTERN (overlay) */
 .patternContainer {
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
-  width: 30%;
+  width: var(--pattern-width);
   z-index: 2;
   overflow: hidden;
 }
@@ -23,15 +25,14 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+  pointer-events: none;
 }
 
 /* RIGHT SLIDER (behind the pattern) */
 .sliderWindow {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   overflow: hidden;
   z-index: 1;
 }
@@ -39,29 +40,29 @@
 .trackContainer {
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
 }
 
 .track {
   display: flex;
-  width: calc(100% * 5); /* slides.length = realCount + 2 clones */
   height: 100%;
+  will-change: transform;
 }
 
 .slide {
-  width: 100%; /* each takes exactly the sliderWindow’s width */
+  min-width: 100%; /* each slide = full viewport width */
+  height: 100%;
   flex-shrink: 0;
 }
+
 .slideImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
-/* NAV BUTTONS */
+/* NAV BUTTONS (optional) */
 .navButton {
   position: absolute;
   top: 50%;
@@ -78,7 +79,7 @@
   z-index: 3;
 }
 .prevButton {
-  right: 65%;
+  right: calc(70% + 10px); /* near boundary between pattern and slider */
 }
 .nextButton {
   left: 10px;
@@ -102,24 +103,14 @@
   }
 
   .navButton {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.5);
-  border: none;
-  border-radius: 50%;
-  width: 25px;
-  height: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 3;
-}
+    background: rgba(255, 255, 255, 0.5);
+    width: 25px;
+    height: 25px;
+  }
 
   .prevButton {
-  right: 55%;
-}
+    right: calc(60% + 8px);
+  }
 
   .patternContainer {
     width: 40%;

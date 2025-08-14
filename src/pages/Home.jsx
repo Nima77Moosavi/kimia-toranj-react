@@ -12,6 +12,8 @@ import BannerSlider from "../components/BannerSlider/BannerSlider";
 import FeaturesLine from "../components/FeaturesLine/FeaturesLine";
 import styles from "./Home.module.css";
 
+import banner1 from "../assets/banner11.jpg";
+
 const Home = () => {
   const [latestProducts, setLatestProducts] = useState([]);
 
@@ -25,8 +27,8 @@ const Home = () => {
         const list = Array.isArray(response.data)
           ? response.data
           : Array.isArray(response.data?.results)
-            ? response.data.results
-            : [];
+          ? response.data.results
+          : [];
         setLatestProducts(list);
       } catch (err) {
         console.error("Error fetching latest products:", err);
@@ -37,37 +39,37 @@ const Home = () => {
   }, []);
 
   // Safely build product schema
-  const productSchema = (Array.isArray(latestProducts) ? latestProducts : []).map(
-    (p) => ({
-      "@context": "https://schema.org/",
-      "@type": "Product",
-      name: p.title,
-      image: Array.isArray(p.images)
-        ? p.images.map((img) => img.image).filter(Boolean)
-        : [],
-      description: p.description || "",
-      sku: p.sku || String(p.id),
-      offers: {
-        "@type": "Offer",
-        url: `https://kimiatoranj.com/product/${p.slug}-${p.id}`,
-        priceCurrency: "IRR",
-        price: p.variants?.[0]?.price || p.price || 0,
-        availability:
-          (p.variants?.[0]?.inventory ?? 0) > 0
-            ? "https://schema.org/InStock"
-            : "https://schema.org/OutOfStock",
-      },
-      ...(p.average_rating
-        ? {
-            aggregateRating: {
-              "@type": "AggregateRating",
-              ratingValue: p.average_rating,
-              reviewCount: p.reviews_count || 1,
-            },
-          }
-        : {}),
-    })
-  );
+  const productSchema = (
+    Array.isArray(latestProducts) ? latestProducts : []
+  ).map((p) => ({
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    name: p.title,
+    image: Array.isArray(p.images)
+      ? p.images.map((img) => img.image).filter(Boolean)
+      : [],
+    description: p.description || "",
+    sku: p.sku || String(p.id),
+    offers: {
+      "@type": "Offer",
+      url: `https://kimiatoranj.com/product/${p.slug}-${p.id}`,
+      priceCurrency: "IRR",
+      price: p.variants?.[0]?.price || p.price || 0,
+      availability:
+        (p.variants?.[0]?.inventory ?? 0) > 0
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+    },
+    ...(p.average_rating
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: p.average_rating,
+            reviewCount: p.reviews_count || 1,
+          },
+        }
+      : {}),
+  }));
 
   return (
     <div className={styles.home}>
@@ -93,6 +95,8 @@ const Home = () => {
           content="https://kimiatoranj.com/og-image.jpg"
         />
         <html lang="fa" />
+
+        <link rel="preload" as="image" href={banner1} imagesizes="100vw" />
 
         {/* Store structured data */}
         <script type="application/ld+json">
