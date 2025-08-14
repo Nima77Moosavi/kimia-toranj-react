@@ -1,11 +1,9 @@
 // src/components/BannerSlider/BannerSlider.jsx
 import React, { useState, useEffect, useRef, useMemo } from "react";
-// import { GrFormNext, GrFormPrevious } from "react-icons/gr"; // optional
 import styles from "./BannerSlider.module.css";
 
 // Import only the first (LCP) banner synchronously
 import banner1Jpg from "../../assets/banner11.jpg";
-import patternImg from "../../assets/forground-banner.png";
 
 const BannerSlider = () => {
   // Load non-critical banners after mount (don’t compete with LCP)
@@ -100,15 +98,8 @@ const BannerSlider = () => {
 
   return (
     <div className={styles.bannerWrapper}>
-      <div className={styles.patternContainer} aria-hidden="true">
-        <img
-          src={patternImg}
-          alt=""
-          className={styles.patternImage}
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
+      {/* Decorative foreground pattern as CSS background (ignored by LCP) */}
+      <div className={styles.patternContainer} aria-hidden="true" />
 
       <div
         className={styles.sliderWindow}
@@ -116,20 +107,20 @@ const BannerSlider = () => {
         aria-roledescription="carousel"
         aria-label="بنرهای تبلیغاتی فروشگاه"
       >
-        {/* Optional nav buttons */}
-        {/* <button
+        {/* Optional nav buttons
+        <button
           className={`${styles.navButton} ${styles.prevButton}`}
           onClick={prevSlide}
           aria-label="بنر قبلی"
         >
-          <GrFormPrevious />
+          ‹
         </button>
         <button
           className={`${styles.navButton} ${styles.nextButton}`}
           onClick={nextSlide}
           aria-label="بنر بعدی"
         >
-          <GrFormNext />
+          ›
         </button> */}
 
         <div className={styles.trackContainer}>

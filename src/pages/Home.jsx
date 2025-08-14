@@ -13,7 +13,7 @@ import FeaturesLine from "../components/FeaturesLine/FeaturesLine";
 import styles from "./Home.module.css";
 
 import banner1 from "../assets/banner11.jpg";
-import patternImg from "../../assets/forground-banner.png";
+
 
 const Home = () => {
   const [latestProducts, setLatestProducts] = useState([]);
@@ -98,7 +98,6 @@ const Home = () => {
         <html lang="fa" />
 
         <link rel="preload" as="image" href={banner1} imagesizes="100vw" />
-        <link rel="preload" as="image" href={patternImg} imagesizes="100vw" />
 
         {/* Store structured data */}
         <script type="application/ld+json">

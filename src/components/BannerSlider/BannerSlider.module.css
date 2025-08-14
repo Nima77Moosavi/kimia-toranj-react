@@ -11,7 +11,7 @@
   height: 300px; /* fixed height avoids CLS; adjust as needed */
 }
 
-/* LEFT PATTERN (overlay) */
+/* LEFT PATTERN (overlay as CSS background, not counted for LCP) */
 .patternContainer {
   position: absolute;
   top: 0;
@@ -20,13 +20,13 @@
   width: var(--pattern-width);
   z-index: 2;
   overflow: hidden;
-}
-.patternImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  pointer-events: none;
+
+  background-image: url("../../assets/forground-banner.png"); /* swap to .webp/.avif if available */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  pointer-events: none; /* purely decorative */
 }
 
 /* RIGHT SLIDER (behind the pattern) */
