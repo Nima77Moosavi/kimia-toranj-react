@@ -1,34 +1,90 @@
-.ordersPage{
+.ordersPage {
   direction: rtl;
-    background-color: white;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    border-radius: 12px;
-    max-width: 800px;
-    min-height: 100vh;
-    margin: 0 auto;
-}
-.ordersPage h2 {
-  color: #023047;
-  font-size: 30px;
-  margin-bottom: 30px;
-  text-align: center;
-  /* font-weight: 600; */
-  position: relative;
-  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  max-width: 900px;
+  min-height: 100vh;
+  margin: 20px auto;
+  padding: 24px;
 }
 
-.ordersList{
-  list-style: none;
-  padding-right: 10px;
+.ordersPage h2 {
+  color: #023047;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 32px;
+  text-align: center;
+  position: relative;
 }
+
 .ordersPage h2::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 100px;
-    height: 3px;
-    background-color: #40e0d0;
-    right: 50%;
-    transform: translateX(50%);
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  width: 120px;
+  height: 3px;
+  background-color: #40e0d0;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+.ordersList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 16px;
+}
+
+.orderCard {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px 20px;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.orderCard:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.orderCard div {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #374151;
+}
+
+.orderCard strong {
+  color: #111827;
+  font-weight: 600;
+}
+
+.orderCard ul {
+  list-style: disc inside;
+  padding-right: 0;
+  margin-top: 4px;
+}
+
+.orderCard ul li {
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.status-pending {
+  color: #d97706; /* amber */
+}
+
+.status-processing {
+  color: #2563eb; /* blue */
+}
+
+.status-completed {
+  color: #059669; /* green */
+}
+
+.status-cancelled {
+  color: #dc2626; /* red */
 }

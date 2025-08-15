@@ -46,6 +46,26 @@
   transition: background-color 0.3s ease;
 }
 
+.iconWrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.badge {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  background-color: #e63946;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 5px;
+  border-radius: 50%;
+  min-width: 16px;
+  text-align: center;
+  line-height: 1;
+}
+
 .footerLink svg {
   font-size: 20px;
   font-weight: 700;

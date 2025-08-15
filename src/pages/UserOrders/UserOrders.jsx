@@ -42,7 +42,10 @@ const UserOrders = () => {
                 <strong>شماره سفارش:</strong> {order.id}
               </div>
               <div>
-                <strong>وضعیت:</strong> {statusMap[order.status] || order.status}
+                <strong>وضعیت:</strong>{" "}
+                <span className={styles[`status-${order.status}`] || ""}>
+                  {statusMap[order.status] || order.status}
+                </span>
               </div>
               <div>
                 <strong>آدرس:</strong>{" "}
