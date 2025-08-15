@@ -89,7 +89,7 @@ const BannerSlider = () => {
                     alt={`بنر شماره ${i}`}
                     className={styles.slideImage}
                     loading={isFirstRealSlide ? "eager" : "lazy"}
-                    fetchpriority={isFirstRealSlide ? "high" : "auto"}
+                    fetchPriority={isFirstRealSlide ? "high" : "auto"}
                     decoding="async"
                     width="1280"
                     height="284"

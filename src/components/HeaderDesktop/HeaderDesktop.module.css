@@ -88,6 +88,27 @@
 }
 .cartIcon{
   color: #023047 !important;
+  display: flex;
+  align-items: center;  /* vertical centering */
+  justify-content: center;
+  position: relative;   /* needed for absolutely‑positioned badge */
+  font-size: 2rem;
+}
+
+.cartItemsCount {
+  position: absolute;
+  top: -6px;            /* move up */
+  right: -6px;          /* move right */
+  background: #e63946;  /* red background */
+  color: #fff;          /* white text */
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  min-width: 18px;
+  text-align: center;
+  line-height: 1;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px #fff; /* small white border for contrast */
 }
 .loginButton {
   order: 2;

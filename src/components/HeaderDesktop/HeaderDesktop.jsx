@@ -16,7 +16,7 @@ import { FavoritesContext } from "../../context/FavoritesContext";
 import { IoBagOutline } from "react-icons/io5";
 import { GoGift } from "react-icons/go";
 import image1 from "../../assets/banner11.png";
-
+import axiosInstanceNoRedirect from "../../utils/axiosInstanceNoRedirect";
 
 const HeaderDesktop = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,6 +26,9 @@ const HeaderDesktop = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
+  // Cart
+  const [cartItemsCount, setCartItemsCount] = useState(0);
+
   // Debounce ref
   const debounceRef = useRef();
 
@@ -34,6 +37,16 @@ const HeaderDesktop = () => {
 
   // بستن منوها هنگام کلیک بیرون
   useEffect(() => {
+    const fetchCartItems = async () => {
+      const response = await axiosInstanceNoRedirect.get("api/store/cart/");
+      const cartItems = response.data.items;
+      let count = 0;
+      cartItems.map((cartItem) => (count += cartItem.quantity));
+      setCartItemsCount(count);
+    };
+
+    fetchCartItems();
+
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsMenuOpen(false);
@@ -102,6 +115,7 @@ const HeaderDesktop = () => {
             >
               <FaCartShopping />
             </span>
+            <span className={styles.cartItemsCount}>{cartItemsCount}</span>
           </Link>
         </div>
         <Link to="/">
@@ -148,7 +162,8 @@ const HeaderDesktop = () => {
                     <div className={styles.suggestionTitle}>{prod.title}</div>
                     <div className={styles.suggestionMeta}>
                       {prod.collection?.title} •{" "}
-                      {formatPrice(prod.variants?.[0]?.price.toLocaleString())} تومان
+                      {formatPrice(prod.variants?.[0]?.price.toLocaleString())}{" "}
+                      تومان
                     </div>
                   </Link>
                 </li>
