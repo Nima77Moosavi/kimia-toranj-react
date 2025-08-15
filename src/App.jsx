@@ -34,6 +34,7 @@ import OrganizationalGiftPack from "./pages/OrganizationalGiftPack/Organizationa
 import InstallmentPayment from "./pages/InstallmentPayment/InstallmentPayment.jsx";
 import SilverPlated from "./pages/SilverPlated/SilverPlated.jsx";
 import GoldenBrass from "./pages/GoldenBrass/GoldenBrass.jsx";
+import Qalamzani from "./pages/Qalamzani/Qalamzani.jsx";
 
 const App = () => {
   return (
@@ -55,6 +56,7 @@ const App = () => {
         <Route path="/category/brass-products" element={<BrassProducts />} />
         <Route path="/category/silver-plated" element={<SilverPlated />} />
         <Route path="/category/golden-brass" element={<GoldenBrass />} />
+        <Route path="/category/qalamzani" element={<Qalamzani />} />
         <Route
           path="/category/mirror-candleholder"
           element={<MirrorCandleHolder />}
