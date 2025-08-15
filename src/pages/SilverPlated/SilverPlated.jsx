@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import styles from "./ُSilverPlated.module.css";
+import styles from "./SilverPlated.module.css";
 import axiosInstanceNoRedirect from "../../utils/axiosInstanceNoRedirect";
 import { API_URL } from "../../config";
 import ProductCard from "../../components/ProductCard/ProductCard";
@@ -32,11 +32,12 @@ const SilverPlated = () => {
       }
     };
     getCollection();
-    document.title = "خاتمکاری اصفهان اصل | خرید اینترنتی از کیمیا ترنج";
+    document.title =
+      "محصولات شبه نقره قلمزنی اصفهان | شیرینی خوری، شکلاتخوری، گلدان و کشکول | کیمیا ترنج";
     const tag = document.querySelector('meta[name="description"]');
     if (tag)
       tag.content =
-        "فروش انواع آثار خاتم کاری دست ساز، شامل جعبه، قاب، ست پذیرایی و هدیه های هنری.هنر اصیل ایرانی را از کیمیا ترنج تجربه کنید.ارسال تضمینی";
+        "کلکسیونی از محصولات شبه نقره قلم زنی اصفهان، شامل شیرینی خوری، کشکول، گلدان و ظروف تزئینی و کاربردی. مناسب هدیه، جهیزیه و دکوراسیون اصیل. خرید مستقیم از فروشگاه کیمیا ترنج.";
   }, []);
 
   // Fetch products for this collection with pagination
@@ -90,7 +91,9 @@ const SilverPlated = () => {
       {/* Product Grid Section at the top */}
       <section className={styles.productGridSection}>
         <div className={styles.container}>
-          <h1 className={styles.sectionTitle}>محصولات آینه شمعدان </h1>
+          <h1 className={styles.sectionTitle}>
+            محصولات شبه نقره قلمزنی کیمیا ترنج{" "}
+          </h1>
           {products.length === 0 && productsLoading ? (
             <div className={styles.loading}>در حال بارگذاری...</div>
           ) : productsError ? (
@@ -124,16 +127,14 @@ const SilverPlated = () => {
       <section className={styles.heroSection}>
         <div className={styles.heroContent}>
           <h2 className={styles.heroTitle}>
-            خرید محصوالت خاتمکاری اصفهان | ترکیب هنر، ظرافت و اصالت
+            زیبایی و اصالت، درخشش ماندگار بدون هزینه سنگین نقره خالص
           </h2>
           <p className={styles.heroSubtitle}>
-            خاتمکاری یکی از زیباترین و ظریفترین هنرهای صنایعدستی ایران است؛ هنری
-            که با کنار هم نشاندن قطعات ریز چوب، فلز و استخوان، آثاری خیرهکننده
-            میآفریند. محصوالت خاتمکاری، ترکیبی بینظیر از دقت، صبر و هنر ایرانی
-            هستند؛ از جعبههای خاتم گرفته تا قاب آینه، میز، قلمدان و سرویسهای
-            پذیرایی. در این صفحه، مجموعهای از نفیسترین آثار خاتمکاری شده توسط
-            هنرمندان اصفهانی را میتوانید ببینید و خریداری کنید. آثاری کاربردی،
-            تزئینی و ماندگار، مناسب برای هدیه، دکوراسیون و تکمیل جهیزیه.
+            خاتمکاری یکی از زیباترین و ظریفترین هنرهای صنایعدستی ایران است؛
+            هنریشبهنقره، انتخابی هوشمندانه برای کسانی است که می خواهند درخشش و
+            شکوه نقره را داشته باشند اما دغدغه هزینه بسیار باالی آن را ندارند.
+            محصوالت شبه نقره کیمیا ترنج، با هنر قلم زنی دستساز، ترکیبی از جلوه
+            لوکس و ماندگاری باال را ارائه می کند.
           </p>
         </div>
         <div className={styles.heroImage}>
@@ -178,29 +179,34 @@ const SilverPlated = () => {
       <section className={styles.productTypesSection}>
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>
-            انواع محصولات خاتم کاری موجود در فروشگاه کیمیا ترنج
+            تنوع محصوالت شبه نقره در کیمیا ترنج
           </h2>
-          <p className={styles.sectionSubtitle}>
+          {/* <p className={styles.sectionSubtitle}>
             ما در فروشگاه کیمیا ترنج تنوع کاملی از محصولات خاتمکاری را با سلیقه
             های مختلف آماده کردهایم:
-          </p>
+          </p> */}
 
           <div className={styles.productTypesGrid}>
             <div className={styles.productTypeCard}>
               {/* <div className={styles.productTypeIcon}>
                 <span className={styles.iconText}>سنتی</span>
               </div> */}
-              <h3>جعبه های خاتمکاری</h3>
-              <p>برای جواهرات، قرآن، چای، و یا هدیه. ترکیبی از هنر و کارایی.</p>
+              <h3>گلدان شبه نقره</h3>
+              <p>
+                همراهی هنر قلم زنی با فرم های کالسیک گلدان، این محصولات را به
+                المانی لوکس برای میزها و کنسول ها تبدیل کرده است.
+              </p>
             </div>
 
             <div className={styles.productTypeCard}>
               {/* <div className={styles.productTypeIcon}>
                 <span className={styles.iconText}>برقی</span>
               </div> */}
-              <h3>آینه و شمعدان خاتم</h3>
+              <h3>شیرینی خوری شبه نقره</h3>
               <p>
-                مناسب سفره عقد یا دکوراسیون سنتی با جلوهای هنرمندانه و اصیل.
+                از پذیرایی رسمی تا دورهمی های خانوادگی، شیرینی خوریهای سه پایه
+                یا دسته دار با طرح های گل و مرغ، جلوه ای چشمنواز به مهمانی های
+                شما می بخشند
               </p>
             </div>
 
@@ -208,18 +214,31 @@ const SilverPlated = () => {
               {/* <div className={styles.productTypeIcon}>
                 <span className={styles.iconText}>قلمزنی</span>
               </div> */}
-              <h3>ست های پذیرایی خاتمکاری</h3>
-              <p>شامل سینی، قندان، شکالتخوری و سایر ظروف، زیبا و بادوام.</p>
+              <h3>شکلات خوری شبه نقره</h3>
+              <p>
+                با درب گنبدی شکل یا بدون درب، این ظروف هم به عنوان پذیرایی و هم
+                شیء تزئینی ارزشمند شناخته می شوند.
+              </p>
             </div>
 
             <div className={styles.productTypeCard}>
               {/* <div className={styles.productTypeIcon}>
                 <span className={styles.iconText}>ست کامل</span>
               </div> */}
-              <h3>قاب و تابلو خاتم</h3>
+              <h3>کشکول شبه نقره</h3>
               <p>
-                قاب های خوشنویسی، تزئین شده با خاتم، مناسب دفاتر رسمی و منازل
-                کالسیک.
+                کشکول های قلم زنی شده، انتخابی متفاوت برای سرو آجیل یا استفاده
+                به عنوان المان خاص در دکوراسیون سالن.
+              </p>
+            </div>
+            <div className={styles.productTypeCard}>
+              {/* <div className={styles.productTypeIcon}>
+                <span className={styles.iconText}>ست کامل</span>
+              </div> */}
+              <h3>تنگ و نیم ست پذیرایی شبه نقره</h3>
+              <p>
+                تنگ های قلم زنی شده همراه با لیوان یا گلدان هم سبک، ست جذابی
+                برای جهیزیه یا هدیه ایجاد می کند.
               </p>
             </div>
           </div>
@@ -230,7 +249,7 @@ const SilverPlated = () => {
       <section className={styles.featuresSection}>
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>
-            ویژگیها و مزایای خاتمکاری اصیل ایرانی
+            چرا محصولات شبه نقره کیمیا ترنج ارزش خرید دارند؟
           </h2>
           {/* <p className={styles.sectionSubtitle}>
             انتخاب آینه و شمعدان صنایع دستی، فقط یک خرید تزئینی نیست؛ بلکه تجلی
@@ -242,26 +261,36 @@ const SilverPlated = () => {
               {/* <div className={styles.featureIcon}>
                 <span className={styles.iconText}>کیفیت</span>
               </div> */}
-              <h3>ظرافت بی نظیر :</h3>
-              <p>استفاده از قطعات ریز چوب، فلز و استخوان با نظم هندسی دقیق.</p>
+              {/* <h3>قیمت مناسب تر از نقره خالص</h3> */}
+              <p> قیمت مناسب تر از نقره خالص بدون کاهش چشمگیر در جلوه بصری.</p>
             </div>
 
             <div className={styles.featureItem}>
               {/* <div className={styles.featureIcon}>
                 <span className={styles.iconText}>گرما</span>
               </div> */}
-              <h3>هنر دست :</h3>
-              <p>تمام مراحل با دستان هنرمندان خبره انجام می شود.</p>
+              {/* <h3>هنر دست :</h3> */}
+              <p>
+                هنر قلمزنی اصیل روی بدنه مس یا فلز مرغوب با آبکاری شبه نقره.
+              </p>
             </div>
 
             <div className={styles.featureItem}>
               {/* <div className={styles.featureIcon}>
                 <span className={styles.iconText}>دوام</span>
               </div> */}
-              <h3>دوام بالا :</h3>
+              {/* <h3>دوام بالا :</h3> */}
+              <p>تنوع فرم و کاربرد از ظرف پذیرایی تا دکوری خاص</p>
+            </div>
+
+            <div className={styles.featureItem}>
+              {/* <div className={styles.featureIcon}>
+                <span className={styles.iconText}>کاربرد</span>
+              </div> */}
+              {/* <h3>نماد فرهنگ ایرانی :</h3> */}
               <p>
-                با رعایت نکات نگهداری، محصولات خاتم کاری سال ها ماندگار می
-                مانند.
+                دوام آبکاری در صورت نگهداری صحیح، تا سالها درخشش خود را حفظ می
+                کند.
               </p>
             </div>
 
@@ -269,8 +298,8 @@ const SilverPlated = () => {
               {/* <div className={styles.featureIcon}>
                 <span className={styles.iconText}>کاربرد</span>
               </div> */}
-              <h3>نماد فرهنگ ایرانی :</h3>
-              <p>حضور در موزه ها، کاخ ها و خانه های اصیل ایرانی.</p>
+              {/* <h3>نماد فرهنگ ایرانی :</h3> */}
+              <p>بسته بندی ایمن و مناسب هدیه برای ارسال به سراسر کشور.</p>
             </div>
           </div>
         </div>
@@ -280,15 +309,21 @@ const SilverPlated = () => {
       <section className={styles.decorationSection}>
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>
-            خاتمکاری؛ هنر نجیب و درخشان اصفهان
+            کاربرد محصولات شبه نقره در خانه و مراسم
           </h2>
           <div className={styles.decorationContent}>
+            <p>پذیرایی مجلل در مهمانی ها با سرو شیرینی، شکالت یا آجیل.</p>
+          </div>
+          <div className={styles.decorationContent}>
+            <p> استفاده به عنوان المان دکوری روی میز پذیرایی، بوفه یا کنسول.</p>
+          </div>
+          <div className={styles.decorationContent}>
             <p>
-              محصولات خاتمکاری نه فقط برای تزئین، بلکه برای انتقال حس اصالت و
-              سنت به محیط زندگی طراحی شده اند. چه برای پذیرایی باشه، چه برای
-              ویترین یا هدیه دادن، یک اثر خاتمکاری همیشه حرفی برای گفتن دارد.
-              خون هات رو با ظرافت بی زمان خاتم، گرمتر و اصیلتر کن.
+              هدایای رسمی یا شخصی که هم ارزش هنری دارد و هم یادگاری ماندگار است.
             </p>
+          </div>
+          <div className={styles.decorationContent}>
+            <p>افزودن جلوه سنتی به خانه با کمترین تغییر در مبلمان و هزینه.</p>
           </div>
         </div>
       </section>
@@ -297,41 +332,52 @@ const SilverPlated = () => {
       <section className={styles.buyingGuideSection}>
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>
-            راهنمای خرید خاتمکاری از فروشگاه کیمیا ترنج
+            راهنمای خرید محصولات شبه نقره – مشاوره انتخاب هوشمندانه
           </h2>
-          <p className={styles.sectionSubtitle}>
+          {/* <p className={styles.sectionSubtitle}>
             برای خریدی مطمئن و آگاهانه، به نکات زیر توجه داشته باشید:
-          </p>
+          </p> */}
 
           <div className={styles.buyingGuideGrid}>
             <div className={styles.guideItem}>
-              <h3>اندازه و کاربرد :</h3>
-              <p>جعبه بزرگ یا کوچک؟ قاب یا ست کامل؟</p>
-            </div>
-
-            <div className={styles.guideItem}>
-              <h3>طرح و سبک :</h3>
-              <p>کلاسیک یا ترکیبی با هنرهای دیگر مثل مینا یا میکرو خاتم؟</p>
-            </div>
-
-            <div className={styles.guideItem}>
-              <h3>سبک شخصی</h3>
-              <p>دنبال طراحی کالسیک هستید یا مدرن و مینیمال؟</p>
-            </div>
-
-            <div className={styles.guideItem}>
-              <h3>جنس و کیفیت مواد اولیه :</h3>
-              <p>هرچه ریزتر و متراکم تر، خاتم باارزش تر است.</p>
-            </div>
-            <div className={styles.guideItem}>
-              <h3>هدیه دادن؟</h3>
-              <p>حتما مدله ایی با جعبه و بسته بندی شیک را بررسی کنید.</p>
-            </div>
-            <div className={styles.guideItem}>
-              <h3>ارسال امن و تضمینی :</h3>
+              <h3>انتخاب براساس کاربری</h3>
               <p>
-                تمام محصولات کیمیا ترنج با بسته بندی ایمن و ضمانت اصالت ارسال می
-                شوند.
+                اگر به دنبال پذیرایی هستید، شیرینی خوری، شکالت خوری و کشکول
+                بهترین گزینه اند.
+              </p>
+              <p>
+                اگر صرفاً جنبه تزئینی مدنظر است، گلدان و تنگ های قلم زنی جلوه
+                بیشتری ایجاد می کنند.
+              </p>
+            </div>
+
+            <div className={styles.guideItem}>
+              <h3>اندازه و ابعاد</h3>
+              <p>ظروف کوچک و متوسط برای میز پذیرایی مناسبترند.</p>
+              <p>
+                مدلهای بزرگ یا کشکول های خاص برای بوفه یا میز کنسول ایده آل
+                هستند.
+              </p>
+            </div>
+
+            <div className={styles.guideItem}>
+              <h3>طرح و نقش قلم زنی</h3>
+              <p>
+                گل و مرغ برای دکور گرم و صمیمی، نقش های اسلیمی و هندسی برای
+                فضاهای رسمی.
+              </p>
+            </div>
+
+            <div className={styles.guideItem}>
+              <h3>بررسی کیفیت آبکاری</h3>{" "}
+              <p>رنگ شبه نقره یکنواخت، بدون سایه یا لکه باشد.</p>
+              <p>لبه ها و دسته ها بدون خراش یا پوسته شدگی باشند.</p>
+            </div>
+            <div className={styles.guideItem}>
+              <h3> بودجه بندی هوشمندانه</h3>
+              <p>
+                اگر هدیه می خرید، مدل های متوسط با جعبه شکیل ارزش احساسی و
+                اقتصادی خوبی دارند.
               </p>
             </div>
           </div>
@@ -341,29 +387,27 @@ const SilverPlated = () => {
       {/* FAQ Section */}
       <section className={styles.faqSection}>
         <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>سؤالات متداول درباره خاتمکاری</h2>
+          <h2>سوالات متداول درباره محصولات شبه نقره</h2>
 
           <div className={styles.faqList}>
             <div className={styles.faqItem}>
-              <h3>محصولات خاتمکاری فقط تزئینی هستن؟</h3>
+              <h3>آیا محصولات شبه نقره تغییر رنگ می دهند؟</h3>
               <p>
-                نه لزوما. بسیاری از آن ها کاملا کاربردی هستند (مثلا جعبه چای،
-                قندان یا سینی)
+                در صورت نگهداری صحیح و دوری از رطوبت بالا، سال ها بدون تغییر رنگ
+                باقی می مانند.
               </p>
             </div>
 
             <div className={styles.faqItem}>
-              <h3>آیا خاتم کاری پوسته پوسته یا خراب میشه؟</h3>
-              <p>
-                در صورت نگهداری درست )دوری از رطوبت و ضربه(، بسیار بادوام و
-                ماندگار است.
-              </p>
+              <h3>آیا می توان شستشو کرد؟</h3>
+              <p>بله، اما با دستمال نرم و مرطوب و بدون مواد شیمیایی قوی.</p>
             </div>
 
             <div className={styles.faqItem}>
-              <h3>محصولات شما ساخت ایران هستن؟</h3>
+              <h3>محصولات ساخت کجاست؟</h3>
               <p>
-                بله. تمامی محصولات خاتمکاری فروشگاه کیمیا ترنج ساخت دست هنرمندان اصفهانی هستند.
+                تمامی محصولات قلم زنی شبه نقره در اصفهان و به دست هنرمندان
+                ایرانی ساخته می شوند.
               </p>
             </div>
           </div>
