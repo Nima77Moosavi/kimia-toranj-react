@@ -6,7 +6,7 @@ import Footer from "../../components/Footer/Footer";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import styles from "./Shop.module.css";
 
-const API_BASE = "https://kimiatoranj-api.liara.run/api/store";
+const API_BASE = "https://api.kimiatoranj.com/api/store";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -19,11 +19,22 @@ const Shop = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Ensure a default order_by
+  // ✅ Ensure default filter is "all products" + default sort
   useEffect(() => {
-    if (!searchParams.get("order_by")) {
-      const newParams = new URLSearchParams(searchParams);
+    const newParams = new URLSearchParams(searchParams);
+    let updated = false;
+
+    if (!newParams.get("order_by")) {
       newParams.set("order_by", "price");
+      updated = true;
+    }
+    if (newParams.has("collection")) {
+      // remove collection filter for default
+      newParams.delete("collection");
+      updated = true;
+    }
+
+    if (updated) {
       setSearchParams(newParams, { replace: true });
     }
     // eslint-disable-next-line
@@ -88,7 +99,12 @@ const Shop = () => {
   // Reset+apply a filter/sort
   const applyFilter = (key, value) => {
     const newParams = new URLSearchParams(searchParams);
-    newParams.set(key, value);
+
+    if (key === "collection" && value === "all") {
+      newParams.delete("collection");
+    } else {
+      newParams.set(key, value);
+    }
 
     setSearchParams(newParams);
     setProducts([]);
@@ -99,6 +115,7 @@ const Shop = () => {
 
   // Filter & sort handlers
   const filterByCollection = (title) => applyFilter("collection", title);
+  const filterAllProducts = () => applyFilter("collection", "all");
   const sortCheapest = () => applyFilter("order_by", "price");
   const sortExpensive = () => applyFilter("order_by", "-price");
   const sortNewest = () => applyFilter("order_by", "-created_at");
@@ -142,6 +159,12 @@ const Shop = () => {
                 <h2 className={styles.collectionsTitle}>
                   فیلتر بر اساس مجموعه
                 </h2>
+                <p
+                  onClick={filterAllProducts}
+                  className={styles.collectionFilter}
+                >
+                  همه محصولات
+                </p>
                 {collections.map((c) => (
                   <p
                     key={c.id}
@@ -205,6 +228,12 @@ const Shop = () => {
                 <h2 className={styles.collectionsTitle}>
                   فیلتر بر اساس مجموعه
                 </h2>
+                <p
+                  onClick={filterAllProducts}
+                  className={styles.collectionFilter}
+                >
+                  همه محصولات
+                </p>
                 {collections.map((c) => (
                   <p
                     key={c.id}
