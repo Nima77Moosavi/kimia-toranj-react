@@ -32,6 +32,7 @@ import Khatamkari from "./pages/Khatamkari/Khatamkari.jsx";
 import BrassProducts from "./pages/BrassProducts/BrassProducts.jsx";
 import OrganizationalGiftPack from "./pages/OrganizationalGiftPack/OrganizationalGiftPack.jsx";
 import InstallmentPayment from "./pages/InstallmentPayment/InstallmentPayment.jsx";
+import SilverPlated from "./pages/SilverPlated/SilverPlated.jsx";
 
 const App = () => {
   return (
@@ -51,6 +52,7 @@ const App = () => {
         <Route path="/gift-selector" element={<GiftSelector />} />
         <Route path="/category/brass-samovar" element={<BrassSamovar />} />
         <Route path="/category/brass-products" element={<BrassProducts />} />
+        <Route path="/category/silver-plated" element={<SilverPlated />} />
         <Route
           path="/category/mirror-candleholder"
           element={<MirrorCandleHolder />}
