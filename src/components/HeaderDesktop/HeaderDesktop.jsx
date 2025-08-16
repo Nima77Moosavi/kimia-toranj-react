@@ -13,7 +13,7 @@ import { BsFileEarmarkPerson } from "react-icons/bs";
 import { TbDeviceIpadHorizontalStar } from "react-icons/tb";
 import { PiArticleBold } from "react-icons/pi";
 import { FavoritesContext } from "../../context/FavoritesContext";
-import { IoBagOutline } from "react-icons/io5";
+import { IoBagOutline, IoHelpCircleOutline } from "react-icons/io5";
 import { GoGift } from "react-icons/go";
 import image1 from "../../assets/banner11.png";
 import axiosInstanceNoRedirect from "../../utils/axiosInstanceNoRedirect";
@@ -214,6 +214,11 @@ const HeaderDesktop = () => {
               <Link to="/blog">
                 <li>
                   مقالات <PiArticleBold />
+                </li>
+              </Link>
+              <Link to="/faq">
+                <li>
+                  سوالات متداول <IoHelpCircleOutline />
                 </li>
               </Link>
             </ul>

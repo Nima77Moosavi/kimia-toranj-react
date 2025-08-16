@@ -35,6 +35,7 @@ import InstallmentPayment from "./pages/InstallmentPayment/InstallmentPayment.js
 import SilverPlated from "./pages/SilverPlated/SilverPlated.jsx";
 import GoldenBrass from "./pages/GoldenBrass/GoldenBrass.jsx";
 import Qalamzani from "./pages/Qalamzani/Qalamzani.jsx";
+import FAQPage from "./pages/FAQPage/FAQPage.jsx";
 
 const App = () => {
   return (
@@ -46,6 +47,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/installment-payment" element={<InstallmentPayment />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/faq" element={<FAQPage />} />
         <Route path="/blog/:id" element={<BlogDetail />} />
         <Route path="/highlight/:id" element={<HighlightMedia />} />
         <Route path="/collection/:id" element={<CollectionDetail />} />

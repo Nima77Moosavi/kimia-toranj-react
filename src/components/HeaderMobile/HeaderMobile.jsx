@@ -191,6 +191,12 @@ const HeaderMobile = () => {
                   کادو چی بخرم؟
                 </Link>
               </li>
+              <li className={styles.menuItem}>
+                <Link to="/faq" onClick={() => setIsMenuOpen(false)}>
+                  سوالات متداول
+                </Link>
+              </li>
+              
             </ul>
           </div>
         </div>
