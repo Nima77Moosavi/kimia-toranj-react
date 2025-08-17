@@ -36,6 +36,8 @@ import SilverPlated from "./pages/SilverPlated/SilverPlated.jsx";
 import GoldenBrass from "./pages/GoldenBrass/GoldenBrass.jsx";
 import Qalamzani from "./pages/Qalamzani/Qalamzani.jsx";
 import FAQPage from "./pages/FAQPage/FAQPage.jsx";
+import PaymentSuccess from "./pages/PaymentSuccess/PaymentSuccess.jsx";
+import PaymentFailure from "./pages/PaymentFailure/PaymentFailure.jsx";
 
 const App = () => {
   return (
@@ -54,6 +56,8 @@ const App = () => {
         <Route path="/product/:slugAndId" element={<ProductDetails />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/gift-selector" element={<GiftSelector />} />
+        <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/payment-failure" element={<PaymentFailure />} />
         <Route path="/category/brass-samovar" element={<BrassSamovar />} />
         <Route path="/category/brass-products" element={<BrassProducts />} />
         <Route path="/category/silver-plated" element={<SilverPlated />} />
