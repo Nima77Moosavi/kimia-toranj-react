@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./FAQPage.module.css";
+import Header from "../../components/Header/Header";
 
 const faqData = [
   {
