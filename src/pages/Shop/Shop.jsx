@@ -20,21 +20,11 @@ const Shop = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   // ✅ Ensure default filter is "all products" + default sort
+  // Only ensure a default sort, do not overwrite collection param
   useEffect(() => {
-    const newParams = new URLSearchParams(searchParams);
-    let updated = false;
-
-    if (!newParams.get("order_by")) {
+    if (!searchParams.get("order_by")) {
+      const newParams = new URLSearchParams(searchParams);
       newParams.set("order_by", "price");
-      updated = true;
-    }
-    if (newParams.has("collection")) {
-      // remove collection filter for default
-      newParams.delete("collection");
-      updated = true;
-    }
-
-    if (updated) {
       setSearchParams(newParams, { replace: true });
     }
     // eslint-disable-next-line
