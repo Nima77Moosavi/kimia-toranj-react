@@ -23,7 +23,7 @@ const Khatamkari = () => {
   useEffect(() => {
     const getCollection = async () => {
       try {
-        const response = await axios.get(`${API_URL}api/store/collections/10`);
+        const response = await axios.get(`${API_URL}api/store/collections/8`);
         setCollection(response.data);
       } catch (error) {
         console.error("Error fetching collection:", error);

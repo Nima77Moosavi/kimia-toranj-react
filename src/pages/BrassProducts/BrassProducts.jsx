@@ -23,7 +23,7 @@ const BrassProducts = () => {
     const getCollection = async () => {
       try {
         const response = await axios.get(
-          `${API_URL}api/store/collections/7`
+          `${API_URL}api/store/collections/3`
         );
         setCollection(response.data);
       } catch (error) {

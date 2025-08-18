@@ -23,7 +23,7 @@ const OrganizationalGiftPack = () => {
     const getCollection = async () => {
       try {
         const response = await axios.get(
-          `${API_URL}api/store/collections/8`
+          `${API_URL}api/store/collections/11`
         );
         setCollection(response.data);
       } catch (error) {
