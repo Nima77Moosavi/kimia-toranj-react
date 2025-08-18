@@ -1,3 +1,7 @@
+.ordersPage {
+  direction: rtl;
+}
+
 .orderHeader {
   display: flex;
   justify-content: space-between;
