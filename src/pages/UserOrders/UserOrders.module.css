@@ -1,90 +1,90 @@
-.ordersPage {
-  direction: rtl;
-  background-color: #fff;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+.orderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.status {
+  display: inline-block;
+  padding: 2px 8px;
   border-radius: 12px;
-  max-width: 900px;
-  min-height: 100vh;
-  margin: 20px auto;
-  padding: 24px;
-}
-
-.ordersPage h2 {
-  color: #023047;
-  font-size: 28px;
-  font-weight: 600;
-  margin-bottom: 32px;
-  text-align: center;
-  position: relative;
-}
-
-.ordersPage h2::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  width: 120px;
-  height: 3px;
-  background-color: #40e0d0;
-  transform: translateX(-50%);
-  border-radius: 2px;
-}
-
-.ordersList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 16px;
-}
-
-.orderCard {
-  background-color: #f9fafb;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 16px 20px;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
-}
-
-.orderCard:hover {
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-  transform: translateY(-2px);
-}
-
-.orderCard div {
-  margin-bottom: 8px;
-  font-size: 14px;
-  color: #374151;
-}
-
-.orderCard strong {
-  color: #111827;
-  font-weight: 600;
-}
-
-.orderCard ul {
-  list-style: disc inside;
-  padding-right: 0;
-  margin-top: 4px;
-}
-
-.orderCard ul li {
-  font-size: 13px;
-  color: #4b5563;
+  font-size: 12px;
+  margin-right: 8px;
+  font-weight: 500;
 }
 
 .status-pending {
-  color: #d97706; /* amber */
+  background: #fff7ed;
+  color: #d97706;
 }
 
 .status-processing {
-  color: #2563eb; /* blue */
+  background: #eff6ff;
+  color: #2563eb;
 }
 
 .status-completed {
-  color: #059669; /* green */
+  background: #ecfdf5;
+  color: #059669;
 }
 
 .status-cancelled {
-  color: #dc2626; /* red */
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.meta span {
+  display: inline-block;
+  margin-left: 12px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.orderDetails {
+  margin-top: 12px;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 12px;
+  font-size: 14px;
+}
+
+.productList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.productItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.productThumb {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #e5e7eb;
+}
+
+.productMeta {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.actions {
+  margin-top: 12px;
+}
+
+.detailsBtn {
+  background: none;
+  border: none;
+  color: #2563eb;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.detailsBtn:hover {
+  text-decoration: underline;
 }
