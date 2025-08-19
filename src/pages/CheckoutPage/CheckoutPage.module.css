@@ -1,5 +1,3 @@
-/* CheckoutPage.module.css */
-
 .checkoutPage {
   max-width: 800px;
   margin: 70px auto;
@@ -25,12 +23,11 @@
   content: '';
   position: absolute;
   bottom: 0;
-  right: 0;
+  right: 50%;
+  transform: translateX(50%);
   width: 100px;
   height: 3px;
   background-color: #40e0d0;
-  right: 50%;
-  transform: translateX(50%);
 }
 
 .checkoutPage h3 {
@@ -51,48 +48,45 @@
   text-align: center;
 }
 
+/* Address list layout */
 .addressList {
   list-style: none;
   padding: 0;
-  margin: 0 0 30px 0;
+  margin: 0 0 20px 0;
   font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
-.addressList li{
-  font-size: 16px;
+
+.addressList li {
+  width: 100%;
 }
-.addressItem {
-  margin-bottom: 15px;
-  padding: 15px;
+
+.addressList li label {
+  display: flex;
+  align-items: center;
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 8px;
-  display: flex;
-  align-items: center;
-  transition: all 0.3s;
-  direction: rtl;
-}
-
-.addressItem:hover {
-  border-color: #40e0d0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.addressItem label {
-  display: flex;
-  align-items: center;
-  width: 100%;
+  padding: 12px;
+  transition: border-color 0.3s, box-shadow 0.3s;
   cursor: pointer;
-  font-size: 15px;
+  flex-wrap: wrap; /* let text wrap on small screens */
   color: #023047;
 }
 
-.addressItem input {
-  margin-left: 10px;
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
+.addressList li label:hover {
+  border-color: #40e0d0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
+.addressList input[type="radio"] {
+  margin-left: 10px;
+  flex-shrink: 0;
+}
+
+/* Address header and button */
 .addressHeader {
   display: flex;
   justify-content: space-between;
@@ -120,7 +114,11 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-
+/* Form layout to keep submit button separated */
+.checkoutPage form {
+  display: flex;
+  flex-direction: column;
+}
 
 .checkoutPage button {
   background-color: #40e0d0;
@@ -134,7 +132,7 @@
   font-weight: 600;
   width: min(250px, 100%);
   display: block;
-  margin: 0 auto;
+  margin: 20px auto 0; /* ensure space above */
 }
 
 .checkoutPage button:hover {
@@ -150,19 +148,19 @@
   box-shadow: none;
 }
 
-/* Responsive Styles */
+/* Responsive tweaks */
 @media screen and (max-width: 768px) {
   .checkoutPage {
     padding: 20px;
   }
-  
+
   .checkoutPage h2 {
     font-size: 24px;
     margin-bottom: 20px;
   }
-  
-  .addressItem {
-    padding: 12px;
+
+  .addressList li label {
+    padding: 10px;
   }
 }
 
@@ -170,25 +168,26 @@
   .checkoutPage h2 {
     font-size: 22px;
   }
-  
+
   .checkoutPage h2::after {
     width: 80px;
   }
-  
-  .addressItem label {
+
+  .addressList li label {
     font-size: 14px;
   }
-  
+
   .checkoutPage button {
     padding: 10px 20px;
     font-size: 18px;
   }
+
   .addressHeader {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
   }
-  
+
   .addAddressButton {
     width: 100%;
     text-align: center;
