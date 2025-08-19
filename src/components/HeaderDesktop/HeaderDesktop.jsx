@@ -150,7 +150,7 @@ const HeaderDesktop = () => {
         {/* دکمه ورود/ثبت نام */}
         <div className={styles.loginButton}>
           <Link to={isLoggedIn ? "/user-panel" : "/login"}>
-            <button>{isLoggedIn ? "ورود | ثبت نام" : "پنل کاربری"}</button>
+            <button>{isLoggedIn ? "پنل کاربری" : "ورود | ثبت نام"}</button>
           </Link>
         </div>
 
