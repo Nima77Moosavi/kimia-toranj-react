@@ -11,6 +11,7 @@ import MoonLoader from "react-spinners/MoonLoader";
 
 import axiosInstanceNoRedirect from "../../utils/axiosInstanceNoRedirect";
 import axiosInstance from "../../utils/axiosInstance";
+import axios from "axios";
 import { API_URL } from "../../config";
 
 import ImageSlider from "./ImageSlider/ImageSlider";
@@ -53,7 +54,7 @@ const ProductDetails = () => {
   useEffect(() => {
     const loadProduct = async () => {
       try {
-        const { data } = await axiosInstance.get(
+        const { data } = await axios.get(
           `${API_URL}api/store/products/${id}/`
         );
         setProduct(data);
