@@ -36,57 +36,64 @@ const HeaderDesktop = () => {
   const suggestionsRef = useRef();
 
   // بستن منوها هنگام کلیک بیرون
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      const response = await axiosInstanceNoRedirect.get("api/store/cart/");
-      const cartItems = response.data.items;
-      let count = 0;
-      cartItems.map((cartItem) => (count += cartItem.quantity));
-      setCartItemsCount(count);
-    };
+useEffect(() => {
+  const fetchCartItems = async () => {
+    const response = await axiosInstanceNoRedirect.get("api/store/cart/");
+    const cartItems = response.data.items;
+    let count = 0;
+    cartItems.forEach((cartItem) => (count += cartItem.quantity));
+    setCartItemsCount(count);
+  };
+  fetchCartItems();
+}, []); // fetch cart once on mount
 
-    fetchCartItems();
-
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setIsMenuOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-
-    // بستن منوها هنگام اسکرول
-    const handleScroll = () => {
+useEffect(() => {
+  const handleClickOutside = (event) => {
+    // Close menu
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
       setIsMenuOpen(false);
-    };
-    document.addEventListener("scroll", handleScroll);
-
-    if (!showSuggestions) return;
-    const q = searchTerm.trim();
-    if (q.length < 2) {
-      setSuggestions([]);
-      return;
     }
-    clearTimeout(debounceRef.current);
-    debounceRef.current = setTimeout(async () => {
-      try {
-        const { data } = await axiosInstance.get(
-          `${API_URL}api/store/products/?title=${encodeURIComponent(q)}`
-        );
-        console.log(data);
+    // Close search suggestions
+    if (suggestionsRef.current && !suggestionsRef.current.contains(event.target)) {
+      setShowSuggestions(false);
+    }
+  };
 
-        setSuggestions(data.results.slice(0, 8));
-        console.log(suggestions);
-      } catch {
-        setSuggestions([]);
-      }
-    }, 300);
+  const handleScroll = () => {
+    setIsMenuOpen(false);
+  };
 
-    return () => {
-      clearTimeout(debounceRef.current);
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("scroll", handleScroll);
-    };
-  }, [searchTerm, showSuggestions]);
+  document.addEventListener("mousedown", handleClickOutside);
+  document.addEventListener("scroll", handleScroll);
+
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+    document.removeEventListener("scroll", handleScroll);
+  };
+}, []); // always active
+
+useEffect(() => {
+  if (!showSuggestions) return;
+  const q = searchTerm.trim();
+  if (q.length < 2) {
+    setSuggestions([]);
+    return;
+  }
+  clearTimeout(debounceRef.current);
+  debounceRef.current = setTimeout(async () => {
+    try {
+      const { data } = await axiosInstance.get(
+        `${API_URL}api/store/products/?title=${encodeURIComponent(q)}`
+      );
+      setSuggestions(data.results.slice(0, 8));
+    } catch {
+      setSuggestions([]);
+    }
+  }, 300);
+
+  return () => clearTimeout(debounceRef.current);
+}, [searchTerm, showSuggestions]);
+
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
