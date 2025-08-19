@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
+import { FaWhatsapp } from "react-icons/fa"; // install react-icons if not yet
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import styles from "./InstallmentPayment.module.css";
@@ -30,17 +31,31 @@ const InstallmentPayment = () => {
       <Header />
       <div className={styles.installmentContainer}>
         <h2>پرداخت اقساطی محصولات صنایع‌دستی کیمیا ترنج</h2>
+
+        {/* New emphasis boxes */}
+        <div className={styles.emphasisRow}>
+          <div className={styles.emphasisBox}>بدون سود</div>
+          <div className={styles.emphasisBox}>بدون ضامن</div>
+        </div>
+
+        {/* Total Price pulled out */}
+        <div className={styles.totalPriceBox}>
+          قیمت کل: <strong>{price.toLocaleString()} تومان</strong>
+        </div>
+
         <div className={styles.summaryBox}>
           <div className={styles.summaryRow}>
-            <span>قیمت کل محصول:</span>
-            <strong>{price.toLocaleString()} تومان</strong>
-          </div>
-          <div className={styles.summaryRow}>
             <span>مبلغ پیش‌پرداخت (۳۰٪):</span>
-            <strong className={styles.upfront}>{upfront.toLocaleString()} تومان</strong>
+            <strong className={styles.upfront}>
+              {upfront.toLocaleString()} تومان
+            </strong>
           </div>
           {months ? (
             <>
+              <div className={styles.summaryRow}>
+                <span>مبلغ باقی‌مانده (قسطی):</span>
+                <strong>{remaining.toLocaleString()} تومان</strong>
+              </div>
               <div className={styles.summaryRow}>
                 <span>تعداد اقساط:</span>
                 <strong>{months} ماه</strong>
@@ -48,10 +63,6 @@ const InstallmentPayment = () => {
               <div className={styles.summaryRow}>
                 <span>مبلغ هر قسط:</span>
                 <strong>{monthly.toLocaleString()} تومان</strong>
-              </div>
-              <div className={styles.summaryRow}>
-                <span>مبلغ باقی‌مانده (قسطی):</span>
-                <strong>{remaining.toLocaleString()} تومان</strong>
               </div>
             </>
           ) : (
@@ -61,23 +72,27 @@ const InstallmentPayment = () => {
             </div>
           )}
         </div>
+
         <div className={styles.infoSection}>
           <h3>شرایط پرداخت اقساطی</h3>
           <ul>
             <li>۳۰٪ مبلغ کل به عنوان پیش‌پرداخت دریافت می‌شود.</li>
-            <li>باقی‌مانده مبلغ طی {months || "—"} ماه به صورت اقساط پرداخت می‌شود.</li>
-            <li>برای ثبت درخواست پرداخت اقساطی، با پشتیبانی تماس بگیرید.</li>
+            <li>
+              باقی‌مانده مبلغ طی {months || "—"} ماه به صورت اقساط پرداخت
+              می‌شود.
+            </li>
+            <li>برای ثبت درخواست پرداخت اقساطی، وارد گفت‌وگوی واتساپ شوید</li>
           </ul>
         </div>
+
         <div className={styles.supportBox}>
-          <span>پشتیبانی و ثبت درخواست:</span>
           <a
             href="https://wa.me/989130095238"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.supportBtn}
           >
-            گفتگوی واتساپ
+            <FaWhatsapp className={styles.whatsappIcon} /> گفتگوی واتساپ
           </a>
         </div>
       </div>
