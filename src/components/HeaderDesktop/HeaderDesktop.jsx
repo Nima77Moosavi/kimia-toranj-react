@@ -28,6 +28,7 @@ const HeaderDesktop = () => {
 
   // Cart
   const [cartItemsCount, setCartItemsCount] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // Debounce ref
   const debounceRef = useRef();
@@ -36,64 +37,79 @@ const HeaderDesktop = () => {
   const suggestionsRef = useRef();
 
   // بستن منوها هنگام کلیک بیرون
-useEffect(() => {
-  const fetchCartItems = async () => {
-    const response = await axiosInstanceNoRedirect.get("api/store/cart/");
-    const cartItems = response.data.items;
-    let count = 0;
-    cartItems.forEach((cartItem) => (count += cartItem.quantity));
-    setCartItemsCount(count);
-  };
-  fetchCartItems();
-}, []); // fetch cart once on mount
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      const response = await axiosInstanceNoRedirect.get("api/store/cart/");
+      const cartItems = response.data.items;
+      let count = 0;
+      cartItems.forEach((cartItem) => (count += cartItem.quantity));
+      setCartItemsCount(count);
+    };
+    const checkAuth = async () => {
+      try {
+        const response = await axiosInstanceNoRedirect.get(
+          "api/store/customer/me/"
+        );
+        if (response.status === 200 && response.data) {
+          setIsLoggedIn(true);
+        }
+      } catch (error) {
+        setIsLoggedIn(false);
+      }
+    };
+    fetchCartItems();
+    checkAuth();
+  }, []); // fetch cart once on mount
 
-useEffect(() => {
-  const handleClickOutside = (event) => {
-    // Close menu
-    if (menuRef.current && !menuRef.current.contains(event.target)) {
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Close menu
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+      // Close search suggestions
+      if (
+        suggestionsRef.current &&
+        !suggestionsRef.current.contains(event.target)
+      ) {
+        setShowSuggestions(false);
+      }
+    };
+
+    const handleScroll = () => {
       setIsMenuOpen(false);
-    }
-    // Close search suggestions
-    if (suggestionsRef.current && !suggestionsRef.current.contains(event.target)) {
-      setShowSuggestions(false);
-    }
-  };
+    };
 
-  const handleScroll = () => {
-    setIsMenuOpen(false);
-  };
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("scroll", handleScroll);
 
-  document.addEventListener("mousedown", handleClickOutside);
-  document.addEventListener("scroll", handleScroll);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("scroll", handleScroll);
+    };
+  }, []); // always active
 
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside);
-    document.removeEventListener("scroll", handleScroll);
-  };
-}, []); // always active
-
-useEffect(() => {
-  if (!showSuggestions) return;
-  const q = searchTerm.trim();
-  if (q.length < 2) {
-    setSuggestions([]);
-    return;
-  }
-  clearTimeout(debounceRef.current);
-  debounceRef.current = setTimeout(async () => {
-    try {
-      const { data } = await axiosInstance.get(
-        `${API_URL}api/store/products/?title=${encodeURIComponent(q)}`
-      );
-      setSuggestions(data.results.slice(0, 8));
-    } catch {
+  useEffect(() => {
+    if (!showSuggestions) return;
+    const q = searchTerm.trim();
+    if (q.length < 2) {
       setSuggestions([]);
+      return;
     }
-  }, 300);
+    clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(async () => {
+      try {
+        const { data } = await axiosInstance.get(
+          `${API_URL}api/store/products/?title=${encodeURIComponent(q)}`
+        );
+        setSuggestions(data.results.slice(0, 8));
+      } catch {
+        setSuggestions([]);
+      }
+    }, 300);
 
-  return () => clearTimeout(debounceRef.current);
-}, [searchTerm, showSuggestions]);
-
+    return () => clearTimeout(debounceRef.current);
+  }, [searchTerm, showSuggestions]);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -133,8 +149,8 @@ useEffect(() => {
 
         {/* دکمه ورود/ثبت نام */}
         <div className={styles.loginButton}>
-          <Link to="/login">
-            <button>ورود | ثبت نام</button>
+          <Link to={isLoggedIn ? "/user-panel" : "/login"}>
+            <button>{isLoggedIn ? "ورود | ثبت نام" : "پنل کاربری"}</button>
           </Link>
         </div>
 

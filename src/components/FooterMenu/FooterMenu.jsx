@@ -12,31 +12,40 @@ import axiosInstanceNoRedirect from "../../utils/axiosInstanceNoRedirect";
 const FooterMenu = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [cartItemsCount, setCartItemsCount] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const checkScreenSize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
+    const checkScreenSize = () => setIsMobile(window.innerWidth <= 768);
     checkScreenSize();
 
-    const fetchCartItemsCount = async() => {
-      const response = await axiosInstanceNoRedirect.get("api/store/cart/");
-      console.log(response.data.items);
-      const cartItems = response.data.items;
-      let count = 0;
-      cartItems.map((cartItem) => {
-        count += cartItem.quantity;
-      });
-      setCartItemsCount(count)
+    const fetchCartItemsCount = async () => {
+      try {
+        const response = await axiosInstanceNoRedirect.get("api/store/cart/");
+        const cartItems = response.data.items || [];
+        setCartItemsCount(
+          cartItems.reduce((sum, item) => sum + item.quantity, 0)
+        );
+      } catch (err) {
+        console.error("Cart fetch error:", err);
+      }
+    };
+
+    const checkAuth = async () => {
+      try {
+        const res = await axiosInstanceNoRedirect.get("api/auth/user/");
+        if (res.status === 200 && res.data) {
+          setIsLoggedIn(true);
+        }
+      } catch {
+        setIsLoggedIn(false);
+      }
     };
 
     fetchCartItemsCount();
+    checkAuth();
 
-    const handleResize = () => checkScreenSize();
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
   if (!isMobile) return null;
@@ -84,13 +93,13 @@ const FooterMenu = () => {
         </li>
         <li>
           <NavLink
-            to="/login"
+            to={isLoggedIn ? "/user-panel" : "/login"}
             className={({ isActive }) =>
               `${styles.footerLink} ${isActive ? styles.active : ""}`
             }
           >
             <IoPersonOutline size={24} />
-            <span>ورود</span>
+            <span>{isLoggedIn ? "پنل کاربری" : "ورود"}</span>
           </NavLink>
         </li>
       </ul>

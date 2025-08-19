@@ -8,25 +8,25 @@ import styles from "./AddressForm.module.css";
 const IRAN_API_BASE = "https://iran-locations-api.vercel.app/api/v1/fa";
 
 const AddressForm = ({ onAddressAdded }) => {
-  const [stateInput, setStateInput]           = useState("");
-  const [cityInput, setCityInput]             = useState("");
-  const [addressInput, setAddressInput]       = useState("");
+  const [stateInput, setStateInput] = useState("");
+  const [cityInput, setCityInput] = useState("");
+  const [addressInput, setAddressInput] = useState("");
   const [postalCodeInput, setPostalCodeInput] = useState("");
 
-  const [stateOptions, setStateOptions]       = useState([]);
-  const [cityOptions, setCityOptions]         = useState([]);
+  const [stateOptions, setStateOptions] = useState([]);
+  const [cityOptions, setCityOptions] = useState([]);
 
-  const [filteredStates, setFilteredStates]   = useState([]);
-  const [filteredCities, setFilteredCities]   = useState([]);
+  const [filteredStates, setFilteredStates] = useState([]);
+  const [filteredCities, setFilteredCities] = useState([]);
 
-  const [showStateList, setShowStateList]     = useState(false);
-  const [showCityList, setShowCityList]       = useState(false);
+  const [showStateList, setShowStateList] = useState(false);
+  const [showCityList, setShowCityList] = useState(false);
 
-  const [loading, setLoading]                 = useState(false);
-  const [error, setError]                     = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const stateRef = useRef();
-  const cityRef  = useRef();
+  const cityRef = useRef();
 
   // 1) Load provinces
   useEffect(() => {
@@ -88,6 +88,12 @@ const AddressForm = ({ onAddressAdded }) => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const convertToEnglishDigits = (str) => {
+    return str
+      .replace(/[۰-۹]/g, (d) => String.fromCharCode(d.charCodeAt(0) - 1728))
+      .replace(/[٠-٩]/g, (d) => String.fromCharCode(d.charCodeAt(0) - 1584));
+  };
 
   // 5) Submit handler
   const handleSubmit = async (e) => {
@@ -172,7 +178,9 @@ const AddressForm = ({ onAddressAdded }) => {
             setCityInput(e.target.value);
             setShowCityList(true);
           }}
-          onFocus={() => stateOptions.includes(stateInput) && setShowCityList(true)}
+          onFocus={() =>
+            stateOptions.includes(stateInput) && setShowCityList(true)
+          }
           placeholder={
             !stateOptions.includes(stateInput)
               ? "ابتدا استان را انتخاب کنید"
@@ -219,7 +227,10 @@ const AddressForm = ({ onAddressAdded }) => {
           pattern="\d{10}"
           title="کد پستی باید دقیقاً ۱۰ رقم باشد"
           value={postalCodeInput}
-          onChange={(e) => setPostalCodeInput(e.target.value)}
+          onChange={(e) => {
+            const normalized = convertToEnglishDigits(e.target.value);
+            setPostalCodeInput(normalized);
+          }}
           required
         />
       </div>
