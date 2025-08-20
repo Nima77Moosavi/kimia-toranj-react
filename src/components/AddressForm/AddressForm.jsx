@@ -1,9 +1,8 @@
-// src/components/AddressForm/AddressForm.jsx
-
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import axiosInstance from "../../utils/axiosInstance";
 import styles from "./AddressForm.module.css";
+import { useToast } from "../Toast/ToastContext"; // ✅ import toast hook
 
 const IRAN_API_BASE = "https://iran-locations-api.vercel.app/api/v1/fa";
 
@@ -23,20 +22,21 @@ const AddressForm = ({ onAddressAdded }) => {
   const [showCityList, setShowCityList] = useState(false);
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
   const stateRef = useRef();
   const cityRef = useRef();
 
-  // 1) Load provinces
+  const { addToast } = useToast(); // ✅ initialize toast
+
+  // Load provinces
   useEffect(() => {
     axios
       .get(`${IRAN_API_BASE}/states`)
       .then(({ data }) => setStateOptions(data.map((st) => st.name)))
-      .catch((e) => console.error("States error:", e));
-  }, []);
+      .catch(() => addToast("خطا در دریافت لیست استان‌ها", "error"));
+  }, [addToast]);
 
-  // 2) Load cities when state is valid
+  // Load cities when state is valid
   useEffect(() => {
     if (!stateOptions.includes(stateInput)) {
       setCityOptions([]);
@@ -52,13 +52,13 @@ const AddressForm = ({ onAddressAdded }) => {
             : []
         )
       )
-      .catch((e) => {
-        console.error("Cities error:", e);
+      .catch(() => {
         setCityOptions([]);
+        addToast("خطا در دریافت لیست شهرها", "error");
       });
-  }, [stateInput, stateOptions]);
+  }, [stateInput, stateOptions, addToast]);
 
-  // 3) Filter lists as you type
+  // Filter states
   useEffect(() => {
     setFilteredStates(
       stateOptions.filter((st) =>
@@ -67,6 +67,7 @@ const AddressForm = ({ onAddressAdded }) => {
     );
   }, [stateInput, stateOptions]);
 
+  // Filter cities
   useEffect(() => {
     setFilteredCities(
       cityOptions.filter((ct) =>
@@ -75,7 +76,7 @@ const AddressForm = ({ onAddressAdded }) => {
     );
   }, [cityInput, cityOptions]);
 
-  // 4) Close dropdown on outside click
+  // Close dropdowns on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (!stateRef.current.contains(e.target)) {
@@ -89,20 +90,20 @@ const AddressForm = ({ onAddressAdded }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Convert Persian/Arabic numbers to English
   const convertToEnglishDigits = (str) => {
     return str
       .replace(/[۰-۹]/g, (d) => String.fromCharCode(d.charCodeAt(0) - 1728))
       .replace(/[٠-٩]/g, (d) => String.fromCharCode(d.charCodeAt(0) - 1584));
   };
 
-  // 5) Submit handler
+  // Submit handler
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!/^\d{10}$/.test(postalCodeInput)) {
-      setError("کد پستی باید دقیقاً ۱۰ رقم باشد");
+      addToast("کد پستی باید دقیقاً ۱۰ رقم باشد", "error");
       return;
     }
-    setError("");
     setLoading(true);
 
     try {
@@ -117,13 +118,15 @@ const AddressForm = ({ onAddressAdded }) => {
         payload
       );
       onAddressAdded?.(data);
+
       setStateInput("");
       setCityInput("");
       setAddressInput("");
       setPostalCodeInput("");
+
+      addToast("آدرس با موفقیت افزوده شد", "success"); // ✅ success toast
     } catch (err) {
-      console.error("Submit error:", err);
-      setError("خطا در افزودن آدرس");
+      addToast("خطا در افزودن آدرس", "error"); // ✅ error toast
     } finally {
       setLoading(false);
     }
@@ -132,9 +135,8 @@ const AddressForm = ({ onAddressAdded }) => {
   return (
     <form className={styles.addressForm} onSubmit={handleSubmit}>
       <h3>افزودن آدرس جدید</h3>
-      {error && <p className={styles.error}>{error}</p>}
 
-      {/* Province Autocomplete */}
+      {/* Province */}
       <div className={styles.formGroup} ref={stateRef}>
         <label htmlFor="state">استان:</label>
         <input
@@ -167,7 +169,7 @@ const AddressForm = ({ onAddressAdded }) => {
         )}
       </div>
 
-      {/* City Autocomplete */}
+      {/* City */}
       <div className={styles.formGroup} ref={cityRef}>
         <label htmlFor="city">شهر:</label>
         <input
@@ -207,7 +209,7 @@ const AddressForm = ({ onAddressAdded }) => {
         )}
       </div>
 
-      {/* Street Address */}
+      {/* Street */}
       <div className={styles.formGroup}>
         <label htmlFor="address">آدرس:</label>
         <textarea

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // اضافه شده
+import { useNavigate, useLocation, replace } from "react-router-dom"; // اضافه شده
 import styles from "./Login.module.css";
 import logo from "../../assets/logo.png";
 import { API_URL } from "../../config";
@@ -15,7 +15,11 @@ const Login = () => {
   const [error, setError] = useState("");
   const [timer, setTimer] = useState(90);
 
-  const navigate = useNavigate(); // استفاده از useNavigate
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const params = new URLSearchParams(location.search);
+  const nextUrl = params.get("next") || "/";
 
   useEffect(() => {
     let interval = null;
@@ -88,6 +92,7 @@ const Login = () => {
       await new Promise((resolve) => setTimeout(resolve, 1500));
       setIsVerified(true);
       setError("");
+      navigate(nextUrl, { replace: true }); // Use replace to avoid going back to login
     } catch (err) {
       setError("کد تأیید نادرست است");
     } finally {

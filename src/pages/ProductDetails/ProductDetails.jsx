@@ -1,8 +1,9 @@
 // src/pages/ProductDetails/ProductDetails.jsx
 
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styles from "./ProductDetails.module.css";
+
 
 import Header from "../../components/Header/Header";
 import Bestsellers from "../../components/Bestsellers/Bestsellers";
@@ -23,6 +24,7 @@ import ReviewForm from "./ReviewForm/ReviewForm";
 
 const ProductDetails = () => {
   const { slugAndId } = useParams();
+  const navigate = useNavigate()
   const id = slugAndId.substring(slugAndId.lastIndexOf("-") + 1);
 
   const [product, setProduct] = useState({});
@@ -54,9 +56,7 @@ const ProductDetails = () => {
   useEffect(() => {
     const loadProduct = async () => {
       try {
-        const { data } = await axios.get(
-          `${API_URL}api/store/products/${id}/`
-        );
+        const { data } = await axios.get(`${API_URL}api/store/products/${id}/`);
         setProduct(data);
       } catch (err) {
         console.error("Failed to load product:", err);
@@ -79,7 +79,9 @@ const ProductDetails = () => {
   // Unchanged: Add to cart handler
   const handleAddToCart = async () => {
     try {
-      const res = await axiosInstance.get(`${API_URL}api/store/cart/`);
+      const res = await axiosInstanceNoRedirect.get(
+        `${API_URL}api/store/cart/`
+      );
       const currentCart = res.data;
       let currentItems =
         currentCart.items
@@ -99,13 +101,22 @@ const ProductDetails = () => {
       if (idx >= 0) newItems[idx].quantity += 1;
       else newItems.push({ product_variant_id: variantId, quantity: 1 });
 
-      await axiosInstance.patch(`${API_URL}api/store/cart/`, {
+      await axiosInstanceNoRedirect.patch(`${API_URL}api/store/cart/`, {
         items: newItems,
       });
 
       setShowSuccessMessage(true);
       setTimeout(() => setShowSuccessMessage(false), 3000);
     } catch (err) {
+      if (err.response?.status === 401) {
+        // Not logged in → send to login with return URL
+        navigate(
+          `/login?next=${encodeURIComponent(
+            window.location.pathname + window.location.search
+          )}`
+        );
+        return;
+      }
       console.error("Cart error:", err);
       setError("خطا در اضافه کردن به سبد خرید");
     }

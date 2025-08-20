@@ -1,6 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+import { ToastProvider } from "./components/Toast/ToastContext.jsx";
+
 // Import your layout, ProtectedRoute, and pages
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import UserPanel from "./pages/UserPanel/UserPanel.jsx";
@@ -41,62 +43,64 @@ import PaymentFailure from "./pages/PaymentFailure/PaymentFailure.jsx";
 
 const App = () => {
   return (
-    <Router>
-      <ScrollToTop />
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/installment-payment" element={<InstallmentPayment />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/faq" element={<FAQPage />} />
-        <Route path="/blog/:id" element={<BlogDetail />} />
-        <Route path="/highlight/:id" element={<HighlightMedia />} />
-        <Route path="/collection/:id" element={<CollectionDetail />} />
-        <Route path="/product/:slugAndId" element={<ProductDetails />} />
-        <Route path="/shop" element={<Shop />} />
-        <Route path="/gift-selector" element={<GiftSelector />} />
-        <Route path="/payment-success" element={<PaymentSuccess />} />
-        <Route path="/payment-failure" element={<PaymentFailure />} />
-        <Route path="/category/brass-samovar" element={<BrassSamovar />} />
-        <Route path="/category/brass-products" element={<BrassProducts />} />
-        <Route path="/category/silver-plated" element={<SilverPlated />} />
-        <Route path="/category/golden-brass" element={<GoldenBrass />} />
-        <Route path="/category/qalamzani" element={<Qalamzani />} />
-        <Route
-          path="/category/mirror-candleholder"
-          element={<MirrorCandleHolder />}
-        />
-        <Route
-          path="/category/organizational-gift-pack"
-          element={<OrganizationalGiftPack />}
-        />
-        <Route path="/category/khatamkari" element={<Khatamkari />} />
-        {/* Protected UserPanel Routes */}
-        <Route
-          path="/user-panel/*"
-          element={
-            <ProtectedRoute>
-              <UserPanel />
-            </ProtectedRoute>
-          }
-        >
-          {/* Default /user-panel shows AccountInfo */}
-          <Route path="account-info" element={<AccountInfo />} />
-          <Route path="cart" element={<ShoppingCart />} />
-          <Route path="checkout" element={<CheckoutPage />} />
-          <Route path="orders" element={<UserOrders />} />
-          <Route path="wishlist" element={<Wishlist />} />
-          <Route path="reviews" element={<UserReviews />} />
-          <Route path="addresses" element={<UserAddresses />} />
-        </Route>
+    <ToastProvider>
+      <Router>
+        <ScrollToTop />
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/installment-payment" element={<InstallmentPayment />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/faq" element={<FAQPage />} />
+          <Route path="/blog/:id" element={<BlogDetail />} />
+          <Route path="/highlight/:id" element={<HighlightMedia />} />
+          <Route path="/collection/:id" element={<CollectionDetail />} />
+          <Route path="/product/:slugAndId" element={<ProductDetails />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/gift-selector" element={<GiftSelector />} />
+          <Route path="/payment-success" element={<PaymentSuccess />} />
+          <Route path="/payment-failure" element={<PaymentFailure />} />
+          <Route path="/category/brass-samovar" element={<BrassSamovar />} />
+          <Route path="/category/brass-products" element={<BrassProducts />} />
+          <Route path="/category/silver-plated" element={<SilverPlated />} />
+          <Route path="/category/golden-brass" element={<GoldenBrass />} />
+          <Route path="/category/qalamzani" element={<Qalamzani />} />
+          <Route
+            path="/category/mirror-candleholder"
+            element={<MirrorCandleHolder />}
+          />
+          <Route
+            path="/category/organizational-gift-pack"
+            element={<OrganizationalGiftPack />}
+          />
+          <Route path="/category/khatamkari" element={<Khatamkari />} />
+          {/* Protected UserPanel Routes */}
+          <Route
+            path="/user-panel/*"
+            element={
+              <ProtectedRoute>
+                <UserPanel />
+              </ProtectedRoute>
+            }
+          >
+            {/* Default /user-panel shows AccountInfo */}
+            <Route path="account-info" element={<AccountInfo />} />
+            <Route path="cart" element={<ShoppingCart />} />
+            <Route path="checkout" element={<CheckoutPage />} />
+            <Route path="orders" element={<UserOrders />} />
+            <Route path="wishlist" element={<Wishlist />} />
+            <Route path="reviews" element={<UserReviews />} />
+            <Route path="addresses" element={<UserAddresses />} />
+          </Route>
 
-        {/* Fallback Route */}
-        <Route path="*" element={<Home />} />
-      </Routes>
-      <ContactButton />
-      <FooterMenu />
-    </Router>
+          {/* Fallback Route */}
+          <Route path="*" element={<Home />} />
+        </Routes>
+        <ContactButton />
+        <FooterMenu />
+      </Router>
+    </ToastProvider>
   );
 };
 

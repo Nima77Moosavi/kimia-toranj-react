@@ -26,13 +26,13 @@ const FooterMenu = () => {
           cartItems.reduce((sum, item) => sum + item.quantity, 0)
         );
       } catch (err) {
-        console.error("Cart fetch error:", err);
+        // console.error("Cart fetch error:", err);
       }
     };
 
     const checkAuth = async () => {
       try {
-        const res = await axiosInstanceNoRedirect.get("api/auth/user/");
+        const res = await axiosInstanceNoRedirect.get("api/store/customer/me/");
         if (res.status === 200 && res.data) {
           setIsLoggedIn(true);
         }
