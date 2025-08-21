@@ -1,6 +1,7 @@
 import React from "react";
-import { AiOutlineSafety } from "react-icons/ai";
+import { AiOutlineSafety, AiOutlineCheckCircle } from "react-icons/ai"; // ⬅ added check icon
 import { TbShieldStar } from "react-icons/tb";
+import { MdOutlineReceiptLong } from "react-icons/md";
 import { BsBoxSeam } from "react-icons/bs";
 
 import styles from "./PriceBox.module.css";
@@ -54,7 +55,9 @@ const PriceBox = ({ price, onAddToCart, stock }) => {
               className={styles.contactOption}
             >
               پرداخت اقساطی
-              <span className={styles.installmentPaymentIcon}>💳</span>
+              <MdOutlineReceiptLong
+                className={styles.installmentPaymentIcon}
+              />
             </Link>
           </button>
         </>
