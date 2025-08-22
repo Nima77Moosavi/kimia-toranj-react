@@ -58,7 +58,9 @@ const ShoppingCart = () => {
     setCartData({ ...cartData, items: updatedLocalItems });
 
     try {
-      await axiosInstance.patch(`${API_URL}api/store/cart/`, { items: updatedItems });
+      await axiosInstance.patch(`${API_URL}api/store/cart/`, {
+        items: updatedItems,
+      });
     } catch (err) {
       console.error("Failed to update item quantity", err);
     }
@@ -82,7 +84,9 @@ const ShoppingCart = () => {
     });
 
     try {
-      await axiosInstance.patch(`${API_URL}api/store/cart/`, { items: updatedItems });
+      await axiosInstance.patch(`${API_URL}api/store/cart/`, {
+        items: updatedItems,
+      });
     } catch (err) {
       console.error("Failed to remove item", err);
     }
@@ -91,7 +95,8 @@ const ShoppingCart = () => {
   const calculateTotal = () => {
     if (!cartData?.items) return 0;
     return cartData.items.reduce(
-      (total, item) => total + (item.product_variant?.price || 0) * item.quantity,
+      (total, item) =>
+        total + (item.product_variant?.price || 0) * item.quantity,
       0
     );
   };
@@ -131,7 +136,8 @@ const ShoppingCart = () => {
               <div className={styles.itemsList}>
                 {cartData.items.map((item) => {
                   const imageUrl =
-                    item.product_variant?.product?.images?.[0]?.image || "/placeholder.png";
+                    item.product_variant?.product?.images?.[0]?.image ||
+                    "/placeholder.png";
                   const step = item.product_variant?.product?.order_count || 1;
 
                   return (
@@ -139,12 +145,16 @@ const ShoppingCart = () => {
                       <div className={styles.itemImage}>
                         <img
                           src={imageUrl}
-                          alt={item.product_variant?.product?.title || "Product Image"}
+                          alt={
+                            item.product_variant?.product?.title ||
+                            "Product Image"
+                          }
                         />
                       </div>
                       <div className={styles.itemDetails}>
                         <h3 className={styles.itemTitle}>
-                          {item.product_variant?.product?.title || "Product Name"}
+                          {item.product_variant?.product?.title ||
+                            "Product Name"}
                         </h3>
                         <p className={styles.itemDescription}>
                           {item.product_variant?.product?.description || ""}
@@ -154,7 +164,9 @@ const ShoppingCart = () => {
                         </p>
                         <p
                           className={`${styles.itemStock} ${
-                            (item.product_variant?.stock || 0) < 3 ? styles.lowStock : ""
+                            (item.product_variant?.stock || 0) < 3
+                              ? styles.lowStock
+                              : ""
                           }`}
                         >
                           موجودی: {item.product_variant?.stock || 0} عدد
@@ -172,18 +184,27 @@ const ShoppingCart = () => {
                           <div className={styles.quantityBox}>
                             <button
                               className={`${styles.quantityButton} ${styles.plusButton}`}
-                              onClick={() => updateQuantity(item.id, item.quantity + step)}
-                              disabled={item.quantity + step > (item.product_variant?.stock || 0)}
+                              onClick={() =>
+                                updateQuantity(item.id, item.quantity + step)
+                              }
+                              disabled={
+                                item.quantity + step >
+                                (item.product_variant?.stock || 0)
+                              }
                             >
                               <FiPlus />
                             </button>
 
-                            <span className={styles.quantityNumber}>{item.quantity}</span>
+                            <span className={styles.quantityNumber}>
+                              {item.quantity}
+                            </span>
 
                             {item.quantity > step ? (
                               <button
                                 className={`${styles.quantityButton} ${styles.minusButton}`}
-                                onClick={() => updateQuantity(item.id, item.quantity - step)}
+                                onClick={() =>
+                                  updateQuantity(item.id, item.quantity - step)
+                                }
                               >
                                 <FiMinus />
                               </button>
@@ -207,11 +228,17 @@ const ShoppingCart = () => {
               <div className={styles.cartSummary}>
                 {!isCartValid() && (
                   <div className={styles.stockWarning}>
-                    ⚠️ برخی از محصولات در سبد خرید شما از موجودی موجود بیشتر هستند یا تعدادشان با حداقل سفارش همخوانی ندارد.
+                    ⚠️ برخی از محصولات در سبد خرید شما از موجودی موجود بیشتر
+                    هستند یا تعدادشان با حداقل سفارش همخوانی ندارد.
                   </div>
                 )}
 
-                <div className={styles.shippingPrice}>
+                <div className={styles.summaryRow}>
+                  <span>جمع قیمت محصولات:</span>
+                  <span>{calculateTotal().toLocaleString()} تومان</span>
+                </div>
+
+                <div className={styles.summaryRow}>
                   <span>هزینه ارسال:</span>
                   <span>
                     {calculateShippingPrice() === 0
@@ -220,10 +247,13 @@ const ShoppingCart = () => {
                   </span>
                 </div>
 
-                <div className={styles.totalPrice}>
-                  <span>جمع کل:</span>
+                <div className={`${styles.summaryRow} ${styles.totalPayRow}`}>
+                  <span>مبلغ نهایی قابل پرداخت:</span>
                   <span>
-                    {(calculateTotal() + calculateShippingPrice()).toLocaleString()} تومان
+                    {(
+                      calculateTotal() + calculateShippingPrice()
+                    ).toLocaleString()}{" "}
+                    تومان
                   </span>
                 </div>
 

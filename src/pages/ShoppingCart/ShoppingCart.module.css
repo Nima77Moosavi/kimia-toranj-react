@@ -272,6 +272,20 @@
   gap: 25px;
 }
 
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0;
+}
+
+.totalPayRow {
+  font-weight: bold;
+  font-size: 1.1rem;
+  border-top: 1px solid #ddd;
+  padding-top: 8px;
+}
+
+
 .stockWarning {
   color: #d32f2f;
   background-color: rgba(255, 71, 87, 0.1);
