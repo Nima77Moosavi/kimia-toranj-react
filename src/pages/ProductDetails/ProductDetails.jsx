@@ -4,14 +4,12 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styles from "./ProductDetails.module.css";
 
-
 import Header from "../../components/Header/Header";
 import Bestsellers from "../../components/Bestsellers/Bestsellers";
 import Footer from "../../components/Footer/Footer";
 import MoonLoader from "react-spinners/MoonLoader";
 
 import axiosInstanceNoRedirect from "../../utils/axiosInstanceNoRedirect";
-import axiosInstance from "../../utils/axiosInstance";
 import axios from "axios";
 import { API_URL } from "../../config";
 
@@ -24,7 +22,7 @@ import ReviewForm from "./ReviewForm/ReviewForm";
 
 const ProductDetails = () => {
   const { slugAndId } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const id = slugAndId.substring(slugAndId.lastIndexOf("-") + 1);
 
   const [product, setProduct] = useState({});
@@ -37,7 +35,7 @@ const ProductDetails = () => {
   const [activeTab, setActiveTab] = useState("specs");
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-  // 1. Load user's liked-items from the server
+  // Load liked items
   useEffect(() => {
     const fetchLikedItems = async () => {
       try {
@@ -52,7 +50,7 @@ const ProductDetails = () => {
     fetchLikedItems();
   }, []);
 
-  // 2. Load the product details (including reviews)
+  // Load product details
   useEffect(() => {
     const loadProduct = async () => {
       try {
@@ -68,7 +66,7 @@ const ProductDetails = () => {
     loadProduct();
   }, [id]);
 
-  // 3. Derive the `like` flag from likedItems + current variant
+  // Set like state
   useEffect(() => {
     const variantId = product.variants?.[0]?.id;
     setLike(
@@ -76,7 +74,7 @@ const ProductDetails = () => {
     );
   }, [likedItems, product.variants]);
 
-  // Unchanged: Add to cart handler
+  // Add to cart with order_count step
   const handleAddToCart = async () => {
     try {
       const res = await axiosInstanceNoRedirect.get(
@@ -84,32 +82,36 @@ const ProductDetails = () => {
       );
       const currentCart = res.data;
       let currentItems =
-        currentCart.items
-          ?.filter((it) => it.product_variant?.id)
-          .map((it) => ({
-            product_variant_id: it.product_variant.id,
-            quantity: it.quantity,
-          })) || [];
+        currentCart.items?.map((it) => ({
+          product_variant_id: it.product_variant.id,
+          quantity: it.quantity,
+        })) || [];
 
       const variantId = product.variants?.[0]?.id;
       if (!variantId) throw new Error("Variant ID not available");
 
+      const step = product.order_count || 1; // <-- use order_count
+
       const idx = currentItems.findIndex(
         (it) => it.product_variant_id === variantId
       );
-      const newItems = [...currentItems];
-      if (idx >= 0) newItems[idx].quantity += 1;
-      else newItems.push({ product_variant_id: variantId, quantity: 1 });
+      if (idx >= 0) {
+        currentItems[idx].quantity += step;
+      } else {
+        currentItems.push({ product_variant_id: variantId, quantity: step });
+      }
 
       await axiosInstanceNoRedirect.patch(`${API_URL}api/store/cart/`, {
-        items: newItems,
+        items: currentItems,
       });
 
       setShowSuccessMessage(true);
       setTimeout(() => setShowSuccessMessage(false), 3000);
     } catch (err) {
+      if (err.response?.status === 400) {
+        console.error("Bad request:", err.response.data);
+      }
       if (err.response?.status === 401) {
-        // Not logged in → send to login with return URL
         navigate(
           `/login?next=${encodeURIComponent(
             window.location.pathname + window.location.search
@@ -117,34 +119,29 @@ const ProductDetails = () => {
         );
         return;
       }
-      console.error("Cart error:", err);
       setError("خطا در اضافه کردن به سبد خرید");
     }
   };
 
-  // 4. Like / Unlike handler matching your DRF serializer
+  // Like / Unlike
   const likeHandler = async () => {
     try {
       const variantId = product.variants?.[0]?.id;
       if (!variantId) return;
 
       if (like) {
-        // Find the LikedItem instance for this variant
         const likedItem = likedItems.find(
           (li) => li.product_variant.id === variantId
         );
         if (!likedItem) return;
 
-        // DELETE /liked-items/{pk}/
         await axiosInstanceNoRedirect.delete(
           `${API_URL}api/store/liked-items/${likedItem.id}/`
         );
 
-        // Update local state
         setLikedItems((prev) => prev.filter((li) => li.id !== likedItem.id));
         setLike(false);
       } else {
-        // POST /liked-items/ with only product_variant_id
         const payload = { product_variant_id: variantId };
         const { data: newLikedItem } = await axiosInstanceNoRedirect.post(
           `${API_URL}api/store/liked-items/`,
@@ -156,7 +153,6 @@ const ProductDetails = () => {
       }
     } catch (err) {
       console.error("Error toggling like:", err);
-      // Show a toast or inline message if you like
     }
   };
 
@@ -198,6 +194,11 @@ const ProductDetails = () => {
               onAddToCart={handleAddToCart}
               stock={variant.stock || 0}
             />
+            {product.order_count > 1 && (
+              <p className={styles.orderStep}>
+                حداقل سفارش: {product.order_count} عدد و مضارب آن
+              </p>
+            )}
           </div>
 
           <ProductTabs

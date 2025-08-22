@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_URL } from "../../config";
-import Header from "../../components/Header/Header";
-import SidebarUserPanel from "../../components/SidebarUserPanel/SidebarUserPanel";
 import styles from "./ShoppingCart.module.css";
 import { MdDeleteOutline } from "react-icons/md";
 import { FiPlus, FiMinus } from "react-icons/fi";
@@ -14,39 +12,48 @@ const ShoppingCart = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  // Fetch cart on mount
   useEffect(() => {
     const fetchCart = async () => {
       try {
         setLoading(true);
         const response = await axiosInstance.get(`${API_URL}api/store/cart/`);
         setCartData(response.data);
-        setLoading(false);
       } catch (err) {
         console.error(err);
-        setError("Error loading cart");
+        setError("خطا در بارگذاری سبد خرید");
+      } finally {
         setLoading(false);
       }
     };
     fetchCart();
   }, []);
 
+  // Update quantity with step & stock validation
   const updateQuantity = async (itemId, newQuantity) => {
     if (!cartData) return;
 
-    const item = cartData.items.find((item) => item.id === itemId);
+    const item = cartData.items.find((it) => it.id === itemId);
     if (!item) return;
 
+    const step = item.product_variant?.product?.order_count || 1;
     const availableStock = item.product_variant?.stock || 0;
-    if (newQuantity > availableStock || newQuantity < 1) return;
 
-    const updatedItems = cartData.items.map((item) =>
-      item.id === itemId
-        ? { product_variant_id: item.product_variant.id, quantity: newQuantity }
-        : { product_variant_id: item.product_variant.id, quantity: item.quantity }
+    // Enforce multiples of step
+    if (newQuantity % step !== 0) return;
+
+    // Enforce min and max
+    if (newQuantity > availableStock || newQuantity < step) return;
+
+    const updatedItems = cartData.items.map((it) =>
+      it.id === itemId
+        ? { product_variant_id: it.product_variant.id, quantity: newQuantity }
+        : { product_variant_id: it.product_variant.id, quantity: it.quantity }
     );
 
-    const updatedLocalItems = cartData.items.map((item) =>
-      item.id === itemId ? { ...item, quantity: newQuantity } : item
+    // Optimistic UI update
+    const updatedLocalItems = cartData.items.map((it) =>
+      it.id === itemId ? { ...it, quantity: newQuantity } : it
     );
     setCartData({ ...cartData, items: updatedLocalItems });
 
@@ -57,19 +64,21 @@ const ShoppingCart = () => {
     }
   };
 
+  // Always allow removal, even if invalid
   const removeItem = async (itemId) => {
     if (!cartData) return;
 
     const updatedItems = cartData.items
-      .filter((item) => item.id !== itemId)
-      .map((item) => ({
-        product_variant_id: item.product_variant.id,
-        quantity: item.quantity,
+      .filter((it) => it.id !== itemId)
+      .map((it) => ({
+        product_variant_id: it.product_variant.id,
+        quantity: it.quantity,
       }));
 
+    // Optimistic UI update
     setCartData({
       ...cartData,
-      items: cartData.items.filter((item) => item.id !== itemId),
+      items: cartData.items.filter((it) => it.id !== itemId),
     });
 
     try {
@@ -82,7 +91,7 @@ const ShoppingCart = () => {
   const calculateTotal = () => {
     if (!cartData?.items) return 0;
     return cartData.items.reduce(
-      (total, item) => total + item.product_variant?.price * item.quantity,
+      (total, item) => total + (item.product_variant?.price || 0) * item.quantity,
       0
     );
   };
@@ -96,11 +105,16 @@ const ShoppingCart = () => {
     if (!cartData?.items) return false;
     return cartData.items.every((item) => {
       const availableStock = item.product_variant?.stock || 0;
-      return item.quantity <= availableStock && item.quantity > 0;
+      const step = item.product_variant?.product?.order_count || 1;
+      return (
+        item.quantity <= availableStock &&
+        item.quantity >= step &&
+        item.quantity % step === 0
+      );
     });
   };
 
-  const handleCheckout = async () => {
+  const handleCheckout = () => {
     navigate("/user-panel/checkout");
   };
 
@@ -110,16 +124,15 @@ const ShoppingCart = () => {
         <div className={styles.cartContent}>
           {loading && <p>در حال بارگذاری...</p>}
           {error && <p className={styles.error}>{error}</p>}
+
           {cartData && cartData.items && cartData.items.length > 0 ? (
             <div>
               <h2 className={styles.cartTitle}>سبد خرید شما</h2>
               <div className={styles.itemsList}>
                 {cartData.items.map((item) => {
                   const imageUrl =
-                    item.product_variant?.product?.images &&
-                    item.product_variant.product.images.length > 0
-                      ? item.product_variant.product.images[0].image
-                      : "/placeholder.png";
+                    item.product_variant?.product?.images?.[0]?.image || "/placeholder.png";
+                  const step = item.product_variant?.product?.order_count || 1;
 
                   return (
                     <div key={item.id} className={styles.cartItem}>
@@ -137,7 +150,7 @@ const ShoppingCart = () => {
                           {item.product_variant?.product?.description || ""}
                         </p>
                         <p className={styles.itemPrice}>
-                          {item.product_variant?.price} تومان
+                          {item.product_variant?.price?.toLocaleString()} تومان
                         </p>
                         <p
                           className={`${styles.itemStock} ${
@@ -149,29 +162,35 @@ const ShoppingCart = () => {
                             (item.product_variant?.stock || 0) > 0 &&
                             " (کم موجودی)"}
                         </p>
+                        {step > 1 && (
+                          <p className={styles.itemStep}>
+                            حداقل سفارش: {step} عدد و مضارب آن
+                          </p>
+                        )}
+
                         <div className={styles.quantityControl}>
                           <div className={styles.quantityBox}>
                             <button
                               className={`${styles.quantityButton} ${styles.plusButton}`}
-                              onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                              disabled={item.quantity >= (item.product_variant?.stock || 0)}
+                              onClick={() => updateQuantity(item.id, item.quantity + step)}
+                              disabled={item.quantity + step > (item.product_variant?.stock || 0)}
                             >
                               <FiPlus />
                             </button>
 
                             <span className={styles.quantityNumber}>{item.quantity}</span>
 
-                            {item.quantity > 1 ? (
+                            {item.quantity > step ? (
                               <button
                                 className={`${styles.quantityButton} ${styles.minusButton}`}
-                                onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                onClick={() => updateQuantity(item.id, item.quantity - step)}
                               >
                                 <FiMinus />
                               </button>
                             ) : (
                               <button
                                 className={`${styles.quantityButton} ${styles.deleteButton}`}
-                                onClick={() => removeItem(item.id)}
+                                onClick={() => removeItem(item.id)} // ✅ Always works
                               >
                                 <MdDeleteOutline />
                               </button>
@@ -188,7 +207,7 @@ const ShoppingCart = () => {
               <div className={styles.cartSummary}>
                 {!isCartValid() && (
                   <div className={styles.stockWarning}>
-                    ⚠️ برخی از محصولات در سبد خرید شما از موجودی موجود بیشتر هستند. لطفاً تعداد را کاهش دهید.
+                    ⚠️ برخی از محصولات در سبد خرید شما از موجودی موجود بیشتر هستند یا تعدادشان با حداقل سفارش همخوانی ندارد.
                   </div>
                 )}
 
