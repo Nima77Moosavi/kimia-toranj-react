@@ -6,8 +6,7 @@ import Header from "../../components/Header/Header";
 import SidebarUserPanel from "../../components/SidebarUserPanel/SidebarUserPanel";
 import styles from "./ShoppingCart.module.css";
 import { MdDeleteOutline } from "react-icons/md";
-import { FiPlus } from "react-icons/fi";
-import { FiMinus } from "react-icons/fi";
+import { FiPlus, FiMinus } from "react-icons/fi";
 
 const ShoppingCart = () => {
   const [cartData, setCartData] = useState(null);
@@ -34,30 +33,17 @@ const ShoppingCart = () => {
   const updateQuantity = async (itemId, newQuantity) => {
     if (!cartData) return;
 
-    // Find the item to check its stock
-    const item = cartData.items.find(item => item.id === itemId);
+    const item = cartData.items.find((item) => item.id === itemId);
     if (!item) return;
 
-    // Check if new quantity exceeds stock
     const availableStock = item.product_variant?.stock || 0;
-    if (newQuantity > availableStock) {
-      // Don't allow quantity to exceed stock
-      return;
-    }
+    if (newQuantity > availableStock || newQuantity < 1) return;
 
-    // Don't allow quantity less than 1
-    if (newQuantity < 1) {
-      return;
-    }
-
-    const updatedItems = cartData.items.map((item) => {
-      return item.id === itemId
+    const updatedItems = cartData.items.map((item) =>
+      item.id === itemId
         ? { product_variant_id: item.product_variant.id, quantity: newQuantity }
-        : {
-            product_variant_id: item.product_variant.id,
-            quantity: item.quantity,
-          };
-    });
+        : { product_variant_id: item.product_variant.id, quantity: item.quantity }
+    );
 
     const updatedLocalItems = cartData.items.map((item) =>
       item.id === itemId ? { ...item, quantity: newQuantity } : item
@@ -65,9 +51,7 @@ const ShoppingCart = () => {
     setCartData({ ...cartData, items: updatedLocalItems });
 
     try {
-      await axiosInstance.patch(`${API_URL}api/store/cart/`, {
-        items: updatedItems,
-      });
+      await axiosInstance.patch(`${API_URL}api/store/cart/`, { items: updatedItems });
     } catch (err) {
       console.error("Failed to update item quantity", err);
     }
@@ -76,7 +60,6 @@ const ShoppingCart = () => {
   const removeItem = async (itemId) => {
     if (!cartData) return;
 
-    // Build the new items payload without the removed one
     const updatedItems = cartData.items
       .filter((item) => item.id !== itemId)
       .map((item) => ({
@@ -84,21 +67,18 @@ const ShoppingCart = () => {
         quantity: item.quantity,
       }));
 
-    // Optimistically update UI
     setCartData({
       ...cartData,
       items: cartData.items.filter((item) => item.id !== itemId),
     });
 
     try {
-      await axiosInstance.patch(`${API_URL}api/store/cart/`, {
-        items: updatedItems,
-      });
+      await axiosInstance.patch(`${API_URL}api/store/cart/`, { items: updatedItems });
     } catch (err) {
       console.error("Failed to remove item", err);
     }
   };
-  // تابع جدید برای محاسبه جمع کل
+
   const calculateTotal = () => {
     if (!cartData?.items) return 0;
     return cartData.items.reduce(
@@ -107,16 +87,19 @@ const ShoppingCart = () => {
     );
   };
 
-  // تابع جدید برای بررسی اعتبار سبد خرید
+  const calculateShippingPrice = () => {
+    const total = calculateTotal();
+    return total < 1000000 ? 80000 : 0;
+  };
+
   const isCartValid = () => {
     if (!cartData?.items) return false;
-    return cartData.items.every(item => {
+    return cartData.items.every((item) => {
       const availableStock = item.product_variant?.stock || 0;
       return item.quantity <= availableStock && item.quantity > 0;
     });
   };
 
-  // تابع جدید برای ثبت سفارش
   const handleCheckout = async () => {
     navigate("/user-panel/checkout");
   };
@@ -143,16 +126,12 @@ const ShoppingCart = () => {
                       <div className={styles.itemImage}>
                         <img
                           src={imageUrl}
-                          alt={
-                            item.product_variant?.product?.title ||
-                            "Product Image"
-                          }
+                          alt={item.product_variant?.product?.title || "Product Image"}
                         />
                       </div>
                       <div className={styles.itemDetails}>
                         <h3 className={styles.itemTitle}>
-                          {item.product_variant?.product?.title ||
-                            "Product Name"}
+                          {item.product_variant?.product?.title || "Product Name"}
                         </h3>
                         <p className={styles.itemDescription}>
                           {item.product_variant?.product?.description || ""}
@@ -160,32 +139,32 @@ const ShoppingCart = () => {
                         <p className={styles.itemPrice}>
                           {item.product_variant?.price} تومان
                         </p>
-                        <p className={`${styles.itemStock} ${(item.product_variant?.stock || 0) < 3 ? styles.lowStock : ''}`}>
+                        <p
+                          className={`${styles.itemStock} ${
+                            (item.product_variant?.stock || 0) < 3 ? styles.lowStock : ""
+                          }`}
+                        >
                           موجودی: {item.product_variant?.stock || 0} عدد
-                          {(item.product_variant?.stock || 0) < 3 && (item.product_variant?.stock || 0) > 0 && ' (کم موجودی)'}
+                          {(item.product_variant?.stock || 0) < 3 &&
+                            (item.product_variant?.stock || 0) > 0 &&
+                            " (کم موجودی)"}
                         </p>
                         <div className={styles.quantityControl}>
                           <div className={styles.quantityBox}>
                             <button
                               className={`${styles.quantityButton} ${styles.plusButton}`}
-                              onClick={() =>
-                                updateQuantity(item.id, item.quantity + 1)
-                              }
+                              onClick={() => updateQuantity(item.id, item.quantity + 1)}
                               disabled={item.quantity >= (item.product_variant?.stock || 0)}
                             >
                               <FiPlus />
                             </button>
 
-                            <span className={styles.quantityNumber}>
-                              {item.quantity}
-                            </span>
+                            <span className={styles.quantityNumber}>{item.quantity}</span>
 
                             {item.quantity > 1 ? (
                               <button
                                 className={`${styles.quantityButton} ${styles.minusButton}`}
-                                onClick={() =>
-                                  updateQuantity(item.id, item.quantity - 1)
-                                }
+                                onClick={() => updateQuantity(item.id, item.quantity - 1)}
                               >
                                 <FiMinus />
                               </button>
@@ -205,17 +184,30 @@ const ShoppingCart = () => {
                 })}
               </div>
 
-              {/* بخش جدید: جمع کل و دکمه ثبت سفارش */}
+              {/* Summary Section */}
               <div className={styles.cartSummary}>
                 {!isCartValid() && (
                   <div className={styles.stockWarning}>
                     ⚠️ برخی از محصولات در سبد خرید شما از موجودی موجود بیشتر هستند. لطفاً تعداد را کاهش دهید.
                   </div>
                 )}
+
+                <div className={styles.shippingPrice}>
+                  <span>هزینه ارسال:</span>
+                  <span>
+                    {calculateShippingPrice() === 0
+                      ? "رایگان"
+                      : `${calculateShippingPrice().toLocaleString()} تومان`}
+                  </span>
+                </div>
+
                 <div className={styles.totalPrice}>
                   <span>جمع کل:</span>
-                  <span>{calculateTotal().toLocaleString()} تومان</span>
+                  <span>
+                    {(calculateTotal() + calculateShippingPrice()).toLocaleString()} تومان
+                  </span>
                 </div>
+
                 <button
                   className={styles.checkoutButton}
                   onClick={handleCheckout}
