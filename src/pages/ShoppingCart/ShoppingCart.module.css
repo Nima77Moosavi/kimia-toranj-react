@@ -86,6 +86,7 @@
 
 /* Item Image */
 .itemImage {
+  position: relative;
   width: 140px;
   height: 140px;
   flex-shrink: 0;
@@ -271,6 +272,35 @@
   align-items: flex-start;
   gap: 25px;
 }
+
+.discountBadge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #e53935;
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  border-radius: 4px;
+}
+
+.priceWrapper {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.oldPrice {
+  text-decoration: line-through;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.newPrice {
+  color: #e53935;
+  font-weight: bold;
+}
+
 
 .summaryRow {
   display: flex;

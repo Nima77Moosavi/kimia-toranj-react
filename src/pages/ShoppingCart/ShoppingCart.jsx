@@ -29,6 +29,16 @@ const ShoppingCart = () => {
     fetchCart();
   }, []);
 
+  const getItemFinalPrice = (item) => {
+    const basePrice = item.product_variant?.price || 0;
+    const promotions = item.product_variant?.product?.promotions || [];
+    if (promotions.length > 0 && promotions[0].discount) {
+      const discountPercent = promotions[0].discount;
+      return Math.round(basePrice * (1 - discountPercent / 100));
+    }
+    return basePrice;
+  };
+
   // Update quantity with step & stock validation
   const updateQuantity = async (itemId, newQuantity) => {
     if (!cartData) return;
@@ -95,8 +105,7 @@ const ShoppingCart = () => {
   const calculateTotal = () => {
     if (!cartData?.items) return 0;
     return cartData.items.reduce(
-      (total, item) =>
-        total + (item.product_variant?.price || 0) * item.quantity,
+      (total, item) => total + getItemFinalPrice(item) * item.quantity,
       0
     );
   };
@@ -135,6 +144,15 @@ const ShoppingCart = () => {
               <h2 className={styles.cartTitle}>سبد خرید شما</h2>
               <div className={styles.itemsList}>
                 {cartData.items.map((item) => {
+                  const promotions =
+                    item.product_variant?.product?.promotions || [];
+                  const hasPromotion =
+                    promotions.length > 0 && promotions[0].discount;
+                  const discountPercent = hasPromotion
+                    ? promotions[0].discount
+                    : 0;
+                  const basePrice = item.product_variant?.price || 0;
+                  const finalPrice = getItemFinalPrice(item);
                   const imageUrl =
                     item.product_variant?.product?.images?.[0]?.image ||
                     "/placeholder.png";
@@ -143,6 +161,11 @@ const ShoppingCart = () => {
                   return (
                     <div key={item.id} className={styles.cartItem}>
                       <div className={styles.itemImage}>
+                        {hasPromotion && (
+                          <span className={styles.discountBadge}>
+                            {discountPercent}٪ تخفیف
+                          </span>
+                        )}
                         <img
                           src={imageUrl}
                           alt={
@@ -159,9 +182,22 @@ const ShoppingCart = () => {
                         <p className={styles.itemDescription}>
                           {item.product_variant?.product?.description || ""}
                         </p>
-                        <p className={styles.itemPrice}>
-                          {item.product_variant?.price?.toLocaleString()} تومان
-                        </p>
+                        {hasPromotion ? (
+                          <div className={styles.priceWrapper}>
+                            <span className={styles.oldPrice}>
+                              {basePrice.toLocaleString()} تومان
+                            </span>
+                            
+                            <span className={styles.newPrice}>
+                              {finalPrice.toLocaleString()} تومان
+                            </span>
+                          </div>
+                        ) : (
+                          <p className={styles.itemPrice}>
+                            {basePrice.toLocaleString()} تومان
+                          </p>
+                        )}
+
                         <p
                           className={`${styles.itemStock} ${
                             (item.product_variant?.stock || 0) < 3
