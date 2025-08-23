@@ -50,8 +50,12 @@ const Collections = () => {
                 className={styles.collectionCard}
                 style={{ backgroundImage: `url(${collection.image})` }}
               >
-                <img src={collection.image} alt={collection.title} loading="lazy"
-                className={styles.collectionImage}/>
+                <img
+                  src={collection.image}
+                  alt={collection.title}
+                  loading="lazy"
+                  className={styles.collectionImage}
+                />
                 <div className={styles.overlay}>
                   <div className={styles.description}>
                     {collection.description || collection.title}
