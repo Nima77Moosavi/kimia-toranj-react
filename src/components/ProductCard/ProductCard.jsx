@@ -19,7 +19,11 @@ const ProductCard = ({ product }) => {
     : variant.price;
 
   return (
-    <Link to={productLink} className={styles.cardLink}>
+    <Link
+      to={productLink}
+      className={styles.cardLink}
+      aria-label={`مشاهده ${product.title}`}
+    >
       <div className={styles.card}>
         <img
           src={
@@ -29,6 +33,9 @@ const ProductCard = ({ product }) => {
           }
           alt={product.title}
           className={styles.img}
+          loading="lazy"
+          width="200"
+          height="190"
         />
 
         <h2 className={styles.title}>{toPersianDigits(product.title)}</h2>
