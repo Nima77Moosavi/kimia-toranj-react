@@ -36,6 +36,28 @@
   color: #fff;
 }
 
+/* Price wrapper for promotions */
+.priceWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.oldPrice {
+  text-decoration: line-through;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.discountBadge {
+  background-color: #e53935;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
 /* price label */
 .price {
   width: auto;

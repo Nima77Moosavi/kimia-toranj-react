@@ -191,6 +191,7 @@ const ProductDetails = () => {
           <div className={styles.leftSidebar}>
             <PriceBox
               price={variant.price || 0}
+              promotions={product.promotions || []}
               onAddToCart={handleAddToCart}
               stock={variant.stock || 0}
             />
