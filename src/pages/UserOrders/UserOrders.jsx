@@ -46,7 +46,7 @@ const UserOrders = () => {
             <li key={order.id} className={styles.orderCard}>
               <div className={styles.orderHeader}>
                 <div>
-                  <strong>سفارش #{order.id}</strong>
+                  <strong>سفارش #{order.order_id || order.id}</strong>
                   <span className={`${styles.status} ${styles[`status-${order.status}`]}`}>
                     {statusMap[order.status] || order.status}
                   </span>
