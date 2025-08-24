@@ -20,6 +20,9 @@ import PriceBox from "./PriceBox/PriceBox";
 import IconsBox from "./IconsBox/IconsBox";
 import ReviewForm from "./ReviewForm/ReviewForm";
 
+// ✅ Import Zustand store
+import { useCartStore } from "../../cartStore";
+
 const ProductDetails = () => {
   const { slugAndId } = useParams();
   const navigate = useNavigate();
@@ -34,6 +37,9 @@ const ProductDetails = () => {
   const [showAllReviews, setShowAllReviews] = useState(false);
   const [activeTab, setActiveTab] = useState("specs");
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+
+  // ✅ Get addToCart from store
+  const addToCart = useCartStore((state) => state.addToCart);
 
   // Load liked items
   useEffect(() => {
@@ -74,44 +80,23 @@ const ProductDetails = () => {
     );
   }, [likedItems, product.variants]);
 
-  // Add to cart with order_count step
+  // ✅ Add to cart using store method
   const handleAddToCart = async () => {
     try {
-      const res = await axiosInstanceNoRedirect.get(
-        `${API_URL}api/store/cart/`
-      );
-      const currentCart = res.data;
-      let currentItems =
-        currentCart.items?.map((it) => ({
-          product_variant_id: it.product_variant.id,
-          quantity: it.quantity,
-        })) || [];
-
       const variantId = product.variants?.[0]?.id;
       if (!variantId) throw new Error("Variant ID not available");
 
-      const step = product.order_count || 1; // <-- use order_count
-
-      const idx = currentItems.findIndex(
-        (it) => it.product_variant_id === variantId
-      );
-      if (idx >= 0) {
-        currentItems[idx].quantity += step;
-      } else {
-        currentItems.push({ product_variant_id: variantId, quantity: step });
-      }
-
-      await axiosInstanceNoRedirect.patch(`${API_URL}api/store/cart/`, {
-        items: currentItems,
+      await addToCart({
+        product,
+        variantId,
+        price: product.variants?.[0]?.price || 0,
+        orderCount: product.order_count || 1
       });
 
       setShowSuccessMessage(true);
       setTimeout(() => setShowSuccessMessage(false), 3000);
     } catch (err) {
-      if (err.response?.status === 400) {
-        console.error("Bad request:", err.response.data);
-      }
-      if (err.response?.status === 401) {
+      if (err?.response?.status === 401) {
         navigate(
           `/login?next=${encodeURIComponent(
             window.location.pathname + window.location.search
@@ -119,6 +104,7 @@ const ProductDetails = () => {
         );
         return;
       }
+      console.error("Error adding to cart:", err);
       setError("خطا در اضافه کردن به سبد خرید");
     }
   };

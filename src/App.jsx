@@ -1,7 +1,8 @@
-import React from "react";
+import {useEffect} from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { ToastProvider } from "./components/Toast/ToastContext.jsx";
+import { useCartStore } from "./cartStore.js";
 
 // Import your layout, ProtectedRoute, and pages
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
@@ -42,6 +43,11 @@ import PaymentSuccess from "./pages/PaymentSuccess/PaymentSuccess.jsx";
 import PaymentFailure from "./pages/PaymentFailure/PaymentFailure.jsx";
 
 const App = () => {
+  const loadCart = useCartStore((state) => state.loadCart);
+
+  useEffect(() => {
+    loadCart();
+  }, [loadCart]);
   return (
     <ToastProvider>
       <Router>
