@@ -9,26 +9,20 @@ import {
 import styles from "./FooterMenu.module.css";
 import axiosInstanceNoRedirect from "../../utils/axiosInstanceNoRedirect";
 
+// ✅ Use Zustand store
+import { useCartStore } from "../../cartStore";
+
 const FooterMenu = () => {
   const [isMobile, setIsMobile] = useState(false);
-  const [cartItemsCount, setCartItemsCount] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // ✅ Get cart count and fetch method from store
+  const cartCount = useCartStore((state) => state.cartCount());
+  const fetchCartFromBackend = useCartStore((state) => state.fetchCartFromBackend);
 
   useEffect(() => {
     const checkScreenSize = () => setIsMobile(window.innerWidth <= 768);
     checkScreenSize();
-
-    const fetchCartItemsCount = async () => {
-      try {
-        const response = await axiosInstanceNoRedirect.get("api/store/cart/");
-        const cartItems = response.data.items || [];
-        setCartItemsCount(
-          cartItems.reduce((sum, item) => sum + item.quantity, 0)
-        );
-      } catch (err) {
-        // console.error("Cart fetch error:", err);
-      }
-    };
 
     const checkAuth = async () => {
       try {
@@ -41,12 +35,13 @@ const FooterMenu = () => {
       }
     };
 
-    fetchCartItemsCount();
+    // ✅ Load cart from backend via store
+    fetchCartFromBackend();
     checkAuth();
 
     window.addEventListener("resize", checkScreenSize);
     return () => window.removeEventListener("resize", checkScreenSize);
-  }, []);
+  }, [fetchCartFromBackend]);
 
   if (!isMobile) return null;
 
@@ -84,8 +79,8 @@ const FooterMenu = () => {
           >
             <div className={styles.iconWrapper}>
               <IoCartOutline size={24} />
-              {cartItemsCount > 0 && (
-                <span className={styles.badge}>{cartItemsCount}</span>
+              {cartCount > 0 && (
+                <span className={styles.badge}>{cartCount}</span>
               )}
             </div>
             <span>سبد خرید</span>
