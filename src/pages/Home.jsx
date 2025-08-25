@@ -14,7 +14,6 @@ import styles from "./Home.module.css";
 
 import banner1 from "../assets/banner11.jpg";
 
-
 const Home = () => {
   const [latestProducts, setLatestProducts] = useState([]);
 
@@ -96,6 +95,9 @@ const Home = () => {
           content="https://kimiatoranj.com/og-image.jpg"
         />
         <html lang="fa" />
+
+        {/* ✅ Canonical tag */}
+        <link rel="canonical" href="https://kimiatoranj.com/" />
 
         <link rel="preload" as="image" href={banner1} imagesizes="100vw" />
 
