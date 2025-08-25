@@ -8,7 +8,13 @@ import styles from "./PriceBox.module.css";
 import { formatPrice } from "../../../utils/formatPrice";
 import { Link } from "react-router-dom";
 
-const PriceBox = ({ price, promotions = [], onAddToCart, stock }) => {
+const PriceBox = ({
+  price,
+  promotions = [],
+  onAddToCart,
+  stock,
+  orderCount,
+}) => {
   const lowStock = stock > 0 && stock < 3;
   const outOfStock = stock === 0;
 
@@ -33,6 +39,18 @@ const PriceBox = ({ price, promotions = [], onAddToCart, stock }) => {
         {stock} عدد باقی مانده
         <BsBoxSeam className={styles.icon} />
       </p>
+
+      <p>
+        قیمت درج شده برای یک عدد محصول می باشد
+        <BsBoxSeam className={styles.icon} />
+      </p>
+
+      {orderCount > 1 && (
+        <p>
+          حداقل سفارش: {orderCount} عدد و مضارب آن
+          <BsBoxSeam className={styles.icon} />
+        </p>
+      )}
 
       {outOfStock ? (
         <button className={styles.callButton} disabled>
@@ -60,9 +78,7 @@ const PriceBox = ({ price, promotions = [], onAddToCart, stock }) => {
               </button>
             </div>
           ) : (
-            <button className={styles.price}>
-              {formatPrice(price)} تومان
-            </button>
+            <button className={styles.price}>{formatPrice(price)} تومان</button>
           )}
 
           <button
@@ -75,13 +91,13 @@ const PriceBox = ({ price, promotions = [], onAddToCart, stock }) => {
 
           <button className={styles.installmentPayment}>
             <Link
-              to={`/installment-payment?price=${hasPromotion ? discountedPrice : price}`}
+              to={`/installment-payment?price=${
+                hasPromotion ? discountedPrice : price
+              }`}
               className={styles.contactOption}
             >
               پرداخت اقساطی
-              <MdOutlineReceiptLong
-                className={styles.installmentPaymentIcon}
-              />
+              <MdOutlineReceiptLong className={styles.installmentPaymentIcon} />
             </Link>
           </button>
         </>

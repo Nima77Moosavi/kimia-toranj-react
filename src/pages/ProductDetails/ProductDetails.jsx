@@ -180,6 +180,7 @@ const ProductDetails = () => {
               promotions={product.promotions || []}
               onAddToCart={handleAddToCart}
               stock={variant.stock || 0}
+              orderCount={product.order_count}
             />
             {product.order_count > 1 && (
               <p className={styles.orderStep}>
