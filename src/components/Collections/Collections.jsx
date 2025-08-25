@@ -43,7 +43,7 @@ const Collections = () => {
               <Link
                 to={
                   collection.landing_page_url
-                    ? `category/${collection.landing_page_url}`
+                    ? `/category/${collection.landing_page_url}`
                     : `/shop?collection=${encodeURIComponent(collection.title)}`
                 }
                 key={collection.id}
