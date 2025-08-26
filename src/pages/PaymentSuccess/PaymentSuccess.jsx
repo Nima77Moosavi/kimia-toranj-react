@@ -17,6 +17,16 @@ const PaymentSuccess = () => {
         <p className={styles.subText}>
           می‌توانید جزئیات سفارش خود را در پنل کاربری مشاهده کنید.
         </p>
+
+        {/* New info completion notice */}
+        <p className={styles.warningText}>
+          لطفاً اطلاعات حساب کاربری خود را تکمیل کنید تا در ارسال سفارش شما مشکلی پیش نیاید.
+        </p>
+        <Link to="/user-panel/account-info" className={`${styles.btn} ${styles.secondaryBtn}`}>
+          تکمیل اطلاعات حساب
+        </Link>
+
+        {/* Existing orders link */}
         <Link to="/user-panel/orders" className={styles.btn}>
           مشاهده سفارش‌ها
         </Link>

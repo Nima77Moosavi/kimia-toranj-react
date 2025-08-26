@@ -44,3 +44,19 @@
 .btn:hover {
   background: #15803d;
 }
+
+.warningText {
+  font-size: 0.9rem;
+  color: #b45309; /* amber-700 */
+  margin-bottom: 1rem;
+}
+
+.secondaryBtn {
+  background: #2563eb; /* blue-600 */
+  margin-bottom: 0.75rem;
+}
+
+.secondaryBtn:hover {
+  background: #1d4ed8; /* blue-700 */
+}
+
