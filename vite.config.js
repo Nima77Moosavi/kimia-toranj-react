@@ -26,7 +26,6 @@ export default defineConfig(async () => {
       Sitemap({
         hostname: "https://kimiatoranj.com",
         dynamicRoutes: [
-          "/", 
           "/login",
           "/installment-payment",
           "/blog",
