@@ -41,6 +41,7 @@ import Qalamzani from "./pages/Qalamzani/Qalamzani.jsx";
 import FAQPage from "./pages/FAQPage/FAQPage.jsx";
 import PaymentSuccess from "./pages/PaymentSuccess/PaymentSuccess.jsx";
 import PaymentFailure from "./pages/PaymentFailure/PaymentFailure.jsx";
+import FrameArt from "./pages/FrameArt/FrameArt.jsx";
 
 const App = () => {
   const loadCart = useCartStore((state) => state.loadCart);
@@ -81,6 +82,7 @@ const App = () => {
             element={<OrganizationalGiftPack />}
           />
           <Route path="/category/khatamkari" element={<Khatamkari />} />
+          <Route path="/category/frame" element={<FrameArt />} />
           {/* Protected UserPanel Routes */}
           <Route
             path="/user-panel/*"
