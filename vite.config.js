@@ -10,7 +10,7 @@ export default defineConfig(async () => {
     .then(data => {
       // Adjust depending on your API shape
       if (Array.isArray(data)) return data;
-      if (Array.isArray(data.results)) return data.results;
+      if (Array.isArray(data.results)) return data.results; //
       return [];
     });
 
