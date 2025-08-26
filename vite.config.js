@@ -25,7 +25,7 @@ export default defineConfig(async () => {
       react(),
       Sitemap({
         hostname: "https://kimiatoranj.com",
-        routes: [
+        dynamicRoutes: [
           "/", 
           "/login",
           "/installment-payment",
@@ -46,7 +46,7 @@ export default defineConfig(async () => {
         exclude: ["/user-panel/*", "/login"],
         generateRobotsTxt: false,
         defaults: {
-          changefreq: "weekly",
+          changefreq: "daily",
           priority: 0.7,
         },
         outDir: "build",
