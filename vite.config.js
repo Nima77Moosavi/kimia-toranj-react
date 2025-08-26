@@ -14,14 +14,19 @@ export default defineConfig({
       routes: [
         "/",
         "/login",
+        "/installment-payment",
         "/blog",
+        "/faq",
         "/shop",
         "/gift-selector",
         "/category/brass-samovar",
-        "/category/mirror-candleholder",
-        "/category/khatamkari",
         "/category/brass-products",
+        "/category/silver-plated",
+        "/category/golden-brass",
+        "/category/qalamzani",
+        "/category/mirror-candleholder",
         "/category/organizational-gift-pack",
+        "/category/khatamkari",
       ],
 
       // 3. If you have dynamic pages (e.g. blog posts), enumerate them here
