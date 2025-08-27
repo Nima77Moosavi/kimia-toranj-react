@@ -83,7 +83,7 @@ const ProductDetails = () => {
   // ✅ Set meta title & description manually
   useEffect(() => {
     if (product.meta_title) {
-      document.title = product.seo.meta_title;
+      document.title = product.seo?.meta_title;
     } else if (product.name) {
       document.title = product.name;
     }
@@ -95,7 +95,7 @@ const ProductDetails = () => {
         meta.name = "description";
         document.head.appendChild(meta);
       }
-      meta.content = product.seo.meta_description;
+      meta.content = product.seo?.meta_description;
     }
   }, [product.meta_title, product.meta_description, product.name]);
 
@@ -173,7 +173,7 @@ const ProductDetails = () => {
   const variant = product.variants?.[0] || {};
 
   // Sanitize admin HTML content
-  const sanitizedHtml = product.seo.content_html
+  const sanitizedHtml = product.seo?.content_html
     ? DOMPurify.sanitize(product.seo.content_html, {
         USE_PROFILES: { html: true },
         ALLOWED_ATTR: [

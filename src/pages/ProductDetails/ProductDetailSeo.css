@@ -1,13 +1,24 @@
-/* Container */
+/* Container as a card */
 .seo-content {
   direction: rtl;
-  background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
-  border-radius: 12px;
+  background: #fff;
+  border-radius: 16px;
   padding: 2.5rem;
-  margin-top: 2rem;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  margin-top: 2.5rem;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.05),
+    0 8px 24px rgba(0,0,0,0.08);
+  border: 1px solid rgba(0,0,0,0.06);
   line-height: 1.9;
   color: #2c2c2c;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.seo-content:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 4px 8px rgba(0,0,0,0.06),
+    0 12px 28px rgba(0,0,0,0.12);
 }
 
 /* Main title */
@@ -16,7 +27,7 @@
   font-weight: 800;
   margin-bottom: 1.5rem;
   color: #1a1a1a;
-  border-bottom: 3px solid #c59d5f;
+  border-bottom: 3px solid var(--primary-color);
   display: inline-block;
   padding-bottom: 0.3rem;
 }
@@ -29,16 +40,18 @@
   margin-bottom: 0.8rem;
   color: #444;
   position: relative;
+  padding-right: 0.6rem;
 }
 
 .seo-heading::before {
   content: "";
   position: absolute;
   right: 0;
-  bottom: -4px;
-  width: 40px;
-  height: 3px;
-  background-color: #c59d5f;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 70%;
+  background-color: var(--primary-color);
   border-radius: 2px;
 }
 
@@ -73,7 +86,7 @@
 
 .seo-list li::marker,
 .seo-list-ordered li::marker {
-  color: #c59d5f;
+  color: var(--primary-color);
   font-weight: bold;
 }
 
@@ -84,12 +97,12 @@
 
 /* Links inside content */
 .seo-content a {
-  color: #c59d5f;
+  color: var(--primary-color);
   text-decoration: none;
   border-bottom: 1px dashed transparent;
   transition: all 0.2s ease;
 }
 
 .seo-content a:hover {
-  border-bottom-color: #c59d5f;
+  border-bottom-color: var(--primary-color);
 }
