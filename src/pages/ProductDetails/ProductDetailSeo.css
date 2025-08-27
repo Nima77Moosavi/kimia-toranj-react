@@ -1,0 +1,95 @@
+/* Container */
+.seo-content {
+  direction: rtl;
+  background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+  border-radius: 12px;
+  padding: 2.5rem;
+  margin-top: 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  line-height: 1.9;
+  color: #2c2c2c;
+}
+
+/* Main title */
+.seo-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  color: #1a1a1a;
+  border-bottom: 3px solid #c59d5f;
+  display: inline-block;
+  padding-bottom: 0.3rem;
+}
+
+/* Section headings */
+.seo-heading {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 0.8rem;
+  color: #444;
+  position: relative;
+}
+
+.seo-heading::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -4px;
+  width: 40px;
+  height: 3px;
+  background-color: #c59d5f;
+  border-radius: 2px;
+}
+
+/* Subheadings */
+.seo-subheading {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-top: 1.2rem;
+  margin-bottom: 0.4rem;
+  color: #555;
+}
+
+/* Paragraphs */
+.seo-paragraph {
+  margin-bottom: 1rem;
+  color: #333;
+  font-size: 1rem;
+}
+
+/* Lists */
+.seo-list,
+.seo-list-ordered {
+  padding-right: 1.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.seo-list li,
+.seo-list-ordered li {
+  margin-bottom: 0.5rem;
+  padding-right: 0.3rem;
+}
+
+.seo-list li::marker,
+.seo-list-ordered li::marker {
+  color: #c59d5f;
+  font-weight: bold;
+}
+
+/* Ordered list numbers */
+.seo-list-ordered {
+  list-style-type: decimal;
+}
+
+/* Links inside content */
+.seo-content a {
+  color: #c59d5f;
+  text-decoration: none;
+  border-bottom: 1px dashed transparent;
+  transition: all 0.2s ease;
+}
+
+.seo-content a:hover {
+  border-bottom-color: #c59d5f;
+}

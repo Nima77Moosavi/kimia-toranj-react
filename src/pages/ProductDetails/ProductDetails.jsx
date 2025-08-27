@@ -2,7 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import DOMPurify from "dompurify";
 import styles from "./ProductDetails.module.css";
+import './ProductDetailSeo.css'
 
 import Header from "../../components/Header/Header";
 import Bestsellers from "../../components/Bestsellers/Bestsellers";
@@ -20,7 +22,6 @@ import PriceBox from "./PriceBox/PriceBox";
 import IconsBox from "./IconsBox/IconsBox";
 import ReviewForm from "./ReviewForm/ReviewForm";
 
-// ✅ Import Zustand store
 import { useCartStore } from "../../cartStore";
 
 const ProductDetails = () => {
@@ -38,7 +39,6 @@ const ProductDetails = () => {
   const [activeTab, setActiveTab] = useState("specs");
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-  // ✅ Get addToCart from store
   const addToCart = useCartStore((state) => state.addToCart);
 
   // Load liked items
@@ -80,7 +80,25 @@ const ProductDetails = () => {
     );
   }, [likedItems, product.variants]);
 
-  // ✅ Add to cart using store method
+  // ✅ Set meta title & description manually
+  useEffect(() => {
+    if (product.meta_title) {
+      document.title = product.seo.meta_title;
+    } else if (product.name) {
+      document.title = product.name;
+    }
+
+    if (product.meta_description) {
+      let meta = document.querySelector('meta[name="description"]');
+      if (!meta) {
+        meta = document.createElement("meta");
+        meta.name = "description";
+        document.head.appendChild(meta);
+      }
+      meta.content = product.seo.meta_description;
+    }
+  }, [product.meta_title, product.meta_description, product.name]);
+
   const handleAddToCart = async () => {
     try {
       const variantId = product.variants?.[0]?.id;
@@ -109,7 +127,6 @@ const ProductDetails = () => {
     }
   };
 
-  // Like / Unlike
   const likeHandler = async () => {
     try {
       const variantId = product.variants?.[0]?.id;
@@ -155,6 +172,23 @@ const ProductDetails = () => {
 
   const variant = product.variants?.[0] || {};
 
+  // Sanitize admin HTML content
+  const sanitizedHtml = product.seo.content_html
+    ? DOMPurify.sanitize(product.seo.content_html, {
+        USE_PROFILES: { html: true },
+        ALLOWED_ATTR: [
+          "class",
+          "dir",
+          "lang",
+          "href",
+          "target",
+          "rel",
+          "title",
+          "id"
+        ]
+      })
+    : "";
+
   return (
     <div className={styles.productPage}>
       <Header />
@@ -182,7 +216,6 @@ const ProductDetails = () => {
               stock={variant.stock || 0}
               orderCount={product.order_count}
             />
-            
           </div>
 
           <ProductTabs
@@ -194,6 +227,8 @@ const ProductDetails = () => {
           />
         </div>
 
+        
+
         <IconsBox isLiked={like} onLikeClick={likeHandler} />
 
         <ProductRating rating={product.average_rating || 0} />
@@ -201,6 +236,15 @@ const ProductDetails = () => {
         <ReviewForm productId={id} />
 
         <Bestsellers />
+        {/* Inject admin HTML content */}
+        {sanitizedHtml && (
+          <div className={styles.richContentWrapper}>
+            <div
+              className={styles.richContent}
+              dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
+            />
+          </div>
+        )}
       </div>
 
       <Footer />
