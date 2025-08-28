@@ -9,11 +9,12 @@ const ProductCard = ({ product }) => {
   const variant = product.variants[0] || {};
   const stock = variant.stock ?? 0;
 
-  // Check if product has a promotion
-  const hasPromotion = product.promotions && product.promotions.length > 0;
-  const discountPercent = hasPromotion ? product.promotions[0].discount : 0;
+  const promotions = Array.isArray(product.promotions)
+    ? product.promotions
+    : [];
+  const hasPromotion = promotions.length > 0;
+  const discountPercent = hasPromotion ? promotions[0]?.discount ?? 0 : 0;
 
-  // Calculate discounted price if promotion exists
   const discountedPrice = hasPromotion
     ? Math.round(variant.price * (1 - discountPercent / 100))
     : variant.price;
