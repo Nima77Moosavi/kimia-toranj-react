@@ -6,18 +6,25 @@ import { toPersianDigits } from "../../utils/faDigits";
 
 const ProductCard = ({ product }) => {
   const productLink = `/product/${product.url_title}-${product.id}`;
-  const variant = product.variants[0] || {};
+  const variant = product.variants?.[0] || {};
   const stock = variant.stock ?? 0;
 
+  // Always work with a safe array
   const promotions = Array.isArray(product.promotions)
     ? product.promotions
     : [];
   const hasPromotion = promotions.length > 0;
   const discountPercent = hasPromotion ? promotions[0]?.discount ?? 0 : 0;
 
-  const discountedPrice = hasPromotion
-    ? Math.round(variant.price * (1 - discountPercent / 100))
-    : variant.price;
+  const discountedPrice =
+    hasPromotion && variant.price
+      ? Math.round(variant.price * (1 - discountPercent / 100))
+      : variant.price ?? 0;
+
+  const imageSrc =
+    Array.isArray(product.images) && product.images.length > 0
+      ? product.images[0].image
+      : "/placeholder.jpg";
 
   return (
     <Link
@@ -27,11 +34,7 @@ const ProductCard = ({ product }) => {
     >
       <div className={styles.card}>
         <img
-          src={
-            product.images.length > 0
-              ? product.images[0].image
-              : "/placeholder.jpg"
-          }
+          src={imageSrc}
           alt={product.title}
           className={styles.img}
           loading="lazy"
@@ -49,7 +52,7 @@ const ProductCard = ({ product }) => {
 
         {stock > 0 ? (
           <div className={styles.priceWrapper}>
-            {hasPromotion && (
+            {hasPromotion && variant.price && (
               <>
                 <span className={styles.oldPrice}>
                   {formatPrice(variant.price)} تومان
