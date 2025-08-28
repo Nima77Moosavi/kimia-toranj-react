@@ -23,6 +23,7 @@ import IconsBox from "./IconsBox/IconsBox";
 import ReviewForm from "./ReviewForm/ReviewForm";
 
 import { useCartStore } from "../../cartStore";
+import SimilarProducts from "../../components/SimilarProducts/SimilarProducts";
 
 const ProductDetails = () => {
   const { slugAndId } = useParams();
@@ -235,7 +236,7 @@ const ProductDetails = () => {
 
         <ReviewForm productId={id} />
 
-        <Bestsellers />
+        <SimilarProducts productId={id} />
         {/* Inject admin HTML content */}
         {sanitizedHtml && (
           <div className={styles.richContentWrapper}>
