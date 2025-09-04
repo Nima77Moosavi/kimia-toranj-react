@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import styles from "./BannerSlider.module.css";
 
-import banner1Jpg from "../../assets/banner11.jpg";
+import banner1Jpg from "../../assets/banner11.webp";
 import patternImg from "../../assets/forground-banner.png"; // ✅ import here
 
 const BannerSlider = () => {
@@ -12,9 +12,9 @@ const BannerSlider = () => {
     (async () => {
       try {
         const [b2, b3, b4] = await Promise.all([
-          import("../../assets/banner22.jpg"),
-          import("../../assets/banner33.jpg"),
-          import("../../assets/banner44.jpg"),
+          import("../../assets/banner22.webp"),
+          import("../../assets/banner33.webp"),
+          import("../../assets/banner44.webp"),
         ]);
         if (!cancelled) setOtherSlides([b2.default, b3.default, b4.default]);
       } catch {

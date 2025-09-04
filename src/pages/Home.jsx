@@ -12,7 +12,7 @@ import BannerSlider from "../components/BannerSlider/BannerSlider";
 import FeaturesLine from "../components/FeaturesLine/FeaturesLine";
 import styles from "./Home.module.css";
 
-import banner1 from "../assets/banner11.jpg";
+import banner1 from "../assets/banner11.webp";
 
 const Home = () => {
   const [latestProducts, setLatestProducts] = useState([]);
