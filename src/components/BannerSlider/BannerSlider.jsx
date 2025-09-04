@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import styles from "./BannerSlider.module.css";
 
 import banner1Jpg from "../../assets/banner11.webp";
-import patternImg from "../../assets/forground-banner.png"; // ✅ import here
+import patternImg from "../../assets/forground-banner.webp";
 
 const BannerSlider = () => {
   const [otherSlides, setOtherSlides] = useState([]);
@@ -21,7 +21,9 @@ const BannerSlider = () => {
         if (!cancelled) setOtherSlides([]);
       }
     })();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const realSlides = useMemo(() => [banner1Jpg, ...otherSlides], [otherSlides]);
@@ -37,12 +39,24 @@ const BannerSlider = () => {
   const maxIndex = slides.length - 2;
   const minIndex = 1;
 
-  const nextSlide = () => { setIdx(i => i + 1); setAnim(true); };
-  const prevSlide = () => { setIdx(i => i - 1); setAnim(true); };
+  const nextSlide = () => {
+    setIdx((i) => i + 1);
+    setAnim(true);
+  };
+  const prevSlide = () => {
+    setIdx((i) => i - 1);
+    setAnim(true);
+  };
 
   const onTransitionEnd = () => {
-    if (idx > maxIndex) { setAnim(false); setIdx(minIndex); }
-    if (idx < minIndex) { setAnim(false); setIdx(maxIndex); }
+    if (idx > maxIndex) {
+      setAnim(false);
+      setIdx(minIndex);
+    }
+    if (idx < minIndex) {
+      setAnim(false);
+      setIdx(maxIndex);
+    }
   };
 
   useEffect(() => {
