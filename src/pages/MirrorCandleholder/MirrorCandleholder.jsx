@@ -23,9 +23,7 @@ const MirrorCandleHolder = () => {
   useEffect(() => {
     const getCollection = async () => {
       try {
-        const response = await axios.get(
-          `${API_URL}api/store/collections/10`
-        );
+        const response = await axios.get(`${API_URL}api/store/collections/10`);
         setCollection(response.data);
       } catch (error) {
         console.error("Error fetching collection:", error);
@@ -34,8 +32,7 @@ const MirrorCandleHolder = () => {
       }
     };
     getCollection();
-    document.title =
-      "خرید آینه و شمعدان سنتی و مدرن | صنایع دستی کیمیا ترنج    ";
+    document.title = "خرید آینه و شمعدان سنتی و مدرن | صنایع دستی کیمیا ترنج";
     const tag = document.querySelector('meta[name="description"]');
     if (tag)
       tag.content =
