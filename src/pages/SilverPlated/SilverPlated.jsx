@@ -92,7 +92,7 @@ const SilverPlated = () => {
       <section className={styles.productGridSection}>
         <div className={styles.container}>
           <h1 className={styles.sectionTitle}>
-            محصولات شبه نقره قلمزنی کیمیا ترنج{" "}
+            محصولات شبه نقره قلمزنی کیمیا ترنج
           </h1>
           {products.length === 0 && productsLoading ? (
             <div className={styles.loading}>در حال بارگذاری...</div>
