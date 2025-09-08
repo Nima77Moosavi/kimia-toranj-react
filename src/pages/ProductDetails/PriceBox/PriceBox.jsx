@@ -89,7 +89,7 @@ const PriceBox = ({
             افزودن به سبد خرید
           </button>
 
-          {/* <button className={styles.installmentPayment}>
+          <button className={styles.installmentPayment}>
             <Link
               to={`/installment-payment?price=${
                 hasPromotion ? discountedPrice : price
@@ -99,7 +99,7 @@ const PriceBox = ({
               پرداخت اقساطی
               <MdOutlineReceiptLong className={styles.installmentPaymentIcon} />
             </Link>
-          </button> */}
+          </button>
         </>
       )}
     </div>
