@@ -365,7 +365,7 @@ const BrassProducts = () => {
             <h2>آماده خرید محصولات برنجی هستید؟</h2>
             <p>مجموعه کامل محصولات برنجی ما را مشاهده کنید</p>
             <Link
-              to="/shop?collection=brass-products"
+              to="/shop?collection=محصولات برنجی"
               className={styles.ctaButton}
             >
               مشاهده محصولات
