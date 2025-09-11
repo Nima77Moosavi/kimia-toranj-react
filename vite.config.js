@@ -5,9 +5,11 @@ import fetch from "node-fetch"; // npm install node-fetch
 
 export default defineConfig(async () => {
   // 1️⃣ Fetch all products from your API
-  const products = await fetch("https://api.kimiatoranj.com/api/store/products/?page_size=1000")
-    .then(res => res.json())
-    .then(data => {
+  const products = await fetch(
+    "https://api.kimiatoranj.com/api/store/products/?page_size=1000"
+  )
+    .then((res) => res.json())
+    .then((data) => {
       // Adjust depending on your API shape
       if (Array.isArray(data)) return data;
       if (Array.isArray(data.results)) return data.results; //
@@ -15,9 +17,7 @@ export default defineConfig(async () => {
     });
 
   // 2️⃣ Map them to your product URL pattern
-  const productRoutes = products.map(
-    p => `/product/${p.url_title}-${p.id}`
-  );
+  const productRoutes = products.map((p) => `/product/${p.url_title}-${p.id}`);
 
   // 3️⃣ Return the config with static + dynamic routes
   return {
@@ -40,7 +40,10 @@ export default defineConfig(async () => {
           "/category/mirror-candleholder",
           "/category/organizational-gift-pack",
           "/category/khatamkari",
-          ...productRoutes // ✅ dynamic product URLs
+
+          // Blog page and posts
+          "/post/Enlivening-your-home-with-iranian-arts-and-crafts",
+          ...productRoutes, // ✅ dynamic product URLs
         ],
         exclude: ["/user-panel/*", "/login"],
         generateRobotsTxt: false,

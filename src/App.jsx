@@ -42,6 +42,7 @@ import FAQPage from "./pages/FAQPage/FAQPage.jsx";
 import PaymentSuccess from "./pages/PaymentSuccess/PaymentSuccess.jsx";
 import PaymentFailure from "./pages/PaymentFailure/PaymentFailure.jsx";
 import FrameArt from "./pages/FrameArt/FrameArt.jsx";
+import Post1 from "./pages/BlogPosts/Post1/Post1.jsx";
 
 const App = () => {
   const loadCart = useCartStore((state) => state.loadCart);
@@ -60,7 +61,6 @@ const App = () => {
           <Route path="/installment-payment" element={<InstallmentPayment />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/faq" element={<FAQPage />} />
-          <Route path="/blog/:id" element={<BlogDetail />} />
           <Route path="/highlight/:id" element={<HighlightMedia />} />
           <Route path="/collection/:id" element={<CollectionDetail />} />
           <Route path="/product/:slugAndId" element={<ProductDetails />} />
@@ -68,6 +68,13 @@ const App = () => {
           <Route path="/gift-selector" element={<GiftSelector />} />
           <Route path="/payment-success" element={<PaymentSuccess />} />
           <Route path="/payment-failure" element={<PaymentFailure />} />
+
+          {/* Blog Page and Posts */}
+          <Route path="/blog/:id" element={<BlogDetail />} />
+          <Route path="/post/Enlivening-your-home-with-iranian-arts-and-crafts" element={<Post1 />} />
+
+
+          {/* Category Landing Pages */}
           <Route path="/category/brass-samovar" element={<BrassSamovar />} />
           <Route path="/category/brass-products" element={<BrassProducts />} />
           <Route path="/category/silver-plated" element={<SilverPlated />} />
