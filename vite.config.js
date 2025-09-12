@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import Sitemap from "vite-plugin-sitemap";
 import fetch from "node-fetch"; // npm install node-fetch
+import viteCompression from "vite-plugin-compression";
 
 export default defineConfig(async () => {
   // 1️⃣ Fetch all products from your API
@@ -23,6 +24,23 @@ export default defineConfig(async () => {
   return {
     plugins: [
       react(),
+      viteCompression({
+        verbose: true, // log compressed files
+        disable: false, // enable compression
+        threshold: 1024, // only compress files > 1KB
+        algorithm: "gzip",
+        ext: ".gz",
+      }),
+
+      // Brotli compression
+      viteCompression({
+        verbose: true,
+        disable: false,
+        threshold: 1024,
+        algorithm: "brotliCompress",
+        ext: ".br",
+        compressionOptions: { level: 11 },
+      }),
       Sitemap({
         hostname: "https://kimiatoranj.com",
         dynamicRoutes: [
