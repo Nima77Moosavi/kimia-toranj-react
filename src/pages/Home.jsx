@@ -12,8 +12,6 @@ import BannerSlider from "../components/BannerSlider/BannerSlider";
 import FeaturesLine from "../components/FeaturesLine/FeaturesLine";
 import styles from "./Home.module.css";
 
-import banner1 from "../assets/banner11.webp";
-
 const Home = () => {
   const [latestProducts, setLatestProducts] = useState([]);
 
@@ -99,7 +97,12 @@ const Home = () => {
         {/* ✅ Canonical tag */}
         <link rel="canonical" href="https://kimiatoranj.com/" />
 
-        <link rel="preload" as="image" href={banner1} imagesizes="100vw" />
+        <link
+          rel="preload"
+          as="image"
+          href="/banners/banner11.webp"
+          imageSizes="100vw"
+        />
 
         {/* Store structured data */}
         <script type="application/ld+json">

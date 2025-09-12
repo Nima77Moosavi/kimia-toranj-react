@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import styles from "./BannerSlider.module.css";
 
-import banner1Jpg from "../../assets/banner11.webp";
+// ✅ Use the public path for the first banner so it matches the preload URL
+const banner1Jpg = "/banners/banner11.webp";
+
+// You can still import other static assets from src if needed
 import patternImg from "../../assets/forground-banner.webp";
 
 const BannerSlider = () => {
@@ -26,7 +29,10 @@ const BannerSlider = () => {
     };
   }, []);
 
+  // First slide is the public path banner, others are dynamically imported
   const realSlides = useMemo(() => [banner1Jpg, ...otherSlides], [otherSlides]);
+
+  // Add clones for infinite loop effect
   const slides = useMemo(() => {
     if (!realSlides.length) return [];
     return [realSlides[realSlides.length - 1], ...realSlides, realSlides[0]];
@@ -76,7 +82,7 @@ const BannerSlider = () => {
       <div
         className={styles.patternContainer}
         aria-hidden="true"
-        style={{ backgroundImage: `url(${patternImg})` }} // ✅ safe background
+        style={{ backgroundImage: `url(${patternImg})` }}
       />
 
       <div
