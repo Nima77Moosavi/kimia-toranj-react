@@ -129,11 +129,16 @@ const HeaderMobile = () => {
                 className={styles.suggestionItem}
                 onClick={() => handleSuggestionClick(prod)}
               >
-                <div className={styles.suggestionTitle}>{prod.title}</div>
-                <div className={styles.suggestionMeta}>
-                  {prod.collection?.title} •{" "}
-                  {formatPrice(prod.variants?.[0]?.price.toLocaleString())}{" "}
-                  تومان
+                <div className={styles.suggestionImage}>
+                  <img src={prod.images[0].image} alt={prod.title} />
+                </div>
+                <div className={styles.suggestionText}>
+                  <div className={styles.suggestionTitle}>{prod.title}</div>
+                  <div className={styles.suggestionMeta}>
+                    {prod.collection?.title} •{" "}
+                    {formatPrice(prod.variants?.[0]?.price.toLocaleString())}{" "}
+                    تومان
+                  </div>
                 </div>
               </li>
             ))}
@@ -196,7 +201,6 @@ const HeaderMobile = () => {
                   سوالات متداول
                 </Link>
               </li>
-              
             </ul>
           </div>
         </div>

@@ -92,6 +92,9 @@
 }
 
 .suggestionItem {
+  display: flex;
+  align-items: center; /* vertically center image and text */
+  gap: 8px; /* space between image and text */
   padding: 8px 12px;
   border-bottom: 1px solid #f0f0f0;
   cursor: pointer;
@@ -105,9 +108,31 @@
   background: #f7f7f7;
 }
 
+/* Image container */
+.suggestionImage {
+  flex: 0 0 50px; /* fixed width for image column */
+  height: 50px;
+}
+
+.suggestionImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* crop nicely if aspect ratio differs */
+  border-radius: 4px;
+}
+
+/* Text container */
+.suggestionText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1; /* take remaining space */
+}
+
 .suggestionTitle {
   font-size: 14px;
   color: #333;
+  line-height: 1.3;
 }
 
 .suggestionMeta {
@@ -115,6 +140,7 @@
   color: #666;
   margin-top: 2px;
 }
+
 
 /* Hamburger */
 .hamburgerContainer {
