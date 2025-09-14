@@ -211,16 +211,14 @@
 }
 
 .suggestionItem {
+  display: flex;
+  flex-direction: row; /* RTL: image on right */
+  align-items: center;
+  gap: 12px;
   padding: 10px 16px;
   cursor: pointer;
   font-size: 16px;
   border-bottom: 1px solid #f0f0f0;
-  display: flex;
-  flex-direction: column; 
-}
-
-.suggestionItem a {
-  text-decoration: none;
 }
 
 .suggestionItem:last-child {
@@ -229,6 +227,26 @@
 
 .suggestionItem:hover {
   background-color: #f9f9f9;
+}
+
+.suggestionImageWrapper {
+  flex: 0 0 50px;
+  height: 50px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.suggestionImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.suggestionContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .suggestionTitle {
@@ -241,6 +259,7 @@
   font-size: 14px;
   color: #777;
 }
+
 
 /* ───────────────────────────────────────────────────────
    Hamburger Menu

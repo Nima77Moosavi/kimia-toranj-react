@@ -46,7 +46,6 @@ export default defineConfig(async () => {
         dynamicRoutes: [
           "/login",
           "/installment-payment",
-          "/blog",
           "/faq",
           "/shop",
           "/gift-selector",
@@ -60,6 +59,7 @@ export default defineConfig(async () => {
           "/category/khatamkari",
 
           // Blog page and posts
+          "/blog",
           "/post/Enlivening-your-home-with-iranian-arts-and-crafts",
           ...productRoutes, // ✅ dynamic product URLs
         ],

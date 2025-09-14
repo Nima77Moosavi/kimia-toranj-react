@@ -35,7 +35,9 @@ const HeaderDesktop = () => {
 
   // Zustand store hooks
   const cartCount = useCartStore((state) => state.cartCount());
-  const fetchCartFromBackend = useCartStore((state) => state.fetchCartFromBackend);
+  const fetchCartFromBackend = useCartStore(
+    (state) => state.fetchCartFromBackend
+  );
 
   // Fetch cart + auth on mount
   useEffect(() => {
@@ -172,11 +174,22 @@ const HeaderDesktop = () => {
                     setSearchTerm("");
                   }}
                 >
-                  <div className={styles.suggestionTitle}>{prod.title}</div>
-                  <div className={styles.suggestionMeta}>
-                    {prod.collection?.title} •{" "}
-                    {formatPrice(prod.variants?.[0]?.price?.toLocaleString() || "0")}{" "}
-                    تومان
+                  <div className={styles.suggestionImageWrapper}>
+                    <img
+                      src={prod.images[0].image} // adjust key if your API uses a different field
+                      alt={prod.title}
+                      className={styles.suggestionImage}
+                    />
+                  </div>
+                  <div className={styles.suggestionContent}>
+                    <div className={styles.suggestionTitle}>{prod.title}</div>
+                    <div className={styles.suggestionMeta}>
+                      {prod.collection?.title} •{" "}
+                      {formatPrice(
+                        prod.variants?.[0]?.price?.toLocaleString() || "0"
+                      )}{" "}
+                      تومان
+                    </div>
                   </div>
                 </li>
               ))}
@@ -197,13 +210,41 @@ const HeaderDesktop = () => {
         <div className={styles.overlay}>
           <div className={styles.menu} ref={menuRef}>
             <ul>
-              <Link to="/"><li>صفحه اصلی <FiHome /></li></Link>
-              <Link to="/shop"><li>فروشگاه <IoBagOutline /></li></Link>
-              <Link to="/gift-selector"><li>کادو چی بخرم <GoGift /></li></Link>
-              <Link to="/about"><li>درباره ما <BsFileEarmarkPerson /></li></Link>
-              <Link to="/"><li>اخذ نمایندگی <TbDeviceIpadHorizontalStar /></li></Link>
-              <Link to="/blog"><li>مقالات <PiArticleBold /></li></Link>
-              <Link to="/faq"><li>سوالات متداول <IoHelpCircleOutline /></li></Link>
+              <Link to="/">
+                <li>
+                  صفحه اصلی <FiHome />
+                </li>
+              </Link>
+              <Link to="/shop">
+                <li>
+                  فروشگاه <IoBagOutline />
+                </li>
+              </Link>
+              <Link to="/gift-selector">
+                <li>
+                  کادو چی بخرم <GoGift />
+                </li>
+              </Link>
+              <Link to="/about">
+                <li>
+                  درباره ما <BsFileEarmarkPerson />
+                </li>
+              </Link>
+              <Link to="/">
+                <li>
+                  اخذ نمایندگی <TbDeviceIpadHorizontalStar />
+                </li>
+              </Link>
+              <Link to="/blog">
+                <li>
+                  مقالات <PiArticleBold />
+                </li>
+              </Link>
+              <Link to="/faq">
+                <li>
+                  سوالات متداول <IoHelpCircleOutline />
+                </li>
+              </Link>
             </ul>
           </div>
         </div>
