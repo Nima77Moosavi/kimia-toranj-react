@@ -409,7 +409,7 @@ const BrassSamovar = () => {
             <h2>آماده خرید سماور برنجی هستید؟</h2>
             <p>مجموعه کامل محصولات برنجی ما را مشاهده کنید</p>
             <Link
-              to="/shop?collection=brass-samovar"
+              to="/shop?collection=سماور برنجی"
               className={styles.ctaButton}
             >
               مشاهده محصولات
