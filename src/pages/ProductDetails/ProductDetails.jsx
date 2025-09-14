@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import DOMPurify from "dompurify";
 import styles from "./ProductDetails.module.css";
-import './ProductDetailSeo.css'
+import "./ProductDetailSeo.css";
 
 import Header from "../../components/Header/Header";
 import Bestsellers from "../../components/Bestsellers/Bestsellers";
@@ -83,22 +83,29 @@ const ProductDetails = () => {
 
   // ✅ Set meta title & description manually
   useEffect(() => {
-    if (product.meta_title) {
-      document.title = product.seo?.meta_title;
-    } else if (product.name) {
-      document.title = product.name;
-    }
+    // --- Title ---
+    const title =
+      product.seo?.meta_title?.trim() ||
+      `${product.name || product.title || "محصول"} | ${
+        product.collection?.title || "فروشگاه کیمیا ترنج"
+      }`;
+    document.title = title;
 
-    if (product.meta_description) {
-      let meta = document.querySelector('meta[name="description"]');
-      if (!meta) {
-        meta = document.createElement("meta");
-        meta.name = "description";
-        document.head.appendChild(meta);
-      }
-      meta.content = product.seo?.meta_description;
+    // --- Meta description ---
+    const metaDescription =
+      product.seo?.meta_description?.trim() ||
+      `${product.name || product.title || "این محصول"} از دسته ${
+        product.collection?.title || "محصولات"
+      } با کیفیت بالا و طراحی خاص ارائه می‌شود. همین حالا از فروشگاه کیمیا ترنج سفارش دهید.`;
+
+    let metaTag = document.querySelector('meta[name="description"]');
+    if (!metaTag) {
+      metaTag = document.createElement("meta");
+      metaTag.name = "description";
+      document.head.appendChild(metaTag);
     }
-  }, [product.meta_title, product.meta_description, product.name]);
+    metaTag.content = metaDescription;
+  }, [product]);
 
   const handleAddToCart = async () => {
     try {
@@ -109,7 +116,7 @@ const ProductDetails = () => {
         product,
         variantId,
         price: product.variants?.[0]?.price || 0,
-        orderCount: product.order_count || 1
+        orderCount: product.order_count || 1,
       });
 
       setShowSuccessMessage(true);
@@ -185,14 +192,20 @@ const ProductDetails = () => {
           "target",
           "rel",
           "title",
-          "id"
-        ]
+          "id",
+        ],
       })
     : "";
 
   return (
     <div className={styles.productPage}>
       <Header />
+      {!product.seo?.meta_title && !product.seo?.meta_description && (
+        <h1 className={styles.visuallyHidden}>
+          {product.name || product.title}
+          {product.collection?.title ? ` | ${product.collection.title}` : ""}
+        </h1>
+      )}
 
       {showSuccessMessage && (
         <div className={styles.successToast}>
@@ -227,8 +240,6 @@ const ProductDetails = () => {
             setShowAllReviews={setShowAllReviews}
           />
         </div>
-
-        
 
         <IconsBox isLiked={like} onLikeClick={likeHandler} />
 
