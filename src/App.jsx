@@ -59,7 +59,6 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/installment-payment" element={<InstallmentPayment />} />
-          <Route path="/blog" element={<Blog />} />
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/highlight/:id" element={<HighlightMedia />} />
           <Route path="/collection/:id" element={<CollectionDetail />} />
@@ -70,7 +69,7 @@ const App = () => {
           <Route path="/payment-failure" element={<PaymentFailure />} />
 
           {/* Blog Page and Posts */}
-          <Route path="/blog/:id" element={<BlogDetail />} />
+          <Route path="/blog" element={<Blog />} />
           <Route path="/post/Enlivening-your-home-with-iranian-arts-and-crafts" element={<Post1 />} />
 
 

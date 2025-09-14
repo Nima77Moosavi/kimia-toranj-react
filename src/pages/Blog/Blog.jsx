@@ -1,95 +1,45 @@
-// Blog.jsx
-import React, { useState, useEffect } from "react";
+// src/pages/Blog/Blog.jsx
+import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Blog.module.css";
-import axios from "axios";
-import { BASE_URL, API_URL } from "../../config"; // Optional: if you’re using a constants file
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 
+const posts = [
+  {
+    id: 1,
+    slug: "Enlivening-your-home-with-iranian-arts-and-crafts",
+    title: "زنده کردن فضای خانه با هنر و صنایع دستی ایرانی",
+    excerpt:
+      "صنایع دستی ایرانی فقط یک شیء تزئینی نیستند؛ هر کدام یک سفیر فرهنگی‌اند که روح هنر و مهارت نسل‌های گذشته را به فضای زندگی امروزی منتقل می‌کنند. فروشگاه «کیمیا ترنج» با ارائه آثار اصیل اصفهان و شهرهای دیگر، فرصتی فراهم می‌کند تا خانه‌ها با اصالتی چشمگیر و کیفیت ماندگار تزئین شوند.",
+    image: "/images/qalamzani.webp",
+  },
+];
+
 const Blog = () => {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  // Fetch posts when the component mounts
-  useEffect(() => {
-    axios
-      .get(`${API_URL}api/blog/posts/`)
-      .then((response) => {
-        setPosts(response.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setError("Error loading posts.");
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) {
-    return <div className={styles.blogContainer}>Loading...</div>;
-  }
-
-  if (error) {
-    return <div className={styles.blogContainer}>{error}</div>;
-  }
-
-  // Separate the first 3 posts as top posts, and the rest as other posts.
-  const topPosts = posts.slice(0, 4);
-  const otherPosts = posts.slice(3);
-
   return (
     <>
-      <div className={styles.circle}></div>
       <Header />
-      <div className={styles.blogContainer}>
-        <h1 className={styles.title}>مقالات پربازدید</h1>
+      <div className={styles.blogPage}>
+        <h1 className={styles.title}>مقالات</h1>
 
-        {/* Top Posts: first 3 posts in a grid */}
-        <div className={styles.topPosts}>
-          {topPosts.map((post) => (
+        <div className={styles.list}>
+          {posts.map((post) => (
             <Link
+              to={`/post/${post.slug}`}
               key={post.id}
-              to={`/blog/${post.id}`}
-              className={styles.topPostLink}
+              className={styles.card}
             >
-              <div className={styles.topPost}>
-                {/* Display the first image if it exists */}
-                {post.images && post.images.length > 0 && (
-                  <img
-                    src={post.images[0].image}
-                    alt={post.title}
-                    className={styles.postImage}
-                  />
-                )}
-                <h2 className={styles.postTitle}>{post.title}</h2>
-                <p className={styles.postContent}>{post.content}</p>
+              <div className={styles.cardImageWrapper}>
+                <img
+                  src={post.image}
+                  alt={post.title}
+                  className={styles.cardImage}
+                />
               </div>
-            </Link>
-          ))}
-        </div>
-
-        {/* Other posts: remaining posts in list view */}
-        <div className={styles.posts}>
-          {otherPosts.map((post) => (
-            <Link
-              key={post.id}
-              to={`/blog/${post.id}`}
-              className={styles.postLink}
-            >
-              <div className={styles.post}>
-                {post.images && post.images.length > 0 && (
-                  <img
-                    src={post.images[0].image}
-                    alt={post.title}
-                    className={styles.postSideImage}
-                  />
-                )}
-                <div className={styles.postText}>
-                  <h2 className={styles.postTitle}>{post.title}</h2>
-                  <p className={styles.postContent}>{post.content}</p>
-                </div>
+              <div className={styles.cardContent}>
+                <h2 className={styles.cardTitle}>{post.title}</h2>
+                <p className={styles.cardExcerpt}>{post.excerpt}</p>
               </div>
             </Link>
           ))}
