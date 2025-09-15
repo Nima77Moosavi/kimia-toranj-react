@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./GiftSelector.module.css";
+import Header from "../../components/Header/Header";
 
 const GiftSelector = () => {
   // Define the available price ranges with the updated labels:
@@ -31,26 +32,29 @@ const GiftSelector = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.header}>کادو چی بخرم؟</h2>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        {priceRanges.map((range) => (
-          <div key={range.label} className={styles.radioOption}>
-            <input
-              type="radio"
-              id={range.label}
-              name="priceRange"
-              value={range.label}
-              onChange={(e) => setSelectedRange(e.target.value)}
-            />
-            <label htmlFor={range.label}>{range.label}</label>
-          </div>
-        ))}
-        <button type="submit" className={styles.submitButton}>
-          تایید
-        </button>
-      </form>
-    </div>
+    <>
+      <Header />
+      <div className={styles.container}>
+        <h2 className={styles.header}>کادو چی بخرم؟</h2>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          {priceRanges.map((range) => (
+            <div key={range.label} className={styles.radioOption}>
+              <input
+                type="radio"
+                id={range.label}
+                name="priceRange"
+                value={range.label}
+                onChange={(e) => setSelectedRange(e.target.value)}
+              />
+              <label htmlFor={range.label}>{range.label}</label>
+            </div>
+          ))}
+          <button type="submit" className={styles.submitButton}>
+            تایید
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
 
