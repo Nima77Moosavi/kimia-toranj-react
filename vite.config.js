@@ -61,6 +61,7 @@ export default defineConfig(async () => {
           // Blog page and posts
           "/blog",
           "/post/Enlivening-your-home-with-iranian-arts-and-crafts",
+          "/post/Isfahan-Handicrafts-A-lasting-legacy-from-the-heart-of-Iranian-history",
           ...productRoutes, // ✅ dynamic product URLs
         ],
         exclude: ["/user-panel/*", "/login"],

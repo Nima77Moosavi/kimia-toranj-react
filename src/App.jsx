@@ -43,6 +43,7 @@ import PaymentSuccess from "./pages/PaymentSuccess/PaymentSuccess.jsx";
 import PaymentFailure from "./pages/PaymentFailure/PaymentFailure.jsx";
 import FrameArt from "./pages/FrameArt/FrameArt.jsx";
 import Post1 from "./pages/BlogPosts/Post1/Post1.jsx";
+import Post2 from "./pages/BlogPosts/Post2/Post2.jsx";
 
 const App = () => {
   const loadCart = useCartStore((state) => state.loadCart);
@@ -71,6 +72,7 @@ const App = () => {
           {/* Blog Page and Posts */}
           <Route path="/blog" element={<Blog />} />
           <Route path="/post/Enlivening-your-home-with-iranian-arts-and-crafts" element={<Post1 />} />
+          <Route path="/post/Isfahan-Handicrafts-A-lasting-legacy-from-the-heart-of-Iranian-history" element={<Post2 />} />
 
 
           {/* Category Landing Pages */}
